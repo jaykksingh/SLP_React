@@ -17,7 +17,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import SegmentedControlTab from "react-native-segmented-control-tab";
-// import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HTML from "react-native-render-html";
 import MovableView from 'react-native-movable-view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -1150,7 +1150,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                     <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor, flex:1}}>{multiSliderValue[0]}</Text>
                     <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor}}>{multiSliderValue[1]}</Text>
                 </View> 
-                {/* <MultiSlider
+                <MultiSlider
                     values={[multiSliderValue[0], multiSliderValue[1]]}
                     sliderLength={Dimensions.get("window").width-32}
                     onValuesChange={multiSliderValuesChange}
@@ -1159,7 +1159,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                     step={1}
                     allowOverlap
                     snapped
-                />  */}
+                /> 
                 <View style={{flexDirection:'row', justifyContent:'space-between', flex:1}}>
                     <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, flex:1}}>$0/hr</Text>
                     <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor}}>${`${selectedIndex == 0 ? 120 : 500}/hr`}</Text>
