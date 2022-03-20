@@ -11,6 +11,7 @@ import { AuthContext } from '../Components/context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import DashboardScreen from './Dashboard/DashboardScreen'
+import JobMatchingScreen from './MatchingJob/JobMatchingScreen';
 import JobSearchScreen from './Jobs/JobSearchScreen';
 import MyApplicationScreen from './MyApplications/MyApplicationScreen';
 import MoreScreen from './More/MoreScreen';
@@ -141,7 +142,7 @@ const DashboardStackScreen = ({navigation})  => {
                 fontSize:18
             },
             }}>
-            <JobMatchingStack.Screen name="Job Matches" component={GuestMatchingJob} options={{ }} />
+            <JobMatchingStack.Screen name="Job Matches" component={JobMatchingScreen} options={{ }} />
         </JobMatchingStack.Navigator>
     );
  };
