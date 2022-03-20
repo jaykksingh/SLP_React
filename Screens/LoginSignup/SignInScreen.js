@@ -27,6 +27,7 @@ import axios from 'axios'
 import Loader from '../../Components/Loader';
 import { authFreeHeader } from '../../_helpers/auth-header';
 import { openComposer } from "react-native-email-link";
+import '../../_helpers/global'
 
 
 const width = Dimensions.get("window").width;
@@ -151,6 +152,9 @@ const SignInScreen = ({navigation}) => {
             } catch(e) {
               console.log(e);
             }
+            let userAuthToken = 'StaffLine@2017:' + loginDetail.userAuthToken;
+            var authToken = base64.encode(userAuthToken);    
+            global.AccessToken = authToken;
             signIn(loginDetail);
           }else{
             Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [

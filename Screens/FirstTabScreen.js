@@ -12,6 +12,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import DashboardScreen from './Dashboard/DashboardScreen'
 import JobSearchScreen from './Jobs/JobSearchScreen';
+import MyApplicationScreen from './MyApplications/MyApplicationScreen';
+import MoreScreen from './More/MoreScreen';
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
 // import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
 // import JobDetailScreen from '../JobSearch/JobDetailScreen';
@@ -43,7 +45,7 @@ const FirstTabScreen = () => {
 
     return (
         <Tab.Navigator 
-            initialRouteName="Job Search"
+            initialRouteName="Dashboard"
             tabBarOptions={{
                 activeTintColor: ThemeColor.BtnColor,
             }}>
@@ -194,7 +196,7 @@ const DashboardStackScreen = ({navigation})  => {
             headerBackTitleVisible: false
 
             }}>
-            <MyApplicationStack.Screen name="Applications" component={GuestMyApplication} options={{}} />
+            <MyApplicationStack.Screen name="Applications" component={MyApplicationScreen} options={{}} />
 
         </MyApplicationStack.Navigator>
     );
@@ -211,7 +213,7 @@ const DashboardStackScreen = ({navigation})  => {
             },
             headerBackTitleVisible: false
             }}>
-            <MoreStack.Screen name="More" component={GuestMore} options={{ }} />            
+            <MoreStack.Screen name="More" component={MoreScreen} options={{ }} />            
             
         </MoreStack.Navigator>
     );

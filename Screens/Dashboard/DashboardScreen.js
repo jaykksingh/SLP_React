@@ -815,14 +815,14 @@ const DashboardScreen = ({navigation}) => {
               {
                 item.cellType == 'EMPONBOARD' ?
                 <TouchableOpacity style={{width:'100%',backgroundColor:'#fff', height:50,borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,alignItems: 'center',justifyContent: 'center', marginTop:16, flex:1,flexDirection: 'row'}} onPress = {() => {resumeEOB()}}>
-                  <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:'orange', flex:1, textAlign: 'center',paddingLeft:28}}>RESUME ONBOARDING</Text>
+                  <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'orange', flex:1, textAlign: 'center',paddingLeft:28}}>RESUME ONBOARDING</Text>
                   <EvilIcons name="chevron-right" color={'orange'} size={25,35} />
                 </TouchableOpacity> : null  
               }
               {
                 item.cellType == 'PROJECTSTATUS' ?
                 <TouchableOpacity style={{marginTop:16,width:'100%',backgroundColor:'white', height:50,borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,alignItems: 'center',justifyContent: 'center', flexDirection:'row'}} onPress = {() => {navigation.navigate('ProjectEndDate',{lookupData:lookupData})}}>
-                  <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:ThemeColor.TextColor}}>Is your project ending soon? </Text>
+                  <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor}}>Is your project ending soon? </Text>
                   <Text style={{fontFamily:FontName.Bold, fontSize:16,color:ThemeColor.NavColor}}>Let us know</Text>
                   <TouchableOpacity style={{height:40, width:40, marginLeft:8, justifyContent:'center'}} onPress={ () => {handleProjectEndingSoonHelpText()}}>
                     <EvilIcons name="question" color={ThemeColor.SubTextColor} size={25} />
@@ -833,12 +833,12 @@ const DashboardScreen = ({navigation}) => {
                 item.cellType == 'TIMESHEET' && isPendingTimesheetAvailable() ?
                 <View style={{marginTop:16,width: '100%',height: 140, backgroundColor:'#fff',borderColor: ThemeColor.BorderColor,borderWidth:1,borderRadius:5,}}>
                   <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:'black'}}>You have pending timesheet</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'black'}}>You have pending timesheet</Text>
                   </View>
                   <TouchableOpacity style={{ flex:1 ,padding:8,flexDirection:'row', alignItems:'center'}} onPress={() => {navigation.navigate('Timesheets',{timesheetsList:timesheetsArray})}}>
                     <View style={{ flex:1,alignItems: 'center', padding:8, justifyContent: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:16,color: ThemeColor.TextColor, }}>{getPendingTimesheetDate()}</Text>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:12,color: ThemeColor.RedColor,paddingTop:4}}>{getPendingTimesheetDays()}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:16,color: ThemeColor.TextColor, }}>{getPendingTimesheetDate()}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:12,color: ThemeColor.RedColor,paddingTop:4}}>{getPendingTimesheetDays()}</Text>
                     </View>
                     <Entypo name="chevron-thin-right" color={'gray'} size={20} />
                   </TouchableOpacity>
@@ -848,10 +848,10 @@ const DashboardScreen = ({navigation}) => {
                 item.cellType == 'MYSTATUS' ?
                 <View style={{marginTop:16,width: '100%',height: 140, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,}}>
                   <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:'black'}}>Update your status</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'black'}}>Update your status</Text>
                   </View>
                   <View style={{justifyContent: 'space-between', flex:1,flexDirection:'row',alignItems: 'center', padding:16}}>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:'black'}}>Interested in new opportunities</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'black'}}>Interested in new opportunities</Text>
                     <Switch
                       trackColor={{ false: ThemeColor.SwitchInactiveColor, true:ThemeColor.BtnColor }}
                       ios_backgroundColor = {ThemeColor.SwitchInactiveColor}
@@ -866,7 +866,7 @@ const DashboardScreen = ({navigation}) => {
                 item.cellType == 'ADDSKILL' ?
                 <View style={{marginTop:16,width: '100%',height: 140, backgroundColor:'#fff',borderColor: ThemeColor.BorderColor,borderWidth:1,borderRadius:5,}}>
                   <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:16,color:'black'}}>{loadSkills ? 'Update your skills to see most relevant job matches' : 'Do you have any professional licences or certificates?'}</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'black'}}>{loadSkills ? 'Update your skills to see most relevant job matches' : 'Do you have any professional licences or certificates?'}</Text>
                   </View>
                   <View style={{ flex:1,flexDirection:'row',alignItems: 'center', padding:8, marginTop:12}}>
                     {skillCetiArr.length > 0 ? 
@@ -883,12 +883,12 @@ const DashboardScreen = ({navigation}) => {
                       }
                     /> :
                     <View style={{justifyContent:'center', alignContent:'center', flex:1}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:16,color: ThemeColor.TextColor, textAlign:'center'}}>{loadSkills ? 'No skills' : 'No certificates'}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:16,color: ThemeColor.TextColor, textAlign:'center'}}>{loadSkills ? 'No skills' : 'No certificates'}</Text>
                     </View>
                     }
                   </View>
                   <TouchableOpacity style={{marginRight:8, marginBottom:8}} onPress={() => {navigation.navigate('Skill',{profileDetail: responseData,lookupData:lookupData})}}>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:14,color: ThemeColor.BtnColor, textAlign:'right'}}>{loadSkills ? 'Add missing skills' : 'Add more'}</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:14,color: ThemeColor.BtnColor, textAlign:'right'}}>{loadSkills ? 'Add missing skills' : 'Add more'}</Text>
                   </TouchableOpacity>
                 </View> : null  
               }
@@ -900,9 +900,9 @@ const DashboardScreen = ({navigation}) => {
                       <Icon name="stop-circle-outline" color={'black'} size={25} />
                     </View>
                     <View style={{width:'100%',alignItems: 'center',justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{matchingJobCounts}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{matchingJobCounts}</Text>
                       <View style={{width:120, height:2, backgroundColor:ThemeColor.BorderColor,marginTop:0}}/>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Job matches</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Job matches</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, height:150, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => navigation.navigate('ReferClient')}>
@@ -910,9 +910,9 @@ const DashboardScreen = ({navigation}) => {
                       <Icon name="person-add" color={ThemeColor.TextColor} size={25} />
                     </View>
                     <View style={{flex: 1,alignItems: 'center',justifyContent: 'center',alignItems: 'center',justifyContent:'center' , alignContent:'center',paddingRight:8, paddingLeft:8 }}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Need additional skills or resources on your project?</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Need additional skills or resources on your project?</Text>
                     </View>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Yes</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Yes</Text>
                   </TouchableOpacity>
                 </View> : null  
               }
@@ -924,9 +924,9 @@ const DashboardScreen = ({navigation}) => {
                       <Icon name="stop-circle-outline" color={'black'} size={25} />
                     </View>
                     <View style={{width:'100%',alignItems: 'center',justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{matchingJobCounts}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{matchingJobCounts}</Text>
                       <View style={{width:120, height:2, backgroundColor:ThemeColor.BorderColor,marginTop:0}}/>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Job matches</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Job matches</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => {navigation.navigate('Application')}}>
@@ -934,9 +934,9 @@ const DashboardScreen = ({navigation}) => {
                       <Icon name="folder-open-outline" color={'black'} size={25} />
                     </View>
                     <View style={{width:'100%',alignItems: 'center',justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.openApplications.count : 0}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.openApplications.count : 0}</Text>
                       <View style={{width:120, height:2, backgroundColor:ThemeColor.BorderColor,marginTop:0}}/>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Active applications</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Active applications</Text>
                     </View>
                   </TouchableOpacity>
                 </View> : null  
@@ -949,9 +949,9 @@ const DashboardScreen = ({navigation}) => {
                       <Image style={{ width: 25,height: 25,tintColor:'black'}} source={require('../../assets/Images/Interview.png')} /> 
                     </View>
                     <View style={{width:'100%',alignItems: 'center',justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.interviewScheduled.count : 0}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.interviewScheduled.count : 0}</Text>
                       <View style={{width:120, height:2, backgroundColor:ThemeColor.BorderColor,marginTop:0}}/>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Upcoming interviews</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Upcoming interviews</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => {navigation.navigate('Messages')}}>
@@ -959,9 +959,9 @@ const DashboardScreen = ({navigation}) => {
                       <Fontisto name="email" color={'black'} size={25} />
                     </View>
                     <View style={{width:'100%',alignItems: 'center',justifyContent: 'center',alignItems: 'center'}}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.unreadConversations.count : 0}</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:25,color:ThemeColor.BtnColor, marginTop:8}}>{dashboardCounts ? dashboardCounts.unreadConversations.count : 0}</Text>
                       <View style={{width:120, height:2, backgroundColor:ThemeColor.BorderColor,marginTop:0}}/>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Unread messages</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Unread messages</Text>
                     </View>
                   </TouchableOpacity>
                 </View> : null
@@ -974,18 +974,18 @@ const DashboardScreen = ({navigation}) => {
                       <Icon name="person-add" color={ThemeColor.TextColor} size={25} />
                     </View>
                     <View style={{flex: 1,alignItems: 'center',justifyContent: 'center',alignItems: 'center',justifyContent:'center' , alignContent:'center',paddingRight:8, paddingLeft:8 }}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Need additional skills or resources on your project?</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Need additional skills or resources on your project?</Text>
                     </View>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Yes</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Yes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => navigation.navigate('Find jobs')}>
                     <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
                       <Icon name="ios-briefcase" color={ThemeColor.TextColor} size={25} />
                     </View>
                     <View style={{flex: 1,alignItems: 'center',justifyContent: 'center',alignItems: 'center',justifyContent:'center' , alignContent:'center',paddingRight:8, paddingLeft:8 }}>
-                      <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:'black', marginTop:8}}>Know someone who needs help with their job search?</Text>
+                      <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Know someone who needs help with their job search?</Text>
                     </View>
-                    <Text style={{fontFamily:'Lato-Regular', fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Refer?</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Refer?</Text>
                   </TouchableOpacity>
                 </View> : null
               }

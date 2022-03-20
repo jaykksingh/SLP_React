@@ -12,7 +12,7 @@ import axios from 'axios'
 import { AuthContext } from './Components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeepLinking from 'react-native-deep-linking';
-
+import './_helpers/global'
 // import PushNotificationIOS from "@react-native-community/push-notification-ios";
 // import PushNotification from "react-native-push-notification";
 import './_helpers/global';
@@ -259,14 +259,17 @@ const App = () => {
   }
 
   const getLoginDetail = async () => {
-    let userToken;
-    userToken = null;
+    var loginDetail = null;
     try {
-      userToken = await AsyncStorage.getItem('loginDetails');
+      loginDetail = await AsyncStorage.getItem('loginDetails');
     } catch(e) {
       console.log(e);
     }
-    dispatch({ type: 'RETRIEVE_TOKEN', loginDetails: userToken });
+    let userAuthToken = 'StaffLine@2017:' + loginDetail.userAuthToken;
+    var authToken = base64.encode(userAuthToken);    
+    global.AccessToken = authToken;
+
+    dispatch({ type: 'RETRIEVE_TOKEN', loginDetails: loginDetail });
     getProfileDetails();
   }
   const  getProfileDetails = async() => {
