@@ -1,0 +1,17 @@
+{
+  "name": "SLP_React",
+  "displayName": "StafflinePro",
+  "expo": {
+    "name": "StafflinePro",
+    "slug": "StafflinePro",
+    "version": "1.0.0",
+    "build": "1.1",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#00649E"
+    }
+  }
+}
