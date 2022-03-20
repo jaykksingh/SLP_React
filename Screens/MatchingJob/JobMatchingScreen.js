@@ -847,20 +847,6 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
   return (
     <View style={[styles.container]}>
       {jobsArray.length> 0 ? (
-        // <SwipeCards
-        //   style={{backgroundColor:ThemeColor.ViewBgColor}}
-        //   cards={jobsArray}
-        //   renderCard={(cardData) => <Card data={cardData} />}
-        //   keyExtractor={(cardData, index) => String(cardData.text)}
-        //   renderNoMoreCards={() => <StatusCard text="" />}
-        //   handleYup={handleYup}
-        //   handleNope={handleNope}
-        //   // handleMaybe={handleMaybe}
-        //   hasMaybeAction={false}
-        //   // If you want a stack of cards instead of one-per-one view, activate stack mode
-        //   // stack={true}
-        //   // stackDepth={3}
-        // />
         <Carousel
           // ref ={carouselRef}
           ref={(c) => { carouselRef = c; }}
@@ -904,18 +890,18 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
       {jobsArray.length > 0 && 
       <View style={{ flexDirection:'row', alignItems: 'center',marginBottom:16,}}>
         <TouchableOpacity style={{flex: 1, alignItems: 'center', marginTop:8}} onPress={() => {handleNotaFit()}}>
-          <Icons name="close-circle-outline" color={ThemeColor.RedColor} size={35,35} />
+          <Icons name="close-circle-outline" color={ThemeColor.RedColor} size={35} />
           <Text style={{fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.RedColor, marginTop:4}}>NOT A FIT</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{flex:1,  alignItems: 'center'}} onPress={() => {handleInterested()}}>
-          <Icons name="checkmark-circle-outline" color={ThemeColor.BtnColor} size={35,35} />
+          <Icons name="checkmark-circle-outline" color={ThemeColor.BtnColor} size={35} />
           <Text style={{fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor, marginTop:4}}>INTERESTED</Text>
         </TouchableOpacity>
       </View>
       }
       <Loader isLoading={isLoading} />
       <ActionSheetView ref={jobFilterRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
-          <View style={{height:"90%"}}>
+          <View style={{height:Dimensions.get("window").height - 120, paddingBottom:34}}>
             <View style={{height:50, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <View onPress={() => {jobFilterRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}></Text>
@@ -925,7 +911,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
-            <ScrollView style={{}}>
+            <ScrollView style={{flex:1}}>
               <View style={{backgroundColor:'white', borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:16,paddingLeft:16 ,paddingTop:8, paddingBottom:8,justifyContent:'space-between'}}>
                 <View style={{marginRight:8, flex:1}}> 
                   <Text style ={{color:ThemeColor.TextColor, fontSize:18, fontFamily:FontName.Regular}}>Matching Job alerts</Text>
