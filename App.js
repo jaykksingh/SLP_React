@@ -21,9 +21,8 @@ import RootStackScreen from './Screens/LoginSignup/RootStackScreen';
 import FirstTabScreen from './Screens/FirstTabScreen';
 import SkipTabScreen from './Screens/SkipTabScreen';
 import UBHomeScreen from './Screens/UserOnboarding/UBHomeScreen';
+import EOBScreen from './Screens/EmployeeOnboarding/EOBScreen';
 // import SecondTabScreen from './screens/SecondTabScreen';
-// import UserOnboardingHomeScreen from './screens/UserOnboardingHomeScreen';
-// import EOBScreen from './screens/EmployeeOnboarding/EOBScreen';
 
 const Stack = createStackNavigator();
 
@@ -266,10 +265,6 @@ const App = () => {
     } catch(e) {
       console.log(e);
     }
-    let userAuthToken = 'StaffLine@2017:' + loginDetail.userAuthToken;
-    var authToken = base64.encode(userAuthToken);    
-    global.AccessToken = authToken;
-
     dispatch({ type: 'RETRIEVE_TOKEN', loginDetails: loginDetail });
     getProfileDetails();
   }
@@ -380,12 +375,11 @@ const App = () => {
     );
   }
   let empOnboarding = parsed ? parsed.employeeOnboarding : "0";
-
   if(empOnboarding && !loginState.EOBSkipped){
     return(
       <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <SkipTabScreen screenProps={parsed}/>
+        <EOBScreen screenProps={parsed}/>
       </NavigationContainer>
       </AuthContext.Provider>
     );
