@@ -299,7 +299,7 @@ const JobSearchScreen = ({navigation}) => {
           <View>
             <View style={{flex: 1,flexDirection:'row', height:40, margin_bottom:4,alignItems: 'center'}}>
               <Text style={{flex: 1, fontFamily: FontName.Regular, fontSize:14}}>{item.searchName}</Text>
-              <Text style={{fontFamily: 'Lato-Bold', fontSize:16, color:ThemeColor.BtnColor, marginRight:4}}>0</Text>
+              <Text style={{fontFamily: FontName.Bold, fontSize:16, color:ThemeColor.BtnColor, marginRight:4}}>0</Text>
               <Text style={{fontFamily: FontName.Regular, fontSize:14, width:30, color:ThemeColor.HelpingTextColor}}>Jobs</Text>
               <TouchableOpacity style ={{width:40,alignItems: 'flex-end', justifyContent: 'center'}}> 
                 <Icon name="trash-outline" color={'gray'} size={20} />

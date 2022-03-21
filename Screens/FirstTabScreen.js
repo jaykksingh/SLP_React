@@ -15,6 +15,8 @@ import JobMatchingScreen from './MatchingJob/JobMatchingScreen';
 import JobSearchScreen from './Jobs/JobSearchScreen';
 import MyApplicationScreen from './MyApplications/MyApplicationScreen';
 import MoreScreen from './More/MoreScreen';
+import MyProfileScreen from '../Screens/Profile/MyProfileScreen';
+
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
 // import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
 // import JobDetailScreen from '../JobSearch/JobDetailScreen';
@@ -127,6 +129,7 @@ const DashboardStackScreen = ({navigation})  => {
             headerBackTitleVisible: false
             }}>
             <DashboardStack.Screen name="Dashboard" component={DashboardScreen} options={{}} />
+            <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
         </DashboardStack.Navigator>
     );
  };
@@ -215,7 +218,8 @@ const DashboardStackScreen = ({navigation})  => {
             headerBackTitleVisible: false
             }}>
             <MoreStack.Screen name="More" component={MoreScreen} options={{ }} />            
-            
+            <MoreStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
+
         </MoreStack.Navigator>
     );
  };
