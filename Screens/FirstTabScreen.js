@@ -27,6 +27,29 @@ import SimilarJobScreen from './PreScreening/SimilarJobScreen';
 import ChangePasswordScreen from './ChangePassword/ChangePasswordScreen';
 import AlertSettingScreen from './Settings/AlertSettingScreen';
 import PrivacyAndTermsScreen from './LoginSignup/PrivacyAndTermsScreen';
+import HelpAndSupportScreen from './HelpAndSupport/HelpAndSupportScreen';
+import CallSupportScreen from './HelpAndSupport/CallSupportScreen';
+import EmailSupportScreen from './HelpAndSupport/EmailSupportScreen';
+import ReportBugScreen from './HelpAndSupport/ReportBugScreen';
+import ChatBotScreen from './ChatBot/ChatBotScreen';
+import ResourceHomeScreen from './ResourceScreen/ResourceHomeScreen';
+import InterviewTipsScreen from './ResourceScreen/InterviewTipsScreen';
+import FormsAndPolicyScreen from './ResourceScreen/FormsAndPolicyScreen';
+import NewsScreen from './ResourceScreen/NewsScreen';
+import HolidayScheduleScreen from './ResourceScreen/HolidayScheduleScreen';
+import HrHomeScreen from './HRScreen/HrHomeScreen';
+import HrBenefitScreen from './HRScreen/HrBenefitScreen';
+import ImmigrationHomeScreen from './Immigration/ImmigrationHomeScreen';
+import ImmigrationDeskScreen from './Immigration/ImmigrationDeskScreen';
+import LegalFilingsScreen from './Immigration/LegalFilingsScreen';
+import NewLCAScreen from './Immigration/NewLCAScreen';
+import ViewLCADetailsScreen from './Immigration/ViewLCADetailsScreen';
+import LegalDocumentScreen from './Immigration/LegalDocumentScreen';
+import LCAScreen from './Immigration/LCAScreen';
+import ChooseLcaTypeScreen from './Immigration/ChooseLcaTypeScreen';
+import NewLcaDocumentScreen from './Immigration/NewLcaDocumentScreen';
+import AddLCADetailsScreen from './Immigration/AddLCADetailsScreen';
+
 
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
 // import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
@@ -141,6 +164,7 @@ const DashboardStackScreen = ({navigation})  => {
             }}>
             <DashboardStack.Screen name="Dashboard" component={DashboardScreen} options={{}} />
             <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
+            <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
         </DashboardStack.Navigator>
     );
  };
@@ -157,6 +181,7 @@ const DashboardStackScreen = ({navigation})  => {
             },
             }}>
             <JobMatchingStack.Screen name="Job Matches" component={JobMatchingScreen} options={{ }} />
+            <JobMatchingStack.Screen name="ChatBot" component={ChatBotScreen} />
         </JobMatchingStack.Navigator>
     );
  };
@@ -187,6 +212,7 @@ const DashboardStackScreen = ({navigation})  => {
             <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/> 
             <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <JobSearchStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <JobSearchStack.Screen name="ChatBot" component={ChatBotScreen} />
 
             {/* 
             
@@ -216,6 +242,7 @@ const DashboardStackScreen = ({navigation})  => {
             <MyApplicationStack.Screen name="CreateMessage" component={CreateMessageScreen}/> 
             <MyApplicationStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <MyApplicationStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <MyApplicationStack.Screen name="ChatBot" component={ChatBotScreen} />
 
         </MyApplicationStack.Navigator>
     );
@@ -250,6 +277,31 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
             <MoreStack.Screen name="AlertSetting" component={AlertSettingScreen}/>
             <MoreStack.Screen name="PrivacyAndTerms" component={PrivacyAndTermsScreen} />
+            <MoreStack.Screen name="HelpAndSupport" component={HelpAndSupportScreen}/>
+            <MoreStack.Screen name="CallSupport" component={CallSupportScreen}/>
+            <MoreStack.Screen name="EmailSupport" component={EmailSupportScreen}/>
+            <MoreStack.Screen name="ReportBug" component={ReportBugScreen}/>
+            <MoreStack.Screen name="ChatBot" component={ChatBotScreen} />
+            <MoreStack.Screen name="ResourceHome" component={ResourceHomeScreen}/>
+            <MoreStack.Screen name="InterviewTips" component={InterviewTipsScreen} />
+            <MoreStack.Screen name="FormsAndPolicy" component={FormsAndPolicyScreen} />
+            <MoreStack.Screen name="NewsScreen" component={NewsScreen}/>
+            <MoreStack.Screen name="HolidaySchedule" component={HolidayScheduleScreen} />
+            <MoreStack.Screen name="HrHome" component={HrHomeScreen} />
+            <MoreStack.Screen name="HrBenefit" component={HrBenefitScreen}/>
+            <MoreStack.Screen name="ImmigrationHome" component={ImmigrationHomeScreen}/>
+            <MoreStack.Screen name="ImmigrationDesk" component={ImmigrationDeskScreen}/>
+            <MoreStack.Screen name="LegalFilings" component={LegalFilingsScreen}/>
+            <MoreStack.Screen name="EditLCA" component={NewLCAScreen}/>
+            <MoreStack.Screen name="LegalDocument" component={LegalDocumentScreen}/>
+            <MoreStack.Screen name="ChooseLcaType" component={ChooseLcaTypeScreen}/>
+            <MoreStack.Screen name="AddLCADetails" component={AddLCADetailsScreen}/> 
+            <MoreStack.Screen name="ViewLCADetails" component={ViewLCADetailsScreen}/>
+            <MoreStack.Screen name="LCAScreen" component={LCAScreen} />
+            <MoreStack.Screen name="NewLcaDocument" component={NewLcaDocumentScreen}/>
+
+            {/* 
+            */}
 
             
         </MoreStack.Navigator>

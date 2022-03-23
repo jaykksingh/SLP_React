@@ -4,8 +4,8 @@
   "expo": {
     "name": "StafflinePro",
     "slug": "StafflinePro",
-    "version": "1.0.0",
-    "build": "1.1",
+    "version": "1.5.27",
+    "build": "3",
     "assetBundlePatterns": [
       "**/*"
     ],
