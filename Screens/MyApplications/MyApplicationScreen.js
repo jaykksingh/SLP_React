@@ -129,7 +129,7 @@ const MyApplicationScreen = ({route,navigation}) => {
     .then((response) => {
         setLoading(false);
       if (response.data.code == 200){
-        navigation.navigate("Job Details", {jobDetail: response.data.content.dataList[0]});
+        navigation.navigate("JobDetails", {jobDetail: response.data.content.dataList[0]});
       }else if (response.data.code == 417){
         setLoading(false);
         const errorList = Object.values(response.data.content.messageList);

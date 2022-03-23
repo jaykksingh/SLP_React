@@ -19,14 +19,7 @@ const PrivacyAndTermsScreen = ({route,navigation}) => {
 	}, [navigation]);
 	useEffect(() => {
 		if(fromMenu){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: false
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: true
-			});
+			
 		}
 		
 	  },[]);
