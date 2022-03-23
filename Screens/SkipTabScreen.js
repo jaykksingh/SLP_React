@@ -11,16 +11,14 @@ import { AuthContext } from '../Components/context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import JobSearchScreen from './Jobs/JobSearchScreen';
-// import JobSearchResultScreen from '../JobSearch/JobSearchResult';
-// import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
-// import JobDetailScreen from '../JobSearch/JobDetailScreen';
-// import JobApplyScreen from '../JobSearch/JobApplyScreen';
-// import JobReferScreen from '../JobSearch/JobReferScreen';
-// import ChatScreen from '../Messages/ChatScreen';
-// import CreateMessageScreen from '../Messages/CreateMessageScreen';
-// import PreScreeningScreen from '../PreScreenings/PreScreeningScreen';
-
-import FontListScreen from './FontListScreen';
+import DocumentViewerScreen from './DocumentViewer/DocumentViewerScreen';
+import JobSearchResult from './Jobs/JobSearchResult';
+import JobDetailScreen from './Jobs/JobDetailScreen';
+import JobReferScreen from './Jobs/JobReferScreen';
+import JobApplyScreen from './Jobs/JobApplyScreen';
+import CreateMessageScreen from './Messaging/CreateMessageScreen';
+import PreScreeningScreen from './PreScreening/PreScreeningScreen'
+import SimilarJobScreen from './PreScreening/SimilarJobScreen';
 
 const DashboardStack  = createStackNavigator();
 const JobMatchingStack  = createStackNavigator();
@@ -155,16 +153,13 @@ const DashboardStackScreen = ({navigation})  => {
             headerBackTitleVisible: false
 
             }}>
-            {/* <JobSearchStack.Screen name="Applications" component={GuestMyApplication} options={{  }} /> */}
 
             <JobSearchStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
-            <JobSearchStack.Screen name="FontList" component={FontListScreen} options={{}}/>
-
-            
-            {/* <JobSearchStack.Screen name="JobsList" component={JobSearchResultScreen}  options={{
+            <JobSearchStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <JobSearchStack.Screen name="JobsList" component={JobSearchResultScreen}  options={{
                 headerRight: () => (
                     <TouchableOpacity style={{marginRight:16}}>
-                        <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../../assets/Images/icon_filter.png')} /> 
+                        <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
                     </TouchableOpacity>
                     ),
             }}/>
@@ -174,7 +169,7 @@ const DashboardStackScreen = ({navigation})  => {
             <JobSearchStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
             <JobSearchStack.Screen name="ChatScreen" component={ChatScreen}/>
             <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
-            <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/> */}
+            <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
 
         </JobSearchStack.Navigator>
     );

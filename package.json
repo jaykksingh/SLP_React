@@ -21,6 +21,7 @@
     "axios": "^0.26.1",
     "link": "^0.1.5",
     "moment": "^2.29.1",
+    "numeral": "^2.0.6",
     "react": "17.0.2",
     "react-native": "^0.67.3",
     "react-native-actions-sheet": "^0.6.0",

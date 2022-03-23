@@ -50,6 +50,21 @@ import ChooseLcaTypeScreen from './Immigration/ChooseLcaTypeScreen';
 import NewLcaDocumentScreen from './Immigration/NewLcaDocumentScreen';
 import AddLCADetailsScreen from './Immigration/AddLCADetailsScreen';
 import ProjectHomeScreen from './ProjectScreen/ProjectHomeScreen';
+import TimesheetPayrollHomeScreen from './TimesheetPayroll/TimesheetPayrollHomeScreen';
+import PayrollInformationScreen from './TimesheetPayroll/PayrollInformationScreen';
+import PayrollCalenderScreen from './TimesheetPayroll/PayrollCalenderScreen';
+import ExpenceScreen from './TimesheetPayroll/ExpenceScreen';
+import AddExpenceScreen from './TimesheetPayroll/AddExpenceScreen';
+import RequestTimeoffScreen from './TimesheetPayroll/RequestTimeoffScreen';
+import AddTimeoffRequestScreen from './TimesheetPayroll/AddTimeoffRequestScreen';
+import PaymentStatusSCreen from './TimesheetPayroll/PaymentStatusSCreen';
+import DocumentViewerScreen from './DocumentViewer/DocumentViewerScreen';
+import TumesheetsScreen from './TimesheetPayroll/Timesheets/TumesheetsScreen';
+import ViewTimesheetScreen from './TimesheetPayroll/Timesheets/ViewTimesheetScreen';
+import TimesheetWorkflowScreen from './TimesheetPayroll/Timesheets/TimesheetWorkflowScreen';
+import EditTimesheetScreen from './TimesheetPayroll/Timesheets/EditTimesheetScreen';
+import CheckInOutTimesheetScreen from './TimesheetPayroll/Timesheets/CheckInOutTimesheetScreen';
+import CheckInOutScreen from './TimesheetPayroll/Timesheets/CheckInOutScreen';
 
 
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
@@ -61,7 +76,6 @@ import ProjectHomeScreen from './ProjectScreen/ProjectHomeScreen';
 // import CreateMessageScreen from '../Messages/CreateMessageScreen';
 // import PreScreeningScreen from '../PreScreenings/PreScreeningScreen';
 
-import FontListScreen from './FontListScreen';
 
 const DashboardStack  = createStackNavigator();
 const JobMatchingStack  = createStackNavigator();
@@ -166,6 +180,9 @@ const DashboardStackScreen = ({navigation})  => {
             <DashboardStack.Screen name="Dashboard" component={DashboardScreen} options={{}} />
             <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
             <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
+            <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
+
         </DashboardStack.Navigator>
     );
  };
@@ -183,6 +200,7 @@ const DashboardStackScreen = ({navigation})  => {
             }}>
             <JobMatchingStack.Screen name="Job Matches" component={JobMatchingScreen} options={{ }} />
             <JobMatchingStack.Screen name="ChatBot" component={ChatBotScreen} />
+            <JobMatchingStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
         </JobMatchingStack.Navigator>
     );
  };
@@ -214,6 +232,7 @@ const DashboardStackScreen = ({navigation})  => {
             <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <JobSearchStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
             <JobSearchStack.Screen name="ChatBot" component={ChatBotScreen} />
+            <JobSearchStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
 
             {/* 
             
@@ -244,6 +263,7 @@ const DashboardStackScreen = ({navigation})  => {
             <MyApplicationStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <MyApplicationStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
             <MyApplicationStack.Screen name="ChatBot" component={ChatBotScreen} />
+            <MyApplicationStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
 
         </MyApplicationStack.Navigator>
     );
@@ -301,11 +321,22 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="LCAScreen" component={LCAScreen} />
             <MoreStack.Screen name="NewLcaDocument" component={NewLcaDocumentScreen}/>
             <MoreStack.Screen name="ProjectHome" component={ProjectHomeScreen}/>
+            <MoreStack.Screen name="TimesheetPayroll" component={TimesheetPayrollHomeScreen} />
+            <MoreStack.Screen name="PayrollInformation" component={PayrollInformationScreen} />
+            <MoreStack.Screen name="PayrollCalender" component={PayrollCalenderScreen}/>
+            <MoreStack.Screen name="ExpenceScreen" component={ExpenceScreen}/>
+            <MoreStack.Screen name="AddExpence" component={AddExpenceScreen}/>
+            <MoreStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
+            <MoreStack.Screen name="AddTimeoffRequest" component={AddTimeoffRequestScreen}/>
+            <MoreStack.Screen name="PaymentStatus" component={PaymentStatusSCreen}/>
+            <MoreStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <MoreStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
+            <MoreStack.Screen name="ViewTimesheet" component={ViewTimesheetScreen}/>
+            <MoreStack.Screen name="TsWorkFlow" component={TimesheetWorkflowScreen} options={{}}/>
+            <MoreStack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
+            <MoreStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
+            <MoreStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
 
-            {/* 
-            */}
-
-            
         </MoreStack.Navigator>
     );
  };
