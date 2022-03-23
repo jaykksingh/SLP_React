@@ -49,6 +49,7 @@ import LCAScreen from './Immigration/LCAScreen';
 import ChooseLcaTypeScreen from './Immigration/ChooseLcaTypeScreen';
 import NewLcaDocumentScreen from './Immigration/NewLcaDocumentScreen';
 import AddLCADetailsScreen from './Immigration/AddLCADetailsScreen';
+import ProjectHomeScreen from './ProjectScreen/ProjectHomeScreen';
 
 
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
@@ -299,6 +300,7 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="ViewLCADetails" component={ViewLCADetailsScreen}/>
             <MoreStack.Screen name="LCAScreen" component={LCAScreen} />
             <MoreStack.Screen name="NewLcaDocument" component={NewLcaDocumentScreen}/>
+            <MoreStack.Screen name="ProjectHome" component={ProjectHomeScreen}/>
 
             {/* 
             */}
