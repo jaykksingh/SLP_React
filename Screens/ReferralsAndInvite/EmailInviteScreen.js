@@ -32,7 +32,7 @@ const EmailInviteScreen = ({route,navigation}) => {
 	}, [navigation]);
 	
 	useEffect(() => {
-		if(navigation.dangerouslyGetParent()){
+		if(navigation.dangerouslyGetParent){
 		  const parent = navigation.dangerouslyGetParent();
 		  parent.setOptions({
 			tabBarVisible: false

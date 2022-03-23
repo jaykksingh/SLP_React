@@ -33,7 +33,7 @@ const PayPalAccountScreen = ({route,navigation})  => {
 	}, [navigation]);
 	useEffect(() => {
 		getProfileDetails();
-		if(navigation.dangerouslyGetParent()){
+		if(navigation.dangerouslyGetParent){
 			const parent = navigation.dangerouslyGetParent();
 			parent.setOptions({
 			  tabBarVisible: false

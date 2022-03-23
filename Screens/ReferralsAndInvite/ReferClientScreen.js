@@ -74,7 +74,7 @@ const ReferClientScreen = ({route,navigation}) => {
 	useEffect(() => {
 		getRegionList('COUNTRY');
 		getUserLookups();
-		if(navigation.dangerouslyGetParent()){
+		if(navigation.dangerouslyGetParent){
 		  const parent = navigation.dangerouslyGetParent();
 		  parent.setOptions({
 			tabBarVisible: false
@@ -288,7 +288,7 @@ const ReferClientScreen = ({route,navigation}) => {
 		<SafeAreaView style={styles.container}>
 			<KeyboardAwareScrollView style={{paddingLeft:16, paddingRight:16, marginBottom:8}}>
 				<View style={{ height:40, justifyContent: 'center'}}>
-					<Text style ={{color:ThemeColor.TextColor, fontSize:16,fontFamily:'Lato-Bold'}}>Client details</Text>
+					<Text style ={{color:ThemeColor.TextColor, fontSize:16,fontFamily:FontName.Bold}}>Client details</Text>
 				</View>
 				<View style={{}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Company name</Text>
@@ -432,7 +432,7 @@ const ReferClientScreen = ({route,navigation}) => {
 				}
 				<></>
 				<View style={{ height:40, justifyContent: 'center',marginTop:12}}>
-					<Text style ={{color:ThemeColor.TextColor, fontSize:16,fontFamily:'Lato-Bold'}}>Contact person info</Text> 
+					<Text style ={{color:ThemeColor.TextColor, fontSize:16,fontFamily:FontName.Bold}}>Contact person info</Text> 
 				</View>
 				<View style={{marginTop:0}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Full name</Text>
@@ -529,7 +529,7 @@ const ReferClientScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {countryRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select country</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select country</Text>
 					<TouchableOpacity onPress={() => {
 					{data.countryName.length == 0 && setData({...data,countryName:countryArray[0].countryName,countryId:countryArray[0].countryId})}
 						countryRef.current?.setModalVisible();
@@ -562,7 +562,7 @@ const ReferClientScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {stateRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select state</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select state</Text>
 					<TouchableOpacity onPress={() => {
 							{data.stateName.length == 0 ? getRegionList('CITY',stateArray[0].stateId) : getRegionList('CITY',data.stateId)}
 							{data.stateName.length == 0 && setData({...data,stateName:stateArray[0].stateName,stateId:stateArray[0].stateId})}
@@ -595,7 +595,7 @@ const ReferClientScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {cityRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select city</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select city</Text>
 					<TouchableOpacity onPress={() => {
 						{data.cityName.length == 0 && setData({...data,cityName:cityArray[0].cityName,cityId:cityArray[0].cityId})}
 						cityRef.current?.setModalVisible()

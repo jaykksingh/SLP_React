@@ -65,6 +65,15 @@ import TimesheetWorkflowScreen from './TimesheetPayroll/Timesheets/TimesheetWork
 import EditTimesheetScreen from './TimesheetPayroll/Timesheets/EditTimesheetScreen';
 import CheckInOutTimesheetScreen from './TimesheetPayroll/Timesheets/CheckInOutTimesheetScreen';
 import CheckInOutScreen from './TimesheetPayroll/Timesheets/CheckInOutScreen';
+import InterviewScreen from './InterviewScreen/InterviewScreen';
+import ReferralsAndInviteScreen from './ReferralsAndInvite/ReferralsAndInviteScreen';
+import ReferFriendScreen  from './ReferralsAndInvite/ReferFriendScreen';
+import ReferContactScreen from './ReferralsAndInvite/ReferContactScreen';
+import InviteFriendScreen from './ReferralsAndInvite/InviteFriendScreen';
+import EmailInviteScreen from './ReferralsAndInvite/EmailInviteScreen';
+import ReferClientScreen from './ReferralsAndInvite/ReferClientScreen';
+import ActivityHomeScreen from './ReferralsAndInvite/ActivityScreens/ActivityHomeScreen';
+import PayPalAccountScreen from './ReferralsAndInvite/PayPalAccountScreen';
 
 
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
@@ -182,6 +191,7 @@ const DashboardStackScreen = ({navigation})  => {
             <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
             <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
             <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
+            <DashboardStack.Screen name="Interviews" component={InterviewScreen}/>
 
         </DashboardStack.Navigator>
     );
@@ -336,6 +346,15 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
             <MoreStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
             <MoreStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
+            <MoreStack.Screen name="InterviewScreen" component={InterviewScreen}/>
+            <MoreStack.Screen name="ReferralsAndInvite" component={ReferralsAndInviteScreen}/>
+            <MoreStack.Screen name="ReferFriend" component={ReferFriendScreen}/>
+            <MoreStack.Screen name="ReferContact" component={ReferContactScreen}/>
+            <MoreStack.Screen name="InviteFriend" component={InviteFriendScreen}/>
+            <MoreStack.Screen name="EmailInvite" component={EmailInviteScreen}/>
+            <MoreStack.Screen name="ReferClient" component={ReferClientScreen}/>
+            <MoreStack.Screen name="PayPalAccount" component={PayPalAccountScreen}/>
+            <MoreStack.Screen name="ActivityHome" component={ActivityHomeScreen}/>
 
         </MoreStack.Navigator>
     );

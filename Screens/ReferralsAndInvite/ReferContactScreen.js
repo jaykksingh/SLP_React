@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MovableView from 'react-native-movable-view';
 import * as Animatable from 'react-native-animatable';
 import {getAuthHeader} from '../../_helpers/auth-header';
-import { BaseUrl, EndPoints, StaticMessage, ThemeColor } from '../../_helpers/constants';
+import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import {parseErrorMessage} from '../../_helpers/Utils';
 import Loader from '../../Components/Loader';
 
@@ -51,7 +51,7 @@ const ReferContactScreen = ({route,navigation}) => {
 	
 	useEffect(() => {
 		getUserLookups();
-		if(navigation.dangerouslyGetParent()){
+		if(navigation.dangerouslyGetParent){
 		  const parent = navigation.dangerouslyGetParent();
 		  parent.setOptions({
 			tabBarVisible: false
@@ -196,7 +196,7 @@ const ReferContactScreen = ({route,navigation}) => {
 			<KeyboardAwareScrollView style={{paddingLeft:16, paddingRight:16, marginBottom:8}}>
 				<View style={{flexDirection:'row', flex:1,marginTop:12}}>
 					<View style={{flex: 1,}}>
-						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>First name</Text>
+						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>First name</Text>
 						<View style={{backgroundColor:'white', height:40, borderTopLeftRadius:5,borderBottomLeftRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
 						<TextInput  
 							style={styles.inputText}
@@ -209,7 +209,7 @@ const ReferContactScreen = ({route,navigation}) => {
 						</View>
 					</View>
 					<View style={{flex:1}}>
-						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Last name</Text>
+						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Last name</Text>
 						<View style={{backgroundColor:'white', height:40, borderTopRightRadius:5,borderBottomRightRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
 						<TextInput  
 							style={styles.inputText}
@@ -223,7 +223,7 @@ const ReferContactScreen = ({route,navigation}) => {
 					</View>
 				</View>
 				<View style={{marginTop:12}}>
-					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Email*</Text>
+					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Email*</Text>
 					<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
 						<TextInput  
 						style={styles.inputText}
@@ -236,11 +236,11 @@ const ReferContactScreen = ({route,navigation}) => {
 					</View>
 				</View>
 				<View style={{marginTop:12}}>
-					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Phone number</Text>
+					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Phone number</Text>
 					<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
 						<TouchableOpacity style={{flexDirection: 'row',marginRight:8, paddingLeft:8, alignItems:'center', justifyContent:'center'}} onPress={() => setShow(true)}>
 							{/* <Flag code="DE" size={32}/> */}
-							<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Regular', marginRight:8, marginLeft:8}}>+{data.contactNumberDialCode}</Text>
+							<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Regular, marginRight:8, marginLeft:8}}>+{data.contactNumberDialCode}</Text>
 							<Icons name="caret-down" color={ThemeColor.LabelTextColor} size={20} />
 						</TouchableOpacity>
 						<TextInput  
@@ -260,14 +260,14 @@ const ReferContactScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress = {() => {selectResume()}}>
 						<FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
 					</TouchableOpacity> 
-					<Text style={{fontFamily:'Lato-Regular', fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center'}}>{data.fileName.length > 0 ? data.fileName : 'Upload file'}</Text>
-					<Text style={{fontFamily:'Lato-Regular', fontSize:14,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:2}}>Maximum file size: 2MB</Text>
+					<Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center'}}>{data.fileName.length > 0 ? data.fileName : 'Upload file'}</Text>
+					<Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:2}}>Maximum file size: 2MB</Text>
 				</View>
 				<Loader isLoading={isLoading} />
 			</KeyboardAwareScrollView>
 			<View style={{flexDirection:'row',borderRadius:5, marginTop:8, marginLeft:16, marginRight:16,}}>
 				<TouchableOpacity style={styles.btnFill} onPress={() => {handleSubmit()}}>
-				<Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>SAVE</Text>
+				<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>SAVE</Text>
 				</TouchableOpacity>
 			</View>
 			{show && 
@@ -280,14 +280,14 @@ const ReferContactScreen = ({route,navigation}) => {
 						renderItem={({item}) => 
 						<TouchableOpacity onPress={(event)=> {didSelectDialCode(item)}}>
 							<View style={{flex: 1,flexDirection:'row', height:40, margin_bottom:4,alignItems: 'center'}}>
-							<Text style={{flex: 1, fontFamily: 'Lato-Regular', fontSize:14, marginLeft:16}}>{item.keyName} [{item.dialCode}]</Text>
+							<Text style={{flex: 1, fontFamily: FontName.Regular, fontSize:14, marginLeft:16}}>{item.keyName} [{item.dialCode}]</Text>
 							</View>
 							<View style={{flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:16}}/> 
 						</TouchableOpacity>
 						}
 					/>} 
 					<TouchableOpacity style={{height:40,justifyContent:"center",backgroundColor: ThemeColor.BtnColor ,alignItems:'center',width:'90%',borderRadius:5}} onPress={() => setShow(false)}>
-					<Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>DONE</Text>
+					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>DONE</Text>
 					</TouchableOpacity>
 				</Animatable.View>
 			} 
@@ -331,14 +331,14 @@ const styles = StyleSheet.create({
 		height:40,
 		color:'black',
 		fontSize:16,
-		fontFamily: 'Lato-Regular',
+		fontFamily: FontName.Regular,
 		marginLeft:8,
 		alignContent:'stretch',
 	},labelText:{
 		flex: 1,
 		color:'black',
 		fontSize:16,
-		fontFamily: 'Lato-Regular',
+		fontFamily: FontName.Regular,
 		marginLeft:8,
 		alignContent:'stretch',
 	},btnFill:{

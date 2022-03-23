@@ -7,7 +7,7 @@ import { View ,
     Alert,
 	SafeAreaView,
     Text} from 'react-native';
-import {ThemeColor } from '../../_helpers/constants';
+import {ThemeColor, FontName } from '../../_helpers/constants';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MovableView from 'react-native-movable-view';
@@ -20,7 +20,7 @@ const ReferFriendScreen = ({navigation})  => {
 		});
 	}, [navigation]);
 	useEffect(() => {
-		if(navigation.dangerouslyGetParent()){
+		if(navigation.dangerouslyGetParent){
 		  const parent = navigation.dangerouslyGetParent();
 		  parent.setOptions({
 			tabBarVisible: false
@@ -38,40 +38,40 @@ const ReferFriendScreen = ({navigation})  => {
 		<SafeAreaView style={styles.container}>
 			<View style={{justifyContent:'center', alignItems: 'center', padding:16,flex:1}}>
 				<Image style={{ width:60, height:60 }} source={require('../../assets/Images/icon-phone-book.png')} />
-				<Text style={{color:ThemeColor.TextColor,fontFamily: 'Lato-Regular',fontSize:16, marginTop:16}}>Get paid when those you refer get hired</Text>
-				<Text style={{color:ThemeColor.SubTextColor,fontFamily: 'Lato-Italic',fontSize:14, marginTop:8, textAlign: 'center',}}>{subText}</Text>
+				<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:16, marginTop:16}}>Get paid when those you refer get hired</Text>
+				<Text style={{color:ThemeColor.SubTextColor,fontFamily: FontName.Italic,fontSize:14, marginTop:8, textAlign: 'center',}}>{subText}</Text>
 				<View style={{ marginTop:32, flexDirection:'row',width:'100%',}}>
 					<View style={{backgroundColor:'gray', height:1, width:'80%', position:'absolute', top:30, marginLeft:32, marginRight:32}}/>
 					<View style={{ flex:1,justifyContent: 'center',alignItems: 'center'}}>
 						<View style={{ backgroundColor:'gray', height:34, width:34, borderRadius:17, justifyContent: 'center',alignItems: 'center',marginTop:12}}>
-							<Text style={{color:'white',fontFamily: 'Lato-Regular',fontSize:16}}>1</Text>
+							<Text style={{color:'white',fontFamily: FontName.Regular,fontSize:16}}>1</Text>
 						</View>
-						<Text style={{color:ThemeColor.TextColor,fontFamily: 'Lato-Regular',fontSize:12, textAlign: 'center', marginTop:4}}>Refer your contact</Text>
+						<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:12, textAlign: 'center', marginTop:4}}>Refer your contact</Text>
 
 					</View>
 					<View style={{ flex:1, justifyContent: 'center',alignItems: 'center'}}>
 						<View style={{ backgroundColor:'gray', height:34, width:34, borderRadius:17, justifyContent: 'center',alignItems: 'center',marginTop:12}}>
-							<Text style={{color:'white',fontFamily: 'Lato-Regular',fontSize:16}}>2</Text>
+							<Text style={{color:'white',fontFamily: FontName.Regular,fontSize:16}}>2</Text>
 						</View>
-						<Text style={{color:ThemeColor.TextColor,fontFamily: 'Lato-Regular',fontSize:12, textAlign: 'center', marginTop:4}}>Job offered to contact</Text>
+						<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:12, textAlign: 'center', marginTop:4}}>Job offered to contact</Text>
 					</View>
 					<View style={{ flex:1,justifyContent: 'center',alignItems: 'center'}}>
 						<View style={{ backgroundColor:'gray', height:34, width:34, borderRadius:17, justifyContent: 'center',alignItems: 'center'}}>
-							<Text style={{color:'white',fontFamily: 'Lato-Regular',fontSize:16}}>3</Text>
+							<Text style={{color:'white',fontFamily: FontName.Regular,fontSize:16}}>3</Text>
 						</View>
-						<Text style={{color:ThemeColor.TextColor,fontFamily: 'Lato-Regular',fontSize:12, textAlign: 'center', marginTop:4}}>Contact get hired</Text>
+						<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:12, textAlign: 'center', marginTop:4}}>Contact get hired</Text>
 
 					</View>
 					<View style={{ flex:1,justifyContent: 'center',alignItems: 'center'}}>
 						<View style={{ backgroundColor:'gray', height:34, width:34, borderRadius:17, justifyContent: 'center',alignItems: 'center'}}>
-							<Text style={{color:'white',fontFamily: 'Lato-Regular',fontSize:16}}>4</Text>
+							<Text style={{color:'white',fontFamily: FontName.Regular,fontSize:16}}>4</Text>
 						</View>
-						<Text style={{color:ThemeColor.TextColor,fontFamily: 'Lato-Regular',fontSize:12, marginTop:4}}>You get paid </Text>
+						<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:12, marginTop:4}}>You get paid </Text>
 
 					</View>
 				</View>
 				<TouchableOpacity style={styles.btnFill} onPress={() => navigation.navigate('ReferContact')}>
-					<Text style={{color:'white',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>GET STARTED</Text>
+					<Text style={{color:'white',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>GET STARTED</Text>
 				</TouchableOpacity>
 			</View>
 			<MovableView>
