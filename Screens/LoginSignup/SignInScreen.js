@@ -195,7 +195,7 @@ const SignInScreen = ({navigation}) => {
       }
     })
     .catch((error) => {
-      console.log('Login Error: ',error);
+      console.warn('Login Error: ',error);
 
       setData({...data,isLoading: false});
       Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
