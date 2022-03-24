@@ -23,7 +23,6 @@ import SecondTabScreen from './Screens/SecondTabScreen';
 import SkipTabScreen from './Screens/SkipTabScreen';
 import UBHomeScreen from './Screens/UserOnboarding/UBHomeScreen';
 import EOBScreen from './Screens/EmployeeOnboarding/EOBScreen';
-// import SecondTabScreen from './screens/SecondTabScreen';
 
 const Stack = createStackNavigator();
 
@@ -431,7 +430,7 @@ const App = () => {
   // return (
   //   <AuthContext.Provider value={authContext}>
   //   <NavigationContainer>
-  //     {userAuthToken != null ? (empOnboarding && !loginState.EOBSkipped? <EOBScreen screenProps={parsed}/> : (onBoarding == 1 && !loginState.onBoardingSkipped ? <UserOnboardingHomeScreen screenProps={parsed}/> : <MainTabScreen {...initialLoginState}/> )) : loginState.loginSkipped ?  <GuestMainTabScreen {...initialLoginState}/> : <RootStackScreen {...initialLoginState}/> }
+  //     {userAuthToken != null ? (empOnboarding && !loginState.EOBSkipped? <EOBScreen screenProps={parsed}/> : (onBoarding == 1 && !loginState.onBoardingSkipped ? <UBHomeScreen screenProps={parsed}/> : <MainTabScreen {...initialLoginState}/> )) : loginState.loginSkipped ?  <SkipTabScreen {...initialLoginState}/> : <RootStackScreen {...initialLoginState}/> }
   //   </NavigationContainer>
   //   </AuthContext.Provider>
 

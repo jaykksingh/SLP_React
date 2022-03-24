@@ -146,6 +146,7 @@ const SignInScreen = ({navigation}) => {
         if(response.data.content.dataList.length > 0){
           // setUpdateLoginDetails();
           const loginDetail = JSON.stringify(response.data.content.dataList[0])
+          console.log('API Login: ',loginDetail);
           if(!isMandatory){
             try {
               AsyncStorage.setItem('loginDetails', loginDetail);

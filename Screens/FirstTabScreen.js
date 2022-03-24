@@ -92,6 +92,8 @@ import SpecialityScreen from './Profile/SpecialityScreen';
 import AddExperienceScreen from './Profile/AddWorkExperienceScreen';
 import AddEducationScreen from './Profile/AddEducationScreen';
 import ResumeDocumentScreen from './Profile/ResumeDocumentScreen';
+import LeaveHomeScreen from './Leave/LeaveHomeScreen';
+import LeaveDetailsScreen from './Leave/LeaveDetailsScreen';
 
 
 const DashboardStack  = createStackNavigator();
@@ -419,6 +421,9 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="MatchingJob" component={JobMatchingScreen} />
             <MoreStack.Screen name="Applications" component={MyApplicationScreen} />
             <MoreStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
+            <MoreStack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
+
             {/* 
             <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
             <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
