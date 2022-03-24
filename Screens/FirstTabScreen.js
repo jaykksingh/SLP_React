@@ -21,7 +21,6 @@ import JobSearchResult from './Jobs/JobSearchResult';
 import JobDetailScreen from './Jobs/JobDetailScreen';
 import JobReferScreen from './Jobs/JobReferScreen';
 import JobApplyScreen from './Jobs/JobApplyScreen';
-import CreateMessageScreen from './Messaging/CreateMessageScreen';
 import PreScreeningScreen from './PreScreening/PreScreeningScreen'
 import SimilarJobScreen from './PreScreening/SimilarJobScreen';
 import ChangePasswordScreen from './ChangePassword/ChangePasswordScreen';
@@ -74,7 +73,11 @@ import EmailInviteScreen from './ReferralsAndInvite/EmailInviteScreen';
 import ReferClientScreen from './ReferralsAndInvite/ReferClientScreen';
 import ActivityHomeScreen from './ReferralsAndInvite/ActivityScreens/ActivityHomeScreen';
 import PayPalAccountScreen from './ReferralsAndInvite/PayPalAccountScreen';
-
+import MessageHomeScreen from './Messaging/MessageHomeScreen';
+import ConversassionScreen from './Messaging/ConversassionScreen';
+import ChatScreen from './Messaging/ChatScreen';
+import ChatAttachmentScreen from './Messaging/ChatAttachmentScreen';
+import CreateMessageScreen from './Messaging/CreateMessageScreen';
 
 // import JobSearchResultScreen from '../JobSearch/JobSearchResult';
 // import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
@@ -192,6 +195,14 @@ const DashboardStackScreen = ({navigation})  => {
             <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
             <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
             <DashboardStack.Screen name="Interviews" component={InterviewScreen}/>
+            <DashboardStack.Screen name="Messages" component={MessageHomeScreen}/>
+            <DashboardStack.Screen name="Conversassions" component={ConversassionScreen}/>
+            <DashboardStack.Screen name="ChatScreen1" component={ChatScreen}/>
+            <DashboardStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
+            <DashboardStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+
+            {/* 
+            */}
 
         </DashboardStack.Navigator>
     );
@@ -355,6 +366,14 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="ReferClient" component={ReferClientScreen}/>
             <MoreStack.Screen name="PayPalAccount" component={PayPalAccountScreen}/>
             <MoreStack.Screen name="ActivityHome" component={ActivityHomeScreen}/>
+            <MoreStack.Screen name="MessageHome" component={MessageHomeScreen}/>
+            <MoreStack.Screen name="Conversassions" component={ConversassionScreen}/>
+            <MoreStack.Screen name="ChatScreen" component={ChatScreen}/>
+            <MoreStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
+            <MoreStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+
+            {/* 
+            */}
 
         </MoreStack.Navigator>
     );
