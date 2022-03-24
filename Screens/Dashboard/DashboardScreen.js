@@ -141,17 +141,17 @@ const DashboardScreen = ({navigation}) => {
       if(screenName == "dashboard"){
         navigation.navigate('Dashboard');
       }else if(screenName == "job"){
-        navigation.navigate('Find jobs');
+        navigation.navigate('FindJobs');
         if(subScreenName == "list"){
           navigation.navigate('JobsList',{searchKey:'',location:''});
         }
       }else if (screenName == "nonlogin_job"){
-        navigation.navigate('Find jobs');
+        navigation.navigate('FindJobs');
         if(subScreenName == "list"){
           navigation.navigate('JobsList',{searchKey:'',location:''});
         }
       }else if (screenName == "jobdetail"){
-        navigation.navigate('Find jobs');
+        navigation.navigate('FindJobs');
   
         if(subScreenName == 'apply'){
           getJobDetails(detailsId,'apply');
@@ -173,17 +173,17 @@ const DashboardScreen = ({navigation}) => {
     }else if(screenName == "dashboard"){
       navigation.navigate('Dashboard');
     }else if(screenName == "job"){
-      navigation.navigate('Find jobs');
+      navigation.navigate('FindJobs');
       if(subScreenName == "list"){
         navigation.navigate('JobsList',{searchKey:'',location:''});
       }
     }else if (screenName == "nonlogin_job"){
-      navigation.navigate('Find jobs');
+      navigation.navigate('FindJobs');
       if(subScreenName == "list"){
         navigation.navigate('JobsList',{searchKey:'',location:''});
       }
     }else if (screenName == "jobdetail"){
-      navigation.navigate('Find jobs');
+      navigation.navigate('FindJobs');
 
       if(subScreenName == 'apply'){
         getJobDetails(detailsId,'apply');
@@ -978,7 +978,7 @@ const DashboardScreen = ({navigation}) => {
                     </View>
                     <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.BtnColor, marginTop:8,textAlign:'right', paddingRight:8, paddingBottom:4}}>Yes</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => navigation.navigate('Find jobs')}>
+                  <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => navigation.navigate('FindJobs')}>
                     <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
                       <Icon name="ios-briefcase" color={ThemeColor.TextColor} size={25} />
                     </View>

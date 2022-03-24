@@ -21,28 +21,24 @@ import Loader from '../../Components/Loader';
 import { BaseUrl, EndPoints, StaticMessage,ThemeColor, FontName } from '../../_helpers/constants';
 
 
-const DesiredEmploymentScreen = ({route,navigation}) => {  
+
+const FuntionalAreaScreen = ({route,navigation}) => {  
   const [isLoading, setIsLoading] = React.useState(false);
   const { profileDetail } = route.params;
   const { lookupData } = route.params;
-  const [lookupDataList, setLookupData] = useState({});
 
   const [data,setData] = React.useState({
-    desiredEmployement :[],
-	  desiredEmployementKey:[],
+    departmentName :'',
+	departmentId:''
   });
   React.useLayoutEffect(() => {
-		navigation.setOptions({
-            title: 'Desired employment',
-		});
+    navigation.setOptions({
+          title:'Select option',
+    });
   }, [navigation]);
   
   useEffect(() => {
-	  console.log(profileDetail.empDetails);
-    if(!lookupData){
-      getUserLookups();
-    }
-    setData({...data,desiredEmployement:profileDetail.empDetails.desiredEmployement,desiredEmployementKey:profileDetail.empDetails.desiredEmployementKey});
+    setData({...data,departmentName:profileDetail.empDetails.departmentName,departmentId:profileDetail.empDetails.departmentId});
     const parent = navigation.dangerouslyGetParent();
     parent.setOptions({
       tabBarVisible: false
@@ -52,41 +48,7 @@ const DesiredEmploymentScreen = ({route,navigation}) => {
         tabBarVisible: true
       });
   }, []);
-  const  getUserLookups = async() => {
-    let user = await AsyncStorage.getItem('loginDetails');  
-    let parsed = JSON.parse(user);  
-    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-    var authToken = base64.encode(userAuthToken);
 
-    setIsLoading(true);
-    axios ({  
-      "method": "GET",
-      "url": BaseUrl + EndPoints.UserLookups,
-      "headers": getAuthHeader(authToken)
-    })
-    .then((response) => {
-      if (response.data.code == 200){
-        setIsLoading(false);
-        setLookupData(response.data.content.dataList[0]);
-      }else if (response.data.code == 417){
-        setIsLoading(false);
-        console.log(Object.values(response.data.content.messageList));
-        const errorList = Object.values(response.data.content.messageList);
-        Alert.alert(StaticMessage.AppName, errorList.join(), [
-          {text: 'Ok'}
-        ]);
-
-      }else{
-        setIsLoading(false);
-      }
-    })
-    .catch((error) => {
-        setIsLoading(false);
-        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-          {text: 'Ok'}
-        ]);
-    })
-  }
   const  updateProfileDetails = async() => {
     let user = await AsyncStorage.getItem('loginDetails');  
     let parsed = JSON.parse(user);  
@@ -95,7 +57,7 @@ const DesiredEmploymentScreen = ({route,navigation}) => {
 
     setIsLoading(true);
     const params = {
-      "desiredEmployementKey":data.desiredEmployementKey,
+      "DomainDepartment":data.departmentId,
     }
     axios ({  
       "method": "PUT",
@@ -129,34 +91,18 @@ const DesiredEmploymentScreen = ({route,navigation}) => {
     })
   }
   
-  const didEmploymentSelected = (selectedItem) => {
-	let selectedKeyArray = data.desiredEmployementKey;
-	var isInArray = selectedKeyArray.indexOf(selectedItem.desiredEmployementKey) !== -1;
-	if(isInArray){
-		const index = selectedKeyArray.indexOf(selectedItem.desiredEmployementKey);
-		if (index > -1) {
-			selectedKeyArray.splice(index, 1);
-		}
-	}else{
-		selectedKeyArray.push(selectedItem.desiredEmployementKey);
-	}
-	setData({...data, desiredEmployementKey:selectedKeyArray});
-
-  }
-
-  const jobTypeArray = lookupData ? lookupData.desiredEmployement : lookupDataList ? lookupDataList.desiredEmployement : [];
-  console.log(data.desiredEmployementKey);
+  const deparmentArray = lookupData ? lookupData.departmentList : [];
   return (
     <SafeAreaProvider style={styles.container}>
-		<Text style={{fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor, marginLeft:16, marginBottom:8, marginTop:16}}>Desired type of employment</Text>
+      	
 		<FlatList style={{}}
-			data={jobTypeArray}
+			data={deparmentArray}
 			keyExtractor={(item, index) => index.toString()}
 			renderItem={({item}) => 
-				<View style={{ paddingLeft:16, backgroundColor:'#fff'}}>
-					<TouchableOpacity style={{ height:40,flexDirection:'row', alignItems:'center', paddingRight:16}} onPress={() => {didEmploymentSelected(item)}}>
-						<Text style={{fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor, flex:1}}>{item.desiredEmployement}</Text>
-						{(data.desiredEmployementKey.indexOf(item.desiredEmployementKey) !== -1) && <Feather name="check" color={ThemeColor.BtnColor} size={20,20} /> }
+				<View style={{ paddingLeft:16}}>
+					<TouchableOpacity style={{ height:40,flexDirection:'row', alignItems:'center', paddingRight:16}} onPress={() => setData({...data,departmentName:item.Text, departmentId:item.Value})}>
+						<Text style={{fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, flex:1}}>{item.Text}</Text>
+						{data.departmentName == item.Text && <Feather name="check" color={ThemeColor.BtnColor} size={20,20} /> }
 					</TouchableOpacity>
 					<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>
 				</View>
@@ -172,12 +118,12 @@ const DesiredEmploymentScreen = ({route,navigation}) => {
 );
 }
 
-export default DesiredEmploymentScreen;
+export default FuntionalAreaScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:ThemeColor.ViewBgColor,
+    backgroundColor:'white',
   },inputText:{
     flex: 1,
     height:40,

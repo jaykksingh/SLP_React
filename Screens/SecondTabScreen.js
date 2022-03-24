@@ -16,6 +16,10 @@ import JobSearchScreen from './Jobs/JobSearchScreen';
 import MyApplicationScreen from './MyApplications/MyApplicationScreen';
 import MoreScreen from './More/MoreScreen';
 import MyProfileScreen from './Profile/MyProfileScreen';
+import ProfileDetailScreen from './Profile/ProfileDetailScreen';
+import DomainScreen from './Profile/DomainScreen';
+import FuntionalAreaScreen from './Profile/FuntionalAreaScreen';
+import DesiredSalaryScreen from './Profile/DesiredSalaryScreen';
 import JobsHomeScreen from './Jobs/JobsHomeScreen';
 import JobSearchResult from './Jobs/JobSearchResult';
 import JobDetailScreen from './Jobs/JobDetailScreen';
@@ -62,10 +66,10 @@ import TumesheetsScreen from './TimesheetPayroll/Timesheets/TumesheetsScreen';
 import ViewTimesheetScreen from './TimesheetPayroll/Timesheets/ViewTimesheetScreen';
 import TimesheetWorkflowScreen from './TimesheetPayroll/Timesheets/TimesheetWorkflowScreen';
 import EditTimesheetScreen from './TimesheetPayroll/Timesheets/EditTimesheetScreen';
-import CheckInOutTimesheetScreen from './TimesheetPayroll/Timesheets/CheckInOutTimesheetScreen';
-import CheckInOutScreen from './TimesheetPayroll/Timesheets/CheckInOutScreen';
 import SelectProjectScreen from './TimesheetPayroll/Timesheets/SelectProjectScreen';
 import TimesheetFrequencyScreen from './TimesheetPayroll/Timesheets/TimesheetFrequencyScreen';
+import CheckInOutTimesheetScreen from './TimesheetPayroll/Timesheets/CheckInOutTimesheetScreen';
+import CheckInOutScreen from './TimesheetPayroll/Timesheets/CheckInOutScreen';
 import InterviewScreen from './InterviewScreen/InterviewScreen';
 import ReferralsAndInviteScreen from './ReferralsAndInvite/ReferralsAndInviteScreen';
 import ReferFriendScreen  from './ReferralsAndInvite/ReferFriendScreen';
@@ -80,15 +84,20 @@ import ConversassionScreen from './Messaging/ConversassionScreen';
 import ChatScreen from './Messaging/ChatScreen';
 import ChatAttachmentScreen from './Messaging/ChatAttachmentScreen';
 import CreateMessageScreen from './Messaging/CreateMessageScreen';
+import AddSkillScreen from './Profile/AddSkillScreen';
+import ProjectEndingScreen from './Dashboard/ProjectEndingScreen';
+import EditProfileScreen from './Profile/EditProfileScreen';
+import DesiredEmploymentScreen from './Profile/DesiredEmploymentScreen';
+import SpecialityScreen from './Profile/SpecialityScreen';
+import AddExperienceScreen from './Profile/AddWorkExperienceScreen';
+import AddEducationScreen from './Profile/AddEducationScreen';
+import ResumeDocumentScreen from './Profile/ResumeDocumentScreen';
 
 
 const DashboardStack  = createStackNavigator();
 const TimesheetStack  = createStackNavigator();
 const MessageStack  = createStackNavigator();
 const ReferInviteStack  = createStackNavigator();
-const JobMatchingStack  = createStackNavigator();
-const JobSearchStack  = createStackNavigator();
-const MyApplicationStack  = createStackNavigator();
 const MoreStack  = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -188,16 +197,33 @@ const DashboardStackScreen = ({navigation})  => {
             <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
             <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
             <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
             <DashboardStack.Screen name="Interviews" component={InterviewScreen}/>
             <DashboardStack.Screen name="Messages" component={MessageHomeScreen}/>
             <DashboardStack.Screen name="Conversassions" component={ConversassionScreen}/>
             <DashboardStack.Screen name="ChatScreen1" component={ChatScreen}/>
             <DashboardStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
             <DashboardStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
-
-            {/* 
-            */}
+            <DashboardStack.Screen name="Skill" component={AddSkillScreen} />
+            <DashboardStack.Screen name="ProjectEndDate" component={ProjectEndingScreen} />
+            <DashboardStack.Screen name="More" component={MoreScreen} options={{}}/>
+            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
+            <DashboardStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
+            <DashboardStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
+            <DashboardStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
+            <DashboardStack.Screen name="JobsList" component={JobSearchResult}  options={{
+                headerRight: () => (
+                    <TouchableOpacity style={{marginRight:16}}>
+                        <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
+                    </TouchableOpacity>
+                    ),
+            }}/>
+            <DashboardStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
+            <DashboardStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
+            <DashboardStack.Screen name="Job apply"  component={JobApplyScreen} />
+            <DashboardStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <DashboardStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <DashboardStack.Screen name="ReferClient" component={ReferClientScreen}/>
+            <DashboardStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
 
         </DashboardStack.Navigator>
     );
@@ -292,7 +318,7 @@ const MoreStackScreen = ({navigation})  => {
             },
             headerBackTitleVisible: false
             }}>
-            <MoreStack.Screen name="More" component={MoreScreen} options={{ }} />            
+<MoreStack.Screen name="More" component={MoreScreen} options={{ }} />            
             <MoreStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
             <MoreStack.Screen name="Jobs" component={JobsHomeScreen} options={{}} />
             <MoreStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
@@ -306,7 +332,6 @@ const MoreStackScreen = ({navigation})  => {
             <MoreStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
             <MoreStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
             <MoreStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
-            {/* <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/> */}
             <MoreStack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
             <MoreStack.Screen name="AlertSetting" component={AlertSettingScreen}/>
             <MoreStack.Screen name="PrivacyAndTerms" component={PrivacyAndTermsScreen} />
@@ -348,6 +373,8 @@ const MoreStackScreen = ({navigation})  => {
             <MoreStack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
             <MoreStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
             <MoreStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
+            <MoreStack.Screen name="SelectProject" component={SelectProjectScreen} options={{}}/>
+            <MoreStack.Screen name="TimesheetFrequency" component={TimesheetFrequencyScreen}/>
             <MoreStack.Screen name="InterviewScreen" component={InterviewScreen}/>
             <MoreStack.Screen name="ReferralsAndInvite" component={ReferralsAndInviteScreen}/>
             <MoreStack.Screen name="ReferFriend" component={ReferFriendScreen}/>
@@ -362,102 +389,22 @@ const MoreStackScreen = ({navigation})  => {
             <MoreStack.Screen name="ChatScreen" component={ChatScreen}/>
             <MoreStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
             <MoreStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+            <MoreStack.Screen name="Modify profile" component={ProfileDetailScreen} />
+            <MoreStack.Screen name="Edit profile" component={EditProfileScreen} />  
+            <MoreStack.Screen name="Domain" component={DomainScreen} />
+            <MoreStack.Screen name="Funtional area" component={FuntionalAreaScreen} />
+            <MoreStack.Screen name="Desired employeement" component={DesiredEmploymentScreen} />
+            <MoreStack.Screen name="Desired salary" component={DesiredSalaryScreen} />
+            <MoreStack.Screen name="Skill" component={AddSkillScreen} />
+            <MoreStack.Screen name="Experience" component={AddExperienceScreen} />
+            <MoreStack.Screen name="AddEducation" component={AddEducationScreen} />
+            <MoreStack.Screen name="AddDocument" component={ResumeDocumentScreen} />
+            <MoreStack.Screen name="Speciality" component={SpecialityScreen} options={{}}/>
+            <MoreStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <MoreStack.Screen name="MatchingJob" component={JobMatchingScreen} />
+            <MoreStack.Screen name="Applications" component={MyApplicationScreen} />
+            <MoreStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>        
         </MoreStack.Navigator>
-    );
-};
-
- 
-
-const GuestDashboard = ({navigation})  => {
-	const { signOut } = React.useContext(AuthContext);
-    return (
-      <View style={styles.container}>
-        <Image
-            key={'blurryImage'}
-            resizeMode='stretch'
-            source={require('../assets/Images/BlurDashboard.png')}
-            style={styles.absolute}
-        />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
-        <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
-        <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
-            <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
-        </TouchableOpacity>
-      </View>
-    );
-};
-const GuestMatchingJob = ({navigation})  => {
-	const { signOut } = React.useContext(AuthContext);
-    return (
-      <View style={styles.container}>
-        <Image
-            key={'blurryImage'}
-            resizeMode='stretch'
-            source={require('../assets/Images/BlurMatching.png')}
-            style={styles.absolute}
-        />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
-        <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
-        <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
-            <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
-        </TouchableOpacity>
-      </View>
-    );
-};
-const GuestMyApplication = ({navigation})  => {
-	const { signOut } = React.useContext(AuthContext);
-    return (
-      <View style={styles.container}>
-        <Image
-            key={'blurryImage'}
-            resizeMode='stretch'
-            source={require('../assets/Images/BlurApplication.png')}
-            style={styles.absolute}
-        />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
-        <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
-        <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
-            <Text style={{color:ThemeColor.BtnColor, fontSize:16 }}>CONTINUE</Text>
-        </TouchableOpacity>
-      </View>
-    );
-};
-const GuestMore = ({navigation})  => {
-	const { signOut } = React.useContext(AuthContext);
-    return (
-      <View style={styles.container}>
-        <Image
-            key={'blurryImage'}
-            resizeMode='stretch'
-            source={require('../assets/Images/BlurMore.png')}
-            style={styles.absolute}
-        />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
-        <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
-        <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
-            <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
-        </TouchableOpacity>
-      </View>
     );
 };
 

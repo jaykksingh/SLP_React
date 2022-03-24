@@ -16,6 +16,10 @@ import JobSearchScreen from './Jobs/JobSearchScreen';
 import MyApplicationScreen from './MyApplications/MyApplicationScreen';
 import MoreScreen from './More/MoreScreen';
 import MyProfileScreen from './Profile/MyProfileScreen';
+import ProfileDetailScreen from './Profile/ProfileDetailScreen';
+import DomainScreen from './Profile/DomainScreen';
+import FuntionalAreaScreen from './Profile/FuntionalAreaScreen';
+import DesiredSalaryScreen from './Profile/DesiredSalaryScreen';
 import JobsHomeScreen from './Jobs/JobsHomeScreen';
 import JobSearchResult from './Jobs/JobSearchResult';
 import JobDetailScreen from './Jobs/JobDetailScreen';
@@ -80,15 +84,14 @@ import ConversassionScreen from './Messaging/ConversassionScreen';
 import ChatScreen from './Messaging/ChatScreen';
 import ChatAttachmentScreen from './Messaging/ChatAttachmentScreen';
 import CreateMessageScreen from './Messaging/CreateMessageScreen';
-
-// import JobSearchResultScreen from '../JobSearch/JobSearchResult';
-// import SavedFileterScreen from '../JobSearch/SavedFileterScreen';
-// import JobDetailScreen from '../JobSearch/JobDetailScreen';
-// import JobApplyScreen from '../JobSearch/JobApplyScreen';
-// import JobReferScreen from '../JobSearch/JobReferScreen';
-// import ChatScreen from '../Messages/ChatScreen';
-// import CreateMessageScreen from '../Messages/CreateMessageScreen';
-// import PreScreeningScreen from '../PreScreenings/PreScreeningScreen';
+import AddSkillScreen from './Profile/AddSkillScreen';
+import ProjectEndingScreen from './Dashboard/ProjectEndingScreen';
+import EditProfileScreen from './Profile/EditProfileScreen';
+import DesiredEmploymentScreen from './Profile/DesiredEmploymentScreen';
+import SpecialityScreen from './Profile/SpecialityScreen';
+import AddExperienceScreen from './Profile/AddWorkExperienceScreen';
+import AddEducationScreen from './Profile/AddEducationScreen';
+import ResumeDocumentScreen from './Profile/ResumeDocumentScreen';
 
 
 const DashboardStack  = createStackNavigator();
@@ -190,21 +193,40 @@ const DashboardStackScreen = ({navigation})  => {
             },
            
             headerBackTitleVisible: false
-            }}>
+        }}>
             <DashboardStack.Screen name="Dashboard" component={DashboardScreen} options={{}} />
             <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
             <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
             <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
             <DashboardStack.Screen name="Interviews" component={InterviewScreen}/>
             <DashboardStack.Screen name="Messages" component={MessageHomeScreen}/>
             <DashboardStack.Screen name="Conversassions" component={ConversassionScreen}/>
             <DashboardStack.Screen name="ChatScreen1" component={ChatScreen}/>
             <DashboardStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
             <DashboardStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+            <DashboardStack.Screen name="Skill" component={AddSkillScreen} />
+            <DashboardStack.Screen name="ProjectEndDate" component={ProjectEndingScreen} />
+            <DashboardStack.Screen name="More" component={MoreScreen} options={{}}/>
+            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
+            <DashboardStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
+            <DashboardStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
+            <DashboardStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
+            <DashboardStack.Screen name="JobsList" component={JobSearchResult}  options={{
+                headerRight: () => (
+                    <TouchableOpacity style={{marginRight:16}}>
+                        <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
+                    </TouchableOpacity>
+                    ),
+            }}/>
+            <DashboardStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
+            <DashboardStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
+            <DashboardStack.Screen name="Job apply"  component={JobApplyScreen} />
+            <DashboardStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <DashboardStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <DashboardStack.Screen name="ReferClient" component={ReferClientScreen}/>
+            <DashboardStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
 
-            {/* 
-            */}
+            
 
         </DashboardStack.Navigator>
     );
@@ -224,6 +246,16 @@ const DashboardStackScreen = ({navigation})  => {
             <JobMatchingStack.Screen name="Job Matches" component={JobMatchingScreen} options={{ }} />
             <JobMatchingStack.Screen name="ChatBot" component={ChatBotScreen} />
             <JobMatchingStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <JobMatchingStack.Screen name="ChatScreen" component={ChatScreen}/>
+            <JobMatchingStack.Screen name="Skill" component={AddSkillScreen} />
+            <JobMatchingStack.Screen name="Edit profile" component={EditProfileScreen} />  
+            <JobMatchingStack.Screen name="Speciality" component={SpecialityScreen} options={{}}/>
+            <JobMatchingStack.Screen name="Desired employeement" component={DesiredEmploymentScreen} />
+            <JobMatchingStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
+            <JobMatchingStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <JobMatchingStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <JobMatchingStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
+
         </JobMatchingStack.Navigator>
     );
  };
@@ -252,16 +284,12 @@ const DashboardStackScreen = ({navigation})  => {
             <JobSearchStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
             <JobSearchStack.Screen name="Job apply"  component={JobApplyScreen} />
             <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/> 
+            <JobSearchStack.Screen name="ChatScreen" component={ChatScreen}/>
             <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <JobSearchStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
             <JobSearchStack.Screen name="ChatBot" component={ChatBotScreen} />
             <JobSearchStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-
-            {/* 
-            
-            <JobSearchStack.Screen name="Filter" component={SavedFileterScreen} options={{}}/>
-            <JobSearchStack.Screen name="ChatScreen" component={ChatScreen}/>
-            */}
+            <JobSearchStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
 
         </JobSearchStack.Navigator>
     );
@@ -287,6 +315,8 @@ const DashboardStackScreen = ({navigation})  => {
             <MyApplicationStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
             <MyApplicationStack.Screen name="ChatBot" component={ChatBotScreen} />
             <MyApplicationStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <MyApplicationStack.Screen name="ChatScreen" component={ChatScreen}/>
+            <MyApplicationStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
 
         </MyApplicationStack.Navigator>
     );
@@ -317,7 +347,6 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
             <MoreStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
             <MoreStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
-            {/* <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/> */}
             <MoreStack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
             <MoreStack.Screen name="AlertSetting" component={AlertSettingScreen}/>
             <MoreStack.Screen name="PrivacyAndTerms" component={PrivacyAndTermsScreen} />
@@ -375,6 +404,34 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="ChatScreen" component={ChatScreen}/>
             <MoreStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
             <MoreStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+            <MoreStack.Screen name="Modify profile" component={ProfileDetailScreen} />
+            <MoreStack.Screen name="Edit profile" component={EditProfileScreen} />  
+            <MoreStack.Screen name="Domain" component={DomainScreen} />
+            <MoreStack.Screen name="Funtional area" component={FuntionalAreaScreen} />
+            <MoreStack.Screen name="Desired employeement" component={DesiredEmploymentScreen} />
+            <MoreStack.Screen name="Desired salary" component={DesiredSalaryScreen} />
+            <MoreStack.Screen name="Skill" component={AddSkillScreen} />
+            <MoreStack.Screen name="Experience" component={AddExperienceScreen} />
+            <MoreStack.Screen name="AddEducation" component={AddEducationScreen} />
+            <MoreStack.Screen name="AddDocument" component={ResumeDocumentScreen} />
+            <MoreStack.Screen name="Speciality" component={SpecialityScreen} options={{}}/>
+            <MoreStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <MoreStack.Screen name="MatchingJob" component={JobMatchingScreen} />
+            <MoreStack.Screen name="Applications" component={MyApplicationScreen} />
+            <MoreStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            {/* 
+            <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
+            <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
+            <MoreStack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
+            <MoreStack.Screen name="AttendanceDetails" component={AttendanceDetailsScreen}/>
+            <MoreStack.Screen name="RegularizationDetail" component={RegularizationDetailScreen}/>
+            <MoreStack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
+            <MoreStack.Screen name="AddLeave" component={AddLeaveScreen}/>
+            <MoreStack.Screen name="AttendancePending" component={AttendancePendingScreen}/>
+            <MoreStack.Screen name="LeaveApproval" component={LeaveApprovalPending}/> 
+            */}
+
+
 
             {/* 
             */}
