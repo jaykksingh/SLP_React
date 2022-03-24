@@ -19,6 +19,7 @@ import './_helpers/global';
 
 import RootStackScreen from './Screens/LoginSignup/RootStackScreen';
 import FirstTabScreen from './Screens/FirstTabScreen';
+import SecondTabScreen from './Screens/SecondTabScreen';
 import SkipTabScreen from './Screens/SkipTabScreen';
 import UBHomeScreen from './Screens/UserOnboarding/UBHomeScreen';
 import EOBScreen from './Screens/EmployeeOnboarding/EOBScreen';
@@ -420,7 +421,7 @@ const App = () => {
     return(
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
-          <SkipTabScreen screenProps={parsed}/>
+          <SecondTabScreen screenProps={parsed}/>
         </NavigationContainer>
       </AuthContext.Provider>
     );

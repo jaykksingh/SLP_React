@@ -19,6 +19,7 @@ import JobApplyScreen from './Jobs/JobApplyScreen';
 import CreateMessageScreen from './Messaging/CreateMessageScreen';
 import PreScreeningScreen from './PreScreening/PreScreeningScreen'
 import SimilarJobScreen from './PreScreening/SimilarJobScreen';
+import ChatScreen from './Messaging/ChatScreen';
 
 const DashboardStack  = createStackNavigator();
 const JobMatchingStack  = createStackNavigator();
@@ -156,20 +157,21 @@ const DashboardStackScreen = ({navigation})  => {
 
             <JobSearchStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
             <JobSearchStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <JobSearchStack.Screen name="JobsList" component={JobSearchResultScreen}  options={{
+            <JobSearchStack.Screen name="JobsList" component={JobSearchResult}  options={{
                 headerRight: () => (
                     <TouchableOpacity style={{marginRight:16}}>
                         <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
                     </TouchableOpacity>
                     ),
             }}/>
-            <JobSearchStack.Screen name="Filter" component={SavedFileterScreen} options={{}}/>
+            {/* <JobSearchStack.Screen name="Filter" component={SavedFileterScreen} options={{}}/> */}
             <JobSearchStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
             <JobSearchStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
             <JobSearchStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
             <JobSearchStack.Screen name="ChatScreen" component={ChatScreen}/>
             <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
+            <JobSearchStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
 
         </JobSearchStack.Navigator>
     );

@@ -4,7 +4,7 @@ import { StyleSheet,
     TouchableOpacity,
     View,
     FlatList} from "react-native";
-import Loader from '../../../components/Loader';
+import Loader from '../../../Components/Loader';
 import { ThemeColor, FontName } from '../../../_helpers/constants';
 import Feather from 'react-native-vector-icons/Feather';
 
