@@ -95,6 +95,8 @@ import ResumeDocumentScreen from './Profile/ResumeDocumentScreen';
 import LeaveHomeScreen from './Leave/LeaveHomeScreen';
 import LeaveDetailsScreen from './Leave/LeaveDetailsScreen';
 import AddLeaveScreen from './Leave/AddLeaveScreen'
+import AttendanceHomeScreen from './Attendance/AttendanceHomeScreen';
+import AddRegularizationScreen from './Attendance/AddRegularizationScreen';
 
 
 const DashboardStack  = createStackNavigator();
@@ -425,6 +427,8 @@ const DashboardStackScreen = ({navigation})  => {
             <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
             <MoreStack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
             <MoreStack.Screen name="AddLeave" component={AddLeaveScreen}/>
+            <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
+            <MoreStack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
 
             {/* 
             <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
