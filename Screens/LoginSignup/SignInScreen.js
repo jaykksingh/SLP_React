@@ -15,7 +15,7 @@ import { StatusBar,
       SafeAreaView,
       Platform
   } from "react-native";
-// import Video from 'react-native-video';
+import Video from 'react-native-video';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../Components/context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -273,6 +273,12 @@ const SignInScreen = ({navigation}) => {
   const handleVideoClose = () => {
     setAlreadyLaunched('1');
   }
+  const onBuffer = () => {
+
+  }
+  const videoError = () => {
+
+  }
 
   return (
     <ImageBackground
@@ -281,6 +287,17 @@ const SignInScreen = ({navigation}) => {
         source={require('../../assets/Images/LoginBG.png')}>
         {alreadyLaunched == '0' ?
           <View style={styles.videoView}>
+            <Video source={require('../../assets/Video/stafflineProIntro.mp4')}   // Can be a URL or a local file.
+              fullscreen={true}
+              controls={true}
+              fullscreenAutorotate={true} 
+              fullscreen={true}  
+              resizeMode="contain" 
+              repeat={true}
+              onBuffer={onBuffer()}                // Callback when remote video is buffering
+              onError={videoError()}               // Callback when video cannot be loaded
+              style={styles.videoContainer} >
+            </Video>
             
             <TouchableOpacity style={{position:'absolute',top:32,right:8, height:40, width:40, justifyContent:'center', alignItems:'center'}} onPress ={() => {handleVideoClose()}} >
               <Icon name="close-circle-outline" color={ThemeColor.BtnColor} size={25} />
