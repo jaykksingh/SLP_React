@@ -98,7 +98,7 @@ const TumesheetsScreen = ({route, navigation})  => {
   const handleDocActionsheet = (index) => {
     if(index == 1){
       navigation.navigate("TsWorkFlow")
-    }else{
+    }else if(index == 0){
       let message = "At this moment, there are no timecards pending for submission";
       if(isPendingTimesheetAvailable(timesheetsList)){
         navigation.navigate('SelectProject',{timesheetsArray:timesheetsList,onClickEvent:selectedProjectEvent});

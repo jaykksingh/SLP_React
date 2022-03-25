@@ -6,7 +6,6 @@ import { StatusBar,
     StyleSheet,
     TouchableOpacity,
     Image,
-    ActionSheetIOS,
     SectionList,
     SafeAreaView,
     FlatList,
@@ -22,7 +21,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 // import OpenFile from 'react-native-doc-viewer';
 import { BaseUrl, EndPoints, StaticMessage,ThemeColor, FontName } from '../../_helpers/constants';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -215,21 +214,36 @@ const MyProfileScreen = ({route,navigation}) => {
 
     })
   }
-  const showProfileImagePicker = () => ActionSheetIOS.showActionSheetWithOptions(
-    {
-        options: ["Cancel", "Choose from gallery", "Take picture"],
-        cancelButtonIndex: 0,
-        userInterfaceStyle: 'light',  
-      },
-      buttonIndex => {
-        if (buttonIndex === 0) {
-        } else if (buttonIndex === 1) {
-          imageGalleryLaunch();
-        } else if (buttonIndex === 2) {
-          cameraLaunch();
-        }
-      }
-  );   
+  // const showProfileImagePicker = () => ActionSheetIOS.showActionSheetWithOptions(
+  //   {
+  //       options: ["Cancel", "Choose from gallery", "Take picture"],
+  //       cancelButtonIndex: 0,
+  //       userInterfaceStyle: 'light',  
+  //     },
+  //     buttonIndex => {
+  //       if (buttonIndex === 0) {
+  //       } else if (buttonIndex === 1) {
+  //         imageGalleryLaunch();
+  //       } else if (buttonIndex === 2) {
+  //         cameraLaunch();
+  //       }
+  //     }
+  // );
+  
+  const showProfileImagePicker = () => {
+    Alert.alert('Choose option','',
+        [
+		    {
+            text: 'Choose from gallery',
+            onPress: () => imageGalleryLaunch()
+        },{
+          text: 'Take picture',
+          onPress: () => cameraLaunch()
+        },{
+          text: 'Cancel',
+        }]
+      )
+  }
     
     const imageGalleryLaunch = () => {
   
@@ -255,9 +269,8 @@ const MyProfileScreen = ({route,navigation}) => {
         } else {
           console.log('response', JSON.stringify(res));
           setPickedImage(res.assets[0].uri);
-        //   var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-        //   // setBase64Data(base64data);
-        //   updateProfilePicture(base64data);
+          var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
+          updateProfilePicture(base64data);
   
         }
       });
@@ -286,7 +299,6 @@ const MyProfileScreen = ({route,navigation}) => {
           console.log('response', JSON.stringify(res));
           setPickedImage(res.assets[0].uri);
           var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-          setBase64Data(base64data);
           updateProfilePicture(base64data);
         }
       });
@@ -808,7 +820,7 @@ const MyProfileScreen = ({route,navigation}) => {
                 <View style={{backgroundColor:'white', height:280, borderRadius:5,borderWidth:1, borderColor:ThemeColor.BorderColor, marginTop:64, alignItems: 'center', margin:16, marginBottom:0}}>
                   <TouchableOpacity style={styles.imageContainer} onPress={showProfileImagePicker}>
                       <View style={{width:100, height:100, backgroundColor:'white',borderRadius:50, borderWidth:1, borderColor:ThemeColor.SubTextColor,alignItems: 'center', justifyContent: 'center'}}> 
-                        {pickedImage ? <Image resizeMode='cover' source={{ uri: pickedImage }} style={{height:100, width:100}} /> :
+                        {pickedImage ? <Image resizeMode='cover' source={{ uri: pickedImage }} style={{height:100, width:100,borderRadius:50}} /> :
                         profileImageUrl.length == 0 ?
                           <FontAwesome name="user-alt" color={ThemeColor.SubTextColor} size={40} /> :
                           <Image resizeMode='cover' style={{height:100, width:100,borderRadius:50}} source={{uri: profileImageUrl}} defaultSource={require('../../assets/Images/icon_profile.png')}/>
