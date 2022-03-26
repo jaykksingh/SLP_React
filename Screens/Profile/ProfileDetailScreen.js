@@ -18,7 +18,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
 import * as Animatable from 'react-native-animatable';
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'

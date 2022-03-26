@@ -9,7 +9,9 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
+
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -91,36 +93,22 @@ const PayrollInformationScreen = ({route,navigation}) => {
 		})
 	}
 	const viewResume = (resume) => {
-		console.log('resume:', resume.docUrl);
 		var newURI = resume.docUrl.split("%20").join("\ ");
-
-		// if(Platform.OS === 'ios'){
-		// 	//IOS
-		//   OpenFile.openDoc([{
-		// 	  url:newURI,
-		// 	  fileNameOptional:"Payroll information"
-		//   }], (error, url) => {
-		// 	if (error) {
-		// 	  console.error(error);
-		// 	} else {
-		// 	  console.log('Filte URL:',url)
-		// 	}
-		//   })
-		// }else{
-		// 	//Android
-		//   OpenFile.openDoc([{
-		// 	  url:newURI, // Local "file://" + filepath
-		// 	  fileName:"Payroll information",
-		// 	  cache:false,
-		// 	  fileType:"jpg"
-		//   }], (error, url) => {
-		// 	  if (error) {
-		// 	  console.error(error);
-		// 	  } else {
-		// 	  console.log(url)
-		// 	  }
-		//   })
-		// }
+		let url =  newURI;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
 	  }
 	
 	var urlToLoad = payrollInfo.docUrl.split("%20").join("\ ");

@@ -10,7 +10,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 import moment from 'moment';
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -82,34 +83,22 @@ const HolidayScheduleScreen = ({navigation})  => {
 		})
 	}
 	const viewFile = (fileObject) => {
-        console.log('File Path:', fileObject.documentExpenseFileLocation);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc,
-        //         fileNameOptional:fileObject.benefitName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc, // Local "file://" + filepath
-        //         fileName:fileObject.benefitName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
+		let url =  fileObject.formDoc;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
+        
     }
 	const getFormatedDate=(item) =>{
 		let momentStartDate = moment(item.holidayDate, 'YYYY-MM-DD');

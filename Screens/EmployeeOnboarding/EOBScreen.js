@@ -12,8 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
-// import OpenFile from 'react-native-doc-viewer';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import RNExitApp from 'react-native-exit-app';
 import { openComposer } from "react-native-email-link";
@@ -250,8 +249,8 @@ const OnboardingScreen = ({navigation})  => {
             console.log(res.uri,res.type, res.name,res.size);
             setData({...data,resumeTitle:res.name});
             var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            // updateProfileDetails(base64data);
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
+            updateProfileDetails(base64data);
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
@@ -260,37 +259,6 @@ const OnboardingScreen = ({navigation})  => {
             }
         }
     }
-    const viewResume = (resume) => {
-        console.log('resume:', resume.filePath);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath,
-        //         fileNameOptional:resume.fileName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     // Android
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath, // Local "file://" + filepath
-        //         fileName:resume.fileName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
-    }
-
     const handleContinue = () => {
         const empDetails = profileData.empDetails;
         const eobDetails = empDetails.employeeOnboarding;

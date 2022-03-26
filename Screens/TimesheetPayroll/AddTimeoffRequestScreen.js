@@ -26,7 +26,7 @@ import DatePicker from 'react-native-date-picker'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import * as ImagePicker from 'react-native-image-picker';
 
 import DocumentPicker from 'react-native-document-picker';
@@ -275,8 +275,7 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
             console.log(res.uri,res.type, res.name,res.size);
 			var result = res.uri.split("%20").join("\ ");
 
-            // var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-            var base64data = "";
+            var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
 			setData({...data,resumeData:base64data,fileName:res.name});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {

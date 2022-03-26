@@ -14,8 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import DocumentPicker from 'react-native-document-picker';
-// import RNFS from 'react-native-fs';
-// import OpenFile from 'react-native-doc-viewer';
+import RNFS from 'react-native-fs';
+import FileViewer from "react-native-file-viewer";
+
 
 import { AuthContext } from '../../Components/context';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -249,8 +250,8 @@ const OnboardingScreen = ({navigation})  => {
             console.log(res.uri,res.type, res.name,res.size);
             setData({...data,resumeTitle:res.name});
             var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            // updateProfileDetails(base64data,res.name);
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
+            updateProfileDetails(base64data,res.name);
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
@@ -261,33 +262,22 @@ const OnboardingScreen = ({navigation})  => {
     }
     const viewResume = (resume) => {
         console.log('resume:', resume.filePath);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath,
-        //         fileNameOptional:resume.fileName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     // Android
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath, // Local "file://" + filepath
-        //         fileName:resume.fileName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
+        let url =  resume.filePath;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
+        
     }
 
     

@@ -17,7 +17,7 @@ import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 import * as ImagePicker from 'react-native-image-picker';
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
@@ -210,8 +210,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
             });
             console.log(res.uri,res.type, res.name,res.size);
 			var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-			var base64data = "";
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
             setData({...data,fileData:base64data,fileName:res.name});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
@@ -244,8 +243,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 		  } else {
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data   = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
             let params = {
 				'base64File':base64data,
 				'fileName':'temp.jpg',
@@ -281,8 +279,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 			const source = { uri: res.uri };
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data  = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
             setBase64Data(base64data);
 			let params = {
 				'base64File':base64data,

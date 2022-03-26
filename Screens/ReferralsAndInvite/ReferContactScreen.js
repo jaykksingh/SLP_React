@@ -16,7 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MovableView from 'react-native-movable-view';
@@ -159,8 +159,7 @@ const ReferContactScreen = ({route,navigation}) => {
             });
             console.log(res.uri,res.type, res.name,res.size);
 			var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            var base64data = "";
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
 			setData({...data,resumeData:base64data,fileName:res.name});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {

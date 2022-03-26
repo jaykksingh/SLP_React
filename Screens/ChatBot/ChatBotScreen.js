@@ -22,8 +22,9 @@ import axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
-// import Video from "react-native-video";
-// import OpenFile from 'react-native-doc-viewer';
+import Video from "react-native-video";
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 import '../../_helpers/global';
 import { BaseUrl,ChatBotHistory,ChatBotSendMessage, EndPoints, MessageGroupId, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
@@ -486,33 +487,21 @@ const ChatBotScreen = ({route,navigation}) => {
 	}
 	const viewFile = (document) => {
 		console.log('resume:', document.url);
-		// if(Platform.OS === 'ios'){
-		// 	//IOS
-		//   OpenFile.openDoc([{
-		// 	  url:document.url,
-		// 	  fileNameOptional:document.title
-		//   }], (error, url) => {
-		// 	if (error) {
-		// 	  console.error(error);
-		// 	} else {
-		// 	  console.log('Filte URL:',url)
-		// 	}
-		//   })
-		// }else{
-		// 	//Android
-		//   OpenFile.openDoc([{
-		// 	  url:document.url, // Local "file://" + filepath
-		// 	  fileName:document.title,
-		// 	  cache:false,
-		// 	  fileType:"jpg"
-		//   }], (error, url) => {
-		// 	  if (error) {
-		// 	  console.error(error);
-		// 	  } else {
-		// 	  console.log(url)
-		// 	  }
-		//   })
-		// }
+		let url =  document.url;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
 	}
 	
   
@@ -645,7 +634,7 @@ const ChatBotScreen = ({route,navigation}) => {
 									keyExtractor={(item, index) => index.toString()}
 									renderItem={({item}) => 
 									<View  style={{borderRadius:5, width:Dimensions.get('window').width * 0.85, marginRight:8, backgroundColor:ThemeColor.ViewBgColor}}>
-										{/* <Video
+										<Video
 											source={{ uri: item.source }}
 											style={{height:180, flex:1,borderRadius:5}}
 											paused={true}
@@ -653,7 +642,7 @@ const ChatBotScreen = ({route,navigation}) => {
 											ref={(ref) => {
 												this.player = ref
 											}} 
-										/> */}
+										/>
                                         <WebView
 											source={{ uri: item.source }}
 											style={{height:180, flex:1,borderRadius:5}}

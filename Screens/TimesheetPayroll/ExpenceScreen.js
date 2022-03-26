@@ -13,7 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import moment from 'moment';
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
+
 import numeral from 'numeral';
 import MovableView from 'react-native-movable-view';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -97,35 +99,23 @@ const ExpenceScreen = ({route,navigation}) => {
 		  }
 		})
 	}
+	
 	const viewFile = (fileObject) => {
-        console.log('File Path:', fileObject.documentExpenseFileLocation);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:fileObject.documentExpenseFileLocation,
-        //         fileNameOptional:fileObject.documentExpenseName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:fileObject.documentExpenseFileLocation, // Local "file://" + filepath
-        //         fileName:fileObject.documentExpenseName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
+		let url =  fileObject.documentExpenseFileLocation;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
     }
 	
 	const getFormatedDateRange=(item) =>{
@@ -142,7 +132,7 @@ const ExpenceScreen = ({route,navigation}) => {
 	}
 	const description = 'Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.'
 	return(
-		<SafeAreaProvider style={{flex:1,backgroundColor:ThemeColor.ViewBgColor, paddingBottom:34}}>
+		<SafeAreaProvider style={{flex:1,backgroundColor:ThemeColor.ViewBgColor}}>
 			{expensesArray.length > 0 ?
 			<FlatList style={{}}
                 data={expensesArray}

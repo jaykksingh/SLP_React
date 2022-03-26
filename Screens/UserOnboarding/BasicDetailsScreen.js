@@ -19,7 +19,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as ImagePicker from 'react-native-image-picker';
 import * as Animatable from 'react-native-animatable';
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
@@ -301,9 +301,9 @@ const BasicDetailsScreen = ({route,navigation}) => {
       } else {
         console.log('response', JSON.stringify(res));
         setPickedImage(res.assets[0].uri);
-        // var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-        // setBase64Data(base64data);
-        // updateProfilePicture(base64data);
+        var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
+        setBase64Data(base64data);
+        updateProfilePicture(base64data);
 
       }
     });
@@ -331,9 +331,9 @@ const BasicDetailsScreen = ({route,navigation}) => {
         const source = { uri: res.uri };
         console.log('response', JSON.stringify(res));
         setPickedImage(res.assets[0].uri);
-        // var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-        // setBase64Data(base64data);
-        // updateProfilePicture(base64data);
+        var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
+        setBase64Data(base64data);
+        updateProfilePicture(base64data);
       }
     });
   }

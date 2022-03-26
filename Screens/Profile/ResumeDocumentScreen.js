@@ -14,7 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {Picker} from '@react-native-picker/picker';
@@ -157,8 +157,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
             console.log('Image URI:',+ res.uri ? res.uri : res.assets[0].uri);
             console.log('response', JSON.stringify(res));
             
-            // var base64data = await RNFS.readFile(res.uri ? res.uri : res.assets[0].uri, 'base64').then(res => { return res });
-            var base64data =  "";
+            var base64data = await RNFS.readFile(res.uri ? res.uri : res.assets[0].uri, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.fileName ? res.fileName : res.assets[0].fileName});
           }
         });
@@ -185,8 +184,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
               console.log('User tapped custom button: ', res.customButton);
               alert(res.customButton);
             } else {
-            //   var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-              var base64data = "";
+              var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
               setData({...data,resumeData:base64data,fileName:res.assets[0].fileName});    
             }
           });
@@ -198,8 +196,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
             });
             console.log(res.uri,res.type, res.name,res.size);
             var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            var base64data = "";
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.name});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {

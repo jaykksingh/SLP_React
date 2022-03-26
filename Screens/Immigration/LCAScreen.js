@@ -14,7 +14,9 @@ import base64 from 'react-native-base64'
 import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
+
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor,MessageGroupId, FontName } from '../../_helpers/constants';
@@ -100,43 +102,21 @@ const LCAScreen = ({route,navigation}) => {
 	}
 	const viewFile = (fileObject) => {
         console.log('File Path:', JSON.stringify(fileObject.lcaDocPath));
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:fileObject.lcaDocPath,
-        //         fileNameOptional:fileObject.lcaDocUploadName
-        //     }], (error, url) => {
-        //         if (error) {
-		// 			console.error(error);
-		// 			Alert.alert(StaticMessage.AppName, error, [
-		// 				{text: 'Ok'}
-		// 			]);
-        //         } else {
-		// 			console.log('Filte URL:',url);
-		// 			Alert.alert(StaticMessage.AppName, url, [
-		// 				{text: 'Ok'}
-		// 			]);
-        //         }
-        //     })
-        // }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:fileObject.lcaDocPath, // Local "file://" + filepath
-        //         fileName:fileObject.lcaDocUploadName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-		// 			Alert.alert(StaticMessage.AppName, error, [
-		// 				{text: 'Ok'}
-		// 			]);
-        //         } else {
-        //         console.log(url)
-				
-        //         }
-        //     })
-        // }
+		let url =  fileObject.lcaDocPath;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
     }
 
   	return (

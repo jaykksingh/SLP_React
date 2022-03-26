@@ -19,6 +19,8 @@ import {getAuthHeader} from '../../../_helpers/constants';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
 import { AuthContext } from '../../../Components/context';
 import Loader from '../../../Components/Loader';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 
 
 const ViewTimesheetScreen = ({route,navigation}) => {
@@ -198,34 +200,22 @@ const ViewTimesheetScreen = ({route,navigation}) => {
 				const results = JSON.stringify(response.data.content.dataList)
 				console.log('Result:', results);
 				setTimesheetPdfDetail(response.data.content.dataList[0]);
-                navigation.navigate('DocumentViewer',{fileURL:response.data.content.dataList[0].filePath,fileName:timesheetPeriod})
-				// if(Platform.OS === 'ios'){
-				// 	//IOS
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath,
-				// 		fileNameOptional:timesheetPeriod
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log('Filte URL:',url)
-				// 		}
-				// 	})
-				// }else{
-				// 	//Android
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath, // Local "file://" + filepath
-				// 		fileName:timesheetPeriod,
-				// 		cache:false,
-				// 		fileType:"jpg"
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log(url)
-				// 		}
-				// 	})
-				// }
+				let url =  response.data.content.dataList[0].filePath;
+				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+				const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+				const options = {
+					fromUrl: url,
+					toFile: localFile,
+				};
+				RNFS.downloadFile(options)
+				.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+				.then(() => {
+					console.log('View Sucess')
+				})
+				.catch((error) => {
+					console.log('View Failed',error)
+				});
+				
 			}else if (response.data.code == 417){
 				const errorList = Object.values(response.data.content.messageList);
 				Alert.alert(StaticMessage.AppName, errorList.join(), [
@@ -263,37 +253,27 @@ const ViewTimesheetScreen = ({route,navigation}) => {
 		const newArr = projectListArray.filter(item => item.projectId == projectDetailId)
 		console.log(`Result array : ${JSON.stringify(newArr)}`);
 
+
 		if(newArr.length == 0){
 			return;
 		}
 		let details =  newArr[0];
-        if(Platform.OS === 'ios'){
-            //IOS
-            OpenFile.openDoc([{
-                url:details.path,
-                fileNameOptional:details.fileName
-            }], (error, url) => {
-                if (error) {
-                console.error(error);
-                } else {
-                console.log('Filte URL:',url)
-                }
-            })
-        }else{
-            //Android
-            OpenFile.openDoc([{
-                url:details.path,
-                fileName:details.fileName,
-                cache:false,
-                fileType:"jpg"
-            }], (error, url) => {
-                if (error) {
-                console.error(error);
-                } else {
-                console.log(url)
-                }
-            })
-        }
+		let url =  details.path;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
+        
     }
 	const handleIconClicked = (item) => {
 		let message = "Submitted Hours"

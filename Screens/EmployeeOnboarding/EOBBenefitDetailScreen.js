@@ -9,13 +9,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import { WebView } from 'react-native-webview';
-
+import RNFS from "react-native-fs";
+import FileViewer from "react-native-file-viewer";
 import { BaseUrl, EndPoints, StaticMessage} from '../../_helpers/constants';
 import { AuthContext } from '../../Components/context';
 import Loader from '../../Components/Loader';
 import {getAuthHeader} from '../../_helpers/auth-header';
 
-// import OpenFile from 'react-native-doc-viewer';
+
 
 const EOBBenefitDetailScreen = ({route,navigation}) => {
 	const { comeFrom } = route.params;
@@ -102,33 +103,21 @@ const EOBBenefitDetailScreen = ({route,navigation}) => {
       )}
 	const viewFile = (fileObject) => {
         console.log('File Path:', fileObject.documentExpenseFileLocation);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc,
-        //         fileNameOptional:fileObject.benefitName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc, // Local "file://" + filepath
-        //         fileName:fileObject.benefitName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
+		let url =  fileObject.documentExpenseFileLocation;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
     }
     let benefitContains = benefitDetails ? benefitDetails.benefitContains : '';
 	return(

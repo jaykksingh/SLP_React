@@ -13,8 +13,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import OpenFile from 'react-native-doc-viewer';
-
 import { BaseUrl, WebBaseURL,EndPoints, StaticMessage, ThemeColor ,FontName} from '../../_helpers/constants';
 import { AuthContext } from '../../Components/context';
 import Loader from '../../Components/Loader';
@@ -96,36 +94,7 @@ const EOBBenefitsScreen = ({route,navigation}) => {
 	
 		})
 	}
-	const viewFile = (fileObject) => {
-        console.log('File Path:', fileObject.documentExpenseFileLocation);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc,
-        //         fileNameOptional:fileObject.benefitName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        // }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:fileObject.formDoc, // Local "file://" + filepath
-        //         fileName:fileObject.benefitName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        // }
-    }
+	
 	const note = 'Compunnel considers its team members as valued assets for the organization. We offer exclusive benefits packages for our team members in order to meet and exceed industry compliance & standards.';
 
 	return(

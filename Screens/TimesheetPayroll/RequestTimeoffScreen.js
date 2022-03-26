@@ -13,7 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import moment from 'moment';
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
+
 import MovableView from 'react-native-movable-view';
 import {getAuthHeader} from '../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
@@ -99,9 +101,21 @@ const RequestTimeoffScreen = ({route,navigation}) => {
 		})
 	}
 	const viewFile = (fileObject) => {
-        console.log('File Path:', fileObject);
-		navigation.navigate('DocumentViewer',{fileURL:fileObject.vacationFilePath,fileName:'Document'})
-        
+        let url =  fileObject.vacationFilePath;
+		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const options = {
+			fromUrl: url,
+			toFile: localFile,
+		};
+		RNFS.downloadFile(options)
+		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		.then(() => {
+			console.log('View Sucess')
+		})
+		.catch((error) => {
+			console.log('View Failed',error)
+		});
     }
 	
 	const getFormatedDateRange=(item) =>{

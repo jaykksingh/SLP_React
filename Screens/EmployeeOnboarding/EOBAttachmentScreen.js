@@ -1,12 +1,10 @@
 import 'react-native-gesture-handler';
-import React ,{useEffect,useState,createRef}from 'react';
+import React ,{useEffect,createRef}from 'react';
 import { View ,
     Dimensions,
     TouchableOpacity,
     StyleSheet,
-    SafeAreaView,
     Alert,
-    Animated,
     Text} from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
@@ -14,10 +12,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
-// import OpenFile from 'react-native-doc-viewer';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import ActionSheet from 'react-native-actionsheet'
 import * as ImagePicker from 'react-native-image-picker';
 import DatePicker from 'react-native-date-picker'
@@ -26,7 +22,7 @@ import {default as ActionSheetView} from 'react-native-actions-sheet';
 import { AuthContext } from '../../Components/context';
 import {getAuthHeader} from '../../_helpers/auth-header';
 import {parseErrorMessage} from '../../_helpers/Utils';
-import { BaseUrl, EndPoints, StaticMessage, ThemeColor,FILETYPE, FontName } from '../../_helpers/constants';
+import { BaseUrl, EndPoints, StaticMessage, ThemeColor,FontName } from '../../_helpers/constants';
 import Loader from '../../Components/Loader';
 
 import moment from 'moment';
@@ -130,10 +126,7 @@ const EOBAttachmentScreen = ({route,navigation})  => {
             });
             console.log('File Log: ',res.uri,res.type, res.name,res.size);
             var result = res.uri.split("%20").join("\ ");
-
-            // var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-            var base64data = "";
-
+            var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
             let bytes = res.size  / 1000000;
             console.log(`File Size: ${bytes}`)
             if(bytes > 5){
@@ -174,10 +167,8 @@ const EOBAttachmentScreen = ({route,navigation})  => {
         } else {
           // const source = { uri: res.assets[0].uri };
           console.log('Image URI:',+ res.uri ? res.uri : res.assets[0].uri);
-          console.log('response', JSON.stringify(res));
-          
-        //   var base64data = await RNFS.readFile(res.uri ? res.uri : res.assets[0].uri, 'base64').then(res => { return res });
-          var base64data = "";
+          console.log('response', JSON.stringify(res));          
+          var base64data = await RNFS.readFile(res.uri ? res.uri : res.assets[0].uri, 'base64').then(res => { return res });
           setData({...data,resumeData:base64data,fileName:res.fileName ? res.fileName : res.assets[0].fileName});
         }
       });

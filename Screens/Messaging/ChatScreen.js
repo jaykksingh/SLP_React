@@ -18,7 +18,7 @@ import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
 import * as ImagePicker from 'react-native-image-picker';
-// import RNFS from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 
@@ -429,8 +429,7 @@ const ChatScreen = ({route,navigation}) => {
             });
             console.log(res.uri,res.type, res.name,res.size);
 			var newURI = res.uri.split("%20").join("\ ");
-            // var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            var base64data = "";
+            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.name});
 			navigation.navigate('ChatAttachments',{conversations:conversations,groupDetail:groupDetail,base64File:base64data,fileName:res.name,fileType:'Document',fileURL:res.uri});
         } catch (err) {
@@ -464,8 +463,7 @@ const ChatScreen = ({route,navigation}) => {
 		  } else {
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
 			setBase64Data(base64data);
 			navigation.navigate('ChatAttachments',{conversations:conversations,groupDetail:groupDetail,base64File:base64data,fileName:'text.jpg',fileType:'Image',messagesArray:messagesArray});
 	
@@ -495,8 +493,7 @@ const ChatScreen = ({route,navigation}) => {
 			const source = { uri: res.uri };
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
 			setBase64Data(base64data);
 			navigation.navigate('ChatAttachments',{conversations:conversations,groupDetail:groupDetail,base64File:base64data,fileName:'text.jpg',fileType:'Image',messagesArray:messagesArray});
 		  }

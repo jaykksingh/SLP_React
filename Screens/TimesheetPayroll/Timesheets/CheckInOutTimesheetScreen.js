@@ -21,9 +21,9 @@ import ActionSheet from "react-native-actions-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 import * as ImagePicker from 'react-native-image-picker';
-// import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import { AuthContext } from '../../../Components/context';
 import Loader from '../../../Components/Loader';
@@ -211,36 +211,22 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		.then((response) => {
 			setIsLoading(false);
 			if (response.data.code == 200){
-				const results = JSON.stringify(response.data.content.dataList)
-                navigation.navigate('DocumentViewer',{fileURL:response.data.content.dataList[0].filePath,fileName:timesheetPeriod})
-
-				// if(Platform.OS === 'ios'){
-				// 	//IOS
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath,
-				// 		fileNameOptional:timesheetPeriod
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log('Filte URL:',url)
-				// 		}
-				// 	})
-				// }else{
-				// 	//Android
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath, // Local "file://" + filepath
-				// 		fileName:timesheetPeriod,
-				// 		cache:false,
-				// 		fileType:"jpg"
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log(url)
-				// 		}
-				// 	})
-				// }
+				let url =  response.data.content.dataList[0].filePath;
+				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+				const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+				const options = {
+					fromUrl: url,
+					toFile: localFile,
+				};
+				RNFS.downloadFile(options)
+				.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+				.then(() => {
+					console.log('View Sucess')
+				})
+				.catch((error) => {
+					console.log('View Failed',error)
+				});
+				
 			}else if (response.data.code == 417){
 				const errorList = Object.values(response.data.content.messageList);
 				Alert.alert(StaticMessage.AppName, errorList.join(), [
@@ -641,8 +627,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		  } else {
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
 			
 		  }
@@ -671,8 +656,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			const source = { uri: res.uri };
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
-			// var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-			var base64data = "";
+			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
 
 		  }

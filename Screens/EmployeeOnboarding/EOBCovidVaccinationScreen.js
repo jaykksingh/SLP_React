@@ -15,8 +15,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-// import RNFS from 'react-native-fs';
-// import OpenFile from 'react-native-doc-viewer';
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
+
 import DocumentPicker from 'react-native-document-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import ActionSheet from 'react-native-actionsheet'
@@ -179,8 +180,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
           });
           console.log('File Log: ',res.uri,res.type, res.name,res.size);
           var result = res.uri.split("%20").join("\ ");
-        //   var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-          var base64data = "";
+          var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
           let bytes = res.size  / 1000000;
           console.log(`File Size: ${bytes}`)
           if(bytes > 5){
@@ -199,33 +199,21 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
     }
     const viewResume = (resume) => {
         console.log('resume:', resume.filePath);
-        // if(Platform.OS === 'ios'){
-        //     //IOS
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath,
-        //         fileNameOptional:resume.fileName
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log('Filte URL:',url)
-        //         }
-        //     })
-        //     }else{
-        //     //Android
-        //     OpenFile.openDoc([{
-        //         url:resume.filePath, // Local "file://" + filepath
-        //         fileName:resume.fileName,
-        //         cache:false,
-        //         fileType:"jpg"
-        //     }], (error, url) => {
-        //         if (error) {
-        //         console.error(error);
-        //         } else {
-        //         console.log(url)
-        //         }
-        //     })
-        //     }
+        let url =  resume.filePath;
+        const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+          const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+        const options = {
+          fromUrl: url,
+          toFile: localFile,
+        };
+        RNFS.downloadFile(options)
+        .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+        .then(() => {
+          console.log('View Sucess')
+        })
+        .catch((error) => {
+          console.log('View Failed',error)
+        });
     }
     
     const cameraLaunch = () => {
@@ -250,9 +238,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
         } else {
           let imageURL = res.uri ? res.uri : res.assets[0].uri;
           var result = imageURL.split("%20").join("\ ");
-        //   var base64data = await RNFS.readFile(result, 'base64').then(res => { return res });
-        var base64data = "";
-
+          var base64data = await RNFS.readFile(result, 'base64').then(res => { return res });
           setData({...data,resumeData:base64data,fileName:res.fileName ? res.fileName : res.assets[0].fileName});
         }
       });
@@ -280,10 +266,8 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
             alert(res.customButton);
           } else {
             let imageURL = res.assets[0].uri;
-            var result = imageURL.split("%20").join("\ ");
-  
-            // var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-            var base64data = "";
+            var result = imageURL.split("%20").join("\ ");  
+            var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
             setData({...data,resumeData:base64data,fileName:res.assets[0].fileName});    
           }
         });
