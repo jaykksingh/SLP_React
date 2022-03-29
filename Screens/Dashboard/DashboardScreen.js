@@ -30,11 +30,11 @@ import {parseErrorMessage} from '../../_helpers/Utils';
 import { getAuthHeader } from '../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor ,BaseURLElastic, FontName} from '../../_helpers/constants';
 
-// import { requestUserPermission } from '../_helpers/notificationService'
-// import messaging from '@react-native-firebase/messaging';
+import { requestUserPermission } from '../../_helpers/notificationService'
+import messaging from '@react-native-firebase/messaging';
 // import crashlytics from '@react-native-firebase/crashlytics';
-// import PushNotification from "react-native-push-notification";
-// import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import PushNotification from "react-native-push-notification";
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 
@@ -86,27 +86,30 @@ const DashboardScreen = ({navigation}) => {
   
 
   useEffect( () => {
-    // PushNotification.configure({
-    //   onNotification: function (notification) {
-    //     if (notification.userInteraction) {
-    //       // Handle notification click
-    //       console.log(notification);
-    //       let data = notification.data;
-    //       let screenName = data['gcm.notification.screenName'];
-    //       // Alert.alert(StaticMessage.AppName, screenName, [
-    //       //   {text: 'Ok'}
-    //       // ]);
-    //       console.log('screenName :',screenName);
-    //       handlePushDeepLinking(screenName);
-    //     }
-    //     notification.finish(PushNotificationIOS.FetchResult.NoData);
-    //   },
-    // });
+    PushNotification.configure({
+      onNotification: function (notification) {
+        if (notification.userInteraction) {
+          // Handle notification click
+          console.log(notification);
+          let data = notification.data;
+          let screenName = data['gcm.notification.screenName'];
+          // Alert.alert(StaticMessage.AppName, screenName, [
+          //   {text: 'Ok'}
+          // ]);
+          console.log('screenName :',screenName);
+          handlePushDeepLinking(screenName);
+        }
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+    });
     // crashlytics().log('Updating user count.');
-    // requestUserPermission();
+    requestUserPermission();
     // const unsubscribe = messaging().onMessage(async remoteMessage => {
     //   Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     // });
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
 
     // Linking.addEventListener('url', handleDeepLink('url'))
     Linking.addEventListener('url', ({url}) => {handleDeepLink(url)})

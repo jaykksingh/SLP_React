@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "82667375272",
+    "firebase_url": "https://stafflinepro-192510.firebaseio.com",
+    "project_id": "stafflinepro-192510",
+    "storage_bucket": "stafflinepro-192510.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82667375272:android:b9d8125d57c47446",
+        "android_client_info": {
+          "package_name": "com.stafflinepro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82667375272-hceojrb02uvcc3c620kondg4c6vapici.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw7CwaGAkkYI0EYvjIjnTsldH8NXGhFsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82667375272-e24oo2cr3fa8hiq14aennprv11ukn93i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82667375272-9j6trb8jff8929k47pra8b41037nll1i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stafflinePro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

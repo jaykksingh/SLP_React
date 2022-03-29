@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>82667375272-m29ksultd6mpnnq1b0mof2i4jhh4f2e6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.82667375272-m29ksultd6mpnnq1b0mof2i4jhh4f2e6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1xry7odY1m6vo6VYu60zS_ozt1WwdZt4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>82667375272</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.StafflinePro</string>
+	<key>PROJECT_ID</key>
+	<string>stafflinepro-192510</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stafflinepro-192510.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:82667375272:ios:577b2cf7224a774b</string>
+	<key>DATABASE_URL</key>
+	<string>https://stafflinepro-192510.firebaseio.com</string>
+</dict>
+</plist>
