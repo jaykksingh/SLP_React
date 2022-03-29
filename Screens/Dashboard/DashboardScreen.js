@@ -117,7 +117,7 @@ const DashboardScreen = ({navigation}) => {
     navigation.addListener('focus', () => {
       getProfileDetails(false);
     })
-    getProfileDetails(false);
+    // getProfileDetails(false);
 
   }, []);
   const handlePushDeepLinking = (linkUrl) => {
@@ -306,11 +306,7 @@ const DashboardScreen = ({navigation}) => {
             },
             {
               text: 'Update',
-              onPress: () => openComposer({
-                to: "support@stafflinepro.com",
-                subject: "",
-                body: "",
-              })
+              onPress: () => handleClick()
             }
           ]);   
   
@@ -337,6 +333,12 @@ const DashboardScreen = ({navigation}) => {
             ]);
       }
     })
+  }
+  const handleClick = () => {
+    let iosURL = "https://itunes.apple.com/in/app/stafflinepro-jobs-find-you/id1306795942?mt=8";
+    Linking.canOpenURL(iosURL).then(supported => {
+        supported && Linking.openURL(iosURL);
+    }, (err) => console.log(err));
   }
   const getMyApplication = async (resumeId) => {
     setData({...data, isLoading: true});

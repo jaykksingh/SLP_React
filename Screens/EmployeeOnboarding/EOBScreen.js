@@ -153,11 +153,7 @@ const OnboardingScreen = ({navigation})  => {
                     },
                     {
                       text: 'Update',
-                      onPress: () => openComposer({
-                        to: "support@stafflinepro.com",
-                        subject: "",
-                        body: "",
-                      })
+                      onPress: () => handleClick()
                     }
                   ]);   
           
@@ -190,6 +186,12 @@ const OnboardingScreen = ({navigation})  => {
     
         })
     }
+    const handleClick = () => {
+        let iosURL = "https://itunes.apple.com/in/app/stafflinepro-jobs-find-you/id1306795942?mt=8";
+        Linking.canOpenURL(iosURL).then(supported => {
+            supported && Linking.openURL(iosURL);
+        }, (err) => console.log(err));
+      }
     const  updateProfileDetails = async(resumeData) => {
         let user = await AsyncStorage.getItem('loginDetails');  
         let parsed = JSON.parse(user);  

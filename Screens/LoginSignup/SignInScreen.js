@@ -6,7 +6,7 @@ import { StatusBar,
       StyleSheet, 
       View,
       Dimensions,
-      ScrollView,
+      Linking,
       ImageBackground,
       TextInput,
       Image,
@@ -28,6 +28,7 @@ import Loader from '../../Components/Loader';
 import { authFreeHeader } from '../../_helpers/auth-header';
 import { openComposer } from "react-native-email-link";
 import '../../_helpers/global'
+import RNExitApp from 'react-native-exit-app';
 
 
 const width = Dimensions.get("window").width;
@@ -173,11 +174,7 @@ const SignInScreen = ({navigation}) => {
             },
             {
               text: 'Update',
-              onPress: () => openComposer({
-                to: "support@stafflinepro.com",
-                subject: "",
-                body: "",
-              })
+              onPress: () => handleClick()
             }
           ]);   
   
@@ -202,6 +199,12 @@ const SignInScreen = ({navigation}) => {
         {text: 'Ok'}
       ]);
     })
+  }
+  const handleClick = () => {
+    let iosURL = "https://itunes.apple.com/in/app/stafflinepro-jobs-find-you/id1306795942?mt=8";
+    Linking.canOpenURL(iosURL).then(supported => {
+        supported && Linking.openURL(iosURL);
+    }, (err) => console.log(err));
   }
   const setUpdateLoginDetails = async () => {
     if(data.password.length == 0){

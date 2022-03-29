@@ -2,6 +2,8 @@ import { logedUser } from '../_helpers/logedinUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import './global'
+import {expo} from '../app.json'
+
 
 export async function getAuthorizationToken() {
 
@@ -17,24 +19,26 @@ export async function getAuthorizationToken() {
 
 
 export function authHeader() {
+  console.log('App Version:',expo.version);
   return {
     "content-type": "application/json",
     "Authorization": "U3RhZmZMaW5lQDIwMTc=",
     "OS": "iOS",
     "Deviceid": global.pushToken,
-    "Version": "2.5.27",
+    "Version": expo.version,
     "Platform": "Mobile",
     "GeoLat": "1",
     "GeoLong": "1"
   };
 }
 export function getAuthHeader(authToken) {
+  console.log('App Version:',expo.version);
   return {
     "content-type": "application/json",
     "Authorization": authToken,
     "OS": "iOS",
     "Deviceid": global.pushToken,
-    "Version": "2.5.27",
+    "Version": expo.version,
     "Platform": "Mobile",
     "GeoLat": "1",
     "GeoLong": "1"
@@ -48,13 +52,13 @@ export function getElasticHeader() {
   };
 }
 export function authFreeHeader() {
-  console.log('Get Auth Token');
+  console.log('App Version:',expo.version);
   return {
     "content-type": "application/json",
     "Authorization": "U3RhZmZMaW5lQDIwMTc=",
     "OS": "iOS",
     "Deviceid": global.pushToken,
-    "Version": "2.5.27",
+    "Version": expo.version,
     "Platform": "Mobile",
     "GeoLat": "1",
     "GeoLong": "1"
