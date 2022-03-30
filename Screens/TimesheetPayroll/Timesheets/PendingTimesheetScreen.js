@@ -133,6 +133,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
     }else{
       navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
     }
+    //navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
   }
   return(
 		<SafeAreaView style={styles.container}>

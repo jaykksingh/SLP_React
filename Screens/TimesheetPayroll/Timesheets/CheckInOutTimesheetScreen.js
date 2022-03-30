@@ -21,14 +21,14 @@ import ActionSheet from "react-native-actions-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-import FileViewer from "react-native-file-viewer";
-import RNFS from "react-native-fs";
 import * as ImagePicker from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import { AuthContext } from '../../../Components/context';
 import Loader from '../../../Components/Loader';
 import {getAuthHeader} from '../../../_helpers/auth-header';
-import { BaseUrl, EndPoints, StaticMessage, ThemeColor , FontName} from '../../../_helpers/constants';
+import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
+
 
 const timesheetPeriodRef = createRef();
 const shiftTypeRef = createRef();
@@ -74,7 +74,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
-			  title: projectDetail ? projectDetail.projectName + ' Check in check out' :`Edit timesheet `,
+			  title: projectDetail ? projectDetail.projectName  :`Edit timesheet `,
 		});
 	}, [navigation]);
 	const showShareOptions = () =>{
@@ -107,16 +107,6 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			setTimesheetPeriodArray(tempPeriodArray);
 		}
 		
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
 		
 	},[]);
 
@@ -142,6 +132,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		let hour = projectDetail.data[index];
 		setData({...data,timesheetPeriod:selectedItem,startDate:hour.startDate,endDate:hour.endDate});
 		getHoursDetails(hour.startDate,hour.endDate);				
+	}
+
+	const refreshHoursDetails = () => {
+		getHoursDetails(timesheetDetails.startDate,timesheetDetails.endDate);
 	}
 	const getHoursDetails = async(startDate, endDate) => {
 		console.log("Start Date and End Date : ", startDate,endDate);
@@ -211,22 +205,34 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		.then((response) => {
 			setIsLoading(false);
 			if (response.data.code == 200){
-				let url =  response.data.content.dataList[0].filePath;
-				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-				const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
-				const options = {
-					fromUrl: url,
-					toFile: localFile,
-				};
-				RNFS.downloadFile(options)
-				.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
-				.then(() => {
-					console.log('View Sucess')
-				})
-				.catch((error) => {
-					console.log('View Failed',error)
-				});
-				
+				const results = JSON.stringify(response.data.content.dataList)
+				// if(Platform.OS === 'ios'){
+				// 	//IOS
+				// 	OpenFile.openDoc([{
+				// 		url:response.data.content.dataList[0].filePath,
+				// 		fileNameOptional:timesheetPeriod
+				// 	}], (error, url) => {
+				// 		if (error) {
+				// 		console.error(error);
+				// 		} else {
+				// 		console.log('Filte URL:',url)
+				// 		}
+				// 	})
+				// }else{
+				// 	//Android
+				// 	OpenFile.openDoc([{
+				// 		url:response.data.content.dataList[0].filePath, // Local "file://" + filepath
+				// 		fileName:timesheetPeriod,
+				// 		cache:false,
+				// 		fileType:"jpg"
+				// 	}], (error, url) => {
+				// 		if (error) {
+				// 		console.error(error);
+				// 		} else {
+				// 		console.log(url)
+				// 		}
+				// 	})
+				// }
 			}else if (response.data.code == 417){
 				const errorList = Object.values(response.data.content.messageList);
 				Alert.alert(StaticMessage.AppName, errorList.join(), [
@@ -628,7 +634,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
 			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-            setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
+			setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
 			
 		  }
 		});
@@ -657,7 +663,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			console.log('response', JSON.stringify(res));
 			setPickedImage(res.assets[0].uri);
 			var base64data = await RNFS.readFile( res.assets[0].uri, 'base64').then(res => { return res });
-            setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
+			setData({...data,resumeData:base64data,fileName:res.assets[0].fileName,showMannualHours:true, hours:getTotalHours()});
 
 		  }
 		});
@@ -680,48 +686,8 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
         }
     }
 	
-	const handleRegHrs=(val, index, hrObject) => {
-		// let val = '' + parseFloat(input) ? parseFloat(input) : 0;
-
-		let tempArr = mannualHoursArray;
-		let tempHrArr = hoursArray;
-
-		var editObj = hrObject;
-		editObj.regHrs = val ? val : 0;
-		tempArr[index] = editObj;
-		tempHrArr[index] = editObj;
-		setMannualHoursArray(tempArr);
-		setHoursArray(tempHrArr);
-
-		setHoursUpdated(!hoursUpdated);
-	}
-	const handleOtHrs=(val, index, hrObject) => {
-		console.log(val);
-		// let val = '' + parseFloat(input) ? parseFloat(input) : 0;
-		let numString = '' + val;
-
-		let tempArr = mannualHoursArray;
-		let editObj = hrObject;
-		editObj.otHrs = val ? val : 0;
-		tempArr[index] = editObj;
-		setMannualHoursArray(tempArr);
-		setHoursUpdated(!hoursUpdated);
-
-
-	}
-	const handleDtHrs=(val, index, hrObject) => {
-		// let val = '' + parseFloat(input) ? parseFloat(input) : 0;
-
-		console.log(val);
-		let tempArr = mannualHoursArray;
-		let editObj = hrObject;
-		editObj.dtHrs = val ? val : 0;
-		tempArr[index] = editObj;
-		setMannualHoursArray(tempArr);
-		setHoursUpdated(!hoursUpdated);
-
-
-	}
+	
+	
 
 	const getItemTotals = (itemObj) => {
 		console.log('Item :', itemObj);
@@ -741,28 +707,36 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		for (let i = 0; i < mannualHoursArray.length ; i++){
 			totalHours = totalHours + (parseFloat(mannualHoursArray[i].regHrs));
 		}
-		return '' + totalHours;
+		return '' + totalHours.toFixed(2);
 	}
 	const getTotalOtHours = () => {
 		var totalHours = 0;
 		for (let i = 0; i < mannualHoursArray.length ; i++){
 			totalHours = totalHours + (parseFloat(mannualHoursArray[i].otHrs));
 		}
-		return '' + totalHours;
+		return '' + totalHours.toFixed(2);
 	}
 	const getTotalDtHours = () => {
 		var totalHours = 0;
 		for (let i = 0; i < mannualHoursArray.length ; i++){
 			totalHours = totalHours + (parseFloat(mannualHoursArray[i].dtHrs));
 		}
-		return '' + totalHours;
+		return '' + totalHours.toFixed(2);
+	}
+	const getTotalBreakHours = () => {
+		var totalHours = 0;
+		for (let i = 0; i < mannualHoursArray.length ; i++){
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].breakHrs));
+		}
+		return '' + totalHours.toFixed(2);
 	}
 	const getTotalHours = () => {
 		var totalHours = 0;
 		for (let i = 0; i < mannualHoursArray.length ; i++){
-			totalHours = totalHours + (parseFloat(mannualHoursArray[i].regHrs)) + (parseFloat(mannualHoursArray[i].otHrs)) + (parseFloat(mannualHoursArray[i].dtHrs));
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].regHrs)) + (parseFloat(mannualHoursArray[i].otHrs)) + (parseFloat(mannualHoursArray[i].dtHrs) );
 		}
-		return '' + totalHours;
+
+		return '' + totalHours.toFixed(2);
 	}
 	const showShiftTypePicker = (item, index) => {
 		console.log(item);
@@ -805,7 +779,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		  ]);
 	}
 	const handleEditClicked = (item) => {
-		navigation.navigate('CheckInOutEdit',{dayDetails:item,timesheetDetails:timesheetDetails,projectDetail:projectDetail})
+		navigation.navigate('CheckInOutEdit',{dayDetails:item,timesheetDetails:timesheetDetails,projectDetail:projectDetail,onClickEvent:refreshHoursDetails})
 
 	}
 	const tips='Tip: Enter 0.50 increments to indicate a half hour. For example, for eight and a half hours, please enter 8.50 rather than 8.30'
@@ -930,7 +904,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex:1}}>Lunch break</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex:1}}>Lunch hours</Text>
 						</View>
 					</View>
 					<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/> 
@@ -964,23 +938,29 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 								}
 								
 								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.regHrs.length > 1 ? item.regHrs : `${item.regHrs}:00` }</Text>
+									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.regHrs }</Text>
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.otHrs.length > 0 ? item.otHrs : `${item.otHrs}:00`}</Text>
+									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.otHrs}</Text>
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.dtHrs.length > 0 ? item.dtHrs : `${item.dtHrs}:00`}</Text>
+									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.dtHrs}</Text>
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 
 								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.dtHrs.length > 0 ? item.dtHrs : `${item.dtHrs}:00`}</Text>
-									<TouchableOpacity onPress={ () => {handleEditClicked(item)}}>
-										<MaterialIcons name="edit" color={ThemeColor.TextColor} size={15} />
-									</TouchableOpacity>
+									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
+									{
+										item.statusId > 3302 ? 
+										<View onPress={ () => {handleEditClicked(item)}}>
+											<MaterialIcons name="lock" color={ThemeColor.SubTextColor} size={15} />
+										</View> :
+										<TouchableOpacity onPress={ () => {handleEditClicked(item)}}>
+											<MaterialIcons name="edit" color={ThemeColor.TextColor} size={15} />
+										</TouchableOpacity>
+									}
 									
 								</View>
 							</View>
@@ -1016,7 +996,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 						<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 					</View>
 					<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getTotalDtHours()}</Text>
+						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getTotalHours()}</Text>
 					</View>
 				</View>
 				<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>			
@@ -1036,18 +1016,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 				projectDetail.timesheetClientApproval == 1 ? 
 				<View style={{flexDirection:'row'}}>
 					<TouchableOpacity style={[styles.btnFill,{backgroundColor:ThemeColor.SubHeaderColor}]} onPress={() => {saveMannualHours('907')}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>SAVE DRAFT</Text>
+						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>ASAVE DRAFT</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.btnFill} onPress={() => {handleSubmitForApproval('908')}}>
 						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:'#fff' }}>SUBMIT FOR APPROVAL</Text>
-					</TouchableOpacity>
-				</View> : data.showMannualHours ?
-				<View style={{flexDirection:'row'}}>
-					<TouchableOpacity style={[styles.btnFill,{backgroundColor:ThemeColor.SubHeaderColor}]} onPress={() => {saveMannualHours('907')}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>SAVE DRAFT</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btnFill} onPress={() => {projectDetail.timesheetClientApproval == 1 ? saveMannualHours('908') : submitMannualHours(907)}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:'#fff' }}>{projectDetail.timesheetClientApproval == 1 ? "SUBMIT FOR APPROVAL" : "SUBMIT"}</Text>
 					</TouchableOpacity>
 				</View> : null
 			 }
@@ -1059,7 +1031,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-bold'}}>Select timesheet period</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select timesheet period</Text>
 					<TouchableOpacity onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>
@@ -1082,7 +1054,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {shiftTypeRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select shift</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select shift</Text>
 					<TouchableOpacity onPress={() => {
 						let selectedItem = selectedHours.shiftOption[0];
 						setSelectedHours({...selectedHours,shiftId:selectedItem.Shift_Id});
