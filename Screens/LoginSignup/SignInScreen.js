@@ -57,7 +57,7 @@ const SignInScreen = ({navigation}) => {
     const getLoginDetails = async () => {
       let user = await AsyncStorage.getItem('username');  
       let token = await AsyncStorage.getItem('token');  
-      setData({...data,username:user});
+      setData({...data,loginID:user});
       setBioPassword(token);
     }
 
@@ -120,7 +120,7 @@ const SignInScreen = ({navigation}) => {
         console.log('successful biometrics provided')
         const password = base64.decode(bioPassword);
         console.log('Pasword: ', password);
-        loginHandle(data.username, password);
+        loginHandle(data.loginID, password);
       } else {
         console.log('user cancelled biometric prompt')
       }
@@ -145,7 +145,7 @@ const SignInScreen = ({navigation}) => {
       if (response.data.code == 200){
         let isMandatory = response.data.content.mandatory;
         if(response.data.content.dataList.length > 0){
-          // setUpdateLoginDetails();
+          setUpdateLoginDetails();
           const loginDetail = JSON.stringify(response.data.content.dataList[0])
           console.log('API Login: ',loginDetail);
           if(!isMandatory){
@@ -211,7 +211,7 @@ const SignInScreen = ({navigation}) => {
       return;
     }
     const token = base64.encode(data.password); 
-    const username = data.userID;
+    const username = data.loginID;
     AsyncStorage.setItem('username',username);
     AsyncStorage.setItem('token',token);
   
@@ -353,11 +353,11 @@ const SignInScreen = ({navigation}) => {
                 <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN</Text>
             </TouchableOpacity>
             {Platform.OS == 'ios' ?
-            <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.username, data.password )}}>
+            <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.loginID, data.password )}}>
               <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={getBiometicButtonIcon()} /> 
               <Text style={{color:'#53962E', fontSize:16 }}>{getBiometicButtonTitle()}</Text>
             </TouchableOpacity> : 
-            <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.username, data.password )}}>
+            <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.loginID, data.password )}}>
               <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={require('../../assets/Images/Touchid.png')} /> 
               <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN USING FACE ID</Text>
             </TouchableOpacity>
