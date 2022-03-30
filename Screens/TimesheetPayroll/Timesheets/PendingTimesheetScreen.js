@@ -104,7 +104,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
 
   }
 
-  const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,timeSheetCycleId,timesheetClientApproval,projectDetailId}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,timeSheetCycleId:timeSheetCycleId,timesheetClientApproval:timesheetClientApproval,projectDetailId:projectDetailId }));
+  const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,timeSheetCycleId,timesheetClientApproval,projectDetailId,timeSheetTemplate}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,timeSheetCycleId:timeSheetCycleId,timesheetClientApproval:timesheetClientApproval,projectDetailId:projectDetailId,timeSheetTemplate:timeSheetTemplate }));
 	const note ='Note: In order to receive timely payment, upload timesheets and submit hours regularly. We are unable to bill without client approved timesheets.';
 	
   const getFormatedDateRange=(item) =>{
@@ -126,9 +126,9 @@ const PendingTimesheetScreen = ({route,navigation})  => {
     return true;
   }
   const handleEditTimesheet = (item, section) => {
-    console.log(item);
-    let projectTemplateID = item.projectTemplateID ? item.projectTemplateID : "27632";
-    if(projectTemplateID == "27632"){
+    console.log('Edit Handler: ',section);
+    let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
+    if(projectTemplateID == 24063){
       navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
     }else{
       navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})

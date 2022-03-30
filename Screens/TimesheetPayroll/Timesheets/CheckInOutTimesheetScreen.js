@@ -799,14 +799,14 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Select timesheet period</Text>
 						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
 							<Text style={[styles.labelText,{color:data.timesheetPeriod.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.timesheetPeriod.length >0 ? data.timesheetPeriod : 'Select timesheet period'}</Text>
-							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22,22} />
+							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22} />
 						</TouchableOpacity>
 					</View> : 
 					<View style={{marginTop:12,paddingLeft:16, paddingRight:16,}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Select timesheet period</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'red',flex:1,}}
+								style={{flex:1,}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.timesheetPeriod}
 								onValueChange={(itemValue, index) =>{
@@ -817,8 +817,6 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}
 							</Picker>
-							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22,22} />
-
 						</TouchableOpacity>
 						
 					</View>

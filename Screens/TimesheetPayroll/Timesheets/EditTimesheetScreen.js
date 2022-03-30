@@ -110,18 +110,6 @@ const EditTimesheetScreen = ({route,navigation}) => {
 			}
 			setTimesheetPeriodArray(tempPeriodArray);
 		}
-		
-		if(navigation.dangerouslyGetParent()){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
-		
 	},[]);
 
 	
@@ -832,9 +820,9 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					</View> : 
 					<View style={{marginTop:12,paddingLeft:16, paddingRight:16,}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Select timesheet period</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'red',flex:1,}}
+								style={{flex:1}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.timesheetPeriod}
 								onValueChange={(itemValue, index) =>{
@@ -845,8 +833,6 @@ const EditTimesheetScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}
 							</Picker>
-							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22} />
-
 						</TouchableOpacity>
 						
 					</View>
@@ -906,7 +892,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 						</TouchableOpacity>
 					</View>
 				</View> : null}
-				<Text style ={{color:ThemeColor.SubTextColor, fontSize:10,fontFamily:'Lato-Italic', textAlign: 'center', marginTop:4, marginBottom:8,paddingLeft:16, paddingRight:16,}}>{tips}</Text>
+				<Text style ={{color:ThemeColor.SubTextColor, fontSize:10,fontFamily:FontName.Italic, textAlign: 'center', marginTop:4, marginBottom:8,paddingLeft:16, paddingRight:16,}}>{tips}</Text>
 				{(data.showMannualHours || projectDetail.timesheetClientApproval == 1) && 
 				<View style ={{backgroundColor:'white', flex: 1, marginBottom:16}}>
 					<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
@@ -952,21 +938,21 @@ const EditTimesheetScreen = ({route,navigation}) => {
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 								{mannualHoursArray.length > 0 && mannualHoursArray[0].shiftOption.length > 1 ?
-								<View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:35, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									{item.statusId > 3302 ?
-									<View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}} onPress ={() => {showShiftTypePicker(item, index)}}>
+									<View style={{height:35, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}} onPress ={() => {showShiftTypePicker(item, index)}}>
 										<Text style={{color:'white',fontSize:12, textAlign: 'center', flex: 1}}>{item.shiftId > 0 ? getShiftTypeName(item) : "Select shift"}</Text>
 										<Feather name="chevron-down" color={'white'} size={10} />
 									</View> :
-									<TouchableOpacity style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}} onPress ={() => {showShiftTypePicker(item, index)}}>
+									<TouchableOpacity style={{height:35, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}} onPress ={() => {showShiftTypePicker(item, index)}}>
 										<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.shiftId > 0 ? getShiftTypeName(item) : "Select shift"}</Text>
 										<Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
 									</TouchableOpacity> }
-									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
+									<View style={{backgroundColor:ThemeColor.BorderColor, height:35, width:1}}/>
 								</View> : null
 								}
 								
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:35, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									<TextInput  
 										style={styles.inputHour}
 										placeholder="0" 
@@ -976,9 +962,9 @@ const EditTimesheetScreen = ({route,navigation}) => {
 										value= {item.regHrs > 0 ? ''+item.regHrs : item.regHrs}
 										onChangeText={(val) => handleRegHrs(val, index,item)}
 									/>
-									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
+									<View style={{backgroundColor:ThemeColor.BorderColor, height:35, width:1}}/>
 								</View>
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:35, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									<TextInput  
 										style={styles.inputHour}
 										placeholder="0" 
@@ -988,9 +974,9 @@ const EditTimesheetScreen = ({route,navigation}) => {
 										value= {item.otHrs > 0 ? String(item.otHrs) : item.otHrs}
 										onChangeText={(val) => handleOtHrs(val, index,item)}
 									/>
-									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
+									<View style={{backgroundColor:ThemeColor.BorderColor, height:35, width:1}}/>
 								</View>
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:35, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									<TextInput  
 										style={styles.inputHour}
 										placeholder="0" 
@@ -1000,9 +986,9 @@ const EditTimesheetScreen = ({route,navigation}) => {
 										value= {item.dtHrs > 0 ? String(item.dtHrs) : item.dtHrs}
 										onChangeText={(val) => handleDtHrs(val, index,item)}
 									/>
-									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
+									<View style={{backgroundColor:ThemeColor.BorderColor, height:35, width:1}}/>
 								</View>
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
+								<View style={{height:35, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
 									<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex:1}}>{parseFloat(item.regHrs) + parseFloat(item.otHrs) + parseFloat(item.dtHrs)}</Text>
 									<TouchableOpacity onPress={ () => {handleIconClicked(item)}}>
 									{item.holiday == 1 ?
@@ -1204,7 +1190,7 @@ const styles = StyleSheet.create({
 		fontSize:12,
 		fontFamily: FontName.Regular,
 		marginLeft:8,
-		textAlign: 'center'
+		textAlign: 'center',
 	},labelText:{
 		flex: 1,
 		color:'black',
