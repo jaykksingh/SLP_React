@@ -1,18 +1,18 @@
 
-// export const BaseUrl = "https://pre-api.stafflinepro.com/v7/api/"; //Staging
-// export const BaseURLElastic = "https://rs.iendorseu.com/_a/"; //Staging
-// export const WebBaseURL = "https://pre.stafflinepro.com/"; //Staging
-// export const LeaveMgrBaseURL = "https://stafflineapi-beta.compunnel.com/"; //Staging
-// export const ChatBotHistory = 'https://pre.stafflinepro.com/chatWebHook/lg.php'; //Staging
-// export const ChatBotSendMessage = "https://pre.stafflinepro.com/chatWebHook/gl.php"; //Staging
+export const BaseUrl = "https://pre-api.stafflinepro.com/v7/api/"; //Staging
+export const BaseURLElastic = "https://rs.iendorseu.com/_a/"; //Staging
+export const WebBaseURL = "https://pre.stafflinepro.com/"; //Staging
+export const LeaveMgrBaseURL = "https://stafflineapi-beta.compunnel.com/"; //Staging
+export const ChatBotHistory = 'https://pre.stafflinepro.com/chatWebHook/lg.php'; //Staging
+export const ChatBotSendMessage = "https://pre.stafflinepro.com/chatWebHook/gl.php"; //Staging
 
 
-export const BaseUrl = "https://api.stafflinepro.com/v7/api/"; //Production
-export const BaseURLElastic = "http://rs.iendorseu.com/search/_a/"; //Production
-export const WebBaseURL = "http://app.stafflinepro.com/"; //Production
-export const LeaveMgrBaseURL = "https://stafflineapi.compunnel.com/"; //Production
-export const ChatBotHistory = "https://pre.stafflinepro.com/chatWebHook/lg.php"; //Production
-export const ChatBotSendMessage = "https://app.stafflinepro.com/chatWebHook/gl.php"; //Production
+// export const BaseUrl = "https://api.stafflinepro.com/v7/api/"; //Production
+// export const BaseURLElastic = "http://rs.iendorseu.com/search/_a/"; //Production
+// export const WebBaseURL = "http://app.stafflinepro.com/"; //Production
+// export const LeaveMgrBaseURL = "https://stafflineapi.compunnel.com/"; //Production
+// export const ChatBotHistory = "https://pre.stafflinepro.com/chatWebHook/lg.php"; //Production
+// export const ChatBotSendMessage = "https://app.stafflinepro.com/chatWebHook/gl.php"; //Production
 
 
 

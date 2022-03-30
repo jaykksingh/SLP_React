@@ -10,7 +10,8 @@ import { StatusBar,
     StyleSheet,
     Image,
     Alert,
-    Linking
+    Linking,
+    SafeAreaView
 } from "react-native";
 
 import base64 from 'react-native-base64'
@@ -169,7 +170,7 @@ const DashboardScreen = ({navigation}) => {
         navigation.navigate('More');
         getProfileDetails(true);
       }else if (screenName == 'message'){
-        navigation.navigate('Messages');
+        navigation.navigate('MessageHome');
       }else if(screenName == 'timecard'){
         navigation.navigate('Timesheets');
       }
@@ -805,7 +806,7 @@ const DashboardScreen = ({navigation}) => {
   }
   let skillCetiArr = loadSkills ? skillsArr : liceAndCertArr;
   return (
-    <View style={{flex: 1, backgroundColor:'white'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor:'white', paddingTop:16}}>
       <FlatList style={{paddingLeft:16, paddingRight:16, marginTop:16,marginBottom:8, paddingBottom:16}}
           data={dashboardItems}
           keyExtractor={(item, index) => index.toString()}
@@ -900,7 +901,7 @@ const DashboardScreen = ({navigation}) => {
               {
                 item.cellType == 'MATCHINGJOB_REFERCLIENT' ?
                 <View style={{marginTop:16,flex: 1,flexDirection: 'row'}}>
-                  <TouchableOpacity style={{ flex: 1, height:150, marginRight:8,backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5, width: '45%' }} onPress={() => {navigation.navigate('Job Matching')}}>
+                  <TouchableOpacity style={{ flex: 1, height:150, marginRight:8,backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5, width: '45%' }} onPress={() => {navigation.navigate('JobMatching')}}>
                     <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
                       <Icon name="stop-circle-outline" color={'black'} size={25} />
                     </View>
@@ -924,7 +925,7 @@ const DashboardScreen = ({navigation}) => {
               {
                 item.cellType == 'MATCHINGJOB_ACTIVEAPPL' ?
                 <View style={{marginTop:16,flex: 1,flexDirection: 'row'}}>
-                  <TouchableOpacity style={{ flex: 1, height:150, marginRight:8,backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5, width: '45%' }} onPress={() => {navigation.navigate('Job Matching')}}>
+                  <TouchableOpacity style={{ flex: 1, height:150, marginRight:8,backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5, width: '45%' }} onPress={() => {navigation.navigate('JobMatching')}}>
                     <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
                       <Icon name="stop-circle-outline" color={'black'} size={25} />
                     </View>
@@ -959,7 +960,7 @@ const DashboardScreen = ({navigation}) => {
                       <Text style={{fontFamily:FontName.Regular, fontSize:14,color:'black', marginTop:8}}>Upcoming interviews</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => {navigation.navigate('Messages')}}>
+                  <TouchableOpacity style={{ flex: 1, height:150,marginLeft:8, backgroundColor:'#fff',borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5 }} onPress={() => {navigation.navigate('MessageHome')}}>
                     <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
                       <Fontisto name="email" color={'black'} size={25} />
                     </View>
@@ -1015,7 +1016,7 @@ const DashboardScreen = ({navigation}) => {
           <Icon name="chatbubble-ellipses-outline" color={'white'} size={25} />
         </TouchableOpacity>
       </MovableView>
-    </View>
+    </SafeAreaView>
   );
   
 }

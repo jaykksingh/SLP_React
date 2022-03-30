@@ -5,6 +5,7 @@ import { View ,
     StyleSheet,
     Animated,
     Alert,
+	SafeAreaView,
     Text} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +13,6 @@ import base64 from 'react-native-base64'
 import axios from 'axios'
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Loader from '../../Components/Loader';
 import {getAuthHeader} from '../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage,ThemeColor, FontName } from '../../_helpers/constants';
@@ -142,7 +142,7 @@ const TimesheetPayrollHomeScreen = ({route,navigation})  => {
 	return(
 		<SafeAreaView style={{flex:1,backgroundColor:'#E5E9EB'}}>
 		<View style={styles.container}>
-			<View style={{backgroundColor:'#fff',}}>
+			<View style={{backgroundColor:'#fff',marginTop:16}}>
 				<TouchableOpacity style={{height:40,paddingLeft:16, alignItems:'center', flexDirection:'row',paddingRight:8}} onPress={() => navigation.navigate('Timesheets',{timesheetsList:timesheetsArray})}>
 					<Text style={{flex: 1,fontSize:16, color:ThemeColor.TextColor,fontFamily: FontName.Regular}}>Manage timesheet</Text>
 					<Feather name="chevron-right" color={ThemeColor.BorderColor} size={22,22} />
