@@ -98,95 +98,13 @@ import AddLeaveScreen from './Leave/AddLeaveScreen'
 import AttendanceHomeScreen from './Attendance/AttendanceHomeScreen';
 import AddRegularizationScreen from './Attendance/AddRegularizationScreen';
 
-const DashboardStack  = createStackNavigator();
-const TimesheetStack  = createStackNavigator();
-const MessageStack  = createStackNavigator();
-const ReferInviteStack  = createStackNavigator();
-const MoreStack  = createStackNavigator();
+const Stack  = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
 const SecondTabScreen = () => {
-	const tabBarListeners = ({ navigation, route }) => ({
-		tabPress: () => {
-			if(route.name === 'Job Matching'){
-				console.log(route.name);
-				navigation.navigate(route.name);
-			}
-		},
-	});
-
     return (
-        <Tab.Navigator 
-            initialRouteName="Dashboard"
-            tabBarOptions={{
-                activeTintColor: ThemeColor.BtnColor,
-            }}>
-            <Tab.Screen
-                name="Dashboard"
-                component={DashboardStackScreen}
-				listeners={tabBarListeners}
-                activeColor="red"
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Dashboard',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="speedometer-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Timesheet"
-                component={TimesheetStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Timesheets',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="ios-calendar-sharp" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Messages"
-                component={MessageStackScreen}
-                options={{
-                tabBarLabel: 'Messages',
-                tabBarIcon: ({ color, size }) => (
-                    <Icon name="ios-mail-outline" color={color} size={size} />
-                ),
-                }}
-            />
-            <Tab.Screen
-                name="ReferInvite"
-                component={ReferInviteStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'My referral',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="ios-people" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="More"
-                component={MoreStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'More',
-                    tabBarIcon: ({ color, size }) => (
-                        <FeatherIcons name="more-horizontal" color={color} size={size} />
-                    ),
-                }}
-            />
-        </Tab.Navigator>
-      );
-};
-
-export default SecondTabScreen;
-
-const DashboardStackScreen = ({navigation})  => {
-    return(
-        <DashboardStack.Navigator screenOptions={{
+        <Stack.Navigator screenOptions={{
             headerStyle: {
                 backgroundColor: ThemeColor.NavColor,
             },
@@ -196,227 +114,202 @@ const DashboardStackScreen = ({navigation})  => {
             },
            
             headerBackTitleVisible: false
-            }}>
-            <DashboardStack.Screen name="Dashboard" component={DashboardScreen} options={{}} />
-            <DashboardStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
-            <DashboardStack.Screen name="ChatBot" component={ChatBotScreen} />
-            <DashboardStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <DashboardStack.Screen name="Interviews" component={InterviewScreen}/>
-            <DashboardStack.Screen name="Messages" component={MessageHomeScreen}/>
-            <DashboardStack.Screen name="Conversassions" component={ConversassionScreen}/>
-            <DashboardStack.Screen name="ChatScreen1" component={ChatScreen}/>
-            <DashboardStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <DashboardStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
-            <DashboardStack.Screen name="Skill" component={AddSkillScreen} />
-            <DashboardStack.Screen name="ProjectEndDate" component={ProjectEndingScreen} />
-            <DashboardStack.Screen name="More" component={MoreScreen} options={{}}/>
-            <DashboardStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
-            <DashboardStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
-            <DashboardStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
-            <DashboardStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
-            <DashboardStack.Screen name="JobsList" component={JobSearchResult}  options={{
+        }}>
+            <Stack.Screen name="Home" component={HomeTabs} options={{headerShown: false}}/>
+            <Stack.Screen name="Profile" component={MyProfileScreen} options={{}} />
+            <Stack.Screen name="Jobs" component={JobsHomeScreen} options={{}} />
+            <Stack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
+            <Stack.Screen name="JobsList" component={JobSearchResult}  options={{
                 headerRight: () => (
                     <TouchableOpacity style={{marginRight:16}}>
                         <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
                     </TouchableOpacity>
                     ),
             }}/>
-            <DashboardStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
-            <DashboardStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
-            <DashboardStack.Screen name="Job apply"  component={JobApplyScreen} />
-            <DashboardStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
-            <DashboardStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
-            <DashboardStack.Screen name="ReferClient" component={ReferClientScreen}/>
-            <DashboardStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
-
-        </DashboardStack.Navigator>
-    );
- };
- const TimesheetStackScreen = ({navigation})  => {
-    return(
-        <TimesheetStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontFamily: 'Lato-Regular', fontSize:18
-            },
-            headerBackTitleVisible: false,
-            }}>
-            <TimesheetStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
-            <TimesheetStack.Screen name="ChatScreen" component={ChatScreen}/>
-            <TimesheetStack.Screen name="TsWorkFlow" component={TimesheetWorkflowScreen} options={{}}/>
-            <TimesheetStack.Screen name="SelectProject" component={SelectProjectScreen} options={{}}/>
-            <TimesheetStack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
-            <TimesheetStack.Screen name="ViewTimesheet" component={ViewTimesheetScreen}/>
-            <TimesheetStack.Screen name="TimesheetFrequency" component={TimesheetFrequencyScreen}/>
-            <TimesheetStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <TimesheetStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
-            <TimesheetStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
-            <TimesheetStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
-
-        </TimesheetStack.Navigator>
-    );
+            <Stack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
+            <Stack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
+            <Stack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
+            <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
+            <Stack.Screen name="AlertSetting" component={AlertSettingScreen}/>
+            <Stack.Screen name="PrivacyAndTerms" component={PrivacyAndTermsScreen} />
+            <Stack.Screen name="HelpAndSupport" component={HelpAndSupportScreen}/>
+            <Stack.Screen name="CallSupport" component={CallSupportScreen}/>
+            <Stack.Screen name="EmailSupport" component={EmailSupportScreen}/>
+            <Stack.Screen name="ReportBug" component={ReportBugScreen}/>
+            <Stack.Screen name="ChatBot" component={ChatBotScreen} />
+            <Stack.Screen name="ResourceHome" component={ResourceHomeScreen}/>
+            <Stack.Screen name="InterviewTips" component={InterviewTipsScreen} />
+            <Stack.Screen name="FormsAndPolicy" component={FormsAndPolicyScreen} />
+            <Stack.Screen name="NewsScreen" component={NewsScreen}/>
+            <Stack.Screen name="HolidaySchedule" component={HolidayScheduleScreen} />
+            <Stack.Screen name="HrHome" component={HrHomeScreen} />
+            <Stack.Screen name="HrBenefit" component={HrBenefitScreen}/>
+            <Stack.Screen name="ImmigrationHome" component={ImmigrationHomeScreen}/>
+            <Stack.Screen name="ImmigrationDesk" component={ImmigrationDeskScreen}/>
+            <Stack.Screen name="LegalFilings" component={LegalFilingsScreen}/>
+            <Stack.Screen name="EditLCA" component={NewLCAScreen}/>
+            <Stack.Screen name="LegalDocument" component={LegalDocumentScreen}/>
+            <Stack.Screen name="ChooseLcaType" component={ChooseLcaTypeScreen}/>
+            <Stack.Screen name="AddLCADetails" component={AddLCADetailsScreen}/> 
+            <Stack.Screen name="ViewLCADetails" component={ViewLCADetailsScreen}/>
+            <Stack.Screen name="LCAScreen" component={LCAScreen} />
+            <Stack.Screen name="NewLcaDocument" component={NewLcaDocumentScreen}/>
+            <Stack.Screen name="ProjectHome" component={ProjectHomeScreen}/>
+            <Stack.Screen name="TimesheetPayroll" component={TimesheetPayrollHomeScreen} />
+            <Stack.Screen name="PayrollInformation" component={PayrollInformationScreen} />
+            <Stack.Screen name="PayrollCalender" component={PayrollCalenderScreen}/>
+            <Stack.Screen name="ExpenceScreen" component={ExpenceScreen}/>
+            <Stack.Screen name="AddExpence" component={AddExpenceScreen}/>
+            <Stack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
+            <Stack.Screen name="AddTimeoffRequest" component={AddTimeoffRequestScreen}/>
+            <Stack.Screen name="PaymentStatus" component={PaymentStatusSCreen}/>
+            <Stack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <Stack.Screen name="ViewTimesheet" component={ViewTimesheetScreen}/>
+            <Stack.Screen name="TsWorkFlow" component={TimesheetWorkflowScreen} options={{}}/>
+            <Stack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
+            <Stack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
+            <Stack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
+            <Stack.Screen name="SelectProject" component={SelectProjectScreen} options={{}}/>
+            <Stack.Screen name="TimesheetFrequency" component={TimesheetFrequencyScreen}/>
+            <Stack.Screen name="InterviewScreen" component={InterviewScreen}/>
+            <Stack.Screen name="ReferFriend" component={ReferFriendScreen}/>
+            <Stack.Screen name="ReferContact" component={ReferContactScreen}/>
+            <Stack.Screen name="InviteFriend" component={InviteFriendScreen}/>
+            <Stack.Screen name="EmailInvite" component={EmailInviteScreen}/>
+            <Stack.Screen name="ReferClient" component={ReferClientScreen}/>
+            <Stack.Screen name="PayPalAccount" component={PayPalAccountScreen}/>
+            <Stack.Screen name="ActivityHome" component={ActivityHomeScreen}/>
+            <Stack.Screen name="Conversassions" component={ConversassionScreen}/>
+            <Stack.Screen name="ChatScreen" component={ChatScreen}/>
+            <Stack.Screen name="CreateMessage" component={CreateMessageScreen}/>
+            <Stack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
+            <Stack.Screen name="Modify profile" component={ProfileDetailScreen} />
+            <Stack.Screen name="Edit profile" component={EditProfileScreen} />  
+            <Stack.Screen name="Domain" component={DomainScreen} />
+            <Stack.Screen name="Funtional area" component={FuntionalAreaScreen} />
+            <Stack.Screen name="Desired employeement" component={DesiredEmploymentScreen} />
+            <Stack.Screen name="Desired salary" component={DesiredSalaryScreen} />
+            <Stack.Screen name="Skill" component={AddSkillScreen} />
+            <Stack.Screen name="Experience" component={AddExperienceScreen} />
+            <Stack.Screen name="AddEducation" component={AddEducationScreen} />
+            <Stack.Screen name="AddDocument" component={ResumeDocumentScreen} />
+            <Stack.Screen name="Speciality" component={SpecialityScreen} options={{}}/>
+            <Stack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <Stack.Screen name="JobMatching" component={JobMatchingScreen} />
+            <Stack.Screen name="Application" component={MyApplicationScreen} />
+            <Stack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <Stack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
+            <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
+            <Stack.Screen name="AddLeave" component={AddLeaveScreen}/>
+            <Stack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
+            <Stack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
+            <Stack.Screen name="Interviews" component={InterviewScreen}/>
+        </Stack.Navigator>
+      );
 };
- 
-const MessageStackScreen = ({navigation})  => {
-    return(
-        <MessageStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontFamily: 'Lato-Regular', fontSize:18
-            },
-            headerBackTitleVisible: false,
 
+export default SecondTabScreen;
+const HomeTabs = ({navigation})  => {
+    return (
+        <Tab.Navigator 
+            initialRouteName="Dashboard"
+            tabBarOptions={{
+                activeTintColor: ThemeColor.BtnColor,
             }}>
-            <MessageStack.Screen name="MessageHome" component={MessageHomeScreen} options={{}}/>
-            <MessageStack.Screen name="ChatScreens" component={ChatScreen}/>
-            <MessageStack.Screen name="Conversassions" component={ConversassionScreen}/>
-            <MessageStack.Screen name="ChatScreen" component={ChatScreen}/>
-            <MessageStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>   
-            <MessageStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <MessageStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
-
-        </MessageStack.Navigator>
-    );
-};
-const ReferInviteStackScreen = ({navigation})  => {
-
-    return(
-        <ReferInviteStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontFamily: 'Lato-Regular', fontSize:18
-            }
-            }}>
-            <ReferInviteStack.Screen name="ReferralsAndInvite" component={ReferralsAndInviteScreen} options={{}}/>
-            <ReferInviteStack.Screen name="ReferFriend" component={ReferFriendScreen}/>
-            <ReferInviteStack.Screen name="ReferContact" component={ReferContactScreen}/>
-            <ReferInviteStack.Screen name="InviteFriend" component={InviteFriendScreen}/>
-            <ReferInviteStack.Screen name="EmailInvite" component={EmailInviteScreen}/>
-            <ReferInviteStack.Screen name="ReferClient" component={ReferClientScreen}/>
-            <ReferInviteStack.Screen name="ActivityHome" component={ActivityHomeScreen}/>
-            <ReferInviteStack.Screen name="PayPalAccount" component={PayPalAccountScreen}/>
-            <ReferInviteStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
-
-        </ReferInviteStack.Navigator>
-    );
-};
- 
-const MoreStackScreen = ({navigation})  => {
-    return(
-        <MoreStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontSize:18
-            },
-            headerBackTitleVisible: false
-            }}>
-<MoreStack.Screen name="More" component={MoreScreen} options={{ }} />            
-            <MoreStack.Screen name="Profile" component={MyProfileScreen} options={{}} />
-            <MoreStack.Screen name="Jobs" component={JobsHomeScreen} options={{}} />
-            <MoreStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
-            <MoreStack.Screen name="JobsList" component={JobSearchResult}  options={{
-                headerRight: () => (
-                    <TouchableOpacity style={{marginRight:16}}>
-                        <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
-                    </TouchableOpacity>
+            <Tab.Screen
+                name="Dashboard"
+                component={DashboardScreen}
+                activeColor="red"
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,
+                    tabBarLabel: 'Dashboard',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="speedometer-outline" color={color} size={size} />
                     ),
-            }}/>
-            <MoreStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
-            <MoreStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
-            <MoreStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
-            <MoreStack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
-            <MoreStack.Screen name="AlertSetting" component={AlertSettingScreen}/>
-            <MoreStack.Screen name="PrivacyAndTerms" component={PrivacyAndTermsScreen} />
-            <MoreStack.Screen name="HelpAndSupport" component={HelpAndSupportScreen}/>
-            <MoreStack.Screen name="CallSupport" component={CallSupportScreen}/>
-            <MoreStack.Screen name="EmailSupport" component={EmailSupportScreen}/>
-            <MoreStack.Screen name="ReportBug" component={ReportBugScreen}/>
-            <MoreStack.Screen name="ChatBot" component={ChatBotScreen} />
-            <MoreStack.Screen name="ResourceHome" component={ResourceHomeScreen}/>
-            <MoreStack.Screen name="InterviewTips" component={InterviewTipsScreen} />
-            <MoreStack.Screen name="FormsAndPolicy" component={FormsAndPolicyScreen} />
-            <MoreStack.Screen name="NewsScreen" component={NewsScreen}/>
-            <MoreStack.Screen name="HolidaySchedule" component={HolidayScheduleScreen} />
-            <MoreStack.Screen name="HrHome" component={HrHomeScreen} />
-            <MoreStack.Screen name="HrBenefit" component={HrBenefitScreen}/>
-            <MoreStack.Screen name="ImmigrationHome" component={ImmigrationHomeScreen}/>
-            <MoreStack.Screen name="ImmigrationDesk" component={ImmigrationDeskScreen}/>
-            <MoreStack.Screen name="LegalFilings" component={LegalFilingsScreen}/>
-            <MoreStack.Screen name="EditLCA" component={NewLCAScreen}/>
-            <MoreStack.Screen name="LegalDocument" component={LegalDocumentScreen}/>
-            <MoreStack.Screen name="ChooseLcaType" component={ChooseLcaTypeScreen}/>
-            <MoreStack.Screen name="AddLCADetails" component={AddLCADetailsScreen}/> 
-            <MoreStack.Screen name="ViewLCADetails" component={ViewLCADetailsScreen}/>
-            <MoreStack.Screen name="LCAScreen" component={LCAScreen} />
-            <MoreStack.Screen name="NewLcaDocument" component={NewLcaDocumentScreen}/>
-            <MoreStack.Screen name="ProjectHome" component={ProjectHomeScreen}/>
-            <MoreStack.Screen name="TimesheetPayroll" component={TimesheetPayrollHomeScreen} />
-            <MoreStack.Screen name="PayrollInformation" component={PayrollInformationScreen} />
-            <MoreStack.Screen name="PayrollCalender" component={PayrollCalenderScreen}/>
-            <MoreStack.Screen name="ExpenceScreen" component={ExpenceScreen}/>
-            <MoreStack.Screen name="AddExpence" component={AddExpenceScreen}/>
-            <MoreStack.Screen name="RequestTimeoff" component={RequestTimeoffScreen}/>
-            <MoreStack.Screen name="AddTimeoffRequest" component={AddTimeoffRequestScreen}/>
-            <MoreStack.Screen name="PaymentStatus" component={PaymentStatusSCreen}/>
-            <MoreStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <MoreStack.Screen name="Timesheets" component={TumesheetsScreen} options={{}}/>
-            <MoreStack.Screen name="ViewTimesheet" component={ViewTimesheetScreen}/>
-            <MoreStack.Screen name="TsWorkFlow" component={TimesheetWorkflowScreen} options={{}}/>
-            <MoreStack.Screen name="EditTimesheet" component={EditTimesheetScreen}/>
-            <MoreStack.Screen name="CheckInOutTimesheet" component={CheckInOutTimesheetScreen} options={{}}/>
-            <MoreStack.Screen name="CheckInOutEdit" component={CheckInOutScreen} options={{}}/>
-            <MoreStack.Screen name="SelectProject" component={SelectProjectScreen} options={{}}/>
-            <MoreStack.Screen name="TimesheetFrequency" component={TimesheetFrequencyScreen}/>
-            <MoreStack.Screen name="InterviewScreen" component={InterviewScreen}/>
-            <MoreStack.Screen name="ReferralsAndInvite" component={ReferralsAndInviteScreen}/>
-            <MoreStack.Screen name="ReferFriend" component={ReferFriendScreen}/>
-            <MoreStack.Screen name="ReferContact" component={ReferContactScreen}/>
-            <MoreStack.Screen name="InviteFriend" component={InviteFriendScreen}/>
-            <MoreStack.Screen name="EmailInvite" component={EmailInviteScreen}/>
-            <MoreStack.Screen name="ReferClient" component={ReferClientScreen}/>
-            <MoreStack.Screen name="PayPalAccount" component={PayPalAccountScreen}/>
-            <MoreStack.Screen name="ActivityHome" component={ActivityHomeScreen}/>
-            <MoreStack.Screen name="MessageHome" component={MessageHomeScreen}/>
-            <MoreStack.Screen name="Conversassions" component={ConversassionScreen}/>
-            <MoreStack.Screen name="ChatScreen" component={ChatScreen}/>
-            <MoreStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <MoreStack.Screen name="ChatAttachments" component={ChatAttachmentScreen}/>    
-            <MoreStack.Screen name="Modify profile" component={ProfileDetailScreen} />
-            <MoreStack.Screen name="Edit profile" component={EditProfileScreen} />  
-            <MoreStack.Screen name="Domain" component={DomainScreen} />
-            <MoreStack.Screen name="Funtional area" component={FuntionalAreaScreen} />
-            <MoreStack.Screen name="Desired employeement" component={DesiredEmploymentScreen} />
-            <MoreStack.Screen name="Desired salary" component={DesiredSalaryScreen} />
-            <MoreStack.Screen name="Skill" component={AddSkillScreen} />
-            <MoreStack.Screen name="Experience" component={AddExperienceScreen} />
-            <MoreStack.Screen name="AddEducation" component={AddEducationScreen} />
-            <MoreStack.Screen name="AddDocument" component={ResumeDocumentScreen} />
-            <MoreStack.Screen name="Speciality" component={SpecialityScreen} options={{}}/>
-            <MoreStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
-            <MoreStack.Screen name="MatchingJob" component={JobMatchingScreen} />
-            <MoreStack.Screen name="Applications" component={MyApplicationScreen} />
-            <MoreStack.Screen name="SimilarJobs" component={SimilarJobScreen}/> 
-            <MoreStack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
-            <MoreStack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
-            <MoreStack.Screen name="AddLeave" component={AddLeaveScreen}/>
-            <MoreStack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
-            <MoreStack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
-
-        </MoreStack.Navigator>
+                }}
+            />
+            <Tab.Screen
+                name="Timesheets"
+                component={TumesheetsScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,                    
+                    tabBarLabel: 'Timesheets',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="ios-calendar-sharp" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="MessageHome"
+                component={MessageHomeScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,
+                    tabBarLabel: 'Messages',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="ios-mail-outline" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="ReferralsAndInvite"
+                component={ReferralsAndInviteScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,
+                    tabBarLabel: 'My referral',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="ios-people" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="More"
+                component={MoreScreen}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    tabBarLabel: 'More',
+                    tabBarIcon: ({ color, size }) => (
+                        <FeatherIcons name="more-horizontal" color={color} size={size} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {

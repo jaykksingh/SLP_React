@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import { ThemeColor ,StaticMessage} from '../_helpers/constants';
 import { AuthContext } from '../Components/context';
-// import { BlurView } from "@react-native-community/blur";
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -21,11 +20,7 @@ import PreScreeningScreen from './PreScreening/PreScreeningScreen'
 import SimilarJobScreen from './PreScreening/SimilarJobScreen';
 import ChatScreen from './Messaging/ChatScreen';
 
-const DashboardStack  = createStackNavigator();
-const JobMatchingStack  = createStackNavigator();
-const JobSearchStack  = createStackNavigator();
-const MyApplicationStack  = createStackNavigator();
-const MoreStack  = createStackNavigator();
+const Stack  = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
@@ -40,77 +35,7 @@ const SkipTabScreen = () => {
 	});
 
     return (
-        <Tab.Navigator 
-            initialRouteName="Job Search"
-            tabBarOptions={{
-                activeTintColor: ThemeColor.BtnColor,
-            }}>
-            <Tab.Screen
-                name="Dashboard"
-                component={DashboardStackScreen}
-				listeners={tabBarListeners}
-                activeColor="red"
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Dashboard',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="speedometer-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Job Matching"
-                component={JobMatchingStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Job Matches',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="stop-circle-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Job Search"
-                component={JobSearchStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Jobs search',
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="search-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Application"
-                component={MyApplicationStackScreen}
-                options={{
-                headerShown: false,
-                tabBarLabel: 'Applications',
-                tabBarIcon: ({ color, size }) => (
-                    <Icon name="folder-open-outline" color={color} size={size} />
-                ),
-                }}
-            />
-            <Tab.Screen
-                name="More"
-                component={MoreStackScreen}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'More',
-                    tabBarIcon: ({ color, size }) => (
-                        <FeatherIcons name="more-horizontal" color={color} size={size} />
-                    ),
-                }}
-            />
-        </Tab.Navigator>
-      );
-};
-
-export default SkipTabScreen;
-
-const DashboardStackScreen = ({navigation})  => {
-    return(
-        <DashboardStack.Navigator screenOptions={{
+        <Stack.Navigator screenOptions={{
             headerStyle: {
                 backgroundColor: ThemeColor.NavColor,
             },
@@ -120,100 +45,131 @@ const DashboardStackScreen = ({navigation})  => {
             },
            
             headerBackTitleVisible: false
-            }}>
-            <DashboardStack.Screen name="Dashboard" component={GuestDashboard} options={{}} />
-        </DashboardStack.Navigator>
-    );
- };
-
- const JobMatchingStackScreen = ({navigation})  => {
-    return(
-        <JobMatchingStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontSize:18
-            },
-            }}>
-            <JobMatchingStack.Screen name="Job Matches" component={GuestMatchingJob} options={{ }} />
-        </JobMatchingStack.Navigator>
-    );
- };
- const JobSearchStackScreen = ({navigation})  => {
-    return(
-        <JobSearchStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontSize:18
-            },
-            headerBackTitleVisible: false
-
-            }}>
-
-            <JobSearchStack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
-            <JobSearchStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
-            <JobSearchStack.Screen name="JobsList" component={JobSearchResult}  options={{
+        }}>
+            <Stack.Screen name="Home" component={HomeTabs} options={{headerShown: false}}/>
+            <Stack.Screen name="FindJobs" component={JobSearchScreen} options={{}}/>
+            <Stack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+            <Stack.Screen name="JobsList" component={JobSearchResult}  options={{
                 headerRight: () => (
                     <TouchableOpacity style={{marginRight:16}}>
                         <Image style={{ width: 25,height: 25,tintColor:'white'}} source={require('../assets/Images/icon_filter.png')} /> 
                     </TouchableOpacity>
                     ),
             }}/>
-            {/* <JobSearchStack.Screen name="Filter" component={SavedFileterScreen} options={{}}/> */}
-            <JobSearchStack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
-            <JobSearchStack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
-            <JobSearchStack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
-            <JobSearchStack.Screen name="ChatScreen" component={ChatScreen}/>
-            <JobSearchStack.Screen name="PreScreenings" component={PreScreeningScreen}/>
-            <JobSearchStack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <JobSearchStack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <Stack.Screen name="JobDetails" component={JobDetailScreen} options={{}}/>
+            <Stack.Screen name="Job apply" component={JobApplyScreen} options={{}}/>
+            <Stack.Screen name="Job refer" component={JobReferScreen} options={{}}/>
+            <Stack.Screen name="ChatScreen" component={ChatScreen}/>
+            <Stack.Screen name="PreScreenings" component={PreScreeningScreen}/>
+            <Stack.Screen name="CreateMessage" component={CreateMessageScreen}/>
+            <Stack.Screen name="SimilarJobs" component={SimilarJobScreen}/>            
+        </Stack.Navigator>
+      );
+};
 
-        </JobSearchStack.Navigator>
-    );
- };
- const MyApplicationStackScreen = ({navigation})  => {
-    return(
-        <MyApplicationStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontSize:18
-            },
-            
-            headerBackTitleVisible: false
-
+export default SkipTabScreen;
+const HomeTabs = ({navigation})  => {
+    return (
+        <Tab.Navigator 
+            initialRouteName="Dashboard"
+            tabBarOptions={{
+                activeTintColor: ThemeColor.BtnColor,
             }}>
-            <MyApplicationStack.Screen name="Applications" component={GuestMyApplication} options={{}} />
-
-        </MyApplicationStack.Navigator>
+            <Tab.Screen
+                name="Dashboard"
+                component={GuestDashboard}
+                activeColor="red"
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,
+                    tabBarLabel: 'Dashboard',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="speedometer-outline" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="JobMatching"
+                component={GuestMatchingJob}
+                options={{
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    headerShown: true,
+                    tabBarLabel: 'Job Matches',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="stop-circle-outline" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="FindJobs"
+                component={JobSearchScreen}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    tabBarLabel: 'Jobs search',
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="search-outline" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Application"
+                component={GuestMyApplication}
+                options={{
+                headerShown: true,
+                headerStyle: {
+                    backgroundColor: ThemeColor.NavColor,
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontSize:18
+                },        
+                tabBarLabel: 'Applications',
+                tabBarIcon: ({ color, size }) => (
+                    <Icon name="folder-open-outline" color={color} size={size} />
+                ),
+                }}
+            />
+            <Tab.Screen
+                name="More"
+                component={GuestMore}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: ThemeColor.NavColor,
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                        fontSize:18
+                    },        
+                    tabBarLabel: 'More',
+                    tabBarIcon: ({ color, size }) => (
+                        <FeatherIcons name="more-horizontal" color={color} size={size} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
     );
- };
- const MoreStackScreen = ({navigation})  => {
-    return(
-        <MoreStack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: ThemeColor.NavColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontSize:18
-            },
-            headerBackTitleVisible: false
-            }}>
-            <MoreStack.Screen name="More" component={GuestMore} options={{ }} />            
-            
-        </MoreStack.Navigator>
-    );
- };
+}
 
- 
 
 const GuestDashboard = ({navigation})  => {
 	const { signOut } = React.useContext(AuthContext);
@@ -225,12 +181,6 @@ const GuestDashboard = ({navigation})  => {
             source={require('../assets/Images/BlurDashboard.png')}
             style={styles.absolute}
         />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
         <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
         <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
             <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
@@ -248,12 +198,6 @@ const GuestMatchingJob = ({navigation})  => {
             source={require('../assets/Images/BlurMatching.png')}
             style={styles.absolute}
         />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
         <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
         <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
             <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
@@ -271,12 +215,6 @@ const GuestMyApplication = ({navigation})  => {
             source={require('../assets/Images/BlurApplication.png')}
             style={styles.absolute}
         />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
         <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
         <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
             <Text style={{color:ThemeColor.BtnColor, fontSize:16 }}>CONTINUE</Text>
@@ -294,12 +232,6 @@ const GuestMore = ({navigation})  => {
             source={require('../assets/Images/BlurMore.png')}
             style={styles.absolute}
         />
-        {/* <BlurView
-          style={styles.absolute}
-          blurType="light"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="white"
-        /> */}
         <Text style={{fontSize: 16, textAlign:'center'}}>LOG IN or SIGN UP to continue.</Text>
         <TouchableOpacity style={styles.btnFill} onPress={() => {signOut()}}>
             <Text style={{color:ThemeColor.BtnColor,fontSize:16 }}>CONTINUE</Text>
