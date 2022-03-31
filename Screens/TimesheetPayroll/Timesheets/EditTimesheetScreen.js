@@ -802,7 +802,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 	
 	return(
 		<SafeAreaView style={styles.container}>
-			<KeyboardAwareScrollView style={{ paddingTop:16,paddingBottom:16,}}>
+			<KeyboardAwareScrollView style={{ paddingTop:16,paddingBottom:16,flexGrow: 1}}>
 				<View style={{flexDirection:'row-reverse',alignContent: 'center', alignItems: 'center',paddingLeft:16, paddingRight:16,}}>
 					<TouchableOpacity style={{width:20, height:20, alignItems: 'center',justifyContent: 'center'}} onPress ={() => {navigation.navigate('TimesheetFrequency',{projectDetail:projectDetail,timesheetDetails:timesheetDetails, onClickEvent:handleFrequencyChange})}}>
 						<Feather name="settings" color={ThemeColor.TextColor} size={15} />
