@@ -78,8 +78,6 @@ const CheckInOutScreen = ({route,navigation}) => {
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
 		var authToken = base64.encode(userAuthToken);
 		
-		console.log('Client Approved Params:',JSON.stringify(dayDetails));
-
 		setIsLoading(true);
 		axios ({  
 		  "method": "POST",
@@ -91,7 +89,7 @@ const CheckInOutScreen = ({route,navigation}) => {
 		    setIsLoading(false);
             if (response.data.code == 200){
                 setIsListUpdated(!isListUpdated);
-                console.log('Mannual Hours: ', JSON.stringify(response.data.content.dataList));
+                // console.log('Mannual Hours: ', JSON.stringify(response.data.content.dataList));
                 setMannualHoursArray(response.data.content.dataList);
                 if(response.data.content.dataList.length == 0){
                     addMoreRecord();
@@ -138,13 +136,27 @@ const CheckInOutScreen = ({route,navigation}) => {
         return total.length > 1 ? total : `${total}.00`
     }
     const showClockInPicker = (item, index) => {
-		console.log(item);
+		console.log('Clock In: ',item);
+        if(item.inTime.length > 0){
+            let momentStartDate = moment(item.inTime, 'HH:mm');        
+            if(momentStartDate){
+                setStartDate(new Date(momentStartDate.format("YYYY-MM-DDTHH:mm:ssZ")));
+            }
+        }
+       
 		setSelectedHours(item);
 		setSelectedIndex(index);
 		clockInTypeRef.current?.setModalVisible()
 	}
     const showClockOutPicker = (item, index) => {
 		console.log(item);
+        if(item.outTime.length > 0){
+            let momentEndDate = moment(item.outTime, 'HH:mm');        
+            if(momentEndDate){
+                setEndDate(new Date(momentEndDate.format("YYYY-MM-DDTHH:mm:ssZ")));
+            }
+        }
+       
 		setSelectedHours(item);
 		setSelectedIndex(index);
 		clockOutTypeRef.current?.setModalVisible()
@@ -246,7 +258,6 @@ const CheckInOutScreen = ({route,navigation}) => {
 
 
     
-	console.log('Day Detail: ', mannualHoursArray);
     let breakTypeArr =  [{value:"Meal break", keyId:24163}, {value:"Regular break", keyId:24162}]
 
 	return(
@@ -335,17 +346,7 @@ const CheckInOutScreen = ({route,navigation}) => {
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select break type</Text>
 					<TouchableOpacity onPress={() => {
-						// setSelectedHours({...selectedHours,hourType:breakTypeArr[0].key});
-						
-						// let tempArr = mannualHoursArray;
-						// let editObj = selectedHours;
-						// editObj.hourType = breakTypeArr[0].key;
-						// console.log(editObj);
-						// tempArr[selectedIndex] = editObj;
-                        // {selectedHours.hourType.length == 0 && setMannualHoursArray(tempArr)}
-						// setIsListUpdated(!isListUpdated);
-						breakTypeRef.current?.setModalVisible()
-						
+						breakTypeRef.current?.setModalVisible()						
 					}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>
@@ -375,11 +376,16 @@ const CheckInOutScreen = ({route,navigation}) => {
                 <View style={{height:300}}>
                 <View style={{height:44, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
                     <TouchableOpacity onPress={() => {clockInTypeRef.current?.setModalVisible()}}>
-                    <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
+                        <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
                     </TouchableOpacity>
                     <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>Clock In</Text>
-                    <TouchableOpacity onPress={() => {clockInTypeRef.current?.setModalVisible()}}>
-                    <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
+                    <TouchableOpacity onPress={() => {
+                        if(selectedHours.inTime.length == 0){
+                            handleClockInTimeChange(new Date());
+                        }
+                        clockInTypeRef.current?.setModalVisible()
+                    }}>
+                        <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
                     </TouchableOpacity>
                 </View>
                 <DatePicker
@@ -397,14 +403,19 @@ const CheckInOutScreen = ({route,navigation}) => {
                     <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
                     </TouchableOpacity>
                     <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>Clock Out</Text>
-                    <TouchableOpacity onPress={() => {clockOutTypeRef.current?.setModalVisible()}}>
+                    <TouchableOpacity onPress={() => {
+                         if(selectedHours.outTime.length == 0){
+                            handleClockOutTimeChange(new Date());
+                        }
+                        clockOutTypeRef.current?.setModalVisible()
+                    }}>
                     <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
                     </TouchableOpacity>
                 </View>
                 <DatePicker
                     style={{backgroundColor: 'white',flex:1,width:Dimensions.get('window').width}}
                     mode={'time'}
-                    minimumDate={startDate}
+                    // minimumDate={startDate}
                     date={endDate}
                     onDateChange={(val) => {handleClockOutTimeChange(val)}}
                 />
