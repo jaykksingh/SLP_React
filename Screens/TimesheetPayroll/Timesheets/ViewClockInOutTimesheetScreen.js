@@ -23,7 +23,7 @@ import FileViewer from "react-native-file-viewer";
 import RNFS from "react-native-fs";
 
 
-const ViewTimesheetScreen = ({route,navigation}) => {
+const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [data,setData] = React.useState({
 		clientName:'',
@@ -47,7 +47,7 @@ const ViewTimesheetScreen = ({route,navigation}) => {
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
-			  title: projectDetail ? projectDetail.projectName :`View timesheet `,
+			  title: projectDetail ? projectDetail.projectName + 'Clock' :`View timesheet `,
 		});
 	}, [navigation]);
 	const showShareOptions = () =>{
@@ -404,7 +404,7 @@ const ViewTimesheetScreen = ({route,navigation}) => {
 	);
 }
 
-export default ViewTimesheetScreen;
+export default ViewClockInOutTimesheetScreen;
 
 const styles = StyleSheet.create({
     container: {

@@ -93,7 +93,7 @@ const MoreScreen = ({navigation}) => {
   let isJobSeeker = (jobSeeker || jobSearchStatusID == 4751 || jobSearchStatusID == 4752 || isExternalUser);
   let authorisationStatusId = empDetails ? empDetails.authorisationStatusId : 0;
   let employeeTypeId = empDetails ? empDetails.employeeTypeId : 0
-  let isImmigrationAndHRVisible = (authorisationStatusId == 1 || authorisationStatusId == 2 || employeeTypeId == 1223) ? false : true;    
+  let isImmigrationAndHRVisible = (authorisationStatusId == 1 || authorisationStatusId == 2 || employeeTypeId == 1223) ? true : false;    
 
   console.log(displayType,isExternalUser,jobSeeker,jobSearchStatusID,isJobSeeker);
   var menuOptionArr = [];
@@ -122,9 +122,11 @@ const MoreScreen = ({navigation}) => {
       if(!isExternalUser){
         menuOptionArr.push({"cellType" : "MENU" , "title":"Timesheet and payroll" ,"icon":require('../../assets/Images/MenuIcons/Timecards.png')});
         menuOptionArr.push({"cellType" : "MENU" , "title":"Projects" ,"icon":require('../../assets/Images/MenuIcons/My_Projects.png')});
-        if(isJobSeeker){
+        if(isImmigrationAndHRVisible){
           menuOptionArr.push({"cellType" : "MENU" , "title":"Immigration" ,"icon":require('../../assets/Images/MenuIcons/Immigration.png')});
         }
+        // menuOptionArr.push({"cellType" : "MENU" , "title":"Immigration" ,"icon":require('../../assets/Images/MenuIcons/Immigration.png')});
+
       }
 
       menuOptionArr.push({"cellType" : "SPACE" , "title":""});
@@ -165,7 +167,6 @@ const MoreScreen = ({navigation}) => {
       if(isImmigrationAndHRVisible){
         menuOptionArr.push({"cellType" : "MENU" , "title":"Immigration" ,"icon":require('../../assets/Images/MenuIcons/Immigration.png')});
       }
-      // menuOptionArr.push({"cellType" : "MENU" , "title":"Immigration" ,"icon":require('../../assets/Images/MenuIcons/Immigration.png')});
 
       menuOptionArr.push({"cellType" : "SPACE" , "title":""});
     }

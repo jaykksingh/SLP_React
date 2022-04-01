@@ -82,6 +82,7 @@ const SubmittedTimesheetScreen = ({navigation})  => {
       console.log(response.data);
       setIsLoading(false);
 		  if (response.data.code == 200){
+        console.log('Submitted Timesheet:',JSON.stringify(response.data.content.dataList));
         setTimesheetsArray(response.data.content.dataList);
 		  }else if (response.data.code == 417){
         console.log(Object.values(response.data.content.messageList));
@@ -144,7 +145,18 @@ const SubmittedTimesheetScreen = ({navigation})  => {
     getTimeshetsList(startDateString,endDateString);
 	}
 
-  const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,projectDetailId}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,projectDetailId:projectDetailId }));
+  const handleViewTimesheet = (item, section) => {
+    console.log('View Handler: ',section);
+    // let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
+    // if(projectTemplateID == 24063){
+    //   navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
+    // }else{
+    //   navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+    // }
+    navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+  }
+
+  const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,projectDetailId,timeSheetTemplate}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,projectDetailId:projectDetailId,timeSheetTemplate:timeSheetTemplate }));
 	return(
 		<SafeAreaView style={styles.container}>
       <View style={{marginTop:8}}>
@@ -152,11 +164,11 @@ const SubmittedTimesheetScreen = ({navigation})  => {
         <View style={{flexDirection:'row',}}>
           <TouchableOpacity style={{flex: 1,paddingLeft:8,backgroundColor:'white', height:40, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {startDateRef.current?.setModalVisible()}}>
             <Text style={[styles.labelText,{color:data.startDate.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.startDate.length > 0 ? data.startDate : 'Start date'}</Text>
-            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22,22} />
+            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22} />
           </TouchableOpacity>
           <TouchableOpacity style={{flex: 1,backgroundColor:'white', height:40,flexDirection:'row', alignItems:'center', paddingRight:16}}  onPress={() => {endDateRef.current?.setModalVisible()}}>
             <Text style={[styles.labelText,{color:data.endDate.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.endDate.length > 0 ? data.endDate : 'End date'}</Text>
-            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22,22} />
+            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22} />
           </TouchableOpacity>
         </View>
         <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
@@ -177,17 +189,17 @@ const SubmittedTimesheetScreen = ({navigation})  => {
           renderItem={({item, index,section}) => 
             <View style={{ backgroundColor:'#fff'}}>
               <View style={{}} >
-                <TouchableOpacity style={{height:40,paddingLeft:16, flexDirection:'row', alignItems:'center',}} onPress={()=> navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})}>
+                <TouchableOpacity style={{height:40,paddingLeft:16, flexDirection:'row', alignItems:'center',}} onPress={()=> handleViewTimesheet(item,section)}>
                   <Text style={{fontSize:14, color:ThemeColor.TextColor,fontFamily: FontName.Regular, flex:1}}>{getFormatedDateRange(item)}</Text>
                   <Text style={{fontSize:14, color:ThemeColor.TextColor,fontFamily: FontName.Regular, textAlign: 'right'}}>{item.totalHours} Hours</Text>
-                  <Feather name="chevron-right" color={ThemeColor.BorderColor} size={24,24} />
+                  <Feather name="chevron-right" color={ThemeColor.BorderColor} size={24} />
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
                 <View style={{height:40,paddingLeft:16, flexDirection:'row', alignItems:'center',flex: 1}}>
                   <Text style={{fontSize:14, color:item.subStatusId == 908 ?  ThemeColor.RedColor : ThemeColor.GreenColor,fontFamily: FontName.Regular, flex: 1, textAlign: 'center'}}>{item.subStatus}</Text>
                   <View style={{height:40 , width:1,backgroundColor:ThemeColor.BorderColor}}/>
-                  <TouchableOpacity style={{flex: 1,alignItems:'center',justifyContent: 'center', flexDirection:'row'}} onPress={()=> navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})}>
-                    <Feather name="lock" color={ThemeColor.NavColor} size={18,18} />
+                  <TouchableOpacity style={{flex: 1,alignItems:'center',justifyContent: 'center', flexDirection:'row'}} onPress={()=> handleViewTimesheet(item,section)}>
+                    <Feather name="lock" color={ThemeColor.NavColor} size={18} />
                     <Text style={{fontSize:14, color:ThemeColor.NavColor,fontFamily: FontName.Regular, textAlign: 'center', marginLeft:8}}>View timesheet</Text>
                   </TouchableOpacity>
                   

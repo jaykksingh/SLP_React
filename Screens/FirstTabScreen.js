@@ -97,15 +97,9 @@ import LeaveDetailsScreen from './Leave/LeaveDetailsScreen';
 import AddLeaveScreen from './Leave/AddLeaveScreen'
 import AttendanceHomeScreen from './Attendance/AttendanceHomeScreen';
 import AddRegularizationScreen from './Attendance/AddRegularizationScreen';
-
+import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClockInOutTimesheetScreen';
 
 const Stack  = createStackNavigator();
-const DashboardStack  = createStackNavigator();
-const JobMatchingStack  = createStackNavigator();
-const JobSearchStack  = createStackNavigator();
-const MyApplicationStack  = createStackNavigator();
-const MoreStack  = createStackNavigator();
-
 const Tab = createBottomTabNavigator();
 
 const FirstTabScreen = () => {
@@ -212,6 +206,8 @@ const FirstTabScreen = () => {
             <Stack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
             <Stack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
             <Stack.Screen name="Interviews" component={InterviewScreen}/>
+            <Stack.Screen name="ViewClockInOutTimesheet" component={ViewClockInOutTimesheetScreen}/>
+
         </Stack.Navigator>
     );
 }

@@ -789,7 +789,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			<KeyboardAwareScrollView style={{ paddingTop:16,paddingBottom:16,}}>
 				<View style={{flexDirection:'row-reverse',alignContent: 'center', alignItems: 'center',paddingLeft:16, paddingRight:16,}}>
 					<TouchableOpacity style={{width:20, height:20, alignItems: 'center',justifyContent: 'center'}} onPress ={() => {navigation.navigate('TimesheetFrequency',{projectDetail:projectDetail,timesheetDetails:timesheetDetails, onClickEvent:handleFrequencyChange})}}>
-						<Feather name="settings" color={ThemeColor.TextColor} size={15,15} />
+						<Feather name="settings" color={ThemeColor.TextColor} size={15} />
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:14,fontFamily:FontName.Regular}}>{data.timeSheetCycle} </Text>
 					<Text style={{color:ThemeColor.SubTextColor, fontSize:14,fontFamily:FontName.Regular}}>Your timesheet frequency: </Text>
@@ -835,7 +835,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 								<Text style ={{color:ThemeColor.NavColor, fontSize:12 ,fontFamily:FontName.Regular, marginLeft:8, marginRight:8, textAlign: 'center'}}>{data.fileName}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity style={{width:20, height:20, alignItems: 'center',justifyContent: 'center'}} onPress={() => removeSelectedFile()}>
-								<Icon name="close-circle-outline" color={ThemeColor.TextColor} size={20,20} />
+								<Icon name="close-circle-outline" color={ThemeColor.TextColor} size={20} />
 							</TouchableOpacity>
 						</View> : null
 					}
@@ -879,12 +879,12 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 				{(data.showMannualHours || projectDetail.timesheetClientApproval == 1) && 
 				<View style ={{backgroundColor:'white', flex: 1, marginBottom:16, marginTop:16}}>
 					<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
-						<View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+						<View style={{height:30, width:85, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>Date</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						{mannualHoursArray.length > 0 && mannualHoursArray[0].shiftOption.length > 1 ?
-						<View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+						<View style={{height:30, width:75, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>Shift</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View> :  null 
@@ -901,8 +901,11 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>DT hours</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
-						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex:1}}>Lunch hours</Text>
+						<View style={{height:30, width:95, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:30}}>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center',flex:1}}>Lunch hours</Text>
+							{/* <View style={{backgroundColor:'green', width:30}}>
+
+							</View> */}
 						</View>
 					</View>
 					<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/> 
@@ -916,12 +919,12 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 						renderItem={({item, index}) => 
 						<View>
 							<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
-								<View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:30, width:85, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getFormatedDate(item)}</Text>
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 								{mannualHoursArray.length > 0 && mannualHoursArray[0].shiftOption.length > 1 ?
-								<View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+								<View style={{height:30, width:75, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									{item.statusId > 3302 ?
 									<View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}} onPress ={() => {showShiftTypePicker(item, index)}}>
 										<Text style={{color:'white',fontSize:12, textAlign: 'center', flex: 1}}>{item.shiftId > 0 ? getShiftTypeName(item) : "Select shift"}</Text>
@@ -948,14 +951,15 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
 
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
+								<View style={{height:30, width:95, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
 									{
 										item.statusId > 3302 ? 
 										<View onPress={ () => {handleEditClicked(item)}}>
+											<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
 											<MaterialIcons name="lock" color={ThemeColor.SubTextColor} size={15} />
 										</View> :
-										<TouchableOpacity onPress={ () => {handleEditClicked(item)}}>
+										<TouchableOpacity style={{height:30, justifyContent:'center', alignItems:'center', flex:1, flexDirection:'row'}} onPress={ () => {handleEditClicked(item)}}>
+											<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
 											<MaterialIcons name="edit" color={ThemeColor.TextColor} size={15} />
 										</TouchableOpacity>
 									}
@@ -972,7 +976,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			{(data.showMannualHours  || projectDetail.timesheetClientApproval == 1) && 
 			<View style={{backgroundColor:'white'}}>
 				<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
-					<View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+					<View style={{height:30, width:85, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>Total</Text>
 					</View>
 					{mannualHoursArray.length > 0 && mannualHoursArray[0].shiftOption.length > 1 ?
@@ -993,8 +997,8 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getTotalDtHours()}</Text>
 						<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 					</View>
-					<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getTotalHours()}</Text>
+					<View style={{height:30, width:95, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
+						<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{getTotalBreakHours()}</Text>
 					</View>
 				</View>
 				<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>			
