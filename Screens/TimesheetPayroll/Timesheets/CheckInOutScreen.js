@@ -268,7 +268,7 @@ const CheckInOutScreen = ({route,navigation}) => {
         }
     }
 
-    const delteClockInClockOutRecord = async(itemID) => {
+    const delteClockInClockOutRecord = async(itemID, index) => {
 		let user = await AsyncStorage.getItem('loginDetails');  
 		let parsed = JSON.parse(user);  
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
@@ -295,6 +295,7 @@ const CheckInOutScreen = ({route,navigation}) => {
                 const message = response.data.content.messageList.success;
                 route.params.onClickEvent();
                 getClockInClockOut();
+               
             }else if (response.data.code == 417){
                 const errorList = Object.values(response.data.content.messageList);
                 Alert.alert(StaticMessage.AppName, errorList.join(), [
