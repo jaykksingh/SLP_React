@@ -78,5 +78,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses the camera to scan timesheets, immigration documents or click profile photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app uses photo library to choose timesheets, immigration documents or  profile photo.</string>
 </dict>
 </plist>

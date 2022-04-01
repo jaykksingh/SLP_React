@@ -93,7 +93,7 @@ const MoreScreen = ({navigation}) => {
   let isJobSeeker = (jobSeeker || jobSearchStatusID == 4751 || jobSearchStatusID == 4752 || isExternalUser);
   let authorisationStatusId = empDetails ? empDetails.authorisationStatusId : 0;
   let employeeTypeId = empDetails ? empDetails.employeeTypeId : 0
-  let isImmigrationAndHRVisible = (authorisationStatusId == 1 || authorisationStatusId == 2 || employeeTypeId == 1223) ? true : false;    
+  let isImmigrationAndHRVisible = (authorisationStatusId == 1 || authorisationStatusId == 2 || employeeTypeId == 1223) ? false : true;    
 
   console.log(displayType,isExternalUser,jobSeeker,jobSearchStatusID,isJobSeeker);
   var menuOptionArr = [];

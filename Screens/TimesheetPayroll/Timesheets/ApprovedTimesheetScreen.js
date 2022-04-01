@@ -83,6 +83,8 @@ const ApprovedTimesheetScreen = ({navigation})  => {
       console.log(response.data);
       setIsLoading(false);
 		  if (response.data.code == 200){
+        console.log('Approved Timesheet:',JSON.stringify(response.data.content.dataList));
+
         setTimesheetsArray(response.data.content.dataList);
 		  }else if (response.data.code == 417){
         console.log(Object.values(response.data.content.messageList));

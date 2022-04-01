@@ -53,6 +53,7 @@ export const EndPoints = {
   ApproveClientTimesheet : 'timecards/approveclient',
   ClockInout:'timecards/clock-inout',
   UpdateClockInOut:'timecards/update-clock-inout',
+  DeleteClockInOut:'timecards/remove',
   PayrollStatusList:'timecards/payroll',
   GetVacationList:'vacations',
   VacationTypes:'myprojects/vacation',

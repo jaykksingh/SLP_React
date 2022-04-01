@@ -5,7 +5,6 @@ import {
     StyleSheet, 
     View,
 	TextInput,
-	ActionSheetIOS,
 	SafeAreaView,
 	Alert,
 	FlatList,
@@ -17,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import moment from 'moment';
 import {Picker} from '@react-native-picker/picker';
-import ActionSheet from "react-native-actions-sheet";
+import {default as ActionSheetView} from 'react-native-actions-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
@@ -28,6 +27,7 @@ import { AuthContext } from '../../../Components/context';
 import Loader from '../../../Components/Loader';
 import {getAuthHeader} from '../../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
+import ActionSheet from 'react-native-actionsheet'
 
 
 const timesheetPeriodRef = createRef();
@@ -592,23 +592,16 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			  }
 		})
 	}
-	const showProfileImagePicker = () => ActionSheetIOS.showActionSheetWithOptions(
-		{
-			options: ["Cancel", "Upload document","Photo library", "Take photo"],
-			cancelButtonIndex: 0,
-			userInterfaceStyle: 'light',  
-		  },
-		  buttonIndex => {
-			if (buttonIndex === 0) {
-			} else if (buttonIndex === 1) {
-			  	selectResume();
-			} else if (buttonIndex === 2) {
-				imageGalleryLaunch();
-			}else if (buttonIndex === 3) {
-				cameraLaunch();
-			}
-		  }
-	);
+	
+	const handleDocActionsheet = (index) => {
+        if(index == 0){
+            selectResume();
+        }else if(index == 1){
+            imageGalleryLaunch();
+        }else if (index == 2){
+            cameraLaunch();
+        }
+    }
 	const imageGalleryLaunch = () => {
   
 		let options = {
@@ -653,7 +646,9 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	
 		  if (res.didCancel) {
 			console.log('User cancelled image picker');
-		  } else if (res.error) {
+		  } else if (res.errorCode == 'camera_unavailable') {
+			console.log('ImagePicker Error: ', res.errorCode);
+		  }else if (res.error) {
 			console.log('ImagePicker Error: ', res.error);
 		  } else if (res.customButton) {
 			console.log('User tapped custom button: ', res.customButton);
@@ -782,6 +777,9 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		navigation.navigate('CheckInOutEdit',{dayDetails:item,timesheetDetails:timesheetDetails,projectDetail:projectDetail,onClickEvent:refreshHoursDetails})
 
 	}
+	const showActionSheet = () => {
+		this.ActionSheet.show();
+	  }
 	const tips='Tip: Enter 0.50 increments to indicate a half hour. For example, for eight and a half hours, please enter 8.50 rather than 8.30'
 	
 	return(
@@ -825,10 +823,17 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 				
 				{projectDetail.timesheetClientApproval != 1 ?
 				<View style={{marginTop:12, height:200, backgroundColor:'white',borderRadius:5,justifyContent:'space-between',marginLeft:16, marginRight:16,}}>
-					<TouchableOpacity style={{alignSelf:'center', backgroundColor:ThemeColor.BtnColor, flexDirection:'row', paddingLeft:16,paddingRight:16, height:40, alignItems: 'center', borderRadius:5, marginTop:16	}} onPress={showProfileImagePicker}>
+					<TouchableOpacity style={{alignSelf:'center', backgroundColor:ThemeColor.BtnColor, flexDirection:'row', paddingLeft:16,paddingRight:16, height:40, alignItems: 'center', borderRadius:5, marginTop:16	}} onPress={()=> showActionSheet()}>
 						<FontAwesome name="cloud-upload" color={'white'} size={25	} />
 						<Text style ={{color:'white', fontSize:16 ,fontFamily:FontName.Regular, marginLeft:8}}>UPLOAD TIMESHEET</Text>
 					</TouchableOpacity>
+					<ActionSheet
+                        ref={o => this.ActionSheet = o}
+                        options={['Upload document', 'Photo library','Take photo', 'Cancel']}
+                        cancelButtonIndex={3}
+                        // destructiveButtonIndex={}
+                        onPress={(index) => { handleDocActionsheet(index) }}
+                    />
 					{data.fileName.length > 0 ? 
 						<View style={{alignContent:'center', justifyContent: 'center', flexDirection: 'row'}}>
 							<TouchableOpacity>
@@ -1027,7 +1032,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			 }
 
 		
-			<ActionSheet ref={timesheetPeriodRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+			<ActionSheetView ref={timesheetPeriodRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
 				<View style={{height:300}}>
 					<View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
 					<TouchableOpacity onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
@@ -1049,8 +1054,8 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 					})}
 					</Picker>
 				</View>
-			</ActionSheet>  
-			<ActionSheet ref={shiftTypeRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+			</ActionSheetView>  
+			<ActionSheetView ref={shiftTypeRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
 				<View style={{height:300}}>
 					<View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
 					<TouchableOpacity onPress={() => {shiftTypeRef.current?.setModalVisible()}}>
@@ -1095,7 +1100,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 					})}
 					</Picker>
 				</View>
-			</ActionSheet>
+			</ActionSheetView>
 			
 		</SafeAreaView>
 	);

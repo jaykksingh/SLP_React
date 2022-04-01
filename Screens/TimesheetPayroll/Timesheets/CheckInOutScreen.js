@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import Feather from 'react-native-vector-icons/Feather';
+import Ionic from 'react-native-vector-icons/Ionicons';
 import {default as ActionSheetView} from 'react-native-actions-sheet';
 import DatePicker from 'react-native-date-picker'
 import {Picker} from '@react-native-picker/picker';
@@ -255,6 +256,68 @@ const CheckInOutScreen = ({route,navigation}) => {
 			  }
 		})
 	}
+    const handledelteClockInClockOut = async(item, index) => {
+        console.log('Delete Record:', item, index);
+        if(item.clockHourDetailId > 0){
+            delteClockInClockOutRecord(item.clockHourDetailId);
+        }else{
+            let tempArr =  mannualHoursArray;
+            tempArr.splice(index,1);
+            setMannualHoursArray(tempArr);
+		    setIsListUpdated(!isListUpdated);
+        }
+    }
+
+    const delteClockInClockOutRecord = async(itemID) => {
+		let user = await AsyncStorage.getItem('loginDetails');  
+		let parsed = JSON.parse(user);  
+		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+		var authToken = base64.encode(userAuthToken);
+		
+		console.log('Client Approved Params:',JSON.stringify(dayDetails));
+        var params = {
+			'forDate':dayDetails.day,
+			'tsEntryDetailId':dayDetails.detailId,
+			'hours':mannualHoursArray,
+		};
+		
+
+		setIsLoading(true);
+		axios ({  
+		  "method": "DELETE",
+		  "url": BaseUrl + EndPoints.DeleteClockInOut,
+		  "headers": getAuthHeader(authToken),
+		  data:{itemId:itemID},
+		})
+		.then((response) => {
+		    setIsLoading(false);
+            if (response.data.code == 200){
+                const message = response.data.content.messageList.success;
+                route.params.onClickEvent();
+                getClockInClockOut();
+            }else if (response.data.code == 417){
+                const errorList = Object.values(response.data.content.messageList);
+                Alert.alert(StaticMessage.AppName, errorList.join(), [
+                    {text: 'Ok'}
+                ]);
+            }else if (response.data.code == 401){
+                console.log('Session Expired Already');
+                SessionExpiredAlert();
+            }
+		})
+		.catch((error) => {
+			console.log(error);
+			setIsLoading(false);
+			if(error.response && error.response.status == 401){
+				SessionExpiredAlert();
+			  }else{
+				  Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+					  {text: 'Ok'}
+					]);
+			  }
+		})
+	}
+
 
 
     
@@ -330,6 +393,9 @@ const CheckInOutScreen = ({route,navigation}) => {
                                 value= {item.notes}
                                 onChangeText={(val) => handleNoteChange(val, index,item)}
                             />
+                            <TouchableOpacity style={{justifyContent:'center', width:30, height:30}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
+                                <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>
