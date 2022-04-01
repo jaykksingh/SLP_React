@@ -30,9 +30,11 @@ const PendingTimesheetScreen = ({route,navigation})  => {
 	});
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
-      getTimeshetsList();	
-    })	
+    // navigation.addListener('focus', () => {
+    //   getTimeshetsList();	
+    // });	
+    getTimeshetsList();	
+
 	},[]);
 
   const  getTimeshetsList = async() => {

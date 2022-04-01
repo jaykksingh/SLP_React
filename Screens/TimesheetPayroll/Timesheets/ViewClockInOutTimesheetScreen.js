@@ -47,7 +47,7 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
-			  title: projectDetail ? projectDetail.projectName + 'Clock' :`View timesheet `,
+			  title: projectDetail ? projectDetail.projectName  : `View timesheet `,
 		});
 	}, [navigation]);
 	const showShareOptions = () =>{
@@ -275,7 +275,36 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		});
         
     }
-	const handleIconClicked = (item) => {
+	
+    const getTotalRegHours = () => {
+		var totalHours = 0;
+		for (let i = 0; i < mannualHoursArray.length ; i++){
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].regHrs));
+		}
+		return '' + totalHours.toFixed(2);
+	}
+	const getTotalOtHours = () => {
+		var totalHours = 0;
+		for (let i = 0; i < mannualHoursArray.length ; i++){
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].otHrs));
+		}
+		return '' + totalHours.toFixed(2);
+	}
+	const getTotalDtHours = () => {
+		var totalHours = 0;
+		for (let i = 0; i < mannualHoursArray.length ; i++){
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].dtHrs));
+		}
+		return '' + totalHours.toFixed(2);
+	}
+	const getTotalBreakHours = () => {
+		var totalHours = 0;
+		for (let i = 0; i < mannualHoursArray.length ; i++){
+			totalHours = totalHours + (parseFloat(mannualHoursArray[i].breakHrs));
+		}
+		return '' + totalHours.toFixed(2);
+	}
+    const handleIconClicked = (item) => {
 		let message = "Submitted Hours"
 		if(item.holiday == 1){
 			message = "Holiday";
@@ -285,6 +314,10 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		Alert.alert(StaticMessage.AppName, message, [
 			{text: 'Ok'}
 		  ]);
+	}
+    const handleViewClockInOut = (item) => {
+		console.log('Item Details:',item);
+        navigation.navigate('ViewClockInOut',{dayDetails:item,timesheetDetails:timesheetDetails,projectDetail:projectDetail})
 	}
 
 	return(
@@ -307,12 +340,12 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 					
 					<View style={{justifyContent:'flex-end', flexDirection:'row',alignItems: 'center', paddingRight:16, paddingLeft:16, marginBottom:16	}}>
 						<TouchableOpacity style={{alignItems: 'center',justifyContent: 'center', height:40,}} onPress={() => {handlePrintTimesheet()}}>
-							<Feather name="printer" color={ThemeColor.TextColor} size={25,25} />
+							<Feather name="printer" color={ThemeColor.TextColor} size={25} />
 						</TouchableOpacity>
 					</View>
 				</View>
 				
-				<View style ={{backgroundColor:'white', flex: 1, marginBottom:16, margin:16, borderRadius:5}}>
+				<View style ={{backgroundColor:'white', flex: 1, marginBottom:16, marginTop:16, borderRadius:5}}>
 					<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
 						<View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>Date</Text>
@@ -331,7 +364,7 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex:1}}>Total</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex:1}}>Meal hours</Text>
 						</View>
 					</View>
 					<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/> 
@@ -359,17 +392,10 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 									<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.dtHrs}</Text>
 									<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 								</View>
-								<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-									<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex:1}}>{item.regHrs + item.otHrs + item.dtHrs}</Text>
-									<TouchableOpacity onPress={ () => {handleIconClicked(item)}}>
-									{item.holiday == 1 ?
-										<Image style={{ width: 15,height: 15,tintColor:ThemeColor.TextColor}} source={require('../../../assets/Images/icon-holiday.png')} /> :
-										item.vacation == 1 ? 
-										<Image style={{ width: 15,height: 15,tintColor:ThemeColor.TextColor}} source={require('../../../assets/Images/icon-timeoff.png')} /> :
-										<Feather name="lock" color={ThemeColor.SubTextColor} size={15} />
-									}
-									</TouchableOpacity>
-								</View>
+								<TouchableOpacity style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}} onPress={ () => {handleViewClockInOut(item)}}>
+									<Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex:1}}>{item.breakHrs}</Text>
+                                    <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={15} />
+								</TouchableOpacity>
 							</View>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>
 						</View>}
@@ -380,19 +406,19 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{projectDetails.totalRegHrs}</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{getTotalRegHours()}</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{projectDetails.totalOtHrs}</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{getTotalOtHours()}</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{projectDetails.totalDtHrs}</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:14, textAlign: 'center', flex: 1}}>{getTotalDtHours()}</Text>
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
-							<Text style={{color:ThemeColor.TextColor,fontSize:14, textAlign: 'center', flex:1}}>{timesheetDetails.totalHours}</Text>
+							<Text style={{color:ThemeColor.TextColor,fontSize:14, textAlign: 'center', flex:1}}>{getTotalBreakHours()}</Text>
 						</View>
 					</View>					
 				</View>

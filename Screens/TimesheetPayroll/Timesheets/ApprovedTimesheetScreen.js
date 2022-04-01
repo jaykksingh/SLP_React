@@ -51,8 +51,9 @@ const ApprovedTimesheetScreen = ({navigation})  => {
     
     let startDate = moment(firstDay).format('YYYY-MM-DD');
     let endDate = moment(lastDay).format('YYYY-MM-DD');
-
-    getTimeshetsList(startDate,endDate);		
+    navigation.addListener('focus', () => {
+      getTimeshetsList(startDate,endDate);		
+    });
 	},[]);
 
   const SessionExpiredAlert = () =>{

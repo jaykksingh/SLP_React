@@ -53,8 +53,9 @@ const SubmittedTimesheetScreen = ({navigation})  => {
     
     let startDate = moment(firstDay).format('YYYY-MM-DD');
     let endDate = moment(lastDay).format('YYYY-MM-DD');
-
-    getTimeshetsList(startDate,endDate);		
+    navigation.addListener('focus', () => {
+      getTimeshetsList(startDate,endDate);		
+    });
 	},[]);
   const SessionExpiredAlert = () =>{
 		Alert.alert(StaticMessage.AppName,StaticMessage.SessionExpired,
@@ -149,11 +150,11 @@ const SubmittedTimesheetScreen = ({navigation})  => {
     console.log('View Handler: ',section);
     // let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
     // if(projectTemplateID == 24063){
-    //   navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
-    // }else{
     //   navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+    // }else{
+    //   navigation.navigate('ViewClockInOutTimesheet',{timesheetDetails:item,projectDetail:section})
     // }
-    navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+    navigation.navigate('ViewClockInOutTimesheet',{timesheetDetails:item,projectDetail:section})
   }
 
   const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,projectDetailId,timeSheetTemplate}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,projectDetailId:projectDetailId,timeSheetTemplate:timeSheetTemplate }));
