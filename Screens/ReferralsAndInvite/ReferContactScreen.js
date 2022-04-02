@@ -51,17 +51,7 @@ const ReferContactScreen = ({route,navigation}) => {
 	
 	useEffect(() => {
 		getUserLookups();
-		if(navigation.dangerouslyGetParent){
-		  const parent = navigation.dangerouslyGetParent();
-		  parent.setOptions({
-			tabBarVisible: false
-		  });
-		  return () =>
-			parent.setOptions({
-			tabBarVisible: false
-		  });
-		}
-		
+	
 	},[])
 	const  getUserLookups = async() => {
 		let user = await AsyncStorage.getItem('loginDetails');  

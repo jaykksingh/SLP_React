@@ -72,16 +72,7 @@ const AddLeaveScreen = ({route,navigation}) => {
 	useEffect(() => {
 		getLookupsData();
 		getProfileDetails();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: false
-			});
-		}
+		
 		
 	},[])
 

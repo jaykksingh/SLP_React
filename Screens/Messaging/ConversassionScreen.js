@@ -59,16 +59,7 @@ const ConversassionScreen = ({route,navigation}) => {
 			getConversationsList();
 		});
 		getConversationsList();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: false
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: true
-			  });
-		  }
+		
 	}, []);
 
 	const  getConversationsList = async(searckText) => {

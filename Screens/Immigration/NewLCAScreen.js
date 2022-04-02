@@ -67,16 +67,7 @@ const NewLCAScreen = ({route,navigation}) => {
 		if(applTypeName){
 			setData({...data,applTypeId:applTypeId,applTypeName:applTypeName});
 		}
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: false
-			});
-		}
+		
 	},[]);
 
   	const updateApplicationDetails = async () => {

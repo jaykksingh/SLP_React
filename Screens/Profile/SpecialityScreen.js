@@ -54,16 +54,7 @@ const SpecialityScreen = ({route,navigation}) => {
             getUserLookups();
         }
         console.log(`Selected List: ${JSON.stringify(profileDetail.taxonomy)}`);
-        if(navigation.dangerouslyGetParent()){
-            const parent = navigation.dangerouslyGetParent();
-            parent.setOptions({
-                tabBarVisible: false
-            });
-            return () =>
-                parent.setOptions({
-                tabBarVisible: true
-            });
-        }
+        
         
     },[])
     const  getUserLookups = async() => {

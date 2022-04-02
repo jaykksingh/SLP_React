@@ -34,16 +34,7 @@ const FormsAndPolicyScreen = ({navigation})  => {
 	
 	useEffect(() => {
 		getFormsList('Accounts');
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
+		
 	}, []);
 	const handleIndexChange = (index) => {
 		setSelectedIndex(index);

@@ -89,14 +89,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
       getRegionList('STATE',profileDetail.empDetails.countryId);
     }
     setData(profileDetail.empDetails);
-    const parent = navigation.dangerouslyGetParent();
-    parent.setOptions({
-      tabBarVisible: false
-    });
-    return () =>
-      parent.setOptions({
-	    tabBarVisible: true
-    });
+   
   },[]);
 
   

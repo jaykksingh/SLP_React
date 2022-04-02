@@ -63,16 +63,6 @@ const AddExpenceScreen = ({route,navigation}) => {
 	useEffect(() => {
 		getProjectDetails();
 
-		if(navigation.dangerouslyGetParent){
-		  const parent = navigation.dangerouslyGetParent();
-		  parent.setOptions({
-			tabBarVisible: false
-		  });
-		  return () =>
-			parent.setOptions({
-			tabBarVisible: false
-		  });
-		}
 		
 	  },[])
 

@@ -54,14 +54,7 @@ const JobApplyScreen = ({route,navigation}) => {
     useEffect(() => {
         getProfileDetails();
         getUserLookups();
-        // const parent = navigation.dangerouslyGetParent();
-        // parent.setOptions({
-        //   tabBarVisible: false
-        // });
-        // return () =>
-        //   parent.setOptions({
-        //     tabBarVisible: showParentTab ? showParentTab : false
-        // });
+       
     }, []);
   
     const handleLnameChange = (val) => {

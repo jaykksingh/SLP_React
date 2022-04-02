@@ -59,16 +59,7 @@ const AddSkillScreen = ({route,navigation}) => {
       const expYears = skillDetails.yearExp;
       setSkill({skillName:skillDetails.skillName,yearExp:String(expYears),isPrimary:skillDetails.isPrimary,candidateSkillId:String(skillDetails.candidateSkillId)});
     }
-    if(navigation.dangerouslyGetParent){
-      const parent = navigation.dangerouslyGetParent();
-      parent.setOptions({
-        tabBarVisible: false
-      });
-      return () =>
-        parent.setOptions({
-          tabBarVisible: true
-        });
-    }
+    
     
   },[])
 

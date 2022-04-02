@@ -39,17 +39,8 @@ const PayrollInformationScreen = ({route,navigation}) => {
 
 	}
 	useEffect(() => {
-		// getPayrollInfo();
-		if(navigation.dangerouslyGetParent){
-		  const parent = navigation.dangerouslyGetParent();
-		  parent.setOptions({
-			tabBarVisible: false
-		  });
-		  return () =>
-			parent.setOptions({
-			tabBarVisible: true
-		  });
-		}
+		getPayrollInfo();
+		
 		
 	},[])
 	const  getPayrollInfo = async() => {

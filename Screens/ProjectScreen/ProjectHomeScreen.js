@@ -20,16 +20,7 @@ const ProjectHomeScreen = ({navigation}) =>{
 	}, [navigation]);
 
 	useEffect(() => {
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: true
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: true
-			  });
-		  }
+		
 	},[]);
 	return(
 		<>

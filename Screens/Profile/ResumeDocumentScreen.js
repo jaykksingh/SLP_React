@@ -64,14 +64,6 @@ const ResumeDocumentScreen = ({route,navigation})  => {
 
     useEffect(() => {
         console.log("File Type",fileType);
-		const parent = navigation.dangerouslyGetParent();
-		parent.setOptions({
-		tabBarVisible: false
-		});
-		return () =>
-		parent.setOptions({
-			tabBarVisible: true
-		});
     },[]);
     
     const  updateProfileDetails = async() => {

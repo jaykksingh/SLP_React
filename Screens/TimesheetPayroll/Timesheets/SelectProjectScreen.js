@@ -38,16 +38,7 @@ const SelectProjectScreen = ({route,navigation}) => {
 
     useEffect(() => {
 		console.log(onClickEvent);
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
+		
 		
 	},[]);
 //    navigation.navigate('EditTimesheet',{preTimesheetDetails:item,preProjectDetail:timesheetsArray[index]})

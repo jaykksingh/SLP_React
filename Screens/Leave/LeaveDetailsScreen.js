@@ -38,16 +38,7 @@ const LeaveDetailsScreen = ({route,navigation})  => {
 	useEffect(() => {
 		console.log(leaveDetails);
 		getProfileDetails();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: false
-			});
-		}
+		
 	}, []);
 	const getProfileDetails = async() => {
 		let user = await AsyncStorage.getItem('loginDetails');  

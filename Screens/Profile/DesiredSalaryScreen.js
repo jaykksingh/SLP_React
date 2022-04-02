@@ -48,14 +48,7 @@ const DesiredSalaryScreen = ({route,navigation}) => {
       contractRateType:profileDetail.empDetails.contractRateType,
       contractRateTypeId:profileDetail.empDetails.contractRateTypeId
     });
-    const parent = navigation.dangerouslyGetParent();
-    parent.setOptions({
-      tabBarVisible: false
-    });
-    return () =>
-      parent.setOptions({
-        tabBarVisible: true
-      });
+    
   }, []);
 
   const  updateProfileDetails = async() => {

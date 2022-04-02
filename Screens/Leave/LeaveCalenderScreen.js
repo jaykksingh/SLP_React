@@ -60,16 +60,7 @@ const LeaveCalenderScreen = ({route,navigation})  => {
 	useEffect(() => {
 		console.log('Dates :',beginningOfMonth(),endOfMonth());
 		getCalenderDetails(beginningOfMonth(),endOfMonth());
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: false
-			});
-		}
+		
 	}, []);
 
 	const  getCalenderDetails = async(monthStartDate, monthEndDate) => {

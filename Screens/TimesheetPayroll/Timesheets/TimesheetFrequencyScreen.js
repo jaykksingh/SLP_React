@@ -31,16 +31,7 @@ const TimesheetFrequencyScreen = ({route,navigation}) => {
   useEffect(() => {
     console.log('timesheetDetails',timesheetDetails);
     setData({...data,selectedFrequency:projectDetail.timeSheetCycle});
-    if(navigation.dangerouslyGetParent()){
-        const parent = navigation.dangerouslyGetParent();
-        parent.setOptions({
-          tabBarVisible: false
-      });
-      return () =>
-        parent.setOptions({
-        tabBarVisible: false
-      });
-    }
+    
   
   },[])
  

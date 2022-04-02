@@ -39,14 +39,7 @@ const FuntionalAreaScreen = ({route,navigation}) => {
   
   useEffect(() => {
     setData({...data,departmentName:profileDetail.empDetails.departmentName,departmentId:profileDetail.empDetails.departmentId});
-    const parent = navigation.dangerouslyGetParent();
-    parent.setOptions({
-      tabBarVisible: false
-    });
-    return () =>
-      parent.setOptions({
-        tabBarVisible: true
-      });
+   
   }, []);
 
   const  updateProfileDetails = async() => {

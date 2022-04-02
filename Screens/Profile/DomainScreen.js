@@ -60,14 +60,7 @@ const DomainScreen = ({route,navigation}) => {
 		});
 		getSubDomains(empDetails.domainId);
 		getOtherInformation(empDetails.domainId);
-		// const parent = navigation.dangerouslyGetParent();
-        // parent.setOptions({
-        //     tabBarVisible: false
-        // });
-        // return () =>
-        //     parent.setOptions({
-        //     tabBarVisible: true
-        // });
+		
 
 	},[]);
     

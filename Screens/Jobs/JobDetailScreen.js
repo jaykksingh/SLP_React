@@ -43,16 +43,7 @@ const JobDetailScreen = ({route,navigation}) => {
             getJobDetails(jobDetail.cjmJobId);
         });
         getJobApplicationCount();
-        if(navigation.dangerouslyGetParent){
-            const parent = navigation.dangerouslyGetParent;
-            parent.setOptions({
-              tabBarVisible: false
-            });
-            return () =>
-              parent.setOptions({
-                tabBarVisible: true
-            });
-        }
+        
        
     }, []);
     const getJobDetails = async (jobID) => {

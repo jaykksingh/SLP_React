@@ -69,16 +69,7 @@ const AddEducationScreen = ({route,navigation}) => {
       console.log(educationDetails,String(passingYear));
       setEducation({...education,institutionName:educationDetails.institutionName,qualification:educationDetails.qualification,passingYear:String(passingYear),employeeEducationId:educationDetails.employeeEducationId});
     }
-    if(navigation.dangerouslyGetParent){
-      const parent = navigation.dangerouslyGetParent();
-      parent.setOptions({
-        tabBarVisible: false
-      });
-      return () =>
-        parent.setOptions({
-        tabBarVisible: true
-      });
-    }
+    
     
   },[])
 

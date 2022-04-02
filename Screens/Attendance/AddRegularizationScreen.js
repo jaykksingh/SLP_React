@@ -67,16 +67,6 @@ const AddRegularizationScreen = ({route,navigation}) => {
 	useEffect(() => {
 		getLookupData();
 		getProfileDetails();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: false
-			});
-		}
 		
 	},[])
 

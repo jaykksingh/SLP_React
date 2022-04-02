@@ -78,19 +78,6 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 		setFileArray([params]);
 		setData({...data, selectedIndex:0})
 		setData({...data,fileData:base64File,fileName:fileName});
-
-
-		
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: false
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: false
-			  });
-		  }
 	}, []);
 
 	const  handleSendMessage = async() => {

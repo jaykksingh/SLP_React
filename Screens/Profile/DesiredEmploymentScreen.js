@@ -43,14 +43,7 @@ const DesiredEmploymentScreen = ({route,navigation}) => {
       getUserLookups();
     }
     setData({...data,desiredEmployement:profileDetail.empDetails.desiredEmployement,desiredEmployementKey:profileDetail.empDetails.desiredEmployementKey});
-    const parent = navigation.dangerouslyGetParent();
-    parent.setOptions({
-      tabBarVisible: false
-    });
-    return () =>
-      parent.setOptions({
-        tabBarVisible: true
-      });
+   
   }, []);
   const  getUserLookups = async() => {
     let user = await AsyncStorage.getItem('loginDetails');  

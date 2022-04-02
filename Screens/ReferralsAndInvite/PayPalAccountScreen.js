@@ -33,16 +33,7 @@ const PayPalAccountScreen = ({route,navigation})  => {
 	}, [navigation]);
 	useEffect(() => {
 		getProfileDetails();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: false
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: true
-			  });
-		  }
+		
 	},[]);
 	const getProfileDetails = async() => {
 		let user = await AsyncStorage.getItem('loginDetails');  

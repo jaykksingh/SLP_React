@@ -74,16 +74,6 @@ const ReferClientScreen = ({route,navigation}) => {
 	useEffect(() => {
 		getRegionList('COUNTRY');
 		getUserLookups();
-		if(navigation.dangerouslyGetParent){
-		  const parent = navigation.dangerouslyGetParent();
-		  parent.setOptions({
-			tabBarVisible: false
-		  });
-		  return () =>
-			parent.setOptions({
-			tabBarVisible: true
-		  });
-		}
 		
 	  },[])
 	const  getUserLookups = async() => {

@@ -63,17 +63,6 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		const timesheetPeriod = `${startDateString} - ${endDateString}`;
 
 		setData({...data, projectId:projectDetail.projectDetailId, timeSheetCycle:projectDetail.timeSheetCycle,clientName:projectDetail.clientName,timesheetPeriod:timesheetPeriod,startDate:timesheetDetails.startDate,endDate:timesheetDetails.endDate});
-
-		if(navigation.dangerouslyGetParent){
-		const parent = navigation.dangerouslyGetParent();
-		parent.setOptions({
-			tabBarVisible: false
-		});
-		return () =>
-			parent.setOptions({
-			tabBarVisible: true
-		});
-		}
 		
 	},[]);
 

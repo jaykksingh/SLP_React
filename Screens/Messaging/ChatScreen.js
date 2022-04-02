@@ -96,16 +96,7 @@ const ChatScreen = ({route,navigation}) => {
 		navigation.addListener('focus', () => {
 			getMessageList();
 		});
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			  tabBarVisible: false
-			});
-			return () =>
-			  parent.setOptions({
-				tabBarVisible: false
-			  });
-		  }
+		
 	}, []);
 
 	const  saveChatHistoryList = async(messageList) => {

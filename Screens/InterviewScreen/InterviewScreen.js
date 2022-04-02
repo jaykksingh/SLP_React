@@ -34,16 +34,7 @@ const InterviewScreen = ({route,navigation}) => {
 	  }, [navigation]);
 	useEffect(() => {
 		getMyInterviews('upcomming');
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-			parent.setOptions({
-			tabBarVisible: false
-			});
-			return () =>
-			parent.setOptions({
-				tabBarVisible: true
-			});
-		}
+		
 	},[]);
 
   

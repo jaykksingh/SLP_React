@@ -29,16 +29,7 @@ const HrBenefitScreen = ({navigation})  => {
 	
 	useEffect(() => {
 		getHrBenefitsList();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
+		
 	}, []);
 
 	const  getHrBenefitsList = async() => {

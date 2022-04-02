@@ -25,16 +25,7 @@ const CallSupportScreen = ({route,navigation})  => {
 	
 	useEffect(() => {
 		// getSupportDetails();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
+		
 	}, []);
 
 	const  getSupportDetails = async() => {

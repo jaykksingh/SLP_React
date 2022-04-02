@@ -20,16 +20,7 @@ const ReferFriendScreen = ({navigation})  => {
 		});
 	}, [navigation]);
 	useEffect(() => {
-		if(navigation.dangerouslyGetParent){
-		  const parent = navigation.dangerouslyGetParent();
-		  parent.setOptions({
-			tabBarVisible: false
-		  });
-		  return () =>
-			parent.setOptions({
-			tabBarVisible: true
-		  });
-		}
+		
 
 	},[])
 	const howMuchFit = 1;
