@@ -236,9 +236,9 @@ const AddRegularizationScreen = ({route,navigation}) => {
 				</View> :
 				<View style={{marginTop:12}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Regularization category</Text>
-					<TouchableOpacity style={{backgroundColor:'white', borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {categoryRef.current?.setModalVisible()}}>
+					<TouchableOpacity style={{backgroundColor:'white', height:40,borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {categoryRef.current?.setModalVisible()}}>
 						<Picker
-							style={{backgroundColor: 'white',flex:1,}}
+							style={{flex:1,}}
 							itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 							selectedValue={data.categoryID}
 							onValueChange={(itemValue, index) =>{

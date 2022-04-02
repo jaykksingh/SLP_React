@@ -151,9 +151,9 @@ const PaymentStatusSCreen = ({route,navigation}) => {
 				<View style={{marginTop:16	,flexDirection:'row',marginLeft:16, marginRight:16}}>
 					<View style={{flex:1, height:50, marginRight:8}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Year</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'white',flex:1,}}
+								style={{flex:1,}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.year}
 								onValueChange={(itemValue, index) =>{
@@ -164,14 +164,13 @@ const PaymentStatusSCreen = ({route,navigation}) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}
 							</Picker>							
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 						</TouchableOpacity>
 					</View>
 					<View style={{flex:1, height:50,marginLeft:8}}>
 						<Text style ={{color:ThemeColor.SubTextColor,fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Month</Text>
-						<TouchableOpacity style={{backgroundColor:'white',borderRadius:5, height:40, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<TouchableOpacity style={{backgroundColor:'white',borderRadius:5, height:40, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'white',flex:1,}}
+								style={{flex:1,}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.month}
 								onValueChange={(itemValue, index) =>{
@@ -182,8 +181,6 @@ const PaymentStatusSCreen = ({route,navigation}) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}
 							</Picker>
-
-							<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 						</TouchableOpacity>
 					</View>
 				</View>

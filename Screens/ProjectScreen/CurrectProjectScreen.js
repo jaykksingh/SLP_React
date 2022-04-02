@@ -310,9 +310,9 @@ const CurrectProjectScreen = ({route,navigation}) => {
         </View> :
         <View style={{marginTop:12}}>
           <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Primary technology</Text>
-          <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+          <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center',}}>
             <Picker
-                style={{backgroundColor: 'white',flex:1,}}
+                style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={projectDetail.technologyId}
                 onValueChange={(itemValue, index) =>{
@@ -325,7 +325,6 @@ const CurrectProjectScreen = ({route,navigation}) => {
                   return (<Picker.Item label={item.technologyName} value={item.technologyId} key={index}/>) 
                 })}
               </Picker>
-            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
           </View>
         </View>
       }
@@ -340,9 +339,9 @@ const CurrectProjectScreen = ({route,navigation}) => {
         </View> :
         <View style={{marginTop:12}}>
           <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Role</Text>
-          <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+          <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
             <Picker
-                style={{backgroundColor: 'white',flex:1,}}
+                style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={projectDetail.roleId}
                 onValueChange={(itemValue, index) =>{
@@ -355,7 +354,6 @@ const CurrectProjectScreen = ({route,navigation}) => {
                   return (<Picker.Item label={item.skillRoleName} value={item.skillRoleId} key={index}/>) 
                 })}
               </Picker>
-            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
           </View>
         </View>
       }

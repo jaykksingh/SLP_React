@@ -209,6 +209,9 @@ const FirstTabScreen = () => {
             <Stack.Screen name="Interviews" component={InterviewScreen}/>
             <Stack.Screen name="ViewClockInOutTimesheet" component={ViewClockInOutTimesheetScreen}/>
             <Stack.Screen name="ViewClockInOut" component={ViewClockInOutScreen}/>
+            <Stack.Screen name="ProjectEndDate" component={ProjectEndingScreen}/>
+
+            
 
         </Stack.Navigator>
     );

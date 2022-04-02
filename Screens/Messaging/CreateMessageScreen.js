@@ -365,9 +365,9 @@ const CreateMessageScreen = ({route,navigation}) => {
 				</> :
 				<>
 					<View style={{marginTop:12}}>
-						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'white',flex:1,}}
+								style={{flex:1,}}
 								selectedValue={data.groupId}
 								onValueChange={(itemValue, index) =>{
 									let selectedItem = chatGroupsArray[index];
@@ -380,14 +380,13 @@ const CreateMessageScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item.groupTitle} value={item.groupId} key={index}/>) 
 								})}
 							</Picker>
-							<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 						</View>
 					</View>
 					<View style={{marginTop:12}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Bold, paddingLeft:8}}>Severity of issue</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {severityRef.current?.setModalVisible()}}>
+						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {severityRef.current?.setModalVisible()}}>
 							<Picker
-								style={{backgroundColor: 'white',flex:1,}}
+								style={{flex:1}}
 								selectedValue={data.severityID}
 								onValueChange={(itemValue, index) =>{
 									let selectedItem = lookupData.severityType[index];
@@ -398,7 +397,6 @@ const CreateMessageScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 								})}
 							</Picker>							
-							<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 						</TouchableOpacity>
 					</View>
 				</>
@@ -409,14 +407,14 @@ const CreateMessageScreen = ({route,navigation}) => {
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Bold, paddingLeft:8}}>Issue type</Text>
 				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {issueTypeRef.current?.setModalVisible()}}>
 					<Text style={[styles.labelText,{color:data.issueType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.issueType.length >0 ? data.issueType : 'Select issue type'}</Text>
-					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 				</TouchableOpacity>
             </View> :
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Bold, paddingLeft:8}}>Issue type</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {issueTypeRef.current?.setModalVisible()}}>
+				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {issueTypeRef.current?.setModalVisible()}}>
 					<Picker
-						style={{backgroundColor: 'white',flex:1,}}
+						style={{flex:1,}}
 						selectedValue={data.issueTypeID}
 						onValueChange={(itemValue, index) =>{
 							let selectedItem = issueTypeArray[index];
@@ -427,7 +425,6 @@ const CreateMessageScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 						})}
 					</Picker>					
-					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 				</TouchableOpacity>
 			</View>  
 			: null

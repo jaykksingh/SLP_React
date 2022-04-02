@@ -232,9 +232,9 @@ const ProjectEndingScreen = ({route,navigation}) => {
           </View> : 
           <View style={{marginTop:12}}>
             <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Project</Text>
-            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
               <Picker
-                style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
+                style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.projectId}
                 onValueChange={(itemValue, index) =>{
@@ -245,7 +245,6 @@ const ProjectEndingScreen = ({route,navigation}) => {
                   return (<Picker.Item label={item.projectDetails.projectName} value={item.projectDetails.projectDetailId} key={index}/>) 
                 })}
               </Picker>
-              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </View>
           </View>
         }
@@ -253,7 +252,7 @@ const ProjectEndingScreen = ({route,navigation}) => {
           <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Project end date</Text>
           <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {dateRef.current?.setModalVisible()}}>
             <Text style={[styles.labelText,{color:data.projectEndDate.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.projectEndDate.length > 0 ? data.projectEndDate : 'Select end date'}</Text>
-            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22,22} />
+            <Icon name="calendar" color={ThemeColor.SubTextColor} size={22} />
           </TouchableOpacity>
         </View> 
         {Platform.OS == 'ios' ?
@@ -261,14 +260,14 @@ const ProjectEndingScreen = ({route,navigation}) => {
             <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Reason</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {reasonRef.current?.setModalVisible()}}>
               <Text style={[styles.labelText,{color:data.reason.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.reason.length >0 ? data.reason : 'Selct reason'}</Text>
-              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
             </TouchableOpacity>
           </View> :
           <View style={{marginTop:12}}>
             <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Reason</Text>
-            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
               <Picker
-                style={{backgroundColor: 'white',flex:1,}}
+                style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.reasonId}
                 onValueChange={(itemValue, index) =>{
@@ -281,7 +280,6 @@ const ProjectEndingScreen = ({route,navigation}) => {
                   return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
                 })}
               </Picker>
-              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </View>
           </View> 
         }

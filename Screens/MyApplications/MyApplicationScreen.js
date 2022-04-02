@@ -86,9 +86,10 @@ const MyApplicationScreen = ({route,navigation}) => {
           {text: 'Ok'}
         ]);
 
-      }else{
-
-      }
+      }else if (response.data.code == 401){
+				console.log('Session Expired Already');
+				SessionExpiredAlert();
+			}
     })
     .catch((error) => {
         setLoading(false);

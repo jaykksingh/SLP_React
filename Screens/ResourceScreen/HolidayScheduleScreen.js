@@ -18,11 +18,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {getAuthHeader} from '../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import Loader from '../../Components/Loader';
+import { AuthContext } from '../../Components/context';
 
 
 const HolidayScheduleScreen = ({navigation})  => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [holidayArr, setHolidayArr] = React.useState([]);
+	const { signOut } = React.useContext(AuthContext);
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
@@ -33,16 +35,6 @@ const HolidayScheduleScreen = ({navigation})  => {
 	
 	useEffect(() => {
 		getHolidayList();
-		if(navigation.dangerouslyGetParent){
-			const parent = navigation.dangerouslyGetParent();
-				parent.setOptions({
-				tabBarVisible: false
-			});
-			return () =>
-				parent.setOptions({
-				tabBarVisible: true
-			});
-		}
 	}, []);
 
 	const  getHolidayList = async() => {
@@ -71,7 +63,10 @@ const HolidayScheduleScreen = ({navigation})  => {
 			  {text: 'Ok'}
 			]);
 	
-		  }
+		  }else if (response.data.code == 401){
+			console.log('Session Expired Already');
+			SessionExpiredAlert();
+			}
 		})
 		.catch((error) => {
 		  console.error(error);
@@ -82,6 +77,13 @@ const HolidayScheduleScreen = ({navigation})  => {
 	
 		})
 	}
+	const SessionExpiredAlert = () =>{
+		Alert.alert(StaticMessage.AppName,StaticMessage.SessionExpired,
+			[{
+			  text: 'Ok',
+			  onPress: () => signOut()
+		  }]
+	)}
 	const viewFile = (fileObject) => {
 		let url =  fileObject.formDoc;
 		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
