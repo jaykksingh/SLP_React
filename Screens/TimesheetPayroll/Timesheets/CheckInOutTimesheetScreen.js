@@ -1,4 +1,4 @@
-import React,{useEffect,createRef} from "react";
+import React,{useEffect,createRef, useRef} from "react";
 import { 
 	Text, 
     TouchableOpacity,
@@ -70,6 +70,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	const { timesheetsArray } = route.params;
 	const [showProjectSelect, setShowProjectSelect] = React.useState(false);
 	const [showClockInOut, setShowClockInOut] =  React.useState(false);
+	const actionSheetTimesheet = useRef();
 
 
 	React.useLayoutEffect(() => {
@@ -778,7 +779,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 
 	}
 	const showActionSheet = () => {
-		this.ActionSheet.show();
+		actionSheetTimesheet.current.show();
 	  }
 	const tips='Tip: Enter 0.50 increments to indicate a half hour. For example, for eight and a half hours, please enter 8.50 rather than 8.30'
 	
@@ -828,15 +829,14 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 						<Text style ={{color:'white', fontSize:16 ,fontFamily:FontName.Regular, marginLeft:8}}>UPLOAD TIMESHEET</Text>
 					</TouchableOpacity>
 					<ActionSheet
-                        ref={o => this.ActionSheet = o}
+                        ref={actionSheetTimesheet}
                         options={['Upload document', 'Photo library','Take photo', 'Cancel']}
                         cancelButtonIndex={3}
-                        // destructiveButtonIndex={}
                         onPress={(index) => { handleDocActionsheet(index) }}
                     />
 					{data.fileName.length > 0 ? 
-						<View style={{alignContent:'center', justifyContent: 'center', flexDirection: 'row'}}>
-							<TouchableOpacity>
+						<View style={{alignContent:'center', justifyContent: 'center', flexDirection: 'row',paddingLeft:16, paddingRight:16}}>
+							<TouchableOpacity style={{}}>
 								<Text style ={{color:ThemeColor.NavColor, fontSize:12 ,fontFamily:FontName.Regular, marginLeft:8, marginRight:8, textAlign: 'center'}}>{data.fileName}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity style={{width:20, height:20, alignItems: 'center',justifyContent: 'center'}} onPress={() => removeSelectedFile()}>
@@ -852,6 +852,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 								fontSize:16,
 								fontFamily: FontName.Regular,
 								marginLeft:8,
+								textAlign:'center',
 								alignContent:'stretch',}}
 							placeholder="Client approved hours" 
 							placeholderTextColor={ThemeColor.PlaceHolderColor}

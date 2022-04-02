@@ -1,4 +1,4 @@
-import React ,{createRef}from 'react';
+import React ,{createRef, useRef}from 'react';
 import { TouchableOpacity,
     StyleSheet,
     Alert} from 'react-native';
@@ -27,6 +27,7 @@ const TumesheetsScreen = ({route, navigation})  => {
   const [timesheetsArray, setTimesheetArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const {timesheetsList} = route.params ? route.params : [];
+  const actionSheetDoc = useRef();
 
   React.useEffect(() => {
     
@@ -53,12 +54,11 @@ const TumesheetsScreen = ({route, navigation})  => {
 		navigation.setOptions({
 			headerRight: () => (
 				<TouchableOpacity style={{marginRight:16}} onPress={() => showActionSheet()}>
-				  <Feather name="more-vertical" color={'white'} size={25,25} />
+				  <Feather name="more-vertical" color={'white'} size={25} />
           <ActionSheet
-              ref={o => this.ActionSheet = o}
+              ref={actionSheetDoc}
               options={['Enter hours','Timesheet workflow', 'Cancel']}
               cancelButtonIndex={2}
-              // destructiveButtonIndex={}
               onPress={(index) => { handleDocActionsheet(index) }}
           />
 				</TouchableOpacity>
@@ -111,7 +111,7 @@ const TumesheetsScreen = ({route, navigation})  => {
   }
 
   const showActionSheet = () => {
-    this.ActionSheet.show();
+    actionSheetDoc.current.show();
   }
   
   

@@ -1,17 +1,13 @@
 /* eslint-disable react/display-name */
-import React,{useEffect,useState,createRef} from "react";
-import { StatusBar, 
-    Text, 
+import React,{useEffect,useState} from "react";
+import { Text, 
     View,
     StyleSheet,
     TouchableOpacity,
-    TextInput,
-    ActionSheetIOS,
-    SectionList,
     FlatList
 } from "react-native";
 
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'

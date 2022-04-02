@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React ,{useEffect,useState,createRef}from 'react';
+import React ,{useEffect,useState,createRef, useRef}from 'react';
 import { View ,
     Dimensions,
     TouchableOpacity,
@@ -8,7 +8,8 @@ import { View ,
     Alert,
     Animated,
     Text,
-    ScrollView} from 'react-native';
+    ScrollView,
+    Platform} from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -58,11 +59,12 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
     const [startDateString, setStartDateString] = React.useState('');
     const [endDate, setEndDate] = React.useState(new Date());
     const [endDateString, setEndDateString] = React.useState('');
-
     const [lookupData, setLookupData] = useState({});
 
     const { comeFrom } = route.params;
     const { stepDetail } = route.params;
+    const actionSheetDoc = useRef();
+
     React.useLayoutEffect(() => {
       navigation.setOptions({
         title: stepDetail.title ? stepDetail.title : stepDetail.docName,
@@ -298,7 +300,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
         console.log("showDate:",showDate);
 	  }
     const showActionSheet = () => {
-      this.ActionSheet.show();
+      actionSheetDoc.current.show();
     }
 
     let covidVaccinesArray = lookupData ? lookupData.covidVaccines : [];
@@ -313,10 +315,9 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                     </TouchableOpacity>
                     
                     <ActionSheet
-                            ref={o => this.ActionSheet = o}
+                            ref={actionSheetDoc}
                             options={['Upload document', 'Photo library','Take photo', 'Cancel']}
                             cancelButtonIndex={3}
-                            // destructiveButtonIndex={}
                             onPress={(index) => { handleDocActionsheet(index) }}
                         />
                     
@@ -332,28 +333,29 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccination status</Text>
                         <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {statusRef.current?.setModalVisible()}}>
                             <Text style={[styles.labelText,{color:data.vaccineStatusName.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{data.vaccineStatusName.length > 0 ? data.vaccineStatusName : 'Select vaccination status'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
                     </View>
                     <View style={{marginTop:12, width:'100%'}}>
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccine provider</Text>
                         <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {vaccineRef.current?.setModalVisible()}}>
                             <Text style={[styles.labelText,{color:data.vaccineName.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{data.vaccineName.length > 0 ? data.vaccineName : 'Select vaccine provider'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
                     </View> 
                     <View style={{marginTop:12, width:'100%'}}>
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>First vaccination date</Text>
                         <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {startDateRef.current?.setModalVisible()}}>
                             <Text style={[styles.labelText,{color:startDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{startDateString.length > 0 ? startDateString : 'Select first date'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
-                    </View> 
+                    </View>  
+                    
                     <View style={{marginTop:12, width:'100%'}}>
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Second vaccination date</Text>
                         <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {endDateRef.current?.setModalVisible()}}>
                             <Text style={[styles.labelText,{color:endDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{endDateString.length > 0 ? endDateString : 'Select second date'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity style={styles.btnFill} onPress={() => {uploadDocument()}}>
@@ -370,7 +372,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                     <TouchableOpacity onPress={() => {startDateRef.current?.setModalVisible()}}>
                         <Text style={{color:ThemeColor.BtnColor, fontSize:18, fontFamily: FontName.Regular}}>Cancel</Text>
                     </TouchableOpacity>
-                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>Vaccination date</Text>
+                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Bold}}>Vaccination date</Text>
                     <TouchableOpacity onPress={() => {
                       {startDateString.length == 0 && handleStartDateChange(startDate) }
                       startDateRef.current?.setModalVisible()
@@ -381,6 +383,8 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                 <DatePicker
                     style={{backgroundColor: 'white',flex:1,width:Dimensions.get('window').width}}
                     mode={'date'}
+                    itemStyle={{fontSize:16, fontFamily:FontName.Regular, height:20}}
+
                     maximumDate={new Date()}
                     date={startDate}
                     onDateChange={(val) => {handleStartDateChange(val)}}
@@ -393,7 +397,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                     <TouchableOpacity onPress={() => {endDateRef.current?.setModalVisible()}}>
                         <Text style={{color:ThemeColor.BtnColor, fontSize:18, fontFamily: FontName.Regular}}>Cancel</Text>
                     </TouchableOpacity>
-                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>Vaccination date</Text>
+                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Bold}}>Vaccination date</Text>
                     <TouchableOpacity onPress={() => {
                       {endDateString.length == 0 && handleEndDateChange(endDate) }
                       endDateRef.current?.setModalVisible()
@@ -403,6 +407,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                 </View>
                 <DatePicker
                     style={{backgroundColor: 'white',flex:1,width:Dimensions.get('window').width}}
+                    itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                     mode={'date'}
                     minimumDate={startDate}
                     maximumDate={new Date()}

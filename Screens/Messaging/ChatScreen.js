@@ -11,7 +11,7 @@ import { View,
     Image,
 	Dimensions,
 	KeyboardAvoidingView,
-	ActionSheetIOS} from "react-native";
+	} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios';
@@ -21,6 +21,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import ActionSheet from 'react-native-actionsheet'
 
 import { BaseUrl, EndPoints, MessageGroupId, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
@@ -38,6 +39,7 @@ const ChatScreen = ({route,navigation}) => {
 	const [selectdFeedback,setSelectedFeedback] = React.useState(0);
 	const [feedback,setFeedback] = React.useState('');
 	const [forcedChatOpen,setForsedChatOpen] = React.useState(false);
+	const actionsheetFile = useRef();
 
 	const [data, setData] = React.useState({
 		message:'',
@@ -394,25 +396,18 @@ const ChatScreen = ({route,navigation}) => {
 			  onPress: () => signOut()
 		  }]
 	)}
-	const showAttachmentPicker = () => ActionSheetIOS.showActionSheetWithOptions(
-		{
-			options: ["Cancel", "Choose from gallery", "Take picture"],
-			// destructiveButtonIndex: 0,
-			cancelButtonIndex: 0,
-			userInterfaceStyle: 'light',  
-		},
-		buttonIndex => {
-			if (buttonIndex === 0) {
-			  // cancel action
-			} else if (buttonIndex === 1) {
-			  	imageGalleryLaunch();
-			} else if (buttonIndex === 2) {
-			  	cameraLaunch();
-			}else if (buttonIndex === 3) {
-				selectDocument();
-			}
-		}
-	);
+	
+	const handleDocActionsheet = (index) => {
+        if(index == 0){
+            imageGalleryLaunch();
+        }else if(index == 1){
+            cameraLaunch();
+        }
+    }
+    
+    const showActionSheet = () => {
+      actionsheetFile.current.show();
+    }
 	const selectDocument = async () => {
         try {
             const res = await DocumentPicker.pick({
@@ -666,9 +661,15 @@ const ChatScreen = ({route,navigation}) => {
 				</KeyboardAvoidingView> : 
 				<KeyboardAvoidingView enabled behavior={"padding"} keyboardVerticalOffset={Platform.select({ ios: 85, android: 85 })}>
 					<View style={{flexDirection:'row', paddingTop:8, paddingBottom:8, backgroundColor:ThemeColor.ViewBgColor}}>
-						<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {showAttachmentPicker}>
-							<Feather name="plus" color={ThemeColor.BtnColor} size={25,25} />
+						<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {() => showActionSheet()}>
+							<Feather name="plus" color={ThemeColor.BtnColor} size={25} />
 						</TouchableOpacity>
+						<ActionSheet
+							ref={actionsheetFile}
+							options={['Photo library','Take photo', 'Cancel']}
+							cancelButtonIndex={2}
+							onPress={(index) => { handleDocActionsheet(index) }}
+						/>
 						<TextInput  
 							style={styles.inputText}
 							placeholder="Enter message" 
@@ -676,8 +677,6 @@ const ChatScreen = ({route,navigation}) => {
 							// multiline={true}
 							value= {data.message}
 							returnKeyType="done"
-							onKeyPress={this.handleKeyDown}
-
 							onChangeText={(val) => setData({...data,message:val})}
 							onSubmitEditing={() => {dismissKeyboard()}}
 							/>

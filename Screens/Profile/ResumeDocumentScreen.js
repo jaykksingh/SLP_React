@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React ,{useEffect,useState,createRef}from 'react';
+import React ,{useEffect,useRef,createRef}from 'react';
 import { View ,
     TextInput,
     TouchableOpacity,
@@ -34,8 +34,8 @@ const docTitleRef = createRef();
 const ResumeDocumentScreen = ({route,navigation})  => {
     const [data,setData] = React.useState({
         resumeTitle:'',
-		resumeData:'',
-		fileName:'',
+        resumeData:'',
+        fileName:'',
         docName:'',
         docTitle:''
     });
@@ -45,6 +45,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
 	const { profileDetail } = route.params;
 	const { lookupData } = route.params;
 	const { fileType } = route.params;
+  const actionSheet = useRef();
 
     React.useLayoutEffect(() => {
 		navigation.setOptions({
@@ -123,7 +124,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
         }
     }
     const showActionSheet = () => {
-        this.ActionSheet.show();
+      actionSheet.current.show();
     }
     const cameraLaunch = () => {
         let options = {
@@ -208,10 +209,9 @@ const ResumeDocumentScreen = ({route,navigation})  => {
                 <TouchableOpacity onPress = {() => {fileType == 'DOC' ? showActionSheet() :selectResume()}}>
                     <FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
                     <ActionSheet
-                        ref={o => this.ActionSheet = o}
+                        ref={actionSheet}
                         options={['Upload document', 'Photo library','Take photo', 'Cancel']}
                         cancelButtonIndex={3}
-                        // destructiveButtonIndex={}
                         onPress={(index) => { handleDocActionsheet(index) }}
                     />
                 </TouchableOpacity>

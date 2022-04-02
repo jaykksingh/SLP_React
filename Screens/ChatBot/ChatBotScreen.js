@@ -13,7 +13,6 @@ import { StatusBar,
     Image,
 	Dimensions,
 	KeyboardAvoidingView,
-	ActionSheetIOS
 } from "react-native";
 import ActionSheet from "react-native-actions-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';

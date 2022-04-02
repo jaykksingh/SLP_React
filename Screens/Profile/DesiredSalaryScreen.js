@@ -1,14 +1,10 @@
 /* eslint-disable react/display-name */
-import React,{useEffect,useState,createRef} from "react";
-import { StatusBar, 
-    Text, 
+import React,{useEffect,createRef} from "react";
+import { Text, 
     View,
     StyleSheet,
     TouchableOpacity,
     TextInput,
-    ActionSheetIOS,
-    SectionList,
-    FlatList,
     Platform
 } from "react-native";
 

@@ -1,4 +1,4 @@
-import React,{useEffect,userState,createRef} from "react";
+import React,{useEffect,userState,createRef, useRef} from "react";
 import { 
 	StatusBar, 
     Text, 
@@ -50,7 +50,7 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 	const [projectArray, setProjectArray] = React.useState([]);
 	const [startDate, setStartDate] = React.useState(new Date());
 	const [endDate, setEndDate] = React.useState(new Date());
-  
+	const actionsheetFile = useRef();
 	const [data,setData] = React.useState({
 		projectName:'',
 		projectId:'',
@@ -247,7 +247,10 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 		let showDate = moment(val).format('MMM DD, YYYY')
 		setData({...data,toDate:showDate});
 	}
-	
+	const showActionSheet = () => {
+		actionsheetFile.current.show();
+	}
+	  
 	const handleDocActionsheet = (index) => {
         if(index == 0){
             selectResume();
@@ -437,14 +440,13 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 				} 
 				{data.vacationLocationID == 20542 ? 
 				<View style={{marginTop:18, backgroundColor:'#fff',borderRadius:5, alignItems: 'center', paddingBottom:16, paddingTop:16}}>
-					<TouchableOpacity onPress = {() => {this.ActionSheet.show()}}>
+					<TouchableOpacity onPress = {() => {showActionSheet()}}>
                     	<FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={60} />
 					</TouchableOpacity>
 					<ActionSheet
-                        ref={o => this.ActionSheet = o}
+                        ref={actionsheetFile}
                         options={['Upload document', 'Photo library','Take photo', 'Cancel']}
                         cancelButtonIndex={3}
-                        // destructiveButtonIndex={}
                         onPress={(index) => { handleDocActionsheet(index) }}
                     /> 
 					<Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center', paddingLeft:8, paddingRight:8}}>{data.fileName.length > 0 ? data.fileName : 'Upload file'}</Text>

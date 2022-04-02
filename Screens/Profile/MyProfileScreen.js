@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React,{useEffect,useState,createRef} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import { StatusBar, 
     Text, 
     View,
@@ -23,6 +23,7 @@ import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNFS from 'react-native-fs';
 import FileViewer from "react-native-file-viewer";
+import ActionSheet from 'react-native-actionsheet'
 
 import { BaseUrl, EndPoints, StaticMessage,ThemeColor, FontName } from '../../_helpers/constants';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -71,6 +72,7 @@ const MyProfileScreen = ({route,navigation}) => {
   const [pickedImage, setPickedImage] = useState('');
   const [lookupData, setLookupData] = useState({});
 	const { signOut } = React.useContext(AuthContext);
+  const actionSheetImage = useRef();
 
   useEffect(() => {
     getProfileDetails();
@@ -215,21 +217,6 @@ const MyProfileScreen = ({route,navigation}) => {
 
     })
   }
-  // const showProfileImagePicker = () => ActionSheetIOS.showActionSheetWithOptions(
-  //   {
-  //       options: ["Cancel", "Choose from gallery", "Take picture"],
-  //       cancelButtonIndex: 0,
-  //       userInterfaceStyle: 'light',  
-  //     },
-  //     buttonIndex => {
-  //       if (buttonIndex === 0) {
-  //       } else if (buttonIndex === 1) {
-  //         imageGalleryLaunch();
-  //       } else if (buttonIndex === 2) {
-  //         cameraLaunch();
-  //       }
-  //     }
-  // );
   
   const showProfileImagePicker = () => {
     Alert.alert('Choose option','',
@@ -244,6 +231,16 @@ const MyProfileScreen = ({route,navigation}) => {
           text: 'Cancel',
         }]
       )
+  }
+  const showActionSheet = () => {
+    actionSheetImage.current.show();
+  }
+  const handleActionsheet = (index) => {
+    if(index == 0){
+      imageGalleryLaunch();
+    }else if(index == 1){
+      cameraLaunch();
+    }
   }
     
     const imageGalleryLaunch = () => {
@@ -808,7 +805,7 @@ const MyProfileScreen = ({route,navigation}) => {
                 </View>
                 }
                 <View style={{backgroundColor:'white', height:280, borderRadius:5,borderWidth:1, borderColor:ThemeColor.BorderColor, marginTop:64, alignItems: 'center', margin:16, marginBottom:0}}>
-                  <TouchableOpacity style={styles.imageContainer} onPress={showProfileImagePicker}>
+                  <TouchableOpacity style={styles.imageContainer} onPress={()=>showActionSheet()}>
                       <View style={{width:100, height:100, backgroundColor:'white',borderRadius:50, borderWidth:1, borderColor:ThemeColor.SubTextColor,alignItems: 'center', justifyContent: 'center'}}> 
                         {pickedImage ? <Image resizeMode='cover' source={{ uri: pickedImage }} style={{height:100, width:100,borderRadius:50}} /> :
                         profileImageUrl.length == 0 ?
@@ -817,7 +814,14 @@ const MyProfileScreen = ({route,navigation}) => {
                         }
                       </View>
                       <Text style ={{borderBottomLeftRadius:50,borderBottomRightRadius:50,color:'white', fontSize:12, width:80, textAlign:'center', height:25, position:'absolute', top:75,paddingTop:4}}>EDIT</Text>
+                      
                   </TouchableOpacity>
+                  <ActionSheet
+                    ref={actionSheetImage}
+                    options={['Choose from gallery','Take photo', 'Cancel']}
+                    cancelButtonIndex={2}
+                    onPress={(index) => { handleActionsheet(index) }}
+                  />
                   <TouchableOpacity style={{position:'absolute', right:4, top:4, height:40, width:40, alignItems: 'center', justifyContent: 'center'}} onPress={() => {navigation.navigate('Modify profile',{profileDetail:profileData})}}>
                     <EvilIcons name="pencil" color={ThemeColor.BtnColor} size={20} />
                   </TouchableOpacity>

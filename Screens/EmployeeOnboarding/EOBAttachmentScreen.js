@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React ,{useEffect,createRef}from 'react';
+import React ,{useEffect,createRef, useRef}from 'react';
 import { View ,
     Dimensions,
     TouchableOpacity,
@@ -14,10 +14,10 @@ import base64 from 'react-native-base64'
 import axios from 'axios'
 import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
-import ActionSheet from 'react-native-actionsheet'
 import * as ImagePicker from 'react-native-image-picker';
 import DatePicker from 'react-native-date-picker'
 import {default as ActionSheetView} from 'react-native-actions-sheet';
+import ActionSheet from 'react-native-actionsheet'
 
 import { AuthContext } from '../../Components/context';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -42,7 +42,7 @@ const EOBAttachmentScreen = ({route,navigation})  => {
     let [isLoading, setIsLoading] = React.useState(false);
     const [startDate, setStartDate] = React.useState(new Date());
     const [startDateString, setStartDateString] = React.useState('');
-
+    const actionSheetDoc = useRef();
     const { comeFrom } = route.params;
     const { stepDetail } = route.params;
     React.useLayoutEffect(() => {
@@ -220,7 +220,7 @@ const EOBAttachmentScreen = ({route,navigation})  => {
 
 	  }
     const showActionSheet = () => {
-      this.ActionSheet.show();
+      actionSheetDoc.current.show();
     }
     return (
         <View style={styles.container}>            
@@ -230,12 +230,11 @@ const EOBAttachmentScreen = ({route,navigation})  => {
                 </TouchableOpacity>
                 
                 <ActionSheet
-                        ref={o => this.ActionSheet = o}
-                        options={['Upload document', 'Photo library','Take photo', 'Cancel']}
-                        cancelButtonIndex={3}
-                        // destructiveButtonIndex={}
-                        onPress={(index) => { handleDocActionsheet(index) }}
-                    />
+                    ref={actionSheetDoc}
+                    options={['Upload document', 'Photo library','Take photo', 'Cancel']}
+                    cancelButtonIndex={3}
+                    onPress={(index) => { handleDocActionsheet(index) }}
+                />
                 
                 <Text style={{fontFamily:FontName.Regular, fontSize:18,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:16}}>Tap here to select a file to upload</Text>
                 <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:4}}>Maximum file size: 5MB</Text>

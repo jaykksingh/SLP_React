@@ -1,4 +1,4 @@
-import React , { createRef ,useEffect,useCallback} from "react";
+import React , { createRef ,useEffect,useCallback,useRef} from "react";
 import { ScrollView, 
     View,
     Text,
@@ -50,6 +50,7 @@ const JobSearchResult = ({route,navigation}) => {
     const [data,setData] = React.useState({
 		updated:false,
 	});
+    const actionsheetSort = useRef();
     const [companyNameArray,setCompanyNameArray] = React.useState([{
         keyId : "1",
         keyName : "Compunnel Inc."
@@ -140,7 +141,8 @@ const JobSearchResult = ({route,navigation}) => {
         onPress: () => { getJobDetails(activeJobID, true) }
       }];
     const showActionSheet = () => {
-        this.ActionSheet.show();
+        console.log('Sort Actionsheet')
+        actionsheetSort.current.show();
     }
 
     
@@ -176,7 +178,6 @@ const JobSearchResult = ({route,navigation}) => {
         }).then((response) => {
             setLoading(false);
             if (response.data.statusCode == 200){
-                console.log('JOB SEARCH:' + JSON.stringify(response.data.data));
                 setJobsList(response.data.data);
                 setRefineSearchArray(response.data.data);
             }else if (response.data.statusCode == 417){
@@ -275,7 +276,6 @@ const JobSearchResult = ({route,navigation}) => {
             setLoading(false);
           if (response.data.code == 200){
             setJobDetails(response.data.content.dataList[0]);
-            console.log(response.data.content.dataList[0]);
             if(isJobApply){
                 navigation.navigate('Job apply',{jobDetails: response.data.content.dataList[0]})
             }else{
@@ -586,22 +586,16 @@ const JobSearchResult = ({route,navigation}) => {
             <>
             <View style={styles.inputView}>
                 <Text style={{color:'gray', fontSize:14, fontFamily: FontName.Regular}}> Sort by</Text>
-                {Platform.OS == 'ios' ? 
-                    <TouchableOpacity style={{flex:1}} onPress={() => {showActionSheet()}}>
-                        <Text style={{color: ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:8}}>{getSortByText()}</Text>
-                        <ActionSheet
-                            ref={o => this.ActionSheet = o}
-                            title={'Sort by'}
-                            options={['Relevence', 'Posting date: Ascending', 'Posting date: Descending','Cancel']}
-                            cancelButtonIndex={3}
-                            // destructiveButtonIndex={}
-                            onPress={(index) => { handleSortBy(index)}}
-                        />
-                    </TouchableOpacity> :
-                    <TouchableOpacity style={{flex:1}}>
-                        <Text style={{color: ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:8}}>{getSortByText()}</Text>
-                    </TouchableOpacity>
-                    }
+                <TouchableOpacity style={{flex:1}} onPress={() => {showActionSheet()}}>
+                    <Text style={{color: ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:8}}>{getSortByText()}</Text>
+                    <ActionSheet
+                        ref={actionsheetSort}
+                        title={'Sort by'}
+                        options={['Relevence', 'Posting date: Ascending', 'Posting date: Descending','Cancel']}
+                        cancelButtonIndex={3}
+                        onPress={(index) => { handleSortBy(index)}}
+                    />
+                </TouchableOpacity> 
                 {isLoggedIn ? 
                 <TouchableOpacity onPress={() => {savedAlertRef.current?.setModalVisible()}}>
                     <Feather name="filter" color={'black'} size={20} />

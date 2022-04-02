@@ -1,4 +1,4 @@
-import React,{useEffect,userState,createRef} from "react";
+import React,{useEffect,useRef,createRef} from "react";
 import { 
 	StatusBar, 
     Text, 
@@ -42,7 +42,7 @@ const AddExpenceScreen = ({route,navigation}) => {
 	const [projectArray, setProjectArray] = React.useState([]);
 	const [startDate, setStartDate] = React.useState(new Date());
 	const [endDate, setEndDate] = React.useState(new Date());
-
+	const actionsheetFile = useRef();
 	const [data,setData] = React.useState({
 		projectName:'',
 		projectId:'',
@@ -179,6 +179,9 @@ const AddExpenceScreen = ({route,navigation}) => {
             cameraLaunch();
         }
     }
+	const showActionSheet = () => {
+		actionsheetFile.current.show();
+	}
 	const selectResume = async () => {
         try {
             const res = await DocumentPicker.pick({
@@ -359,15 +362,14 @@ const AddExpenceScreen = ({route,navigation}) => {
 						/>
 					</View>
 				</View>
-				<View style={{marginTop:32,alignItems:'center'}}>
-					<TouchableOpacity onPress = {() => {this.ActionSheet.show()}}>
+				<View style={{marginTop:32,alignItems:'center', paddingBottom:16}}>
+					<TouchableOpacity onPress = {() => {showActionSheet()}}>
 						<FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
 					</TouchableOpacity>
 					<ActionSheet
-                        ref={o => this.ActionSheet = o}
+                        ref={actionsheetFile}
                         options={['Upload document', 'Photo library','Take photo', 'Cancel']}
                         cancelButtonIndex={3}
-                        // destructiveButtonIndex={}
                         onPress={(index) => { handleDocActionsheet(index) }}
                     /> 
 					<Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center'}}>{data.fileName.length > 0 ? data.fileName : 'Upload file'}</Text>

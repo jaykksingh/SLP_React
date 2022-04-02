@@ -1,12 +1,10 @@
 /* eslint-disable react/display-name */
-import React,{useEffect,useState,createRef} from "react";
-import { StatusBar, 
-    Text, 
+import React,{useEffect} from "react";
+import { Text, 
     View,
     StyleSheet,
     TouchableOpacity,
     TextInput,
-    ActionSheetIOS,
     ActivityIndicator,
     FlatList,
     Alert,
@@ -17,7 +15,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
-import ActionSheet from "react-native-actions-sheet";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import {getAuthHeader} from '../../_helpers/auth-header';

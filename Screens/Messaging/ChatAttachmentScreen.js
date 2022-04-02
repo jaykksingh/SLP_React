@@ -9,7 +9,6 @@ import { View,
     TextInput,
     Image,
 	KeyboardAvoidingView,
-	ActionSheetIOS
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
@@ -22,6 +21,7 @@ import DocumentPicker from 'react-native-document-picker';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
 import Loader from '../../Components/Loader';
+import ActionSheet from 'react-native-actionsheet'
 
 
 
@@ -29,7 +29,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
   	let [isLoading, setIsLoading] = React.useState(false);
 	const [pickedImage, setPickedImage] = useState('');
 	const [selectedFileArray,setFileArray] = React.useState([]);
-
+	const actionsheetFile = useRef();
 	const [data, setData] = React.useState({
 		message:'',
 		titles:'',
@@ -171,41 +171,19 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 		})
 		.catch( err => console.log(err))
 	}
-	const showAttachmentPicker = () => ActionSheetIOS.showActionSheetWithOptions(
-		{
-			options: ["Cancel", "Choose from gallery", "Take picture"],
-			// destructiveButtonIndex: 0,
-			cancelButtonIndex: 0,
-			userInterfaceStyle: 'light',  
-		},
-		buttonIndex => {
-			if (buttonIndex === 0) {
-			  // cancel action
-			} else if (buttonIndex === 1) {
-			  	imageGalleryLaunch();
-			} else if (buttonIndex === 2) {
-			  	cameraLaunch();
-			}else if (buttonIndex === 3) {
-				selectDocument();
-			}
-		}
-	);
-	const selectDocument = async () => {
-        try {
-            const res = await DocumentPicker.pick({
-                type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
-            });
-            console.log(res.uri,res.type, res.name,res.size);
-			var newURI = res.uri.split("%20").join("\ ");
-            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            setData({...data,fileData:base64data,fileName:res.name});
-        } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-            } else {
-                throw err;
-            }
+	
+	const handleDocActionsheet = (index) => {
+        if(index == 0){
+            imageGalleryLaunch();
+        }else if(index == 1){
+            cameraLaunch();
         }
     }
+    
+    const showActionSheet = () => {
+      actionsheetFile.current.show();
+    }
+	
 	const imageGalleryLaunch = () => {
 
 		let options = {
@@ -310,9 +288,15 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 
 				</View>
 				<View style={{flexDirection:'row', paddingTop:8, paddingBottom:8, backgroundColor:ThemeColor.ViewBgColor}}>
-					<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {showAttachmentPicker}>
-						<Feather name="plus" color={ThemeColor.BtnColor} size={25,25} />
+					<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {()=> showActionSheet()}>
+						<Feather name="plus" color={ThemeColor.BtnColor} size={25} />
 					</TouchableOpacity>
+					<ActionSheet
+						ref={actionsheetFile}
+						options={['Photo library','Take photo', 'Cancel']}
+						cancelButtonIndex={3}
+						onPress={(index) => { handleDocActionsheet(index) }}
+					/>
 					<TextInput  
 						style={styles.inputText}
 						placeholder="Enter message" 

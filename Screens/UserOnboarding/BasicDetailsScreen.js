@@ -1,4 +1,4 @@
-import React ,{useEffect, useState,createRef} from "react";
+import React ,{useEffect, useState,createRef, useRef} from "react";
 import { StyleSheet, 
     Text,
     TextInput,
@@ -7,7 +7,6 @@ import { StyleSheet,
     View,
     Switch,
     Image,
-    ActionSheetIOS,
     FlatList,
     ActivityIndicator,
     Platform,
@@ -24,7 +23,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import {Picker} from '@react-native-picker/picker';
-import ActionSheet from "react-native-actions-sheet";
+import {default as ActionSheetView} from 'react-native-actions-sheet';
+import ActionSheet from 'react-native-actionsheet'
+
 import {getAuthHeader} from '../../_helpers/auth-header';
 import Loader from '../../Components/Loader';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
@@ -77,6 +78,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
   let [isLocationLoading, setLocationLoading] = React.useState(false);
   const [value, setValue] = useState()
   let [profileDetail, setProfileData] = React.useState('');
+  const actionSheetDoc = useRef();
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -253,29 +255,18 @@ const BasicDetailsScreen = ({route,navigation}) => {
   const handleSkipBtn = () => {
     navigation.navigate('Professional details',{profileDetail: profileDetail,lookupData:lookupData});
   }
- 
-  const showProfileImagePicker = () => ActionSheetIOS.showActionSheetWithOptions(
-  {
-      options: ["Cancel", "Choose from gallery", "Take picture"],
-      // destructiveButtonIndex: 0,
-      cancelButtonIndex: 0,
-      userInterfaceStyle: 'light',  
-    },
-    buttonIndex => {
-      if (buttonIndex === 0) {
-        // cancel action
-      } else if (buttonIndex === 1) {
-        imageGalleryLaunch();
-      } else if (buttonIndex === 2) {
-        cameraLaunch();
-      }
-    }
-  );
   
-  // {
-  //   this.ActionSheet.show();
-  // }
- 
+  const handleDocActionsheet = (index) => {
+    if(index == 0){
+      imageGalleryLaunch();
+    }else if(index == 1){
+      cameraLaunch();
+    }
+  }
+  
+  const showActionSheet = () => {
+    actionSheetDoc.current.show();
+  }
   
   const imageGalleryLaunch = () => {
 
@@ -582,22 +573,20 @@ const BasicDetailsScreen = ({route,navigation}) => {
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView>
       <View style={{alignItems: 'center', justifyContent: 'center',marginTop:16}}>
-        <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}} onPress={showProfileImagePicker}>
+        <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}} onPress={() => showActionSheet()}>
           <View style={{width:100, height:100, backgroundColor:'white',borderRadius:50, borderWidth:1, borderColor:ThemeColor.SubTextColor,alignItems: 'center', justifyContent: 'center'}}> 
             {pickedImage ? <Image resizeMode='cover' source={{ uri: pickedImage }} style={{height:100, width:100, borderRadius:50}} /> :
             data.profilePicture.length == 0 ?
-              <FontAwesome name="user-alt" color={ThemeColor.SubTextColor} size={40,40} /> :
+              <FontAwesome name="user-alt" color={ThemeColor.SubTextColor} size={40} /> :
               <Image resizeMode='cover' style={{height:100, width:100, borderRadius:50}} source={{uri: imageURL}} defaultSource={require('../../assets/Images/icon_profile.png')}/>
             }
-            
-            {/* <ActionSheet
-                ref={o => this.ActionSheet = o}
-                title={null}
-                options={['Choose from gallery', 'Take picture','Cancel']}
-                cancelButtonIndex={2}
-                // destructiveButtonIndex={}
-                onPress={(index) => { index == 0 ? imageGalleryLaunch(): cameraLaunch() }}
-            /> */}
+            <ActionSheet
+                    ref={actionSheetDoc}
+                    options={[ 'Choose from gallery','Take photo', 'Cancel']}
+                    cancelButtonIndex={2}
+                    onPress={(index) => { handleDocActionsheet(index) }}
+                />
+                
           </View>
           <Text style ={{color:ThemeColor.NavColor, fontSize:12,textAlign:'center', marginTop:12}}>Edit photo</Text>
         </TouchableOpacity>
@@ -914,7 +903,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
         </Animatable.View>
       }
       <Loader isLoading={isLoading} />
-      <ActionSheet ref={workAuthorizationRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+      <ActionSheetView ref={workAuthorizationRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
@@ -943,8 +932,8 @@ const BasicDetailsScreen = ({route,navigation}) => {
               })}
             </Picker>
           </View>
-        </ActionSheet>
-        <ActionSheet ref={availabilityRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+        </ActionSheetView>
+        <ActionSheetView ref={availabilityRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {availabilityRef.current?.setModalVisible()}}>
@@ -973,8 +962,8 @@ const BasicDetailsScreen = ({route,navigation}) => {
               })}
             </Picker>
           </View>
-        </ActionSheet>
-        <ActionSheet ref={experienceRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+        </ActionSheetView>
+        <ActionSheetView ref={experienceRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {experienceRef.current?.setModalVisible()}}>
@@ -1003,8 +992,8 @@ const BasicDetailsScreen = ({route,navigation}) => {
               })}
             </Picker>
           </View>
-        </ActionSheet> 
-        <ActionSheet ref={expertiesRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+        </ActionSheetView> 
+        <ActionSheetView ref={expertiesRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {expertiesRef.current?.setModalVisible()}}>
@@ -1033,7 +1022,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
               })}
             </Picker>
           </View>
-        </ActionSheet>  
+        </ActionSheetView>  
     </SafeAreaView>
 	);
   

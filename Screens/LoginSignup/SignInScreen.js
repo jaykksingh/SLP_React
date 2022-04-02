@@ -73,7 +73,7 @@ const SignInScreen = ({navigation}) => {
   }
   const getBiometicButtonTitle =  () => {
     // const { biometryType } = await ReactNativeBiometrics.isSensorAvailable()
-    var biometricBtnTitle = "SIGN IN USING FACE ID";
+    var biometricBtnTitle = "SIGN IN USING TOUCH ID";
     ReactNativeBiometrics.isSensorAvailable()
     .then((resultObject) => {
       const { available, biometryType } = resultObject
@@ -104,12 +104,12 @@ const SignInScreen = ({navigation}) => {
         console.log('FaceID is supported')
         return require('../../assets/Images/FaceIcon.png');
       } else if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        return require('../../assets/Images/FaceIcon.png');
+        return require('../../assets/Images/Touchid.png');
       } else {
         console.log('Biometrics not supported')
       }
     })
-    return require('../../assets/Images/FaceIcon.png');
+    return require('../../assets/Images/Touchid.png');
   
   }
   const biometricLoginHandle = () => {
@@ -294,7 +294,6 @@ const SignInScreen = ({navigation}) => {
               fullscreen={true}
               controls={true}
               fullscreenAutorotate={true} 
-              fullscreen={true}  
               resizeMode="contain" 
               repeat={true}
               onBuffer={onBuffer()}                // Callback when remote video is buffering
@@ -359,7 +358,7 @@ const SignInScreen = ({navigation}) => {
             </TouchableOpacity> : 
             <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.loginID, data.password )}}>
               <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={require('../../assets/Images/Touchid.png')} /> 
-              <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN USING FACE ID</Text>
+              <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN USING TOUCH ID</Text>
             </TouchableOpacity>
            }
             <View style={{justifyContent:'space-between', flex:1, flexDirection:'row', height:40, alignItems:'center',paddingLeft:16,paddingRight:16, marginTop:16}}>
@@ -589,6 +588,7 @@ const styles = StyleSheet.create({
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
+  backgroundColor:'white'
 }
 
 });
