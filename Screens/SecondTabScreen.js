@@ -99,6 +99,7 @@ import AttendanceHomeScreen from './Attendance/AttendanceHomeScreen';
 import AddRegularizationScreen from './Attendance/AddRegularizationScreen';
 import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClockInOutTimesheetScreen';
 import ViewClockInOutScreen from './TimesheetPayroll/Timesheets/ViewClockInOutScreen';
+import StaffContactScreen from './StaffContactScreen/StaffContactScreen'
 
 const Stack  = createStackNavigator();
 
@@ -209,6 +210,7 @@ const SecondTabScreen = () => {
             <Stack.Screen name="ViewClockInOutTimesheet" component={ViewClockInOutTimesheetScreen}/>
             <Stack.Screen name="ViewClockInOut" component={ViewClockInOutScreen}/>
             <Stack.Screen name="ProjectEndDate" component={ProjectEndingScreen}/>
+            <Stack.Screen name="StaffContact" component={StaffContactScreen}/>
 
         </Stack.Navigator>
       );

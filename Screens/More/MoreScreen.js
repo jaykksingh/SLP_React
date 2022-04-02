@@ -224,6 +224,8 @@ const MoreScreen = ({navigation}) => {
         navigation.navigate('ResourceHome');
       }else if(title == 'Help and support'){
         navigation.navigate('HelpAndSupport');
+      }else if(title == 'Staff contacts'){
+        navigation.navigate('StaffContact');
       }else if(title == 'Change password'){
         navigation.navigate('ChangePassword');
       }else if(title == 'Settings'){

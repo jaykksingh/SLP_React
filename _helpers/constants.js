@@ -113,6 +113,7 @@ export const EndPoints = {
   Offerletter:'employee/offerletter',
   EOBAttachment:'employee/attachment',
   DocumentUpload:'employee/uploadattachment',
+  StaffContacts:'staffcontacts',
 
   
 }
