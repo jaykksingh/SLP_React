@@ -222,9 +222,9 @@ const DomainScreen = ({route,navigation}) => {
 			<View style={{paddingLeft:16, paddingRight:16, marginTop:16,marginBottom:32 }}>
 				<View style={{marginTop:12}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Domain</Text>
-					<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+					<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 						<Picker
-							style={{backgroundColor: 'white',flex:1,}}
+							style={{flex:1,}}
 							itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 							selectedValue={data.domainId}
 							onValueChange={(itemValue, index) =>{
@@ -247,15 +247,14 @@ const DomainScreen = ({route,navigation}) => {
 								return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 							})}
 						</Picker>
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 					</View>
 				</View>
 			
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Sub-domain</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {subDomainRef.current?.setModalVisible()}}>
+				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {subDomainRef.current?.setModalVisible()}}>
 					<Picker
-						style={{backgroundColor: 'white',flex:1,}}
+						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 						selectedValue={data.subDomainId}
 						onValueChange={(itemValue, index) =>{
@@ -267,14 +266,13 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 						})}
 					</Picker>
-					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 				</TouchableOpacity>
 			</View>
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Role</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {roleRef.current?.setModalVisible()}}>
+				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {roleRef.current?.setModalVisible()}}>
 					<Picker
-						style={{backgroundColor: 'white',flex:1,}}
+						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 						selectedValue={data.roleId}
 						onValueChange={(itemValue, index) =>{
@@ -287,14 +285,13 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.Text} value={item.Value} key={index}/>) 
 						})}
 					</Picker>
-					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 				</TouchableOpacity>
 			</View>
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Primary skill</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {skillsRef.current?.setModalVisible()}}>
+				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center',}} onPress={() => {skillsRef.current?.setModalVisible()}}>
 					<Picker
-						style={{backgroundColor: 'white',flex:1,}}
+						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 						selectedValue={data.skillId}
 						onValueChange={(itemValue, index) =>{
@@ -307,7 +304,6 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.Text} value={item.Value} key={index}/>) 
 						})}
 					</Picker>
-					<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 				</TouchableOpacity>
 			</View>        
 

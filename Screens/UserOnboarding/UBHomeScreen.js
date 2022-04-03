@@ -5,6 +5,8 @@ import { View ,
     StyleSheet,
     Animated,
     Alert,
+    SafeAreaView,
+    ScrollView,
     Text} from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -214,30 +216,7 @@ const OnboardingScreen = ({navigation})  => {
         })
     }
     
-    const renderTabBar = (props) => {
-        const inputRange = props.navigationState.routes.map((x, i) => i);
-
-        return (
-            <View style={styles.tabBar}>
-                {props.navigationState.routes.map((route, i) => {
-                const opacity = props.position.interpolate({
-                    inputRange,
-                    outputRange: inputRange.map((inputIndex) =>
-                    inputIndex === i ? 1 : 0.5
-                    ),
-                });
-
-                return (
-                    <TouchableOpacity
-                    style={styles.tabItem}
-                    onPress={() => this.setState({ index: i })}>
-                    <Animated.Text style={{ opacity }}>{route.title}</Animated.Text>
-                    </TouchableOpacity>
-                );
-                })}
-            </View>
-        );
-    };
+    
     const handleSkipBtn = () => {
         navigation.navigate('Basic details',{profileDetail: profileData})
     }
@@ -247,11 +226,11 @@ const OnboardingScreen = ({navigation})  => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-            console.log(res.uri,res.type, res.name,res.size);
-            setData({...data,resumeTitle:res.name});
-            var newURI = res.uri.split("%20").join("\ ");
+            console.log('Resume Seletc:',res[0].uri,res[0].type, res[0].name,res[0].size);
+            var newURI = res[0].uri.split("%20").join("\ ");
             var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            updateProfileDetails(base64data,res.name);
+            setData({...data,resumeTitle:res[0].name});
+            updateProfileDetails(base64data,res[0].name);
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on
@@ -261,10 +240,10 @@ const OnboardingScreen = ({navigation})  => {
         }
     }
     const viewResume = (resume) => {
-        console.log('resume:', resume.filePath);
+        console.log('resume:', resume);
         let url =  resume.filePath;
 		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const localFile = `${RNFS.DocumentDirectoryPath}/${resume.fileName}.${extension}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,
@@ -285,37 +264,42 @@ const OnboardingScreen = ({navigation})  => {
     const resumeArr = profileData ? profileData.resume : [];
     let resumeTitle = resumeArr.length> 0 ? resumeArr[0].fileName : '';
     return (
-        <View style={styles.container}>
-            <Text style={{fontFamily:FontName.bold, fontSize:18,color:ThemeColor.NavColor}}> Welcome, {empDetails ? empDetails.firstName : ''}!</Text>
-            <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.NavColor, marginTop:8}}> Let’s get started. Upload your resume for an instant analysis.</Text>
-            { resumeArr.length > 0 &&
-            <View style={{marginTop:16, flexDirection:'column',padding:16}}>
-                <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor, textAlign:'center'}}>Great news! We've analyzed your existing resume:</Text>
-                <TouchableOpacity onPress = {() => {viewResume(resumeArr[0])}}>
-                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>{resumeTitle}</Text>
-                </TouchableOpacity>
-                <View style={{flexDirection:'row'}}>
-                    <Text style={{fontFamily:'Lato-Italic', fontSize:16,color:ThemeColor.TextColor, textAlign:'center',marginRight:4}}>Do you have an updated version?  </Text>
-                    <TouchableOpacity onPress = {() => {selectResume()}}>
-                        <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>UPLOAD NEW</Text>
+        <SafeAreaView style={{flex:1,backgroundColor:'#E5E9EB' }}>
+            <ScrollView style={{}}>
+            <View style={styles.container}>
+                <Text style={{fontFamily:FontName.bold, fontSize:18,color:ThemeColor.NavColor}}> Welcome, {empDetails ? empDetails.firstName : ''}!</Text>
+                <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.NavColor, marginTop:8, textAlign:'center'}}> Let’s get started. Upload your resume for an instant analysis.</Text>
+                { resumeArr.length > 0 &&
+                <View style={{marginTop:16,padding:16, flexWrap:'wrap', justifyContent:'center'}}>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor, textAlign:'center'}}>Great news! We've analyzed your existing resume:</Text>
+                    <TouchableOpacity style={{}} onPress = {() => {viewResume(resumeArr[0])}}>
+                        <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>{resumeTitle}</Text>
                     </TouchableOpacity>
+                    <View style={{flexDirection:'row'}}>
+                        <Text style={{fontFamily:FontName.Italic, fontSize:16,color:ThemeColor.TextColor, textAlign:'center',marginRight:4}}>Do you have an updated version?  </Text>
+                        <TouchableOpacity onPress = {() => {selectResume()}}>
+                            <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>UPLOAD NEW</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>}
-            <View style={{flex:1, height:'100%', width:'100%',alignItems: 'center', justifyContent: 'center', marginBottom:160}}>
-                <TouchableOpacity onPress = {() => {selectResume()}}>
-                    <FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
-                </TouchableOpacity>
-                <Text style={{fontFamily:FontName.Regular, fontSize:18,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:16}}>Tap here to select a file to upload</Text>
-                <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:4}}>Maximum file size: 2MB</Text>
-                {data.resumeTitle.length > 0 && <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:16}}>{data.resumeTitle}</Text> }
+                }
+                <View style={{alignItems: 'center', justifyContent: 'center', marginTop:32}}>
+                    <TouchableOpacity onPress = {() => {selectResume()}}>
+                        <FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
+                    </TouchableOpacity>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:18,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:16}}>Tap here to select a file to upload</Text>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:4}}>Maximum file size: 2MB</Text>
+                    {data.resumeTitle.length > 0 && <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.SubTextColor, textAlign:'center', marginTop:16}}>{data.resumeTitle}</Text> }
 
+                </View>
             </View>
+            </ScrollView>
             <TouchableOpacity style={styles.btnFill} onPress={() => {handleSkipBtn()}}>
                 <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.BtnColor }}>SKIP</Text>
             </TouchableOpacity>
             <Loader isLoading={isLoading} /> 
 
-        </View>
+        </SafeAreaView>
     );
   };
 
@@ -340,7 +324,6 @@ const styles = StyleSheet.create({
       padding: 16,
       fontSize: 10
     },btnFill:{
-        width:'100%',
         margin: 16,
         height:50,
         justifyContent:"center",

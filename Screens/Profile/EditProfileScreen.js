@@ -372,7 +372,7 @@ const EditProfileScreen = ({route,navigation}) => {
             <Text style ={{color:ThemeColor.TextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:16}}>Name</Text>
             <View style={{backgroundColor:'white', height:40, borderRadius:3, flexDirection:'row', alignItems:'center', paddingRight:16, marginTop:4}}>
               <TextInput  
-                style={[styles.inputText,{height:130, textAlignVertical:'top'}]}
+                style={[styles.inputText]}
                 placeholder="Licence / Certifications name" 
                 placeholderTextColor={ThemeColor.PlaceHolderColor}
                 keyboardType='default'

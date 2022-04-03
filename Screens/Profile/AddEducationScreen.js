@@ -214,9 +214,9 @@ const AddEducationScreen = ({route,navigation}) => {
           </View>  : 
           <View style={{marginTop:12}}>
             <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Passing year</Text>
-            <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {passingYearRef.current?.setModalVisible()}}>
+            <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {passingYearRef.current?.setModalVisible()}}>
               <Picker
-                style={{backgroundColor: 'white',flex:1,}}
+                style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={education.passingYear}
                 onValueChange={(itemValue, index) =>{
@@ -229,7 +229,6 @@ const AddEducationScreen = ({route,navigation}) => {
                   return (<Picker.Item label={item} value={item} key={index}/>) 
                 })}
               </Picker>
-              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View>
           

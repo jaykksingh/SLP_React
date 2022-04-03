@@ -396,7 +396,7 @@ const App = () => {
   let onBoardingStage = parsed ? parsed.onBoardingStage : "";
   console.log("User onboarding:", resumeUploaded,onBoarding);
 
-  if((onBoarding == 1) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
+  if((onBoarding != 1) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
     console.log("User onboarding:", onBoardingStage,onBoarding);
     return(
       <AuthContext.Provider value={authContext}>

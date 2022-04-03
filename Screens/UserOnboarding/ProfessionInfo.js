@@ -184,7 +184,7 @@ const ProfessionInfo = ({route,navigation}) => {
         <View style={{paddingLeft: 20, paddingRight:16, marginTop:24, justifyContent:'space-between', flexDirection:'row'}}>
           <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:30, fontFamily:FontName.Regular,}}>Licence / Certifications</Text>
           <TouchableOpacity style={{flexDirection: 'row', alignContent:'center', marginRight:4}} onPress={() => {navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Licence'})}}>
-            <Icons name="add-circle-outline" color={ThemeColor.BtnColor} size={20,20} />
+            <Icons name="add-circle-outline" color={ThemeColor.BtnColor} size={20} />
             <Text style ={{color:ThemeColor.BtnColor, fontSize:16,fontFamily:FontName.Regular,marginLeft:4}}>Add</Text>
           </TouchableOpacity>
         </View>

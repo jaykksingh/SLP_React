@@ -379,9 +379,9 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
           <>
             <View style={{marginTop:0}}>
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Country</Text>
-              <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {countryRef.current?.setModalVisible()}}>
+              <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {countryRef.current?.setModalVisible()}}>
                 <Picker
-                  style={{backgroundColor: 'white',flex:1,}}
+                  style={{flex:1,}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                   selectedValue={parseInt(experience.countryId)}
                   onValueChange={(itemValue, index) =>{
@@ -394,14 +394,13 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                     return (<Picker.Item label={item.countryName} value={item.countryId} key={index}/>) 
                   })}
                 </Picker>
-                <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
               </TouchableOpacity>
             </View> 
             <View style={{marginTop:12}}>
                 <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>State</Text>
-                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleStatePicker()}}>
+                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleStatePicker()}}>
                   <Picker
-                    style={{backgroundColor: 'white',flex:1,}}
+                    style={{flex:1,}}
                     itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                     selectedValue={parseInt(experience.stateId)}
                     onValueChange={(itemValue, index) =>{
@@ -416,14 +415,13 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                       return (<Picker.Item label={item.stateName} value={item.stateId} key={index}/>) 
                     })}
                   </Picker>
-                  <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
                 </TouchableOpacity>
             </View> 
             <View style={{marginTop:12}}>
                 <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>City</Text>
-                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleCityPicker()}}>
+                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleCityPicker()}}>
                   <Picker
-                    style={{backgroundColor: 'white',flex:1,}}
+                    style={{flex:1,}}
                     itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                     selectedValue={parseInt(experience.cityId)}
                     onValueChange={(itemValue, index) =>{
@@ -437,7 +435,6 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                       return (<Picker.Item label={item.cityName} value={item.cityId} key={index}/>) 
                     })}
                   </Picker>
-                  <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
                 </TouchableOpacity>
             </View> 
           </>
