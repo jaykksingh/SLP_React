@@ -670,10 +670,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-            console.log(res.uri,res.type, res.name,res.size);
-			var newURI = res.uri.split("%20").join("\ ");
+            console.log(res[0].uri,res[0].type, res[0].name,res[0].size);
+			var newURI = res[0].uri.split("%20").join("\ ");
             var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-			setData({...data,resumeData:base64data,fileName:res.name,showMannualHours:true,hours:getTotalHours()});
+			setData({...data,resumeData:base64data,fileName:res[0].name,showMannualHours:true,hours:getTotalHours()});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
             } else {
@@ -1024,7 +1024,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 				projectDetail.timesheetClientApproval == 1 ? 
 				<View style={{flexDirection:'row'}}>
 					<TouchableOpacity style={[styles.btnFill,{backgroundColor:ThemeColor.SubHeaderColor}]} onPress={() => {saveMannualHours('907')}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>ASAVE DRAFT</Text>
+						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>SAVE DRAFT</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.btnFill} onPress={() => {handleSubmitForApproval('908')}}>
 						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:'#fff' }}>SUBMIT FOR APPROVAL</Text>

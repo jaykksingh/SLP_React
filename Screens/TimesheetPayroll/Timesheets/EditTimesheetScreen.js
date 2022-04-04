@@ -656,10 +656,9 @@ const EditTimesheetScreen = ({route,navigation}) => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-            console.log(res.uri,res.type, res.name,res.size);
-			var newURI = res.uri.split("%20").join("\ ");
+			var newURI = res[0].uri.split("%20").join("\ ");
             var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-			setData({...data,resumeData:base64data,fileName:res.name,showMannualHours:true,hours:getTotalHours()});
+			setData({...data,resumeData:base64data,fileName:res[0].name,showMannualHours:true,hours:getTotalHours()});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
             } else {

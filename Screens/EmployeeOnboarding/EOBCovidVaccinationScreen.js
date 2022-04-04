@@ -180,10 +180,10 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
           const res = await DocumentPicker.pick({
               type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
           });
-          console.log('File Log: ',res.uri,res.type, res.name,res.size);
-          var result = res.uri.split("%20").join("\ ");
+          console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
+          var result = res[0].uri.split("%20").join("\ ");
           var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-          let bytes = res.size  / 1000000;
+          let bytes = res[0].size  / 1000000;
           console.log(`File Size: ${bytes}`)
           if(bytes > 5){
             Alert.alert(StaticMessage.AppName, StaticMessage.FileSize5MbExcedMsg, [

@@ -41,6 +41,7 @@ const JobSearchScreen = ({navigation}) => {
   let [filtersArray, setfiltersArray] = React.useState('');
   let [locationArray, setLocationArray] = React.useState('');
   const { signOut } = React.useContext(AuthContext);
+  let [locationUpdated, setLocationUpdated] = React.useState(false);
 
   React.useLayoutEffect(() => {
 		navigation.setOptions({
@@ -152,6 +153,8 @@ const JobSearchScreen = ({navigation}) => {
     .then((response) => {
       setLocationLoading(false);
       if (response.data.code == 200){
+        console.log('Location Result:',JSON.stringify(response.data.content.dataList));
+        setLocationUpdated(!locationUpdated);
         setLocationArray(response.data.content.dataList);
       }else if (response.data.code == 417){
         setData({...data,isLoading: false});
@@ -170,6 +173,7 @@ const JobSearchScreen = ({navigation}) => {
     let locationName = selectedItem.City_Name + ', ' + selectedItem.State_Name;
     setSearchLocation(locationName);
     setLocationArray([]);
+    setLocationUpdated(!locationUpdated);
   }
   const handleCurrentLocation = () => {
     setData({...data,isLoading: true});
@@ -279,6 +283,7 @@ const JobSearchScreen = ({navigation}) => {
       <FlatList style={{marginTop:0,height:30, backgroundColor:ThemeColor.BorderColor, borderRadius:5}}
           data={locationArray}
           keyExtractor={(item, index) => index.toString()}
+          randomUpdateProp={locationUpdated}
           renderItem={({item}) => 
             <TouchableOpacity onPress={(event)=> {didSelectLocation(item)}}>
               <View style={{flex: 1,flexDirection:'row', height:30, margin_bottom:4,alignItems: 'center'}}>

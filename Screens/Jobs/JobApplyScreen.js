@@ -196,14 +196,13 @@ const JobApplyScreen = ({route,navigation}) => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-            console.log('file Details:',res.uri,res.type, res.name,res.size);
-            setData({...data,resumeTitle:res.name});
-            var result = res.uri.split("%20").join("\ ");
+            setData({...data,resumeTitle:res[0].name});
+            var result = res[0].uri.split("%20").join("\ ");
 
             var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
             console.log('Base64 String:',base64data);
             setBase64Resume(base64data);
-            setData({...data,resumeTitle:res.name});
+            setData({...data,resumeTitle:res[0].name});
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 // User cancelled the picker, exit any dialogs or menus and move on

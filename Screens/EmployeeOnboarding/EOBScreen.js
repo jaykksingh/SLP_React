@@ -248,9 +248,8 @@ const OnboardingScreen = ({navigation})  => {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-            console.log(res.uri,res.type, res.name,res.size);
-            setData({...data,resumeTitle:res.name});
-            var newURI = res.uri.split("%20").join("\ ");
+            setData({...data,resumeTitle:res[0].name});
+            var newURI = res[0].uri.split("%20").join("\ ");
             var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
             updateProfileDetails(base64data);
         } catch (err) {
