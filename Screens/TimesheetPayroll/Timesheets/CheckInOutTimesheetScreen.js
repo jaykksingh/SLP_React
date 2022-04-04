@@ -8,6 +8,7 @@ import {
 	SafeAreaView,
 	Alert,
 	FlatList,
+	Image,
 	Platform} from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -765,14 +766,21 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		let message = "Pending"
 		if(item.holiday == 1){
 			message = "Holiday";
+			Alert.alert(StaticMessage.AppName, message, [
+				{text: 'Ok'}
+			]);
 		}else if(item.vacation){
 			message = "Time-off";
+			Alert.alert(StaticMessage.AppName, message, [
+				{text: 'Ok'}
+			]);
 		}else if(item.statusId > 3302){
 			message = "Future date"
+			Alert.alert(StaticMessage.AppName, message, [
+				{text: 'Ok'}
+			]);
 		}
-		Alert.alert(StaticMessage.AppName, message, [
-			{text: 'Ok'}
-		  ]);
+		
 	}
 	const handleEditClicked = (item) => {
 		navigation.navigate('CheckInOutEdit',{dayDetails:item,timesheetDetails:timesheetDetails,projectDetail:projectDetail,onClickEvent:refreshHoursDetails})
@@ -967,6 +975,14 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 										<TouchableOpacity style={{height:30, justifyContent:'center', alignItems:'center', flex:1, flexDirection:'row'}} onPress={ () => {handleEditClicked(item)}}>
 											<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
 											<MaterialIcons name="edit" color={ThemeColor.TextColor} size={15} />
+											<TouchableOpacity style={{marginLeft:4}} onPress={ () => {handleIconClicked(item)}}>
+												{item.holiday == 1 ?
+													<Image style={{ width: 10,height: 10,tintColor:ThemeColor.SubTextColor}} source={require('../../../assets/Images/icon-holiday.png')} /> :
+													item.vacation == 1 ? 
+													<Image style={{ width: 10,height: 10,tintColor:ThemeColor.SubTextColor}} source={require('../../../assets/Images/icon-timeoff.png')} /> :
+													<Image style={{ width: 10,height: 10,tintColor:'white'}} source={require('../../../assets/Images/icon-timeoff.png')} />
+												}
+											</TouchableOpacity>
 										</TouchableOpacity>
 									}
 									
