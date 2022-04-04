@@ -16,7 +16,7 @@ import axios from 'axios'
 import { authFreeHeader } from '../../_helpers/auth-header';
 import { AuthContext } from '../../Components/context';
 import {parseErrorMessage} from '../../_helpers/Utils';
-import { BaseUrl, EndPoints, StaticMessage ,ThemeColor} from '../../_helpers/constants';
+import { BaseUrl, EndPoints, FontName, StaticMessage ,ThemeColor} from '../../_helpers/constants';
 import {Picker} from '@react-native-picker/picker';
 import Loader from '../../Components/Loader';
 import Feather from 'react-native-vector-icons/Feather';
@@ -330,7 +330,7 @@ const SignUpScreen = ({navigation}) => {
         </ScrollView>
         <SafeAreaView style={{alignItems: 'center', width:'100%', position: 'absolute',bottom: 0}}>
           <TouchableOpacity style={{height:40,width:'90%',alignItems:'center'}} onPress={() => navigation.goBack()} >
-            <Text style={{color:'#53962E',fontSize:16, textAlign:'right',  }}>Already have an account? Sign In</Text>
+            <Text style={{color:'#53962E',fontSize:16, textAlign:'right',fontFamily:FontName.Italic, fontStyle:'italic'  }}>Already have an account? Sign In</Text>
           </TouchableOpacity>
         </SafeAreaView>
         <Loader isLoading={data.isLoading} />

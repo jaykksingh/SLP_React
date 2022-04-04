@@ -35,7 +35,7 @@ const JobSearchScreen = ({navigation}) => {
     authTokenKey:'',
     isLoading: false,
   });
-
+  let [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
   let [isLocationLoading, setLocationLoading] = React.useState(false);
   let [searchLocation, setSearchLocation] = React.useState('');
   let [filtersArray, setfiltersArray] = React.useState('');
@@ -60,6 +60,9 @@ const JobSearchScreen = ({navigation}) => {
       var encoded = base64.encode(userAuthToken);
       setData({...data,authTokenKey: encoded});
       getJobStatistics(encoded);
+      setIsUserLoggedIn(true);
+    }else{
+      setIsUserLoggedIn(false);
     }
     
   }
@@ -310,6 +313,7 @@ const JobSearchScreen = ({navigation}) => {
         }
       />
       <Loader isLoading={data.isLoading} />
+      {isUserLoggedIn ?
       <MovableView>
         <TouchableOpacity style={{
           position: 'absolute',
@@ -324,7 +328,7 @@ const JobSearchScreen = ({navigation}) => {
           alignItems: 'center'}} onPress={() => navigation.navigate('ChatBot')}>
           <Icon name="chatbubble-ellipses-outline" color={'white'} size={25} />
         </TouchableOpacity>
-      </MovableView>
+      </MovableView> : null }
     </View>
   );
   

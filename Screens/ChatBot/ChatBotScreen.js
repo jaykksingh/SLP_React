@@ -85,10 +85,13 @@ const ChatBotScreen = ({route,navigation}) => {
 	}, []);
 	const getProfileDetails = async() => {
 		let user = await AsyncStorage.getItem('loginDetails');  
-		let parsed = JSON.parse(user);  
-		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-		var authToken = base64.encode(userAuthToken);    
-	  
+		var authToken  = "U3RhZmZMaW5lQDIwMTc=";
+		if(user){
+			let parsed = JSON.parse(user);  
+			let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+			authToken = base64.encode(userAuthToken);
+		}
+	
 		setIsLoading(true);
 		axios ({  
 		  "method": "GET",
@@ -125,10 +128,13 @@ const ChatBotScreen = ({route,navigation}) => {
 	}
 
 	const  getMessageList = async() => {
-		let user = await AsyncStorage.getItem('loginDetails'); 
-		let parsed = JSON.parse(user);  
-		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-		var authToken = base64.encode(userAuthToken); 
+		let user = await AsyncStorage.getItem('loginDetails');  
+		var authToken  = "U3RhZmZMaW5lQDIwMTc=";
+		if(user){
+			let parsed = JSON.parse(user);  
+			let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+			authToken = base64.encode(userAuthToken);
+		}
 		setIsLoading(true);
 		console.log('Request:', JSON.stringify({'accessCode':'cgJAk6fdGd4rJLKjI54790jiA','guid':profileData.empDetails.guid,'authCode':authToken}));
 		axios ({  
@@ -245,6 +251,8 @@ const ChatBotScreen = ({route,navigation}) => {
 		let parsed = JSON.parse(user);  
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
 		var authToken = base64.encode(userAuthToken); 
+
+		
 		var guid = profileData.empDetails.guid;
 		var employeeDetailsId = profileData.empDetails.employeeDetailsId;
 		let params = {

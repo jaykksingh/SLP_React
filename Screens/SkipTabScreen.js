@@ -19,21 +19,14 @@ import CreateMessageScreen from './Messaging/CreateMessageScreen';
 import PreScreeningScreen from './PreScreening/PreScreeningScreen'
 import SimilarJobScreen from './PreScreening/SimilarJobScreen';
 import ChatScreen from './Messaging/ChatScreen';
+import ChatBotScreen from './ChatBot/ChatBotScreen';
 
 const Stack  = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
 const SkipTabScreen = () => {
-	const tabBarListeners = ({ navigation, route }) => ({
-		tabPress: () => {
-			if(route.name === 'Job Matching'){
-				console.log(route.name);
-				navigation.navigate(route.name);
-			}
-		},
-	});
-
+	
     return (
         <Stack.Navigator screenOptions={{
             headerStyle: {
@@ -62,7 +55,9 @@ const SkipTabScreen = () => {
             <Stack.Screen name="ChatScreen" component={ChatScreen}/>
             <Stack.Screen name="PreScreenings" component={PreScreeningScreen}/>
             <Stack.Screen name="CreateMessage" component={CreateMessageScreen}/>
-            <Stack.Screen name="SimilarJobs" component={SimilarJobScreen}/>            
+            <Stack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
+            <Stack.Screen name="ChatBot" component={ChatBotScreen} />
+            
         </Stack.Navigator>
       );
 };
@@ -71,7 +66,7 @@ export default SkipTabScreen;
 const HomeTabs = ({navigation})  => {
     return (
         <Tab.Navigator 
-            initialRouteName="Dashboard"
+            initialRouteName="FindJobs"
             tabBarOptions={{
                 activeTintColor: ThemeColor.BtnColor,
             }}>
@@ -95,7 +90,7 @@ const HomeTabs = ({navigation})  => {
                 }}
             />
             <Tab.Screen
-                name="JobMatching"
+                name="Job Matches"
                 component={GuestMatchingJob}
                 options={{
                     headerStyle: {

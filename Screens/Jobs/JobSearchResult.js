@@ -758,6 +758,7 @@ const JobSearchResult = ({route,navigation}) => {
             </ScrollView>            
           </View>
         </ActionSheetView>
+        {isLoggedIn ?
         <MovableView>
             <TouchableOpacity style={{
                 position: 'absolute',
@@ -772,7 +773,7 @@ const JobSearchResult = ({route,navigation}) => {
                 alignItems: 'center'}} onPress={() => navigation.navigate('ChatBot')}>
                 <Icon name="chatbubble-ellipses-outline" color={'white'} size={25} />
             </TouchableOpacity>
-        </MovableView>
+        </MovableView> : null }
         </SafeAreaView>
     );
 }

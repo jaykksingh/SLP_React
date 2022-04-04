@@ -27,6 +27,7 @@ const JobDetailScreen = ({route,navigation}) => {
     const { jobDetail } = route.params;
     let [jobDetails, setJobDetails] = React.useState('');
 	const { signOut } = React.useContext(AuthContext);
+    let [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
 
     console.log('Job Details: ', jobDetail);
     let [isLoading, setLoading] = React.useState(false);
@@ -52,10 +53,13 @@ const JobDetailScreen = ({route,navigation}) => {
 
         let user = await AsyncStorage.getItem('loginDetails'); 
         if(user){
+            setIsUserLoggedIn(true);
             let parsed = JSON.parse(user);  
             let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
             encoded = base64.encode(userAuthToken);
-        } 
+        } else{
+            setIsUserLoggedIn(false);
+        }
 
         console.log('URL:',BaseUrl + EndPoints.JobStatistics);
     
@@ -157,7 +161,7 @@ const JobDetailScreen = ({route,navigation}) => {
         if(user){
             navigation.navigate('Job refer',{jobDetails: jobDetails,onClickEvent:handleViewSimilarJobs});
         }else{
-            Alert.alert(StaticMessage.AppName, "LOG IN or SIGN UP to continew.", [
+            Alert.alert(StaticMessage.AppName, "LOG IN or SIGN UP to continue.", [
                 {
                     text: 'Cancel',
                 },
@@ -279,6 +283,7 @@ const JobDetailScreen = ({route,navigation}) => {
                 }
                 
             </View>
+            {isUserLoggedIn ?
             <MovableView>
                 <TouchableOpacity style={{
                     position: 'absolute',
@@ -293,7 +298,7 @@ const JobDetailScreen = ({route,navigation}) => {
                     alignItems: 'center'}} onPress={() => navigation.navigate('ChatBot')}>
                     <Icon name="chatbubble-ellipses-outline" color={'white'} size={25} />
                 </TouchableOpacity>
-            </MovableView>
+            </MovableView> : null}
         </SafeAreaView>
     );
 }

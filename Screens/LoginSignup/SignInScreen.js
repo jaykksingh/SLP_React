@@ -20,7 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../Components/context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import { BaseUrl, EndPoints, StaticMessage ,ThemeColor} from '../../_helpers/constants';
+import { BaseUrl, EndPoints, FontName, StaticMessage ,ThemeColor} from '../../_helpers/constants';
 import ReactNativeBiometrics from 'react-native-biometrics'
 import base64 from 'react-native-base64'
 import axios from 'axios'
@@ -374,7 +374,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={{color:'#53962E',fontSize:16, fontFamily: 'Lato-Italic', textAlign:'right' }}>SEND NOTIFICATION</Text>
           </TouchableOpacity> */}
           <TouchableOpacity style={{height:40,alignItems:'center', justifyContent:'center'}} onPress={() => navigation.navigate("SignUpScreen")} >
-            <Text style={{color:'#53962E',fontSize:16, textAlign:'right' }}>Create a new account</Text>
+            <Text style={{color:'#53962E',fontSize:16, textAlign:'right', fontFamily:FontName.Italic, fontStyle:'italic' }}>Create a new account</Text>
           </TouchableOpacity>
         </SafeAreaView>
         }
