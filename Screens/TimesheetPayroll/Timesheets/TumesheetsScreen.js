@@ -24,14 +24,10 @@ const TumesheetsScreen = ({route, navigation})  => {
   const initialProjectState = {
     projectDetail: null,
   };
-  const [timesheetsArray, setTimesheetArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const actionSheetDoc = useRef();
 
   React.useEffect(() => {
-    let timesheets = JSON.parse(global.PendingTimesheetArray);  
-    console.log('Timesheets: ',timesheets);
-    setTimesheetArray(timesheets);
   },[]);
   
   const timesheetReducer = (prevState, action) => {
@@ -98,15 +94,6 @@ const TumesheetsScreen = ({route, navigation})  => {
   const handleDocActionsheet = (index) => {
     if(index == 0){
       navigation.navigate("TsWorkFlow")
-    }else if(index == 1){
-      let message = "At this moment, there are no timecards pending for submission";
-      if(isPendingTimesheetAvailable(timesheetsArray)){
-        navigation.navigate('SelectProject',{timesheetsArray:timesheetsArray,onClickEvent:selectedProjectEvent});
-      }else{
-        Alert.alert(StaticMessage.AppName, message, [
-          {text: 'Ok'}
-        ]);
-      }
     }
   }
 

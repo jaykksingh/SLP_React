@@ -29,6 +29,7 @@ import { authFreeHeader,getAuthHeader } from '../../_helpers/auth-header';
 import { openComposer } from "react-native-email-link";
 import '../../_helpers/global'
 import RNExitApp from 'react-native-exit-app';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 
 const width = Dimensions.get("window").width;
@@ -129,7 +130,7 @@ const SignInScreen = ({navigation}) => {
       console.log('biometrics failed')
     })
   }
-  const loginHandle = (userID,password) => {
+  const loginHandle = async (userID,password) => {
   
     setData({...data,isLoading: true});
     console.log('Login : ',userID,password);
@@ -154,10 +155,13 @@ const SignInScreen = ({navigation}) => {
             } catch(e) {
               console.log(e);
             }
-            let userAuthToken = 'StaffLine@2017:' + response.data.content.dataList[0].userAuthToken;
+            let userDetails = response.data.content.dataList[0];
+            let userAuthToken = 'StaffLine@2017:' + userDetails.userAuthToken;
             var authToken = base64.encode(userAuthToken);    
             global.AccessToken = authToken;
             signIn(loginDetail);
+            onSignIn(userDetails);
+            
           }else{
             Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
               {text: 'Ok'}
@@ -199,6 +203,17 @@ const SignInScreen = ({navigation}) => {
         {text: 'Ok'}
       ]);
     })
+  }
+  async function onSignIn(userDetails) {
+    crashlytics().log('User signed in.');
+    await Promise.all([
+      crashlytics().setUserId(userDetails.employeeDetailsId),
+      crashlytics().setAttributes({
+        empId: userDetails.employeeDetailsId,
+        email: userDetails.emailId,
+        username: userDetails.firstName,
+      }),
+    ]);
   }
   
   const handleClick = () => {
