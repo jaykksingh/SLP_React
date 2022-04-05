@@ -25,7 +25,7 @@ import ReactNativeBiometrics from 'react-native-biometrics'
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import Loader from '../../Components/Loader';
-import { authFreeHeader } from '../../_helpers/auth-header';
+import { authFreeHeader,getAuthHeader } from '../../_helpers/auth-header';
 import { openComposer } from "react-native-email-link";
 import '../../_helpers/global'
 import RNExitApp from 'react-native-exit-app';
@@ -154,7 +154,7 @@ const SignInScreen = ({navigation}) => {
             } catch(e) {
               console.log(e);
             }
-            let userAuthToken = 'StaffLine@2017:' + loginDetail.userAuthToken;
+            let userAuthToken = 'StaffLine@2017:' + response.data.content.dataList[0].userAuthToken;
             var authToken = base64.encode(userAuthToken);    
             global.AccessToken = authToken;
             signIn(loginDetail);
@@ -200,6 +200,7 @@ const SignInScreen = ({navigation}) => {
       ]);
     })
   }
+  
   const handleClick = () => {
     let iosURL = "https://itunes.apple.com/in/app/stafflinepro-jobs-find-you/id1306795942?mt=8";
     Linking.canOpenURL(iosURL).then(supported => {

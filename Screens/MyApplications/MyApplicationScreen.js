@@ -16,7 +16,6 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios';
-// import Swipeout from 'react-native-swipeout';
 import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -24,6 +23,7 @@ import { AuthContext } from '../../Components/context';
 import Loader from '../../Components/Loader';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor,MessageGroupId, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
+import '../../_helpers/global';
 
 const MyApplicationScreen = ({route,navigation}) => {
   let [isLoading, setLoading] = React.useState(false);
@@ -57,17 +57,12 @@ const MyApplicationScreen = ({route,navigation}) => {
     }
   }
 
-  const getMyApplication = async (applicatonType) => {
+  const getMyApplication = (applicatonType) => {
     setLoading(true);
-
-    let user = await AsyncStorage.getItem('loginDetails');  
-    let parsed = JSON.parse(user);  
-    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-    var encoded = base64.encode(userAuthToken);
     axios ({
       "method": "POST",
       "url": BaseUrl + EndPoints.JobApplications,
-      "headers": getAuthHeader(encoded),
+      "headers": getAuthHeader(global.AccessToken),
       data:{"applicationStatus":applicatonType}
     })
     .then((response) => {
@@ -118,14 +113,10 @@ const MyApplicationScreen = ({route,navigation}) => {
     }
     setLoading(true);
 
-    let user = await AsyncStorage.getItem('loginDetails');  
-    let parsed = JSON.parse(user);  
-    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-    var encoded = base64.encode(userAuthToken);
     axios ({
       "method": "GET",
       "url": BaseUrl + "jobs/" + details.jobId,
-      "headers": getAuthHeader(encoded),
+      "headers": getAuthHeader(global.AccessToken),
     })
     .then((response) => {
         setLoading(false);

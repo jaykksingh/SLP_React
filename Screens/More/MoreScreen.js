@@ -31,6 +31,7 @@ const MoreScreen = ({navigation}) => {
   });
   let [profileData, setProfileData] = React.useState('');
   let [isLoading, setIsLoading] = React.useState(false);
+  const { signOut } = React.useContext(AuthContext);
 
 
   useEffect(() => {
@@ -78,9 +79,14 @@ const MoreScreen = ({navigation}) => {
         console.log('Error:',error);      
     })
   }
-  
+  const SessionExpiredAlert = () =>{
+    Alert.alert(StaticMessage.AppName,StaticMessage.SessionExpired,
+        [{
+          text: 'Ok',
+          onPress: () => signOut()
+      }]
+  )}
 
-  const { signOut } = React.useContext(AuthContext);
   const empDetails = profileData.empDetails;
   console.log('EmpDetails:',empDetails);
   let defaultLogoUrl = empDetails ? empDetails.companyDetails.DefaultLogoUrl : '';
