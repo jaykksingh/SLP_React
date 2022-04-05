@@ -58,8 +58,8 @@ const TumesheetsScreen = ({route, navigation})  => {
 				  <Feather name="more-vertical" color={'white'} size={25} />
           <ActionSheet
               ref={actionSheetDoc}
-              options={['Enter hours','Timesheet workflow', 'Cancel']}
-              cancelButtonIndex={2}
+              options={['Timesheet workflow', 'Cancel']}
+              cancelButtonIndex={1}
               onPress={(index) => { handleDocActionsheet(index) }}
           />
 				</TouchableOpacity>
@@ -96,9 +96,9 @@ const TumesheetsScreen = ({route, navigation})  => {
     return false;
   }
   const handleDocActionsheet = (index) => {
-    if(index == 1){
+    if(index == 0){
       navigation.navigate("TsWorkFlow")
-    }else if(index == 0){
+    }else if(index == 1){
       let message = "At this moment, there are no timecards pending for submission";
       if(isPendingTimesheetAvailable(timesheetsArray)){
         navigation.navigate('SelectProject',{timesheetsArray:timesheetsArray,onClickEvent:selectedProjectEvent});
