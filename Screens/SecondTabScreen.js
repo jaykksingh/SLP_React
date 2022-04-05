@@ -92,11 +92,18 @@ import SpecialityScreen from './Profile/SpecialityScreen';
 import AddExperienceScreen from './Profile/AddWorkExperienceScreen';
 import AddEducationScreen from './Profile/AddEducationScreen';
 import ResumeDocumentScreen from './Profile/ResumeDocumentScreen';
+
 import LeaveHomeScreen from './Leave/LeaveHomeScreen';
 import LeaveDetailsScreen from './Leave/LeaveDetailsScreen';
 import AddLeaveScreen from './Leave/AddLeaveScreen'
 import AttendanceHomeScreen from './Attendance/AttendanceHomeScreen';
 import AddRegularizationScreen from './Attendance/AddRegularizationScreen';
+import AttendanceDetailsScreen from './Leave/AttendanceDetailsScreen';
+import RegularizationDetailScreen from './Attendance/RegularizationDetailScreen';
+import LeaveApprovalPending from './Leave/LeaveApprovalPending';
+import AttendancePendingScreen from './Attendance/AttendancePendingScreen';
+
+
 import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClockInOutTimesheetScreen';
 import ViewClockInOutScreen from './TimesheetPayroll/Timesheets/ViewClockInOutScreen';
 import StaffContactScreen from './StaffContactScreen/StaffContactScreen'
@@ -205,6 +212,11 @@ const SecondTabScreen = () => {
             <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
             <Stack.Screen name="AddLeave" component={AddLeaveScreen}/>
             <Stack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
+            <Stack.Screen name="AttendanceDetails" component={AttendanceDetailsScreen}/>
+            <Stack.Screen name="RegularizationDetail" component={RegularizationDetailScreen}/>
+            <Stack.Screen name="AttendancePending" component={AttendancePendingScreen}/>
+            <Stack.Screen name="LeaveApproval" component={LeaveApprovalPending}/>
+
             <Stack.Screen name="AddRegularization" component={AddRegularizationScreen}/>
             <Stack.Screen name="Interviews" component={InterviewScreen}/>
             <Stack.Screen name="ViewClockInOutTimesheet" component={ViewClockInOutTimesheetScreen}/>

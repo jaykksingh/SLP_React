@@ -322,6 +322,13 @@ const App = () => {
   }
   else if(displayLeave == 1){
     // show leave View
+    return(
+      <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        <FirstTabScreen screenProps={parsed}/>
+      </NavigationContainer>
+      </AuthContext.Provider>
+    );
   }else if (jobSearchStatusID == 4751 || jobSearchStatusID == 4752 || isJobSeeker || employeeTypeId == 1224){
      return(
       <AuthContext.Provider value={authContext}>
