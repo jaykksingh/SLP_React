@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
     height:40,
     color:'black',
     fontSize:14,
-    fontFamily: FontName.Bold,
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color:'black',
     fontSize:14,
-    fontFamily: FontName.Bold,
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },btnFill:{

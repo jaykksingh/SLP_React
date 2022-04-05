@@ -25,6 +25,7 @@ import {getAuthHeader} from '../../_helpers/auth-header';
 import { AuthContext } from '../../Components/context';
 import { ThemeColor ,BaseUrl, EndPoints, StaticMessage, FontName} from '../../_helpers/constants';
 import Loader from '../../Components/Loader';
+import {parseErrorMessage} from '../../_helpers/Utils';
 
 
 const technologyRef = createRef();
@@ -83,7 +84,7 @@ const CurrentProject = ({route,navigation}) => {
     navigation.setOptions({
         headerRight: () => (
             <TouchableOpacity style={{marginRight:16}} onPress={() => showLogOutAlert()}>
-              <Feather name="more-vertical" color={'white'} size={25,25} />
+              <Feather name="more-vertical" color={'white'} size={25} />
             </TouchableOpacity>
         ),
     });
@@ -177,8 +178,9 @@ const CurrentProject = ({route,navigation}) => {
    
 
     const params = {
-        "projectDetailId":parseInt(projectDetail.projectDetailId),
-        'projectDuration':parseInt(projectDetail.projectDuration),
+        "projectDetailId":projectDetail.projectDetailId,
+        'projectDuration':projectDetail.projectDuration,
+        'projectName':'',
         'roleId':projectDetail.roleId,
         'technologyId':projectDetail.technologyId,
         'managerName':managerDetail.managerName,
@@ -187,6 +189,7 @@ const CurrentProject = ({route,navigation}) => {
         'managerOffPhone':managerDetail.managerOffPhone,
         'specialComments':projectDetail.specialComments,
         'projectDescription':projectDetail.projectDescription,
+        'managerOffPhoneCountryCode':'1'
 
     }
     console.log('Params:',JSON.stringify(params),BaseUrl + EndPoints.MyProjectUpdate);
@@ -199,12 +202,11 @@ const CurrentProject = ({route,navigation}) => {
     .then((response) => {
       if (response.data.code == 200){
         setIsLoading(false);
-        navigation.goBack();
+        skipOnboarding();
       }else if (response.data.code == 417){
         setIsLoading(false);
-        console.log(Object.values(response.data.content.messageList));
-        const errorList = Object.values(response.data.content.messageList);
-        Alert.alert(StaticMessage.AppName, errorList.join(), [
+        let error = parseErrorMessage(response.data.content.messageList);
+        Alert.alert(StaticMessage.AppName, error, [
           {text: 'Ok'}
         ]);
 

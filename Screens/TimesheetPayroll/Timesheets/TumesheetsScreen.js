@@ -89,16 +89,8 @@ const TumesheetsScreen = ({route, navigation})  => {
   }
   const isPendingTimesheetAvailable = (timesheetsArray) => {
     for (let i = 0; i < timesheetsArray.length; i++) {
-      for(let j= 0 ; j < timesheetsArray[i].hoursDetail.length ; j++){
-        let hoursDetail = timesheetsArray[i].hoursDetail[j];
-        let momentStartDate = moment(hoursDetail.startDate, 'YYYY-MM-DD');
-        let momentEndDate = moment(hoursDetail.endDate, 'YYYY-MM-DD');
-        let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
-        let endDateString = moment(momentEndDate).format('MMM DD, YYYY')
-        let todayDate =  new Date();
-        if(momentEndDate <= todayDate){
-          return true;
-        }
+      if(timesheetsArray[i].hoursDetail.length > 0){
+        return true;
       }
     }
     return false;
