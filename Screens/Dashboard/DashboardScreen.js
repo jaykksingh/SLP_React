@@ -119,7 +119,7 @@ const DashboardScreen = ({navigation}) => {
       getProfileDetails(false);
     })
     // getProfileDetails(false);
-
+    getTimeshetsList();
   }, []);
   const handlePushDeepLinking = (linkUrl) => {
     // let linkUrl1 = 'StafflinePro/message/list/607';
@@ -246,6 +246,41 @@ const DashboardScreen = ({navigation}) => {
         ]);
     })
   }
+  const  getTimeshetsList = async() => {
+		let user = await AsyncStorage.getItem('loginDetails');  
+    let parsed = JSON.parse(user);  
+    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+    var encoded = base64.encode(userAuthToken);
+		axios ({  
+		  "method": "POST",
+		  "url": BaseUrl + EndPoints.GetTimehsstes,
+		  "headers": getAuthHeader(encoded),
+		  data:{"status":"pending",'startDate':"",'endDate':""}
+		})
+		.then((response) => {
+			if (response.data.code == 200){
+        const timesheetArrayJson =  JSON.stringify(response.data.content.dataList);
+        global.PendingTimesheetArray = timesheetArrayJson;
+			}else if (response.data.code == 417){
+				console.log(Object.values(response.data.content.messageList));
+				const errorList = Object.values(response.data.content.messageList);
+				Alert.alert(StaticMessage.AppName, errorList.join(), [
+					{text: 'Ok'}
+				]);
+			}else if (response.data.code == 401){
+				console.log('Session Expired Already');
+				SessionExpiredAlert();
+			}
+		}).catch((error) => {
+			if(error.response.status == 401){
+			  SessionExpiredAlert();
+			}else{
+				Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+					{text: 'Ok'}
+				]);
+			}
+    	})
+	}
 
   React.useLayoutEffect(() => {
     navigation.setOptions({

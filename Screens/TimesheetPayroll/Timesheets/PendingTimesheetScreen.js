@@ -54,8 +54,6 @@ const PendingTimesheetScreen = ({route,navigation})  => {
 		.then((response) => {
       setIsLoading(false);
 		  if (response.data.code == 200){
-        console.log('Timesheets Pending:',JSON.stringify(response.data.content.dataList));
-
         filterTimesheetArray(response.data.content.dataList);
 		  }else if (response.data.code == 417){
         setIsLoading(false);
