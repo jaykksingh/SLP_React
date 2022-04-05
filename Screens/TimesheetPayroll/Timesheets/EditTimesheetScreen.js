@@ -84,20 +84,32 @@ const EditTimesheetScreen = ({route,navigation}) => {
 
 	}
 	useEffect(() => {
-		if(timesheetsArray){
-			setShowProjectSelect(true);
-		}else{
-			let momentStartDate = moment(timesheetDetails.startDate, 'YYYY-MM-DD');
-			let momentEndDate = moment(timesheetDetails.endDate, 'YYYY-MM-DD');
-			let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
-			let endDateString = moment(momentEndDate).format('MMM DD, YYYY')	
-			const timesheetPeriod = `${startDateString} - ${endDateString}`;
+		console.log('timesheetsArray',timesheetsArray);
+		console.log('projectDetail',projectDetail);
+		console.log('timesheetDetails',timesheetDetails);
 
-			setData({...data, timeSheetCycle:projectDetail.timeSheetCycle,clientName:projectDetail.clientName,timesheetPeriod:timesheetPeriod,startDate:timesheetDetails.startDate,endDate:timesheetDetails.endDate});
-			getHoursDetails(timesheetDetails.startDate,timesheetDetails.endDate);
-		}
+		let momentStartDate = moment(timesheetDetails.startDate, 'YYYY-MM-DD');
+		let momentEndDate = moment(timesheetDetails.endDate, 'YYYY-MM-DD');
+		let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
+		let endDateString = moment(momentEndDate).format('MMM DD, YYYY')	
+		const timesheetPeriod = `${startDateString} - ${endDateString}`;
+
+		setData({...data, timeSheetCycle:projectDetail.timeSheetCycle,clientName:projectDetail.clientName,timesheetPeriod:timesheetPeriod,startDate:timesheetDetails.startDate,endDate:timesheetDetails.endDate});
+		getHoursDetails(timesheetDetails.startDate,timesheetDetails.endDate);
 		var tempPeriodArray = [];
-		if(projectDetail.data){
+
+		if(projectDetail.hoursDetail){
+			for (let i = 0; i < projectDetail.hoursDetail.length; i++) {
+				let hour = projectDetail.hoursDetail[i];
+				let momentStartDate = moment(hour.startDate, 'YYYY-MM-DD');
+				let momentEndDate = moment(hour.endDate, 'YYYY-MM-DD');
+				let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
+				let endDateString = moment(momentEndDate).format('MMM DD, YYYY')	
+				const timesheetPeriod = `${startDateString} - ${endDateString}`;
+				tempPeriodArray.push(timesheetPeriod);
+			}
+			setTimesheetPeriodArray(tempPeriodArray);
+		}else if(projectDetail.data ){
 			for (let i = 0; i < projectDetail.data.length; i++) {
 				let hour = projectDetail.data[i];
 				let momentStartDate = moment(hour.startDate, 'YYYY-MM-DD');
@@ -108,6 +120,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 				tempPeriodArray.push(timesheetPeriod);
 			}
 			setTimesheetPeriodArray(tempPeriodArray);
+
 		}
 	},[]);
 
@@ -130,7 +143,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 
 	const handleTimesheetPeriodSelect = (index) => {
 		let selectedItem = timesheetPeriodArray[index];
-		let hour = projectDetail.data[index];
+		let hour = projectDetail.data ? projectDetail.data[index] : projectDetail.hoursDetail[index];
 		setData({...data,timesheetPeriod:selectedItem,startDate:hour.startDate,endDate:hour.endDate});
 		getHoursDetails(hour.startDate,hour.endDate);				
 	}
@@ -1099,7 +1112,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-bold'}}>Select timesheet period</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select timesheet period</Text>
 					<TouchableOpacity onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>
@@ -1122,7 +1135,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {shiftTypeRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select shift</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select shift</Text>
 					<TouchableOpacity onPress={() => {
 						let selectedItem = selectedHours.shiftOption[0];
 						setSelectedHours({...selectedHours,shiftId:selectedItem.Shift_Id});

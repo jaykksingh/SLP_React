@@ -70,7 +70,14 @@ const TumesheetsScreen = ({route, navigation})  => {
   const selectedProjectEvent = (projectDetail) => {
     console.log(`Parent function called ${JSON.stringify(projectDetail)}`);
     if(isPendingTimesheetAvailable(timesheetsList)){
-      navigation.navigate('EditTimesheet',{timesheetDetails:projectDetail.hoursDetail[0],projectDetail:projectDetail});
+      if(projectDetail.hoursDetail.length > 0){
+        navigation.navigate('EditTimesheet',{timesheetDetails:projectDetail.hoursDetail[0],projectDetail:projectDetail});
+      }else{
+        let message = "At this moment, there are no timecards pending for this project";
+        Alert.alert(StaticMessage.AppName, message, [
+          {text: 'Ok'}
+        ]);
+      }
     }else{
       let message = "At this moment, there are no timecards pending for submission";
       Alert.alert(StaticMessage.AppName, message, [

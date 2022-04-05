@@ -6,11 +6,12 @@ import {
     View,
 	SafeAreaView,
 	Platform,
+	Alert
 } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import ActionSheet from "react-native-actions-sheet";
-import { ThemeColor, FontName } from '../../../_helpers/constants';
+import { ThemeColor, FontName ,StaticMessage} from '../../../_helpers/constants';
 import Loader from '../../../Components/Loader';
 
 const projectRef = createRef();
@@ -45,8 +46,15 @@ const SelectProjectScreen = ({route,navigation}) => {
 
     const handleNextClick = () => {
         console.log(`Selected Project: ${JSON.stringify(data)}`);
-		navigation.goBack();
-		route.params.onClickEvent(timesheetsArray[data.selectedIndex]);
+		if(timesheetsArray[data.selectedIndex].hoursDetail.length > 0){
+			navigation.goBack();
+			route.params.onClickEvent(timesheetsArray[data.selectedIndex]);
+		}else{
+			let message = "At this moment, there are no timecards pending for this project";
+			Alert.alert(StaticMessage.AppName, message, [
+			{text: 'Ok'}
+			]);
+		}
     }
 
 	
@@ -94,7 +102,7 @@ const SelectProjectScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {projectRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select project</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select project</Text>
 					<TouchableOpacity onPress={() => {
 						data.projectName.length == 0 ? setData({...data,projectId:timesheetsArray[0].projectDetailId,projectName:timesheetsArray[0].projectName,selectedIndex:0}) : '';
 						projectRef.current?.setModalVisible()}

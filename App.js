@@ -307,11 +307,11 @@ const App = () => {
   let displayLeave = empDetails.displayLeave; // 1 = Leave only
   let employeeTypeId = empDetails.employeeTypeId;
 
-  let onBoarding = parsed ? parsed.onBoarding : "0";
-  let resumeUploaded = parsed ? parsed.resumeUploaded : "0";
+  let onBoarding = empDetails ? empDetails.onBoarding : "0";
+  let resumeUploaded = empDetails ? empDetails.resumeUploaded : "0";
   let onBoardingStage = parsed ? parsed.onBoardingStage : "";
 
-  if((onBoarding == 1) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
+  if((onBoarding == 1 || !resumeUploaded) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
     return(
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
