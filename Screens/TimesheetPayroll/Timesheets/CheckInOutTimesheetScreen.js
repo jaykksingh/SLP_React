@@ -29,6 +29,7 @@ import Loader from '../../../Components/Loader';
 import {getAuthHeader} from '../../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
 import ActionSheet from 'react-native-actionsheet'
+import FileViewer from "react-native-file-viewer";
 
 
 const timesheetPeriodRef = createRef();
@@ -207,34 +208,21 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		.then((response) => {
 			setIsLoading(false);
 			if (response.data.code == 200){
-				const results = JSON.stringify(response.data.content.dataList)
-				// if(Platform.OS === 'ios'){
-				// 	//IOS
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath,
-				// 		fileNameOptional:timesheetPeriod
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log('Filte URL:',url)
-				// 		}
-				// 	})
-				// }else{
-				// 	//Android
-				// 	OpenFile.openDoc([{
-				// 		url:response.data.content.dataList[0].filePath, // Local "file://" + filepath
-				// 		fileName:timesheetPeriod,
-				// 		cache:false,
-				// 		fileType:"jpg"
-				// 	}], (error, url) => {
-				// 		if (error) {
-				// 		console.error(error);
-				// 		} else {
-				// 		console.log(url)
-				// 		}
-				// 	})
-				// }
+				let url =  response.data.content.dataList[0].filePath;
+				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+				const localFile = `${RNFS.DocumentDirectoryPath}/Timesheet.${extension}`;
+				const options = {
+					fromUrl: url,
+					toFile: localFile,
+				};
+				RNFS.downloadFile(options)
+				.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+				.then(() => {
+					console.log('View Sucess')
+				})
+				.catch((error) => {
+					console.log('View Failed',error)
+				});
 			}else if (response.data.code == 417){
 				const errorList = Object.values(response.data.content.messageList);
 				Alert.alert(StaticMessage.AppName, errorList.join(), [

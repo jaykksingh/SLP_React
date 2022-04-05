@@ -201,11 +201,15 @@ const EditTimesheetScreen = ({route,navigation}) => {
 		})
 		.then((response) => {
 			setIsLoading(false);
+			const results = JSON.stringify(response.data.content.dataList)	
+			console.log('Print timesheet:',results);			
+
 			if (response.data.code == 200){
-				const results = JSON.stringify(response.data.content.dataList)				
+				const results = JSON.stringify(response.data.content.dataList)	
+				console.log('Print timesheet:',results);			
 				let url =  response.data.content.dataList[0].filePath;
 				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-				const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+				const localFile = `${RNFS.DocumentDirectoryPath}/Timesheet.${extension}`;
 				const options = {
 					fromUrl: url,
 					toFile: localFile,
