@@ -585,7 +585,7 @@ const JobSearchResult = ({route,navigation}) => {
             {jobsList && jobsList.job.length > 0 ?
             <>
             <View style={styles.inputView}>
-                <Text style={{color:'gray', fontSize:14, fontFamily: FontName.Regular}}> Sort by</Text>
+                <Text style={{color:'gray', fontSize:14, fontFamily: FontName.Regular}}> Sort by: </Text>
                 <TouchableOpacity style={{flex:1}} onPress={() => {showActionSheet()}}>
                     <Text style={{color: ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:8}}>{getSortByText()}</Text>
                     <ActionSheet
@@ -642,8 +642,8 @@ const JobSearchResult = ({route,navigation}) => {
         </View>
         <Loader isLoading={isLoading} />
 
-        <ActionSheetView ref={jobFilterRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
-          <View style={{height:"90%"}}>
+        <ActionSheetView ref={jobFilterRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor, height:Dimensions.get("window").height-124}}>
+          <View style={{height:"100%", paddingBottom:32}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {jobFilterRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
@@ -653,7 +653,7 @@ const JobSearchResult = ({route,navigation}) => {
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>RESET ALL</Text>
               </TouchableOpacity>
             </View>
-            <ScrollView style={{backgroundColor:'#fff'}}>
+            <ScrollView style={{backgroundColor:'#fff',}}>
                 <SectionList style={{marginBottom:0}}
                     sections={refineSearchArr}
                     randomUpdateProp={data.updated}

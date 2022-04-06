@@ -24,6 +24,7 @@ import { AuthContext } from '../../Components/context';
 import MovableView from 'react-native-movable-view';
 
 import GetLocation from 'react-native-get-location'
+import { SafeAreaView } from "react-native-safe-area-context";
 // import Geocoder from 'react-native-geocoder';
 
 // TODO: Convert to FC
@@ -39,7 +40,7 @@ const JobSearchScreen = ({navigation}) => {
   let [isLocationLoading, setLocationLoading] = React.useState(false);
   let [searchLocation, setSearchLocation] = React.useState('');
   let [filtersArray, setfiltersArray] = React.useState('');
-  let [locationArray, setLocationArray] = React.useState('');
+  let [locationArray, setLocationArray] = React.useState([]);
   const { signOut } = React.useContext(AuthContext);
   let [locationUpdated, setLocationUpdated] = React.useState(false);
 
@@ -154,8 +155,8 @@ const JobSearchScreen = ({navigation}) => {
       setLocationLoading(false);
       if (response.data.code == 200){
         console.log('Location Result:',JSON.stringify(response.data.content.dataList));
-        setLocationUpdated(!locationUpdated);
         setLocationArray(response.data.content.dataList);
+        setLocationUpdated(!locationUpdated);
       }else if (response.data.code == 417){
         setData({...data,isLoading: false});
         setLocationArray([]);
@@ -237,8 +238,11 @@ const JobSearchScreen = ({navigation}) => {
     // })
   
   }
+  const locationFound =  locationArray.length > 0 ? true : false;
 
   return (
+    <SafeAreaView style={{flex: 1}}>
+    <ScrollView>
     <View style={styles.container}>
       <Text style={{textAlign: 'left',fontFamily:FontName.Regular, fontSize:16,color:'black', marginTop:24,marginBottom:16}}>Search for jobs</Text>
       <View style={{MarginTop:16, marginBottom:16}}>
@@ -279,8 +283,10 @@ const JobSearchScreen = ({navigation}) => {
         </View>
         <Text style={{fontFamily:FontName.Regular, fontSize:12,color:ThemeColor.HelpingTextColor, paddingLeft:8, marginTop:4}}>Enter city or state name</Text>
       </View>
-      {locationArray.length > 0 && 
-      <FlatList style={{marginTop:0,height:30, backgroundColor:ThemeColor.BorderColor, borderRadius:5}}
+      {/* {locationArray.length > 0 && 
+      } */}
+      {locationArray.length > 0 ?
+        <FlatList style={{marginTop:0,height:locationArray.length > 3 ? 120 : locationArray.length * 30, backgroundColor:ThemeColor.BorderColor, borderRadius:5}}
           data={locationArray}
           keyExtractor={(item, index) => index.toString()}
           randomUpdateProp={locationUpdated}
@@ -292,7 +298,9 @@ const JobSearchScreen = ({navigation}) => {
               <View style={{flex: 1,height:1, backgroundColor:'gray', marginLeft:16}}/> 
             </TouchableOpacity>
           }
-      />}
+        /> :  null
+        }
+     
       <TouchableOpacity style={styles.btnFill} onPress={() => {searchJobs( data.searchKey, searchLocation )}}>
         <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>FIND JOBS</Text>
       </TouchableOpacity>
@@ -335,6 +343,8 @@ const JobSearchScreen = ({navigation}) => {
         </TouchableOpacity>
       </MovableView> : null }
     </View>
+    </ScrollView>
+    </SafeAreaView>
   );
   
 }

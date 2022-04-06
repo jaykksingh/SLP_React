@@ -173,9 +173,11 @@ const JobDetailScreen = ({route,navigation}) => {
         }
     }
     const handleViewSimilarJobs = (clientPrimaryKey,showSimilarJob) => {
+        console.log('Job Details callback');
+        navigation.navigate('SimilarJobs',{clientPrimaryKey:clientPrimaryKey});
+
         if(showSimilarJob){
             console.log("View Similar Jobs: " + clientPrimaryKey);
-            navigation.navigate('SimilarJobs',{clientPrimaryKey:clientPrimaryKey});
         }
        
     }
@@ -203,10 +205,11 @@ const JobDetailScreen = ({route,navigation}) => {
             <View style={styles.container}>
                 <View style={styles.subHeaderView}>
                     <Text style={{flex: 1,color: ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Regular}}>About this job</Text>
+                    {isUserLoggedIn &&
                     <TouchableOpacity style={{flexDirection: 'row'}} onPress = {() => {navigation.navigate('CreateMessage',{groupName:'Job support',groupID:MessageGroupId.JobSupportID, jobID:jobDetails.cjmJobId})}}>
                         <Icon name="chatbubble-ellipses-outline" color={ThemeColor.BtnColor} size={20} />
                         <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular, marginLeft:4}}>Message recruiter</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                 </View>
                 <View style={{padding:16}}>
                     <Text style={{flex: 1,color: ThemeColor.textColor, fontSize:16, fontFamily: FontName.Regular, fontWeight: 'bold'}}>{jobDetails.jobTitle}</Text>
@@ -261,7 +264,7 @@ const JobDetailScreen = ({route,navigation}) => {
                     <View style={{flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginTop:8}}/>
                 </View>
             </View>
-            <Text style={{color: ThemeColor.LabelTextColor, fontSize:14, fontFamily:'Lato-italic', padding:16, flex:1}}>{note}</Text>
+            <Text style={{color: ThemeColor.LabelTextColor, fontSize:14, fontFamily:FontName.Italic, padding:16, fontStyle:'italic', textAlign:'justify'}}>{note}</Text>
 
             </ScrollView>
                 { isApplied == 1 &&

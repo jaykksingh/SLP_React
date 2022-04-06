@@ -12,6 +12,7 @@ import { View,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome4 from 'react-native-vector-icons/FontAwesome';
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -285,6 +286,7 @@ const JobApplyScreen = ({route,navigation}) => {
         })
     }
     const handleViewSimilarJobs = (clientPrimaryKey) => {
+        console.log('Job apply callback');
 		navigation.goBack();
         route.params.onClickEvent(clientPrimaryKey);
     }
@@ -401,7 +403,7 @@ const JobApplyScreen = ({route,navigation}) => {
                             <TextInput  
                             style={styles.inputText}
                             placeholder="+ Add " 
-                            maxLength={12}
+                            maxLength={14}
                             placeholderTextColor= {ThemeColor.PlaceHolderColor}
                             keyboardType='phone-pad'
                             textContentType='telephoneNumber' 
@@ -457,7 +459,7 @@ const JobApplyScreen = ({route,navigation}) => {
                 <View style={[styles.applyWithResume] }>
                     <Text style={{flex: 1,color: ThemeColor.textColor,fontSize:16, fontFamily: FontName.Regular,alignSelf: 'flex-start'}}>Apply with your resume</Text>
                     <TouchableOpacity style={{margin:32, alignItems: 'center'}} onPress={(event)=> {selectResume()}}>
-                        <Icon name="ios-cloud-upload" color={ThemeColor.BtnColor} size={80} />
+                        <FontAwesome4 name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
                         <Text style={{color:ThemeColor.LabelTextColor, fontSize:16, fontFamily: FontName.Regular, marginLeft:4}}>Upload resume</Text>
                         {base64Resume.length > 0 &&
                             <Text style={{marginTop:8,marginBottom:8,fontFamily: FontName.Regular, fontSize:16,textAlign:'center'}}>{data.resumeTitle}</Text>

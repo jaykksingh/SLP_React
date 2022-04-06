@@ -67,7 +67,6 @@ const CreateMessageScreen = ({route,navigation}) => {
   
   
   	useEffect(() => {
-		
 		if(timesheets){
 			let momentStartDate = moment(timesheets.startDate, 'YYYY-MM-DD');
 			let momentEndDate = moment(timesheets.endDate, 'YYYY-MM-DD');

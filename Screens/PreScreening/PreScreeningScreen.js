@@ -171,6 +171,8 @@ const PreScreeningScreen = ({route,navigation}) => {
 	}
 	const handleSimilarJobs = (showSimilarJob) => {
 		navigation.goBack();
+		console.log('Pre-Screning callback');
+
 		if(route.params.onClickEvent){
 			route.params.onClickEvent(clientPrimaryKey,showSimilarJob);
 		}
