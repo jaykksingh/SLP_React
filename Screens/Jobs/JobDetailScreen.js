@@ -19,6 +19,7 @@ import {parseErrorMessage} from '../../_helpers/Utils';
 import { AuthContext } from '../../Components/context';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor,MessageGroupId, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
+import Share from 'react-native-share';
 
 import moment from 'moment';
 
@@ -29,7 +30,6 @@ const JobDetailScreen = ({route,navigation}) => {
 	const { signOut } = React.useContext(AuthContext);
     let [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
 
-    console.log('Job Details: ', jobDetail);
     let [isLoading, setLoading] = React.useState(false);
     let [jobApplicationDetails, setJobApplicationDetails] = React.useState({
         "applicationCount": 0, "hiredCount": 0, "interviewCount": 0
@@ -93,13 +93,31 @@ const JobDetailScreen = ({route,navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                 <TouchableOpacity style={{marginRight:16}} >
-				    <Icon name="ios-share-outline" color={'white'} size={25,25} />
+                 <TouchableOpacity style={{marginRight:16}} onPress={() => handleJobShare()}>
+				    <Icon name="ios-share-outline" color={'white'} size={25} />
                 </TouchableOpacity>
             ),
             title:'More about this job'
         });
     }, [navigation]);
+    const handleJobShare = () => {
+        console.log('handleJobShare: ', jobDetail);
+
+        let linkToShare = jobDetail.linkToShare;
+        let title = linkToShare.socialShare.message
+        let shareOptions = {
+            title:title,
+            message: linkToShare.emailShare.message,
+          };
+      
+        Share.open(shareOptions)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            err && console.log(err);
+        });
+    }
 
     const getJobApplicationCount = async () => {
         setLoading(true);
