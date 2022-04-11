@@ -145,7 +145,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
           renderSectionHeader={({section}) => 
             <View style={{ backgroundColor:'#fff',}}>
               <View style={{height:40,paddingLeft:16, justifyContent: 'center'}}>
-                <Text style={styles.sectionHeader}>{section.projectName}</Text>
+                <Text style={{fontFamily:FontName.Regular,fontSize:14, color:ThemeColor.TextColor}}>{section.projectName}</Text>
               </View>
               <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
             </View>
@@ -176,7 +176,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
           </TouchableOpacity>
         </View>
       }
-      <Text style={{fontFamily: FontName.Italic, fontSize:12, color:ThemeColor.SubTextColor,paddingLeft:16,paddingRight:16,paddingTop:8,marginBottom:4}}>{note}</Text>  
+      <Text style={{fontFamily: FontName.Italic,fontStyle:'italic' , fontSize:12, color:ThemeColor.SubTextColor,paddingLeft:16,paddingRight:16,paddingTop:8,marginBottom:4}}>{note}</Text>  
 	  	<Loader isLoading={isLoading} />
     </SafeAreaView>	
 	);

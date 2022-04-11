@@ -862,9 +862,9 @@ const DashboardScreen = ({navigation}) => {
               }
               {
                 item.cellType == 'ADDSKILL' ?
-                <View style={{marginTop:16,width: '100%',height: 140, backgroundColor:'#fff',borderColor: ThemeColor.BorderColor,borderWidth:1,borderRadius:5,}}>
-                  <View style={{width:'100%',backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
-                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'black'}}>{loadSkills ? 'Update your skills to see most relevant job matches' : 'Do you have any professional licences or certificates?'}</Text>
+                <View style={{marginTop:16,height: 140, backgroundColor:'#fff',borderColor: ThemeColor.BorderColor,borderWidth:1,borderRadius:5}}>
+                  <View style={{backgroundColor:ThemeColor.SkyBlueColor, height:50,alignItems: 'center',justifyContent: 'center'}}>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor, textAlign:'center', paddingLeft:8, paddingRight:8}}>{loadSkills ? 'Update your skills to see most relevant job matches' : 'Do you have any professional licences or certificates?'}</Text>
                   </View>
                   <View style={{ flex:1,flexDirection:'row',alignItems: 'center', padding:8, marginTop:12}}>
                     {skillCetiArr.length > 0 ? 

@@ -182,7 +182,7 @@ const SubmittedTimesheetScreen = ({navigation})  => {
           renderSectionHeader={({section}) => 
             <View style={{ backgroundColor:'#fff',}}>
               <View style={{height:40,paddingLeft:16, justifyContent: 'center'}}>
-                <Text style={styles.sectionHeader}>{section.projectName}</Text>
+                <Text style={{fontFamily:FontName.Regular,fontSize:14, color:ThemeColor.TextColor}}>{section.projectName}</Text>
               </View>
               <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
             </View>
@@ -197,11 +197,11 @@ const SubmittedTimesheetScreen = ({navigation})  => {
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
                 <View style={{height:40,paddingLeft:16, flexDirection:'row', alignItems:'center',flex: 1}}>
-                  <Text style={{fontSize:14, color:item.subStatusId == 908 ?  ThemeColor.RedColor : ThemeColor.GreenColor,fontFamily: FontName.Regular, flex: 1, textAlign: 'center'}}>{item.subStatus}</Text>
+                  <Text style={{fontSize:12, color:item.subStatusId == 908 ?  ThemeColor.RedColor : ThemeColor.GreenColor,fontFamily: FontName.Regular, flex: 1, textAlign: 'center'}}>{item.subStatus}</Text>
                   <View style={{height:40 , width:1,backgroundColor:ThemeColor.BorderColor}}/>
                   <TouchableOpacity style={{flex: 1,alignItems:'center',justifyContent: 'center', flexDirection:'row'}} onPress={()=> handleViewTimesheet(item,section)}>
                     <Feather name="lock" color={ThemeColor.NavColor} size={18} />
-                    <Text style={{fontSize:14, color:ThemeColor.NavColor,fontFamily: FontName.Regular, textAlign: 'center', marginLeft:8}}>View timesheet</Text>
+                    <Text style={{fontSize:12, color:ThemeColor.NavColor,fontFamily: FontName.Regular, textAlign: 'center', marginLeft:8}}>View timesheet</Text>
                   </TouchableOpacity>
                   
                 </View>

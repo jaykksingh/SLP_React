@@ -776,7 +776,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	}
 	const showActionSheet = () => {
 		actionSheetTimesheet.current.show();
-	  }
+	}
 	const tips='Tip: Enter 0.50 increments to indicate a half hour. For example, for eight and a half hours, please enter 8.50 rather than 8.30'
 	
 	return(
@@ -804,10 +804,8 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 								style={{flex:1,}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.timesheetPeriod}
-								onValueChange={(itemValue, index) =>{
-									let selectedItem = timesheetPeriodArray[index];
-									setData({...data,timesheetPeriod:selectedItem});
-								}}>
+								onValueChange={(itemValue, index) => { handleTimesheetPeriodSelect(index)}}
+							>
 								{timesheetPeriodArray && timesheetPeriodArray.map((item, index) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}

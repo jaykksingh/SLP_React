@@ -187,7 +187,7 @@ const ApprovedTimesheetScreen = ({navigation})  => {
           renderSectionHeader={({section}) => 
             <View style={{ backgroundColor:'#fff',}}>
               <View style={{height:40,paddingLeft:16, justifyContent: 'center'}}>
-                <Text style={styles.sectionHeader}>{section.projectName}</Text>
+                <Text style={{fontFamily:FontName.Regular,fontSize:14, color:ThemeColor.TextColor}}>{section.projectName}</Text>
               </View>
               <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
             </View>

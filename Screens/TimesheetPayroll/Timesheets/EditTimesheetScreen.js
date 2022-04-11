@@ -57,6 +57,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 		resumeData:'',
 		fileName:'',
 		isHoursVerified:false,
+		isLoading:false,
 	});
 	const [pickedImage, setPickedImage] = React.useState('');
 	const [projectHoursDict,setProjectHoursDict] = React.useState({});
@@ -163,13 +164,11 @@ const EditTimesheetScreen = ({route,navigation}) => {
 		  data:{"projectId":projectDetail.projectDetailId,'startDate':startDate,'endDate':endDate}
 		})
 		.then((response) => {
-			setIsLoading(false);
 			if (response.data.code == 200){
 				setProjectHoursDict(response.data.content.dataList[0]);
 				setMannualHoursArray(response.data.content.dataList[0].project.hoursDetail);
 				setHoursUpdated(!hoursUpdated);
 				console.log('Mannual Hours: ', JSON.stringify(response.data.content.dataList[0].project.hoursDetail));
-
 			}else if (response.data.code == 417){
 				const errorList = Object.values(response.data.content.messageList);
 				Alert.alert(StaticMessage.AppName, errorList.join(), [
@@ -179,9 +178,12 @@ const EditTimesheetScreen = ({route,navigation}) => {
 				console.log('Session Expired Already');
 				SessionExpiredAlert();
 			}
+			setIsLoading(false);
+			setData({...data,isLoading:false});
 		})
 		.catch((error) => {
 			setIsLoading(false);
+			setData({...data,isLoading:false});
 			console.log(error);
 			if(error.response.status == 401){
 				SessionExpiredAlert();
@@ -247,8 +249,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 			}
 		})
 		.catch((error) => {
-			console.error(error);
-			setData({...data, isLoading: false});
+			setIsLoading(false);
 			if(error.response && error.response.status == 401){
 			  SessionExpiredAlert();
 			}else{
@@ -828,6 +829,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 							<Text style={[styles.labelText,{color:data.timesheetPeriod.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.timesheetPeriod.length >0 ? data.timesheetPeriod : 'Select timesheet period'}</Text>
 							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22} />
 						</TouchableOpacity>
+						<Loader isLoading={data.isLoading} />
 					</View> : 
 					<View style={{marginTop:12,paddingLeft:16, paddingRight:16,}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Select timesheet period</Text>
@@ -836,16 +838,14 @@ const EditTimesheetScreen = ({route,navigation}) => {
 								style={{flex:1}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.timesheetPeriod}
-								onValueChange={(itemValue, index) =>{
-									let selectedItem = timesheetPeriodArray[index];
-									setData({...data,timesheetPeriod:selectedItem});
-								}}>
+								onValueChange={(itemValue, index) => { handleTimesheetPeriodSelect(index)}}
+							>
 								{timesheetPeriodArray && timesheetPeriodArray.map((item, index) => {
 									return (<Picker.Item label={item} value={item} key={index}/>) 
 								})}
 							</Picker>
 						</TouchableOpacity>
-						
+						<Loader isLoading={isLoading} />
 					</View>
 				
 				}
@@ -910,7 +910,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 						</TouchableOpacity>
 					</View>
 				</View> : null}
-				<Text style ={{color:ThemeColor.SubTextColor, fontSize:10,fontFamily:FontName.Italic, textAlign: 'center', marginTop:4, marginBottom:8,paddingLeft:16, paddingRight:16,}}>{tips}</Text>
+				<Text style ={{color:ThemeColor.SubTextColor, fontSize:10,fontFamily:FontName.Italic, fontStyle:'italic',textAlign: 'center', marginTop:4, marginBottom:8,paddingLeft:16, paddingRight:16,}}>{tips}</Text>
 				{(data.showMannualHours || projectDetail.timesheetClientApproval == 1) && 
 				<View style ={{backgroundColor:'white', flex: 1, marginBottom:16}}>
 					<View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center'}}>
@@ -1056,23 +1056,6 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					</View>
 				</View>
 				<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>			
-				
-				
-				{/* {data.resumeData.length > 0 ? 
-					<TouchableOpacity style={{flexDirection: 'row' , alignItems:'center',padding:8, flex:1}} onPress={() => setData({...data, isHoursVerified:!data.isHoursVerified})}>
-						{data.isHoursVerified ? <FontAwesome name="check-square" color={ThemeColor.SubTextColor} size={20} /> : <FontAwesome name="square-o" color={ThemeColor.TextColor} size={20} />}
-						<Text style ={{color:ThemeColor.TextColor, fontSize:12 ,fontFamily:FontName.Regular, marginLeft:8}}>I verify that the hours on the client approved timesheet match the daily hours, which I entered manually.</Text>
-					</TouchableOpacity> :
-					<TouchableOpacity style={styles.btnFill} onPress={() => {saveMannualHours('3302')}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>SUBMIT</Text>
-					</TouchableOpacity>
-				}
-				{data.resumeData.length > 0 && data.isHoursVerified &&  
-					<TouchableOpacity style={styles.btnFill} onPress={() => {saveMannualHours('3302')}}>
-						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>SUBMIT</Text>
-					</TouchableOpacity>
-				}
-				 */}
 			</View>
 			}
 			{data.resumeData.length > 0 ? 

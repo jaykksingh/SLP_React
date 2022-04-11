@@ -327,10 +327,10 @@ const CheckInOutScreen = ({route,navigation}) => {
 	return(
 		<SafeAreaView style={{flex:1}}>
             <View style={{flexDirection:'row',margin:16}}>
-                <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, flex:1}}>{getFormatedDate(dayDetails.day)}</Text>
+                <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, fontWeight: "bold",flex:1}}>{getFormatedDate(dayDetails.day)}</Text>
                 <View style={{flexDirection:'row'}}>
                     <Text style={{fontSize:16, fontFamily:FontName.Regular, color:ThemeColor.SubTextColor}}>Total hours: </Text>
-                    <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor}}>{getTotalHours()}</Text>
+                    <Text style={{fontSize:16, fontFamily:FontName.Bold, fontWeight: "bold", color:ThemeColor.TextColor}}>{getTotalHours()}</Text>
                 </View>
             </View>
             <View style ={{backgroundColor:'white', marginBottom:0}}>
@@ -384,9 +384,9 @@ const CheckInOutScreen = ({route,navigation}) => {
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
-                        <View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',backgroundColor:'white'}}>
+                        <View style={{height:30,  flex:1,flexDirection:'row',justifyContent: 'center',backgroundColor:'white', alignItems:'center'}}>
                             <TextInput  
-                                style={[styles.inputHour,{textAlign:'left'}]}
+                                style={[styles.inputHour,{textAlign:'left', height:40}]}
                                 placeholder="Notes" 
                                 editable={ true}
                                 placeholderTextColor={ThemeColor.PlaceHolderColor}
