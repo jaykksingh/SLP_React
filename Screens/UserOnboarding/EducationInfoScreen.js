@@ -42,7 +42,6 @@ const EducationInfoScreen = ({route,navigation}) => {
     navigation.addListener('focus', () => {
       getProfileDetails();
     })
-    getProfileDetails();
     
   },[])
   const { signOut } = React.useContext(AuthContext);

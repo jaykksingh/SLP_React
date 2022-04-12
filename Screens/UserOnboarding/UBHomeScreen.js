@@ -116,7 +116,10 @@ const OnboardingScreen = ({navigation})  => {
         if(loginDetails){
             setLoggedInUser(loginDetails);
         }
-        getAllDetails();
+        navigation.addListener('focus', () => {
+            getAllDetails();
+        })
+      
     },[]);
     
     const  getAllDetails = async () => {
@@ -135,8 +138,8 @@ const OnboardingScreen = ({navigation})  => {
         })
         .then((response) => {
             setIsLoading(false);
-            console.log('Session:',response);
             if (response.data.code == 200){
+                console.log('Profile Details:',JSON.stringify(response.data.content.dataList[0]));
                 setProfileData(response.data.content.dataList[0]);
             }else if (response.data.code == 417){
                 console.log(Object.values(response.data.content.messageList));

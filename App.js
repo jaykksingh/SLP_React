@@ -311,7 +311,7 @@ const App = () => {
   let resumeUploaded = empDetails ? empDetails.resumeUploaded : "0";
   let onBoardingStage = parsed ? parsed.onBoardingStage : "";
 
-  if((onBoarding == 1 || !resumeUploaded) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
+  if((onBoarding == 1 ) && !loginState.onBoardingSkipped && !loginState.EOBSkipped){
     return(
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
