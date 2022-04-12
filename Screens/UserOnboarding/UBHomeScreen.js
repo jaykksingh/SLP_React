@@ -48,7 +48,8 @@ const UBHomeScreen = () => {
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
-                fontWeight: 'bold'
+                fontFamily:FontName.Regular,
+                fontSize:16,
             },
             headerBackTitleVisible: false
             }}>

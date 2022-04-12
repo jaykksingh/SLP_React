@@ -697,15 +697,15 @@ const BasicDetailsScreen = ({route,navigation}) => {
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Work authorization</Text>
               <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
                 <Text style={[styles.labelText,{color:data.authorisationStatus.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.authorisationStatus.length >0 ? data.authorisationStatus : '+ Add'}</Text>
-                <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
               </TouchableOpacity>
             </View>
            :
           <View style={{marginTop:12}}>
             <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Work authorization</Text>
-            <View style={{backgroundColor:'white',  borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
+            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
               <Picker
-                style={{backgroundColor: 'white',flex:1,}}
+                style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.authorisationStatusId}
                 onValueChange={(itemValue, index) =>{
@@ -786,9 +786,9 @@ const BasicDetailsScreen = ({route,navigation}) => {
           <>
             <View style={{marginTop:12}}>
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Availability to start new job</Text>
-              <View style={{backgroundColor:'white' ,borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {availabilityRef.current?.setModalVisible()}}>
+              <View style={{backgroundColor:'white',height:40,borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {availabilityRef.current?.setModalVisible()}}>
                 <Picker
-                  style={{backgroundColor: 'white',flex:1,}}
+                  style={{flex:1,}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                   selectedValue={data.availabilityId}
                   onValueChange={(itemValue, index) =>{
@@ -805,9 +805,9 @@ const BasicDetailsScreen = ({route,navigation}) => {
             </View>
             <View style={{marginTop:12}}>
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Years of experience</Text>
-              <View style={{backgroundColor:'white',  borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {experienceRef.current?.setModalVisible()}}>
+              <View style={{backgroundColor:'white',height:40,  borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {experienceRef.current?.setModalVisible()}}>
                 <Picker
-                  style={{backgroundColor: 'white',flex:1,}}
+                  style={{flex:1,}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                   selectedValue={data.totalExpId}
                   onValueChange={(itemValue, index) =>{
@@ -824,9 +824,9 @@ const BasicDetailsScreen = ({route,navigation}) => {
             </View>
             <View style={{marginTop:12}}>
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Current area of expertise</Text>
-              <View style={{backgroundColor:'white', borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {expertiesRef.current?.setModalVisible()}}>
+              <View style={{backgroundColor:'white',height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {expertiesRef.current?.setModalVisible()}}>
                 <Picker
-                  style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
+                  style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                   selectedValue={data.industryVerticalId}
                   onValueChange={(itemValue, index) =>{

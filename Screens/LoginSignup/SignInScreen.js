@@ -207,7 +207,7 @@ const SignInScreen = ({navigation}) => {
   async function onSignIn(userDetails) {
     crashlytics().log('User signed in.');
     await Promise.all([
-      crashlytics().setUserId(userDetails.employeeDetailsId),
+      crashlytics().setUserId('' + userDetails.employeeDetailsId),
       crashlytics().setAttributes({
         empId: userDetails.employeeDetailsId,
         email: userDetails.emailId,

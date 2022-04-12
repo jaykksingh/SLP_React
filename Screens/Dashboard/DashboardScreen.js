@@ -807,14 +807,14 @@ const DashboardScreen = ({navigation}) => {
               {
                 item.cellType == 'TITLE' ?
                 <View style={{width:'100%',backgroundColor:'white', height:50,borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,alignItems: 'center',justifyContent: 'center'}}>
-                  <Text style={{fontFamily:FontName.Bold, fontSize:16,color:ThemeColor.NavColor}}> Hello, {empDetails ? empDetails.firstName : ''}!</Text>
+                  <Text style={{fontFamily:FontName.Bold, fontSize:16,color:ThemeColor.NavColor, fontWeight:'bold'}}> Hello, {empDetails ? empDetails.firstName : ''}!</Text>
                 </View> : null  
               }
               {
                 item.cellType == 'EMPONBOARD' ?
                 <TouchableOpacity style={{width:'100%',backgroundColor:'#fff', height:50,borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,alignItems: 'center',justifyContent: 'center', marginTop:16, flex:1,flexDirection: 'row'}} onPress = {() => {resumeEOB()}}>
                   <Text style={{fontFamily:FontName.Regular, fontSize:16,color:'orange', flex:1, textAlign: 'center',paddingLeft:28}}>RESUME ONBOARDING</Text>
-                  <EvilIcons name="chevron-right" color={'orange'} size={25,35} />
+                  <EvilIcons name="chevron-right" color={'orange'} size={25} />
                 </TouchableOpacity> : null  
               }
               {

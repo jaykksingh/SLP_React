@@ -8,7 +8,8 @@ import {
     Alert,
     TextInput,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    Platform
 } from "react-native";
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -377,13 +378,37 @@ const CheckInOutScreen = ({route,navigation}) => {
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 
+                        {Platform.OS == 'ios' ?
                         <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
                             <TouchableOpacity style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center',paddingRight:4}} onPress ={() => {showBreakTypePicker(item, index)}}>
                                 <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.hourType == 24163 ? 'Meal Break' : "Regular Hours"}</Text>
                                 <Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
-						</View>
+                        </View>  :
+                        <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
+                            <Picker
+                                style={{flex:1}}
+                                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+                                selectedValue={selectedHours.hourType}
+                                onValueChange={(itemValue, index) =>{
+                                    let selectedItem = breakTypeArr[index];
+                                    setSelectedHours({...selectedHours,hourType:selectedItem.keyId});
+                                    
+                                    let tempArr = mannualHoursArray;
+                                    let editObj = selectedHours;
+                                    editObj.hourType = selectedItem.keyId;
+                                    tempArr[selectedIndex] = editObj;
+                                    setMannualHoursArray(tempArr);
+                                }}
+                            >
+                            {breakTypeArr && breakTypeArr.map((item, index) => {
+                                return (<Picker.Item label={item.value} value={item.keyId} key={index}/>) 
+                            })}
+                            </Picker>
+                            <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
+                        </View>  
+                        }
                         <View style={{height:30,  flex:1,flexDirection:'row',justifyContent: 'center',backgroundColor:'white', alignItems:'center'}}>
                             <TextInput  
                                 style={[styles.inputHour,{textAlign:'left', height:40}]}

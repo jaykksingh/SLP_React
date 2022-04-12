@@ -148,7 +148,7 @@ const ProfessionInfo = ({route,navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{marginBottom:16}} keyboardShouldPersistTaps='handled'>
-        <View style={{paddingLeft: 20, paddingRight:16, justifyContent:'space-between', flexDirection:'row'}}>
+        <View style={{paddingLeft: 20, paddingRight:16, justifyContent:'space-between', flexDirection:'row', marginTop:16}}>
           <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:30, fontFamily:FontName.Regular,}}>Skills</Text>
           <TouchableOpacity style={{flexDirection: 'row', alignContent:'center', marginRight:4}}  onPress={() => {navigation.navigate('Skill',{profileDetail: profileData,lookupData:lookupData})}}>
             <Icons name="add-circle-outline" color={ThemeColor.BtnColor} size={20,20} />
@@ -160,7 +160,7 @@ const ProfessionInfo = ({route,navigation}) => {
             data={data.skillsArray}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => 
-            <View>
+            <View style={{borderRadius:5}}> 
             <TouchableOpacity style={{alignContent:'center', backgroundColor:'#fff'}} onPress={(event)=> {didSelectSkills(item)}}>
                 <View style={{flexDirection:'row', alignItems:'center', paddingRight:8}}>
                   <View style={{paddingLeft:16,paddingTop:8, flex:1,marginRight:4}}>
@@ -195,7 +195,7 @@ const ProfessionInfo = ({route,navigation}) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => 
               <View>
-                <TouchableOpacity style={[styles.chipItem, {backgroundColor:ThemeColor.SkyBlueColor}]} onPress={() => {navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Licence',licenceDict:item})}}>
+                <TouchableOpacity style={[styles.chipItem, {backgroundColor:'white'}]} onPress={() => {navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Licence',licenceDict:item})}}>
                   <Text style={[styles.chipTitle, {color:ThemeColor.BtnColor}]}>{item.certificateExamName}</Text>
                 </TouchableOpacity>
               </View>
