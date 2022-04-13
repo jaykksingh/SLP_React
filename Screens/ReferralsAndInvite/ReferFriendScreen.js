@@ -30,7 +30,7 @@ const ReferFriendScreen = ({navigation})  => {
 			<View style={{justifyContent:'center', alignItems: 'center', padding:16,flex:1}}>
 				<Image style={{ width:60, height:60 }} source={require('../../assets/Images/icon-phone-book.png')} />
 				<Text style={{color:ThemeColor.TextColor,fontFamily: FontName.Regular,fontSize:16, marginTop:16}}>Get paid when those you refer get hired</Text>
-				<Text style={{color:ThemeColor.SubTextColor,fontFamily: FontName.Italic,fontSize:14, marginTop:8, textAlign: 'center',}}>{subText}</Text>
+				<Text style={{color:ThemeColor.SubTextColor,fontFamily: FontName.Italic,fontSize:14, marginTop:8, textAlign: 'center',fontStyle:'italic'}}>{subText}</Text>
 				<View style={{ marginTop:32, flexDirection:'row',width:'100%',}}>
 					<View style={{backgroundColor:'gray', height:1, width:'80%', position:'absolute', top:30, marginLeft:32, marginRight:32}}/>
 					<View style={{ flex:1,justifyContent: 'center',alignItems: 'center'}}>

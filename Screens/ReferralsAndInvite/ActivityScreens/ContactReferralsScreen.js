@@ -26,7 +26,9 @@ const ContactReferralsScreen = ({route,navigation})  => {
 	}, [navigation]);
 
 	useEffect(() => {
-		getContactReferralsList();
+		navigation.addListener('focus', () => {
+			getContactReferralsList();
+		});
 	},[]);
 
 	const getContactReferralsList = async() => {

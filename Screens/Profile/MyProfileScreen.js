@@ -75,7 +75,6 @@ const MyProfileScreen = ({route,navigation}) => {
   const actionSheetImage = useRef();
 
   useEffect(() => {
-    getProfileDetails();
     getUserLookups();
     navigation.addListener('focus', () => {
       getProfileDetails();

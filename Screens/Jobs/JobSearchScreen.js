@@ -29,13 +29,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 // TODO: Convert to FC
 
-const JobSearchScreen = ({navigation}) => {
+const JobSearchScreen = ({route,navigation}) => {
   
   const [data,setData] = React.useState({
     searchKey:'',
     authTokenKey:'',
     isLoading: false,
   });
+  // const { fromJobRefer } = route.params;
+
   let [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
   let [isLocationLoading, setLocationLoading] = React.useState(false);
   let [searchLocation, setSearchLocation] = React.useState('');
@@ -241,9 +243,12 @@ const JobSearchScreen = ({navigation}) => {
   const locationFound =  locationArray.length > 0 ? true : false;
 
   return (
-    <SafeAreaView style={{flex: 1}}>
     <ScrollView>
     <View style={styles.container}>
+      {route.params ? 
+      <View>
+        <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.SubTextColor, marginTop:16,marginBottom:8, textAlign:'center'}}>If you refer someone with the right qualifications needed for a specific job, we'll pay you a higher referral fee than simply referring or inviting a friend. Start by searching for jobs that match your friend's qualifications.</Text>
+      </View> : null}
       <Text style={{textAlign: 'left',fontFamily:FontName.Regular, fontSize:16,color:'black', marginTop:24,marginBottom:16}}>Search for jobs</Text>
       <View style={{MarginTop:16, marginBottom:16}}>
         <View style={styles.inputView}>
@@ -344,7 +349,6 @@ const JobSearchScreen = ({navigation}) => {
       </MovableView> : null }
     </View>
     </ScrollView>
-    </SafeAreaView>
   );
   
 }
@@ -356,6 +360,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding:16,
+    paddingTop:0,
   },inputView:{
     flexDirection:'row',
     paddingLeft:8,

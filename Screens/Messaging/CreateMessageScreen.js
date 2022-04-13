@@ -55,6 +55,7 @@ const CreateMessageScreen = ({route,navigation}) => {
   	const { timesheets } = route.params;
 	const {preMessage} = route.params;
 	const {groupID} = route.params;
+	const {isFromJobSupport} = route.params;
 	const {groupName} = route.params;
 	const {jobID} = route.params;
 
@@ -178,7 +179,7 @@ const CreateMessageScreen = ({route,navigation}) => {
 		for (var i=0; i < groupsArray.length; i++) {
 			var group = groupsArray[i];
 			if(group.groupId == 4 ){
-				if(jobID){
+				if(jobID || isFromJobSupport){
 					tempGroupArray.push(group);
 				}
 			}else{

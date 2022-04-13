@@ -177,27 +177,27 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
     
     const selectResume = async () => {
       try {
-          const res = await DocumentPicker.pick({
-              type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
-          });
-          console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
-          var result = res[0].uri.split("%20").join("\ ");
-          var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
-          let bytes = res[0].size  / 1000000;
-          console.log(`File Size: ${bytes}`)
-          if(bytes > 5){
-            Alert.alert(StaticMessage.AppName, StaticMessage.FileSize5MbExcedMsg, [
-              {text: 'Ok'}
-            ]);
-          }else{
-            setData({...data,resumeData:base64data,fileName:res.name});
-          }
-      } catch (err) {
-          if (DocumentPicker.isCancel(err)) {
-          } else {
-              throw err;
-          }
-      }
+        const res = await DocumentPicker.pick({
+            type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
+        });
+        console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
+        var result = res[0].uri.split("%20").join("\ ");
+        var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
+        let bytes = res[0].size  / 1000000;
+        console.log(`File Size: ${bytes}`)
+        if(bytes > 5){
+          Alert.alert(StaticMessage.AppName, StaticMessage.FileSize5MbExcedMsg, [
+            {text: 'Ok'}
+          ]);
+        }else{
+          setData({...data,resumeData:base64data,fileName:res[0].name});
+        }
+    } catch (err) {
+        if (DocumentPicker.isCancel(err)) {
+        } else {
+            throw err;
+        }
+    }
     }
     const viewResume = (resume) => {
         console.log('resume:', resume.filePath);
@@ -308,7 +308,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
 
     return (
         <SafeAreaView style={styles.container}>            
-              <ScrollView style={{padding:16, height:800}}>
+              <ScrollView style={{padding:16, height:1200}}>
                 <View style={{ alignItems: 'center', flex:1}}>
                     <TouchableOpacity style={{marginTop:32}} onPress = {() => {showActionSheet()}}>
                         <FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />

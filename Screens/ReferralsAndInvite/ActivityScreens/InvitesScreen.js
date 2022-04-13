@@ -31,7 +31,9 @@ const InvitesScreen = ({route,navigation})  => {
 	}, [navigation]);
 
 	useEffect(() => {
-		getContactReferralsList('');
+		navigation.addListener('focus', () => {
+			getContactReferralsList('');
+		});
 	},[]);
 	const handleTextChange = (val) => {
 		setSearchKey(val);

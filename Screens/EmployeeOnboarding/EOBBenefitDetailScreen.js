@@ -29,26 +29,13 @@ const EOBBenefitDetailScreen = ({route,navigation}) => {
 		navigation.setOptions({
 			headerRight: () => (
 				<TouchableOpacity style={{marginRight:16}} onPress={() => viewFile(benefitObj)}>
-				  <Ionic name="ios-share-outline" color={'white'} size={25,25} />
+				  <Ionic name="ios-share-outline" color={'white'} size={25} />
 				</TouchableOpacity>
 			),
 			title: benefitObj ? benefitObj.benefitName : 'Benefits',
 		});
 	}, [navigation]);
-	const showLogOutAlert = () =>{
-		console.log('Log Out')
-		Alert.alert('Are sure want to log out?',null,
-			[{
-				text: 'Log out',
-				onPress: () => signOut()
-			  },{
-				text: 'Close',
-				onPress: () => signOut()
-			  },{
-				text: 'Cancel',
-			  },]
-		  )
-	  }
+	
 
 	useEffect(() => {
         getHrBenefitDetails();
@@ -102,10 +89,10 @@ const EOBBenefitDetailScreen = ({route,navigation}) => {
           }]
       )}
 	const viewFile = (fileObject) => {
-        console.log('File Path:', fileObject.documentExpenseFileLocation);
-		let url =  fileObject.documentExpenseFileLocation;
+        console.log('File Path:', fileObject);
+		let url =  fileObject.formDoc;
 		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const localFile = `${RNFS.DocumentDirectoryPath}/${fileObject.benefitName}.${extension}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,

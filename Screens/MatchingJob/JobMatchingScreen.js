@@ -476,7 +476,7 @@ const JobMatchingScreen = ({route,navigation}) => {
           tempJobArray.splice(activeJobData.activeIndex,1);
           setJobsArray(tempJobArray);
           carouselRef.snapToItem(activeJobData.activeIndex == 0 ? activeJobData.activeIndex + 1 : activeJobData.activeIndex -1 );
-      
+          console.log('Matching job count:', tempJobArray.length);
         }else if (response.data.code == 417){
             console.log(Object.values(response.data.content.messageList));
             const errorList = Object.values(response.data.content.messageList);
@@ -510,6 +510,7 @@ const JobMatchingScreen = ({route,navigation}) => {
     tempJobArray.splice(activeJobData.activeIndex,1);
     setJobsArray(tempJobArray);
     carouselRef.snapToItem(activeJobData.activeIndex == 0 ? activeJobData.activeIndex + 1 : activeJobData.activeIndex -1 );
+    console.log('Matching job count:', tempJobArray.length);
 
   }
   const getJobDetails = async (jobID) => {
@@ -1048,7 +1049,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                   <View style={{flexDirection:'row'}}>
                     {certificationsList && certificationsList.length > 0 &&
                     <TouchableOpacity style={{width:25, height:25, justifyContent:'center'}} onPress={() => {setSelectedData({...selectedData,certificateEdit:!selectedData.certificateEdit})}}>
-                      <Material name="pencil" color={ThemeColor.BtnColor} size={20,20} />
+                      <Material name="pencil" color={ThemeColor.BtnColor} size={20} />
                     </TouchableOpacity>
                     }
                     <TouchableOpacity style={{width:25, height:25, marginLeft:8}} 
@@ -1056,7 +1057,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                         jobFilterRef.current?.setModalVisible()
                         navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:null,dataType:'Licence'})
                       }}>
-                      <Icons name="add" color={ThemeColor.BtnColor} size={25,25} />
+                      <Icons name="add" color={ThemeColor.BtnColor} size={25} />
                     </TouchableOpacity>
                   </View> : 
                   <TouchableOpacity onPress={() => {setSelectedData({...selectedData,certificateEdit:!selectedData.certificateEdit})}}>
@@ -1071,9 +1072,9 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                     randomUpdateProp={data.certificateUpdated}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({item}) => 
-                      <TouchableOpacity  style={{flexDirection:'row', alignContent:'center',justifyContent:'center' ,padding:4,paddingRight:8, paddingLeft:8,marginRight:8, borderRadius:10,borderColor:ThemeColor.BtnColor,borderWidth:1, 
+                      <TouchableOpacity  style={{flexDirection:'row', alignItems:'center',justifyContent:'center' ,padding:4,paddingRight:8, paddingLeft:8,marginRight:8, borderRadius:10,borderColor:ThemeColor.BtnColor,borderWidth:1, 
                         backgroundColor:arrayContains(item.certificateExamName,selectedCertificate) ? ThemeColor.SkyBlueColor : 'white'}} onPress={() =>{didSelectCertification(item)}}>
-                        <Text style={{fontSize: 14,paddingLeft:8,paddingRight:8,color:ThemeColor.BtnColor}}>{ item.certificateExamName}</Text>
+                        <Text style={{fontSize: 14,paddingLeft:8,paddingRight:8,color:ThemeColor.BtnColor,height:25 }}>{ item.certificateExamName}</Text>
                         {item.isPrimary == 1 ? <Icons name="star" color={'orange'} size={12} /> : null}
                       </TouchableOpacity>
                     }

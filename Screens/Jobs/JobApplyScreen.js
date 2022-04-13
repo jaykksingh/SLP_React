@@ -45,12 +45,15 @@ const JobApplyScreen = ({route,navigation}) => {
     const { showParentTab } = route.params;
     let [profileData, setProfileData] = React.useState('')
     let [isLoading, setLoading] = React.useState(false);
+    let [isLoggedin, setIsLoggedin] = React.useState(true);
     let [selectedResume, setSelectedResume] = React.useState('');
     let [base64Resume, setBase64Resume] = React.useState('');
     const { signOut } = React.useContext(AuthContext);
     const [show, setShow] = React.useState(false);
     const [lookupData, setLookupData] = React.useState({});
     const [countryDialCodeList, setCountryDialCodeList] = React.useState([]);
+
+
 
     useEffect(() => {
         getProfileDetails();
@@ -326,7 +329,6 @@ const JobApplyScreen = ({route,navigation}) => {
     }
       
 
-    let isLoggedin = profileData ? true : false;
     let resumeArray = profileData ? profileData.resume : [];
     let selectedResumeId = selectedResume ? selectedResume.candidateDocId : '';
     const getFormattedDate=(cjmPostingDate) =>{

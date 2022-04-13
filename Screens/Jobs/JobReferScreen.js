@@ -33,7 +33,7 @@ const JobReferScreen = ({route,navigation}) => {
     const { jobDetails } = route.params;
 
     useEffect(() => {
-       
+        
     }, []);
     const handleEmailId = (val) => {
         checkAlreadyRefered();

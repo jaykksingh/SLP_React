@@ -150,6 +150,50 @@ const MyApplicationScreen = ({route,navigation}) => {
         ]);
     })
   }
+  const getProfileDetails = async() => {
+		let user = await AsyncStorage.getItem('loginDetails');  
+		let parsed = JSON.parse(user);  
+		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+		var authToken = base64.encode(userAuthToken);    
+	  
+		setLoading(true);
+		axios ({  
+		  "method": "GET",
+		  "url": BaseUrl + EndPoints.UserProfile,
+		  "headers": getAuthHeader(authToken)
+		})
+		.then((response) => {
+			setLoading(false);
+			if (response.data.code == 200){
+				let profileData = response.data.content.dataList[0];
+				let recruiterDetails = profileData.empDetails.recruiterDetails
+				let name = `${recruiterDetails.firstName} ${recruiterDetails.lastName} (My recruiter)`;
+				navigation.navigate('CreateMessage',{timesheets:{},preMessage:'', groupID:MessageGroupId.MyRecruiterID,groupName:name})
+
+			}else if (response.data.code == 417){
+				console.log(Object.values(response.data.content.messageList));
+				const errorList = Object.values(response.data.content.messageList);
+				Alert.alert(StaticMessage.AppName, errorList.join(), [
+				{text: 'Ok'}
+				]);
+		
+			}else if (response.data.code == 401){
+				console.log('Session Expired Already');
+				SessionExpiredAlert();
+			}
+		})
+		.catch((error) => {
+			setLoading(false);
+			if(error.response.status == 401){
+				SessionExpiredAlert();
+			}else{
+				Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+					{text: 'Ok'}
+				  ]);
+			}
+			console.log('Error:',error);      
+		})
+	}
   const getApplicationAttributes = (details) => {
     var assignmentType = details.assesmentType;
     let annualSalary = details.annualSalary;
@@ -341,10 +385,10 @@ const MyApplicationScreen = ({route,navigation}) => {
             <View>
               <Text style={{fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor, textAlign:'center'}}>{selectedIndex == 0 ? noApplicationText : noArchiveApplText}</Text>
               {selectedIndex == 0 ? 
-              <TouchableOpacity style={styles.btnFill} onPress={() => {navigation.navigate('Job Search')}}>
+              <TouchableOpacity style={styles.btnFill} onPress={() => {navigation.navigate('FindJobs')}}>
                 <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>FIND JOBS</Text>
               </TouchableOpacity> : 
-              <TouchableOpacity style={{}} onPress = {() => {navigation.navigate('CreateMessage',{groupName:'My recruiter',groupID:MessageGroupId.MyRecruiterID,})}}>
+              <TouchableOpacity style={{}} onPress = {() => {getProfileDetails()}}>
                 <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.BtnColor, marginTop:4 }}>Let your recruiter know</Text>
               </TouchableOpacity>
               }

@@ -134,7 +134,7 @@ const EOBAttachmentScreen = ({route,navigation})  => {
                 {text: 'Ok'}
               ]);
             }else{
-              setData({...data,resumeData:base64data,fileName:res.name});
+              setData({...data,resumeData:base64data,fileName:res[0].name});
             }
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
@@ -185,7 +185,7 @@ const EOBAttachmentScreen = ({route,navigation})  => {
         };
       
         ImagePicker.launchImageLibrary(options, async(res) => {
-          console.log('Response = ', res.assets[0].fileName);
+          console.log('Response = ', res.assets[0]);
       
           if (res.didCancel) {
             console.log('User cancelled image picker');

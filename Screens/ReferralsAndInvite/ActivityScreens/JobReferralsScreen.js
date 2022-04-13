@@ -30,7 +30,9 @@ const JobReferralsScreen = ({route,navigation})  => {
 	}, [navigation]);
 
 	useEffect(() => {
-		getContactReferralsList();
+		navigation.addListener('focus', () => {
+			getContactReferralsList();
+		});
 	},[]);
 
 	const getContactReferralsList = async() => {
@@ -218,7 +220,7 @@ const JobReferralsScreen = ({route,navigation})  => {
 			/> :
 				<View style={{flex:1,justifyContent:'center', padding:16, justifyContent:'center', alignItems:'center'}}>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>{message}</Text>
-					<TouchableOpacity style={{backgroundColor:ThemeColor.BtnColor, height:40, justifyContent:'center', borderRadius:5,width:180, marginTop:16}} onPress={() => navigation.navigate('Find jobs')}>
+					<TouchableOpacity style={{backgroundColor:ThemeColor.BtnColor, height:40, justifyContent:'center', borderRadius:5,width:180, marginTop:16}} onPress={() => navigation.navigate('FindJobs',{fromJobRefer:true})}>
 						<Text style={{color:'white', fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>FIND JOBS</Text>
 					</TouchableOpacity>
 				</View> 

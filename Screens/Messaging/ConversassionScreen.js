@@ -46,8 +46,8 @@ const ConversassionScreen = ({route,navigation}) => {
 
 		navigation.setOptions({
 		  headerRight: () => (
-			<TouchableOpacity style={{marginRight:16}} onPress = {() => {navigation.navigate('CreateMessage',{groupName:navigationTitle,groupID:groupDetail.groupId})}}>
-				<Ionicons name="create-outline" color={'white'} size={25,25} />
+			<TouchableOpacity style={{marginRight:16}} onPress = {() => {navigation.navigate('CreateMessage',{groupName:navigationTitle,groupID:groupDetail.groupId ,isFromJobSupport:groupDetail.groupId == MessageGroupId.JobSupportID})}}>
+				<Ionicons name="create-outline" color={'white'} size={25} />
 			</TouchableOpacity>
 		  ),
 		  title: navigationTitle,
