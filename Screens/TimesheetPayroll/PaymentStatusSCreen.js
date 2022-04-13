@@ -193,7 +193,7 @@ const PaymentStatusSCreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {yearRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select year</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select year</Text>
 					<TouchableOpacity onPress={() => {
 						{
 							data.year == 0 && setData({...data,year:yearArr[0]})}
@@ -226,7 +226,7 @@ const PaymentStatusSCreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {monthRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select month</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select month</Text>
 					<TouchableOpacity onPress={() => {
 						{data.month == 0 && setData({...data,month:monthArray[0],monthId:0})}
 						monthRef.current?.setModalVisible()}

@@ -358,7 +358,7 @@ const AlertSettingScreen = ({navigation})  => {
 						<TouchableOpacity onPress={() => {alertTypeRef.current?.setModalVisible()}}>
 							<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 						</TouchableOpacity>
-						<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold', flex:1, textAlign:'center', marginLeft:8, marginRight:8}}>Select frequency</Text>
+						<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold, flex:1, textAlign:'center', marginLeft:8, marginRight:8}}>Select frequency</Text>
 						<TouchableOpacity onPress={() => {alertTypeRef.current?.setModalVisible()}}>
 							<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 						</TouchableOpacity>
@@ -380,7 +380,7 @@ const AlertSettingScreen = ({navigation})  => {
 					<TouchableOpacity onPress={() => {dateRef.current?.setModalVisible()}}>
 					<Text style={{color:ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold', flex:1, textAlign:'center', marginLeft:8, marginRight:8}}>{selectedDateObj.name}</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold, flex:1, textAlign:'center', marginLeft:8, marginRight:8}}>{selectedDateObj.name}</Text>
 
 					<TouchableOpacity onPress={() => {
 						handleSwitchTillDate();

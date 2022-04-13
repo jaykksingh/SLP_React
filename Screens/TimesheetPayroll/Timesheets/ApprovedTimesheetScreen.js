@@ -151,14 +151,14 @@ const ApprovedTimesheetScreen = ({navigation})  => {
     navigation.navigate('CreateMessage',{timesheets:item,preMessage:message, groupID:MessageGroupId.TimesheetSupportID,groupName:'Timesheet support',showTabBar:true})
   }
   const handleViewTimesheet = (item, section) => {
-    // console.log('View Handler: ',section);
-    // let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
-    // if(projectTemplateID == 24063){
-    //   navigation.navigate('ViewClockInOutTimesheet',{timesheetDetails:item,projectDetail:section})
-    // }else{
-    //   navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
-    // }
-    navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+    console.log('View Handler: ',section);
+    let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
+    if(projectTemplateID == 24063){
+      navigation.navigate('ViewClockInOutTimesheet',{timesheetDetails:item,projectDetail:section})
+    }else{
+      navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
+    }
+    // navigation.navigate('ViewTimesheet',{timesheetDetails:item,projectDetail:section})
   }
 
   const transformedArray = timesheetsArray.map(({ hoursDetail,projectName ,timeSheetCycle,projectDetailId,timeSheetTemplate}) => ({ data: hoursDetail,projectName:projectName,timeSheetCycle:timeSheetCycle,projectDetailId:projectDetailId,timeSheetTemplate:timeSheetTemplate }));

@@ -182,7 +182,7 @@ const LeaveApprovalPending = ({route,navigation})  => {
 							</View>
 							<View style={{paddingLeft:16, paddingRight:16, marginTop:4, flexDirection: 'row'}}> 
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>Total days: </Text>
-								<Text style={{fontSize:14, fontFamily: 'Lato-Bold', color:ThemeColor.TextColor}}>{item.noOfDays}</Text>
+								<Text style={{fontSize:14, fontFamily: FontName.Bold, color:ThemeColor.TextColor}}>{item.noOfDays}</Text>
 							</View>
 						</View>
 						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />

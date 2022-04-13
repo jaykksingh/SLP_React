@@ -218,7 +218,7 @@ const NewLCAScreen = ({route,navigation}) => {
 						<TextInput  
 						style={styles.inputText}
 						placeholder="Phone number" 
-						maxLength={12}
+						maxLength={14}
 						placeholderTextColor={ThemeColor.PlaceHolderColor}
 						keyboardType='phone-pad'
 						textContentType='telephoneNumber' 
@@ -276,7 +276,7 @@ const NewLCAScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {applForRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select project</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select project</Text>
 					<TouchableOpacity onPress={() => {
 						data.applFor.length == 0 ? setData({...data,applForId:lookUpData.applicationForList[0].keyId,applFor:lookUpData.applicationForList[0].keyName}) : '';
 						applForRef.current?.setModalVisible()}
@@ -304,7 +304,7 @@ const NewLCAScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {priorityRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select priority</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select priority</Text>
 					<TouchableOpacity onPress={() => {
 						data.appPriority.length == 0 ? setData({...data,appPriorityId:lookUpData.priorityList[0].keyId,appPriority:lookUpData.priorityList[0].keyName}) : '';
 						priorityRef.current?.setModalVisible()}
@@ -332,7 +332,7 @@ const NewLCAScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {currentStatusRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select priority</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select priority</Text>
 					<TouchableOpacity onPress={() => {
 						data.currentStatusName.length == 0 ? setData({...data,currentStatus:lookUpData.currentEmploymentStatusList[0].keyId,currentStatusName:lookUpData.currentEmploymentStatusList[0].keyName}) : '';
 						currentStatusRef.current?.setModalVisible()}
@@ -360,7 +360,7 @@ const NewLCAScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {skillsRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select priority</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select priority</Text>
 					<TouchableOpacity onPress={() => {
 						data.skillCategory.length == 0 ? setData({...data,skillCategoryId:lookUpData.skillCategoryList[0].id,skillCategory:lookUpData.skillCategoryList[0].name}) : '';
 						skillsRef.current?.setModalVisible()}

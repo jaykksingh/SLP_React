@@ -422,7 +422,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                   <TouchableOpacity onPress={() => {statusRef.current?.setModalVisible()}}>
                     <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
                   </TouchableOpacity>
-                  <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: 'Lato-Bold'}}>Vaccination status</Text>
+                  <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: FontName.Bold}}>Vaccination status</Text>
                   <TouchableOpacity onPress={() => {
                     {data.vaccineStatusId == 0 && setData({...data,vaccineStatusId:covidVaccinesStatusArray[0].id,vaccineStatusName:covidVaccinesStatusArray[0].name})}
                       statusRef.current?.setModalVisible()}
@@ -452,7 +452,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                   <TouchableOpacity onPress={() => {vaccineRef.current?.setModalVisible()}}>
                     <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
                   </TouchableOpacity>
-                  <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: 'Lato-Bold'}}>Vaccine provider</Text>
+                  <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: FontName.Bold}}>Vaccine provider</Text>
                   <TouchableOpacity onPress={() => {
                       {data.vaccineId == 0 && setData({...data,vaccineId:covidVaccinesArray[0].id,vaccineName:covidVaccinesArray[0].name}) }
                       vaccineRef.current?.setModalVisible()}

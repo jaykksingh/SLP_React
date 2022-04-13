@@ -159,7 +159,7 @@ const DesiredSalaryScreen = ({route,navigation}) => {
               <TouchableOpacity onPress={() => {salarayTypeRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Salary type</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Salary type</Text>
               <TouchableOpacity onPress={() => {salarayTypeRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>

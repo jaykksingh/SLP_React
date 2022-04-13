@@ -310,7 +310,7 @@ const AddRegularizationScreen = ({route,navigation}) => {
 						<TouchableOpacity onPress={() => {categoryRef.current?.setModalVisible()}}>
 							<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 						</TouchableOpacity>
-						<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Regularization category</Text> 
+						<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Regularization category</Text> 
 						<TouchableOpacity onPress={() => {
 							{data.category.length == 0 && setData({...data,category:lookupData.Category[0].value,categoryID:lookupData.Category[0].keyId})}
 							categoryRef.current?.setModalVisible()}

@@ -246,7 +246,7 @@ const DesiredJobScreen = ({route,navigation}) => {
         <SafeAreaView style={styles.container}>
             <KeyboardAwareScrollView style={{ paddingLeft:16, paddingRight:16,marginBottom:32, paddingTop:16}}>
                 <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8, justifyContent:'space-between'}}>
-                <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Consider relocating?</Text>
+                <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Consider relocating?</Text>
                 <Switch
                     trackColor={{ false: ThemeColor.SwitchInactiveColor, true:ThemeColor.BtnColor }}
                     ios_backgroundColor = {ThemeColor.SwitchInactiveColor}
@@ -256,14 +256,14 @@ const DesiredJobScreen = ({route,navigation}) => {
                 />            
                 </View>
                 <View style={{marginTop:12}}>
-                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Desired employment</Text>
+                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Desired employment</Text>
                 <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {navigation.navigate('Edit profile',{profileDetail: profileDetail,lookupData:lookupData,dataType:'DesiredEmployeement'})}}>
                     <Text style={[styles.labelText,{color:desiredEmployementType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{desiredEmployementType.length >0 ? desiredEmployementType : '+ Add'}</Text>
                     <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
                 </TouchableOpacity>
                 </View>
                 <View style={{marginTop:12}}>
-                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>My desired location</Text>
+                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>My desired location</Text>
                 <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} 
                     onPress={() => {navigation.navigate('Edit profile',{profileDetail: profileDetail,lookupData:lookupData,dataType:'PreferredCity'})}}>
                     <Text style={[styles.labelText,{color:prefferedCityType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{prefferedCityType.length >0 ? prefferedCityType : '+ Add'}</Text>
@@ -271,9 +271,9 @@ const DesiredJobScreen = ({route,navigation}) => {
                 </TouchableOpacity>
                 </View>
                 <View style={{marginTop:12}}>
-                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Salary requirement for full-time employment</Text>
+                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Salary requirement for full-time employment</Text>
                 <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
-                    <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:'Lato-Regular', paddingLeft:8}}>$</Text>
+                    <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:FontName.Regular, paddingLeft:8}}>$</Text>
                     <TextInput  
                         style={styles.inputText}
                         placeholder="+ Add" 
@@ -285,9 +285,9 @@ const DesiredJobScreen = ({route,navigation}) => {
                 </View>
                 </View> 
                 <View style={{marginTop:12}}>
-                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Salary requirement for contract employment</Text>
+                <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Salary requirement for contract employment</Text>
                 <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
-                    <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:'Lato-Regular', paddingLeft:8}}>$</Text>
+                    <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:FontName.Regular, paddingLeft:8}}>$</Text>
                     <TextInput  
                         style={styles.inputText}
                         placeholder="+ Add" 
@@ -301,10 +301,10 @@ const DesiredJobScreen = ({route,navigation}) => {
             </KeyboardAwareScrollView>
             <View style={{flexDirection:'row',borderRadius:5, marginLeft:16, marginRight:16,marginTop:8, marginBottom:16}}>
                 <TouchableOpacity style={[styles.btnFill,{backgroundColor:'white',borderBottomLeftRadius:5,borderTopLeftRadius:5}]} onPress={() => skipOnboarding()}>
-                    <Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:ThemeColor.BtnColor }}>SKIP</Text>
+                    <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.BtnColor }}>SKIP</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.btnFill,{borderBottomRightRadius:5,borderTopRightRadius:5}]} onPress={() => {updateProfileDetails()}}>
-                    <Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>SAVE</Text>
+                    <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>SAVE</Text>
                 </TouchableOpacity>
             </View>
         <Loader isLoading={isLoading} />
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     height:40,
     color:'black',
     fontSize:16,
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color:'black',
     fontSize:16,
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },btnFill:{

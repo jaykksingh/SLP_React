@@ -299,7 +299,7 @@ const ProjectEndingScreen = ({route,navigation}) => {
 				<TouchableOpacity onPress={() => {projectRef.current?.setModalVisible()}}>
 					<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 				</TouchableOpacity>
-				<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-bold'}}>Select project</Text>
+				<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select project</Text>
 				<TouchableOpacity onPress={() => {
 					data.projectName.length == 0 ? setData({...data,projectId:projectArray[0].projectDetails.projectDetailId,projectName:projectArray[0].projectDetails.projectName}) : '';
 					projectRef.current?.setModalVisible()}
@@ -350,7 +350,7 @@ const ProjectEndingScreen = ({route,navigation}) => {
               <TouchableOpacity onPress={() => {reasonRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select reason</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select reason</Text>
               <TouchableOpacity onPress={() => {
                 {data.reasonId.length == 0 && setData({...data,reason:reasonList[0].keyName,reasonId:reasonList[0].keyId})}
                 reasonRef.current?.setModalVisible()

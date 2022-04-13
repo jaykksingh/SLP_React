@@ -33,7 +33,12 @@ const InvitesScreen = ({route,navigation})  => {
 	useEffect(() => {
 		getContactReferralsList('');
 	},[]);
-
+	const handleTextChange = (val) => {
+		setSearchKey(val);
+		if(val.length == 0){
+			getContactReferralsList('')
+		}
+	}
 	const getContactReferralsList = async(searchKey) => {
 		let user = await AsyncStorage.getItem('loginDetails');  
 		let parsed = JSON.parse(user);  
@@ -96,9 +101,10 @@ const InvitesScreen = ({route,navigation})  => {
 				ref={mySearchBar}
 				placeholder="Search"
 				value= {searchKey}
-				onChangeText={(val) => setSearchKey(val)}
+				onChangeText={(val) => handleTextChange(val)}
 				onSearchButtonPress={(val) => {getContactReferralsList(val)}}
 				onCancelButtonPress={(val) => {getContactReferralsList('')}}
+				onCancel={()=>getContactReferralsList('')}
 			/>
 			{invitationArray.length > 0 ?
 			<FlatList style={{}}

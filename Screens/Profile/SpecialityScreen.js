@@ -263,7 +263,7 @@ const SpecialityScreen = ({route,navigation}) => {
                 renderItem={({item}) => 
                     <View>
                         <TouchableOpacity style={{marginLeft:16, height:40,justifyContent:'space-between',alignItems:'center', flexDirection:'row', marginRight:16}} onPress={() => {handleHeaderSelect(item)}}>
-                            <Text style={{fontFamily: 'Lato-Bold', fontSize:16, color:ThemeColor.TextColor,}}>{item.keyName}</Text>
+                            <Text style={{fontFamily: FontName.Bold, fontSize:16, color:ThemeColor.TextColor,}}>{item.keyName}</Text>
                             {searchHeaderKey(item.keyId) ? <Feather name="check" color={ThemeColor.BtnColor} size={22,22} /> : null }
                         </TouchableOpacity>
                         <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:16}} />

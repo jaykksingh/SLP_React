@@ -28,7 +28,7 @@ import MovableView from 'react-native-movable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from '../../Components/context';
 import {getAuthHeader} from '../../_helpers/auth-header';
-import { BaseUrl, EndPoints, StaticMessage, ThemeColor } from '../../_helpers/constants';
+import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import Loader from '../../Components/Loader';
 import {parseErrorMessage} from '../../_helpers/Utils';
 
@@ -302,7 +302,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
       <View style={{paddingLeft:16, paddingRight:16, marginTop:16,marginBottom:32 }}>
         <View style={{flexDirection:'row', flex:1,marginTop:12}}>
           <View style={{flex: 1,}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>First name</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>First name</Text>
             <View style={{backgroundColor:'white', height:40, borderTopLeftRadius:5,borderBottomLeftRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
               <TextInput  
                 style={styles.inputText}
@@ -315,7 +315,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
             </View>
           </View>
           <View style={{flex:1}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Last name</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Last name</Text>
             <View style={{backgroundColor:'white', height:40, borderTopRightRadius:5,borderBottomRightRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
               <TextInput  
                 style={styles.inputText}
@@ -329,7 +329,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
         </View>
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Email address</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Email address</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -344,18 +344,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         </View>
         {Platform.OS == 'ios' ?
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Current area of expertise</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Current area of expertise</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {expertiesRef.current?.setModalVisible()}}>
               <Text style={[styles.labelText,{color:data.industryVertical.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.industryVertical.length >0 ? data.industryVertical : 'Current area of expertise'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View> :
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Current area of expertise</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Current area of expertise</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {expertiesRef.current?.setModalVisible()}}>
               <Picker
-                style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: 'Lato-Regular'}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.industryVerticalId}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -373,18 +373,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         }
 	     
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Phone number</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Phone number</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TouchableOpacity style={{flexDirection: 'row',marginRight:8, paddingLeft:8, alignContent:'center'}} onPress={() => setShow(true)}>
                 {/* <Flag code="DE" size={32}/> */}
-                <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Regular', marginRight:8, marginLeft:8}}>+{data.contactNumberDialCode}</Text>
+                <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Regular, marginRight:8, marginLeft:8}}>+{data.contactNumberDialCode}</Text>
                 <Icons name="caret-down" color={ThemeColor.LabelTextColor} size={20} />
             </TouchableOpacity>
             
             <TextInput  
               style={styles.inputText}
               placeholder="Phone number" 
-              maxLength={12}
+              maxLength={14}
               placeholderTextColor= {ThemeColor.PlaceHolderColor}
               keyboardType='phone-pad'
               textContentType='telephoneNumber' 
@@ -395,7 +395,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
         </View>
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Current job title</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Current job title</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -409,18 +409,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         </View> 
 	      {Platform.OS == 'ios' ? 
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Years of experience</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Years of experience</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {experienceRef.current?.setModalVisible()}}>
               <Text style={[styles.labelText,{color:data.totalExp.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.totalExp.length >0 ? data.totalExp : 'Years of experience'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View> :
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Years of experience</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Years of experience</Text>
           <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {experienceRef.current?.setModalVisible()}}>
             <Picker
                 style={{backgroundColor: 'white',flex:1,}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.totalExpId}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -439,18 +439,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
 	      {
           Platform.OS == 'ios' ?
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Availability to start new job</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Availability to start new job</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {availabilityRef.current?.setModalVisible()}}>
               <Text style={[styles.labelText,{color:data.availability.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.availability.length >0 ? data.availability : 'Availability to start new job'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View> :
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Availability to start new job</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Availability to start new job</Text>
             <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {availabilityRef.current?.setModalVisible()}}>
               <Picker
                 style={{backgroundColor: 'white',flex:1,}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={data.availabilityId}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -469,18 +469,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         {
           Platform.OS == 'ios' ?
             <View style={{marginTop:12}}>
-              <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Work authorization</Text>
+              <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Work authorization</Text>
               <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
                 <Text style={[styles.labelText,{color:data.authorisationStatus.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.authorisationStatus.length >0 ? data.authorisationStatus : 'Work authorization'}</Text>
                 <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
               </TouchableOpacity>
             </View> :
             <View style={{marginTop:12}}>
-              <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Work authorization</Text>
+              <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Work authorization</Text>
               <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
                 <Picker
                   style={{backgroundColor: 'white',flex:1,}}
-                  itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                  itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                   selectedValue={data.authorisationStatusId}
                   onValueChange={(itemValue, index) =>{
                     console.log(itemValue,index)
@@ -498,9 +498,9 @@ const ProfileDetailScreen = ({route,navigation}) => {
         }
         
 	      <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Job search status</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Job search status</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8, justifyContent:'space-between'}}>
-            <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Interested in new opportunities</Text>
+            <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Interested in new opportunities</Text>
             <Switch
               trackColor={{ false: ThemeColor.SwitchInactiveColor, true:ThemeColor.BtnColor }}
               ios_backgroundColor = {ThemeColor.SwitchInactiveColor}
@@ -511,7 +511,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
         </View>
 	      <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Street address</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Street address</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -526,18 +526,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         {
           Platform.OS == 'ios' ?
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Country</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Country</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {countryRef.current?.setModalVisible()}}>
               <Text style={[styles.labelText,{color:data.country.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.country.length >0 ? data.country : 'Select country'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View> :
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Country</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Country</Text>
             <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  >
               <Picker
                 style={{backgroundColor: 'white',flex:1,}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={parseInt(data.countryId)}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -558,18 +558,18 @@ const ProfileDetailScreen = ({route,navigation}) => {
         {
           Platform.OS == 'ios' ?
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>State</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>State</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleStatePicker()}}>
               <Text style={[styles.labelText,{color:data.state.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.state.length >0 ? data.state : 'Select state'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
             </TouchableOpacity>
           </View> :
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>State</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>State</Text>
             <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
               <Picker
                 style={{backgroundColor: 'white',flex:1,}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={parseInt(data.stateId)}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -590,7 +590,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
 	      {
           Platform.OS == 'ios' ?
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>City</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>City</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleCityPicker()}}>
               <Text style={[styles.labelText,{color:data.city.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.city.length >0 ? data.city : 'Select city'}</Text>
               <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
@@ -598,11 +598,11 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
           :
           <View style={{marginTop:12}}>
-            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>City</Text>
+            <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>City</Text>
             <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleCityPicker()}}>
               <Picker
                 style={{backgroundColor: 'white',flex:1,}}
-                itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                 selectedValue={parseInt(data.cityId)}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
@@ -621,7 +621,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
         }
         
         <View style={{marginTop:8}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Zip </Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Zip </Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -634,7 +634,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
         </View> 
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Linkedin</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Linkedin</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -647,7 +647,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
        	</View>
 	<View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Twitter</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Twitter</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
@@ -660,7 +660,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
        	</View>
 	<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8, marginTop:16, justifyContent:'space-between'}}>
-          <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:'Lato-Regular', paddingLeft:8}}>Ok to text/sms</Text>
+          <Text style ={{color:ThemeColor.TextColor, fontSize:16,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Ok to text/sms</Text>
           <Switch
             trackColor={{ false: ThemeColor.SwitchInactiveColor, true:ThemeColor.BtnColor }}
             ios_backgroundColor = {ThemeColor.SwitchInactiveColor}
@@ -673,7 +673,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
 	</KeyboardAwareScrollView>
       <View style={{flexDirection:'row',borderRadius:5,  marginLeft:16, marginRight:16,marginTop:8, marginBottom:8}}>
         <TouchableOpacity style={styles.btnFill} onPress={() => {updateProfileDetails()}}>
-          <Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>UPDATE</Text>
+          <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>UPDATE</Text>
         </TouchableOpacity>
       </View>
       {show && 
@@ -686,14 +686,14 @@ const ProfileDetailScreen = ({route,navigation}) => {
                 renderItem={({item}) => 
                   <TouchableOpacity onPress={(event)=> {didSelectDialCode(item)}}>
                     <View style={{flex: 1,flexDirection:'row', height:40, margin_bottom:4,alignItems: 'center'}}>
-                      <Text style={{flex: 1, fontFamily: 'Lato-Regular', fontSize:14, marginLeft:16}}>{item.keyName} [{item.dialCode}]</Text>
+                      <Text style={{flex: 1, fontFamily: FontName.Regular, fontSize:14, marginLeft:16}}>{item.keyName} [{item.dialCode}]</Text>
                     </View>
                     <View style={{flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:16}}/> 
                   </TouchableOpacity>
                 }
             />} 
             <TouchableOpacity style={{height:40,justifyContent:"center",backgroundColor: ThemeColor.BtnColor ,alignItems:'center',width:'90%',borderRadius:5}} onPress={() => setShow(false)}>
-              <Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>DONE</Text>
+              <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>DONE</Text>
             </TouchableOpacity>
         </Animatable.View>
       }
@@ -702,16 +702,16 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Authorization status</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Authorization status</Text>
               <TouchableOpacity onPress={() => {workAuthorizationRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={data.authorisationStatusId}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -729,16 +729,16 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {availabilityRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Availability status</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Availability status</Text>
               <TouchableOpacity onPress={() => {availabilityRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={data.availabilityId}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -756,16 +756,16 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {experienceRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Total experience</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Total experience</Text>
               <TouchableOpacity onPress={() => {experienceRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={data.totalExpId}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -783,16 +783,16 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {expertiesRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Current area of expertise</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Current area of expertise</Text>
               <TouchableOpacity onPress={() => {expertiesRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
-              style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: 'Lato-Regular'}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={data.industryVerticalId}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -810,16 +810,16 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {countryRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select country</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select country</Text>
               <TouchableOpacity onPress={() => {countryRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={parseInt(data.countryId)}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -838,20 +838,20 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {stateRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select state</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select state</Text>
               <TouchableOpacity onPress={() => {
                   {data.state.length == 0 && setData({...data,state:stateArray[0].stateName,stateId:stateArray[0].stateId,city:'',cityId:''})}
                   {data.state.length == 0 && getRegionList('CITY',stateArray[0].stateId)}
                   stateRef.current?.setModalVisible()
                 }}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={parseInt(data.stateId)}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -871,19 +871,19 @@ const ProfileDetailScreen = ({route,navigation}) => {
           <View style={{height:300}}>
             <View style={{height:60, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
               <TouchableOpacity onPress={() => {cityRef.current?.setModalVisible()}}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Cancel</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select city</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select city</Text>
               <TouchableOpacity onPress={() => {
                   {data.city.length == 0 && setData({...data,city:cityArray[0].cityName,cityId:cityArray[0].cityId})}
                   cityRef.current?.setModalVisible()
                 }}>
-                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: 'Lato-Regular'}}>Done</Text>
+                <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
               </TouchableOpacity>
             </View>
             <Picker
               style={{backgroundColor: 'white',flex:1,}}
-              itemStyle={{fontSize:16, fontFamily:'Lato-Regular'}}
+              itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
               selectedValue={parseInt(data.cityId)}
               onValueChange={(itemValue, index) =>{
                 console.log(itemValue,index)
@@ -930,7 +930,7 @@ const styles = StyleSheet.create({
     height:40,
     color:'black',
     fontSize:16,
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },
@@ -938,7 +938,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color:'black',
     fontSize:16,
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     marginLeft:8,
     alignContent:'stretch',
   },btnFill:{

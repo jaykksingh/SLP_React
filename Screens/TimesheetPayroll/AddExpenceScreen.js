@@ -1,7 +1,6 @@
 import React,{useEffect,useRef,createRef} from "react";
 import { 
-	StatusBar, 
-    Text, 
+	Text, 
     TouchableOpacity,
     StyleSheet, 
     View,
@@ -11,7 +10,6 @@ import {
 	SafeAreaView,
 	Platform,
 } from "react-native";
-import { WebView } from 'react-native-webview';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -30,6 +28,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import {getAuthHeader} from '../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import Loader from '../../Components/Loader';
+import { parseErrorMessage } from '../../_helpers/Utils'
 
 const projectRef = createRef();
 const startDateRef = createRef();
@@ -143,16 +142,16 @@ const AddExpenceScreen = ({route,navigation}) => {
 			if (response.data.code == 200){
 				navigation.goBack();
 			}else if (response.data.code == 417){
-				console.log(Object.values(response.data.content.messageList));
-				const errorList = Object.values(response.data.content.messageList);
-				Alert.alert(StaticMessage.AppName, errorList.join(), [
+				const message = parseErrorMessage(response.data.content.messageList);
+				Alert.alert(StaticMessage.AppName, message, [
 					{text: 'Ok'}
 				]);
 			}
 		})
 		.catch((error) => {
 		  setIsLoading(false);
-		  Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+		  console.log(error);
+		  Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg , [
 			{text: 'Ok'}
 		  ]);
 	
@@ -387,7 +386,7 @@ const AddExpenceScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {projectRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select project</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold, fontWeight:'bold'}}>Select project</Text>
 					<TouchableOpacity onPress={() => {
 						data.projectName.length == 0 ? setData({...data,projectId:projectArray[0].projectDetails.projectDetailId,projectName:projectArray[0].projectDetails.projectName}) : '';
 						projectRef.current?.setModalVisible()}
@@ -464,7 +463,7 @@ const AddExpenceScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {billableRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Billable to client</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Billable to client</Text>
 					<TouchableOpacity onPress={() => {billableRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>

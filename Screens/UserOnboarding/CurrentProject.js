@@ -400,7 +400,7 @@ const CurrentProject = ({route,navigation}) => {
         <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
           <TextInput  
             style={styles.inputText}
-            maxLength={12}
+            maxLength={14}
             placeholder="Manager phone" 
             placeholderTextColor={ThemeColor.PlaceHolderColor}
             keyboardType='phone-pad'

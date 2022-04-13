@@ -106,9 +106,6 @@ const PayrollInformationScreen = ({route,navigation}) => {
 
 	return(
 		<SafeAreaView style={{flex:1,backgroundColor:ThemeColor.ViewBgColor}}>
-			{/* <View style={{flex: 1, padding:16, color:ThemeColor.SubTextColor}}>
-          		<HTML  source={{ html: payrollDetail.pageContentsEmployee }} contentWidth={useWindowDimensions().width} />
-      		</View> */}
 			<View style={{flex:1, backgroundColor:ThemeColor.ViewBgColor}}>
 				<WebView
 					source={{ uri: urlToLoad }}

@@ -126,14 +126,14 @@ const PendingTimesheetScreen = ({route,navigation})  => {
     return true;
   }
   const handleEditTimesheet = (item, section) => {
-    // console.log('Edit Handler: ',section);
-    // let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
-    // if(projectTemplateID == 24063){
-    //   navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
-    // }else{
-    //   navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
-    // }
-    navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
+    console.log('Edit Handler: ',section);
+    let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
+    if(projectTemplateID == 24063){
+      navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
+    }else{
+      navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
+    }
+    // navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
   }
   return(
 		<SafeAreaView style={styles.container}>

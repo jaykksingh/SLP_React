@@ -20,7 +20,7 @@ import axios from 'axios'
 import Loader from '../components/Loader';
 import { API } from '../_networkCall/api';
 import { authHeader, authHeaderMultipart } from '../_helpers/auth-header';
-import { BaseUrl, EndPoints, StaticMessage } from '../_helpers/constants';
+import { BaseUrl, EndPoints, StaticMessage, FontName } from '../_helpers/constants';
 import { AuthContext } from '../components/context';
 import {parseErrorMessage} from '../_helpers/Utils';
 
@@ -89,7 +89,7 @@ const ForgotPasswordScreen = ({navigation}) => {
         
       <View style={{flex:1, flexDirection:'column'}}>
             <View style={{height:88, backgroundColor:'#2C84CC',flexDirection:'column-reverse'}}>
-                <Text style={{color:'#fff',height:44, textAlign:'center', fontFamily: 'Lato-Regular', fontSize:18}}>Forgot password</Text>
+                <Text style={{color:'#fff',height:44, textAlign:'center', fontFamily: FontName.Regular, fontSize:18}}>Forgot password</Text>
             </View>
         <ScrollView>
             <SafeAreaView style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
@@ -111,7 +111,7 @@ const ForgotPasswordScreen = ({navigation}) => {
               </View>
               
               <TouchableOpacity style={styles.submitBtn} onPress={() => {loginHandle( data.username, data.password )}}>
-                <Text style={{color:'#53962E',fontFamily: 'Lato-Regular', fontSize:16, color:'#fff' }}>SUBMIT</Text>
+                <Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>SUBMIT</Text>
               </TouchableOpacity>
               {/* {this.state.isLoading && <ActivityIndicator color={"#fff"} />} */}
               <Loader isLoading={data.isLoading} />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize:18,
     color:"#fff",
     marginBottom:24,
-    fontFamily:'Lato-Regular',
+    fontFamily:FontName.Regular,
     textAlign: 'center'
 
   },
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize:16,
     color:"black",
     marginBottom:2,
-    fontFamily:'Lato-Regular',
+    fontFamily:FontName.Regular,
     marginBottom:24,
     textAlign: 'center'
 
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     height:35,
     color:"white",
     fontSize:14,
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     marginLeft:8,
     marginRight:24,
     alignContent:'stretch'
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     margin:16,
     justifyContent:"center",
     alignItems:'center',
-    fontFamily: 'Lato-Regular',
+    fontFamily: FontName.Regular,
     fontSize:16,
     color:'white',
   },

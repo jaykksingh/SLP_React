@@ -33,6 +33,11 @@ const MyApplicationScreen = ({route,navigation}) => {
   let [showProgressCell, setShowProgressCell] = React.useState('');
 	const { signOut } = React.useContext(AuthContext);
 
+  React.useLayoutEffect(() => {    
+		navigation.setOptions({
+      title: 'Applications',
+		});
+  }, [navigation]);
   useEffect(() => {
     navigation.addListener('focus', () => {
       getMyApplication('active');
@@ -57,12 +62,17 @@ const MyApplicationScreen = ({route,navigation}) => {
     }
   }
 
-  const getMyApplication = (applicatonType) => {
+  const getMyApplication = async(applicatonType) => {
+    let user = await AsyncStorage.getItem('loginDetails');  
+    let parsed = JSON.parse(user);  
+    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+    var authToken = base64.encode(userAuthToken);
+
     setLoading(true);
     axios ({
       "method": "POST",
       "url": BaseUrl + EndPoints.JobApplications,
-      "headers": getAuthHeader(global.AccessToken),
+      "headers": getAuthHeader(authToken),
       data:{"applicationStatus":applicatonType}
     })
     .then((response) => {

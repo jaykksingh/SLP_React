@@ -504,7 +504,7 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {projectRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select project</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select project</Text>
 					<TouchableOpacity onPress={() => {
 						data.projectName.length == 0 ? setData({...data,projectId:projectArray[0].projectDetails.projectDetailId,projectName:projectArray[0].projectDetails.projectName}) : '';
 						projectRef.current?.setModalVisible()}
@@ -580,7 +580,7 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {vacationTypeRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select vacation type</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select vacation type</Text>
 					<TouchableOpacity onPress={() => {
 						data.vacationType.length == 0 ? setData({...data,vacationTypeID:lookupData.vacationType[0].keyId,vacationType:lookupData.vacationType[0].keyName}) : '';
 						vacationTypeRef.current?.setModalVisible()}
@@ -611,7 +611,7 @@ const AddTimeoffRequestScreen = ({route,navigation}) => {
 					<TouchableOpacity onPress={() => {vacationLocationRef.current?.setModalVisible()}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select vacation location</Text>
+					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select vacation location</Text>
 					<TouchableOpacity onPress={() => {
 						data.vacationLocation.length == 0 ? setData({...data,vacationLocationID:lookupData.vacationLocation[0].keyId,vacationLocation:lookupData.vacationLocation[0].keyName}) : '';
 						vacationLocationRef.current?.setModalVisible()}

@@ -166,7 +166,7 @@ const RequestTimeoffScreen = ({route,navigation}) => {
 						</View>
 						<View style={{flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginTop:8}}/>
 						<View style={{height:40, paddingLeft:16, paddingRight:16,justifyContent:'center'}}>
-							<Text style={{fontFamily: FontName.Regular, fontSize:16, color: item.status === 'Approved' ? ThemeColor.GreenColor : ThemeColor.OrangeColor, textAlign:'center'}}>{item.status}</Text>
+							<Text style={{fontFamily: FontName.Regular, fontSize:16, color: item.status === 'Approved' ? ThemeColor.GreenColor : item.status === 'Rejected' ? ThemeColor.RedColor : ThemeColor.OrangeColor, textAlign:'center'}}>{item.status}</Text>
 						</View>
 					</View>
                 	<View style={{height:12, backgroundColor:ThemeColor.BorderColor}} />

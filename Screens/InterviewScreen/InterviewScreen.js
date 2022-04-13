@@ -17,6 +17,7 @@ import '../../_helpers/global';
 import { BaseUrl, EndPoints, MessageGroupId, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
 import Loader from '../../Components/Loader';
+import moment from 'moment';
 
 
 const InterviewScreen = ({route,navigation}) => {
@@ -73,6 +74,7 @@ const InterviewScreen = ({route,navigation}) => {
 		.then((response) => {
 		setLoading(false);
 		if (response.data.code == 200){
+			console.log('Interviews: ', JSON.stringify(response.data.content.dataList));
 			if(applicatonType == 'upcomming'){
 				setInterviewArray(response.data.content.dataList);
 			}else{
@@ -97,48 +99,7 @@ const InterviewScreen = ({route,navigation}) => {
 		})
 	}
 
-	const getJobDetails = async (details) => {
-		if(details.SelfApplied == 'n'){
-		return;
-		}
-		setLoading(true);
-
-		let user = await AsyncStorage.getItem('loginDetails');  
-		let parsed = JSON.parse(user);  
-		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-		var encoded = base64.encode(userAuthToken);
-
-		console.log('URL:',BaseUrl + "jobs/" + details.jobId);
-
-		axios ({
-		"method": "GET",
-		"url": BaseUrl + "jobs/" + details.jobId,
-		"headers": getAuthHeader(encoded),
-		})
-		.then((response) => {
-			setLoading(false);
-		if (response.data.code == 200){
-			console.log('Responce :',response.data.content.dataList[0])
-			navigation.navigate("Job Details", {jobDetail: response.data.content.dataList[0]});
-		}else if (response.data.code == 417){
-			setLoading(false);
-			const errorList = Object.values(response.data.content.messageList);
-			Alert.alert(StaticMessage.AppName, errorList.join(), [
-			{text: 'Ok'}
-			]);
-
-		}else{
-
-		}
-		})
-		.catch((error) => {
-			setLoading(false);
-			Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-				{text: 'Ok'}
-			]);
-		})
-	}
-  
+	
 	
 	const getProfileDetails = async() => {
 		let user = await AsyncStorage.getItem('loginDetails');  
@@ -183,7 +144,13 @@ const InterviewScreen = ({route,navigation}) => {
 			}
 			console.log('Error:',error);      
 		})
-	  }
+	}
+
+	const getJobAppliedOnDate = (item) => {
+		let momentStartDate = moment(item.appliedOn, 'YYYY-MM-DDTHH:mm:ssZZ');
+		let startDateString = moment(momentStartDate).format('MMM DD, YYYY');
+		return `${startDateString}`;
+	}
 
   	return (
 		<SafeAreaView style={[styles.container,{backgroundColor:ThemeColor.ViewBgColor,}]}>
@@ -208,26 +175,26 @@ const InterviewScreen = ({route,navigation}) => {
 					<View style={{paddingLeft:16, paddingRight:16}}>
 						<View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
 							<Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular}}>Applied: </Text>
-							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>Aug 10. 2017</Text>
+							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>{getJobAppliedOnDate(item)}</Text>
 						</View>
 						<Text style={{color:ThemeColor.NavColor, fontSize:16, fontFamily: FontName.Regular}}>{item.jobTitle}</Text>
 						{item.employerName.length > 0 && <Text style={{color:ThemeColor.TextColor, fontSize:14, fontFamily: FontName.Regular, marginTop:2}}>{item.employerName}</Text>}
 						<View style={{flexDirection:'row', marginTop:2}}>
 							<Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular}}>Interview date & time: </Text>
-							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: 'Lato-Bold'}}>Jun 18. 2017, 06:50 AM</Text>
+							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Bold, fontWeight:'bold'}}>{item.eventTime}</Text>
 						</View>
 						<View style={{flexDirection:'row', marginTop:2}}>
 							<Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular}}>Interview type: </Text>
-							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>In person</Text>
+							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>{item.interviewType}</Text>
 						</View>
 						<View style={{flexDirection:'row', marginTop:2}}>
 							<Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular}}>Location </Text>
-							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>11 broadway, suite 632, New York</Text>
+							<Text style={{color:ThemeColor.TextColor, fontSize:12, fontFamily: FontName.Regular}}>{`${item.eventLocation}, ${item.city}, ${item.state}`}</Text>
 						</View>
 					</View>
 					<View style={{backgroundColor:ThemeColor.BorderColor,height:1,marginTop:8}}/>
 					<View style = {{height:40, alignItems: 'center', justifyContent: 'center'}}>
-					<Text style={{color:ThemeColor.GreenColor, fontSize:14, fontFamily: FontName.Regular, textAlign: 'center'}}>Interview scheduled</Text>
+					<Text style={{color:ThemeColor.GreenColor, fontSize:14, fontFamily: FontName.Regular, textAlign: 'center'}}>{item.applicationStatus}</Text>
 					</View>
 				</View>
 				}

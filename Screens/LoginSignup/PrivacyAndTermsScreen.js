@@ -3,7 +3,7 @@ import { Text,
     TouchableOpacity,
     View} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemeColor} from '../../_helpers/constants';
+import { ThemeColor, FontName} from '../../_helpers/constants';
 import { WebView } from 'react-native-webview';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -31,7 +31,7 @@ const PrivacyAndTermsScreen = ({route,navigation}) => {
 					<TouchableOpacity style={{marginLeft:16}} onPress={() => {navigation.goBack()}}>
 						<Feather name="chevron-left" color={ThemeColor.BorderColor} size={30,30} />
 					</TouchableOpacity>					
-					<Text style={{color:'#fff', fontSize:18,fontFamily: 'Lato-Regular'}}>{urlType == 'Privacy' ? 'Privacy policy':'Terms of use'}</Text>
+					<Text style={{color:'#fff', fontSize:18,fontFamily: FontName.Regular}}>{urlType == 'Privacy' ? 'Privacy policy':'Terms of use'}</Text>
 					<View onPress={() => {navigation.goBack()}}>
 						<Feather name="chevron-left" color={ThemeColor.NavColor} size={30,30} />
 					</View>

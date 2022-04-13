@@ -5,7 +5,7 @@
     "name": "StafflinePro",
     "slug": "StafflinePro",
     "version": "2.5.30",
-    "build": "1",
+    "build": "2",
     "assetBundlePatterns": [
       "**/*"
     ],

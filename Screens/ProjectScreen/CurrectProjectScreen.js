@@ -401,7 +401,7 @@ const CurrectProjectScreen = ({route,navigation}) => {
         <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
           <TextInput  
             style={styles.inputText}
-            maxLength={12}
+            maxLength={14}
             placeholder="Manager phone" 
             placeholderTextColor={ThemeColor.PlaceHolderColor}
             keyboardType='phone-pad'
@@ -469,7 +469,7 @@ const CurrectProjectScreen = ({route,navigation}) => {
               <TouchableOpacity onPress={() => {technologyRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select technology </Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select technology </Text>
               <TouchableOpacity onPress={() => {
                 {projectDetail.technologyId.length == 0 &&  setProjectDetail({...projectDetail,technology:technologyArray[0].technologyName ,technologyId:technologyArray[0].technologyId})}
                 technologyRef.current?.setModalVisible()
@@ -499,7 +499,7 @@ const CurrectProjectScreen = ({route,navigation}) => {
               <TouchableOpacity onPress={() => {roleRef.current?.setModalVisible()}}>
                 <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
               </TouchableOpacity>
-              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: 'Lato-Bold'}}>Select role</Text>
+              <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Select role</Text>
               <TouchableOpacity onPress={() => {
                 {projectDetail.roleId.length == 0 && setProjectDetail({...projectDetail,role:roleArray[0].skillRoleName,roleId:roleArray[0].skillRoleId})}
                 roleRef.current?.setModalVisible()}

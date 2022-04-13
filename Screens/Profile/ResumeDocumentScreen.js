@@ -280,7 +280,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
                     <TouchableOpacity onPress={() => {docTitleRef.current?.setModalVisible()}}>
                         <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
                     </TouchableOpacity>
-                    <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: 'Lato-Bold'}}>Authorization status</Text>
+                    <Text style={{color:ThemeColor.ActionSheetTitleColor, fontSize:18, fontFamily: FontName.Bold}}>Authorization status</Text>
                     <TouchableOpacity onPress={() => {
                             {data.docName.length == 0 && setData({...data,docName:uploadDocTypeList[0].key,docTitle:uploadDocTypeList[0].value})}
                             docTitleRef.current?.setModalVisible()}

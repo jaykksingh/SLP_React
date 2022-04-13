@@ -641,7 +641,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
             <TextInput  
               style={styles.inputText}
               placeholder="+ Add " 
-              maxLength={12}
+              maxLength={14}
               placeholderTextColor= {ThemeColor.PlaceHolderColor}
               keyboardType='phone-pad'
               textContentType='telephoneNumber' 
