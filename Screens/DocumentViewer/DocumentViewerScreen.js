@@ -14,7 +14,7 @@ const DocumentViewerScreen = ({route,navigation}) => {
     const {fileName} = route.params;
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
-			  title: fileName.count > 0 ? fileName : "Document" ,
+			  title: fileName ,
 		});
 	}, [navigation]);
 	const showShareOptions = () =>{

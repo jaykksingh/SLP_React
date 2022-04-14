@@ -137,9 +137,9 @@ const ChooseLcaTypeScreen = ({route,navigation}) => {
 					</View> :
 					<View style={{marginTop:12}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:16,height:22, fontFamily:FontName.Regular, paddingLeft:8, marginBottom:4}}>Application type</Text>
-						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
+						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}>
 							<Picker
-								style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
+								style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
 								selectedValue={data.applTypeId}
 								onValueChange={(itemValue, index) =>{
@@ -151,7 +151,6 @@ const ChooseLcaTypeScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item.appTypeName} value={item.appTypeCode} key={index}/>) 
 								})}
 							</Picker>							
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 						</View>
 					</View>
 				}

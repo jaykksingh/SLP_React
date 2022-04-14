@@ -103,6 +103,7 @@ import RegularizationDetailScreen from './Attendance/RegularizationDetailScreen'
 import LeaveApprovalPending from './Leave/LeaveApprovalPending';
 import AttendancePendingScreen from './Attendance/AttendancePendingScreen';
 
+import EditLCADetailsScreen from './Immigration/EditLCADetailsScreen';
 
 import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClockInOutTimesheetScreen';
 import ViewClockInOutScreen from './TimesheetPayroll/Timesheets/ViewClockInOutScreen';
@@ -223,6 +224,7 @@ const SecondTabScreen = () => {
             <Stack.Screen name="ViewClockInOut" component={ViewClockInOutScreen}/>
             <Stack.Screen name="ProjectEndDate" component={ProjectEndingScreen}/>
             <Stack.Screen name="StaffContact" component={StaffContactScreen}/>
+            <Stack.Screen name="EditLCADetails" component={EditLCADetailsScreen}/>
 
         </Stack.Navigator>
       );

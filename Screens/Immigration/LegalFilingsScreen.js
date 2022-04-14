@@ -28,7 +28,7 @@ const LegalFilingsScreen = ({route,navigation})  => {
 		navigation.setOptions({
 			headerRight: () => (
 				<TouchableOpacity style={{marginRight:16, flexDirection:'row', justifyContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate('ChooseLcaType')}>
-				  <Icon name="add-outline" color={'white'} size={20,20} />
+				  <Icon name="add-outline" color={'white'} size={20} />
 				  <Text style={{fontSize:16, color:'white',fontFamily: FontName.Regular}}>New</Text>
 				</TouchableOpacity> 
 			  ),
@@ -90,6 +90,48 @@ const LegalFilingsScreen = ({route,navigation})  => {
 	
 		return `${startDateString}`;
 	}
+	const getApplicationDetails = async (applicationID) => {
+		setIsLoading(true);
+	
+		let user = await AsyncStorage.getItem('loginDetails');  
+		let parsed = JSON.parse(user);  
+		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+		var encoded = base64.encode(userAuthToken);
+	
+		console.log(`URL:${BaseUrl}${EndPoints.ImmigrationDetails}/${applicationID}`);
+	
+		axios ({
+		  "method": "GET",
+		  "url": `${BaseUrl}${EndPoints.ImmigrationDetails}/${applicationID}`,
+		  "headers": getAuthHeader(encoded)
+		})
+		.then((response) => {
+			setIsLoading(false);
+		  if (response.data.code == 200){
+			let result = JSON.stringify(response.data.content.dataList[0]);
+			console.log('App Details:',result);
+			let responce = response.data.content.dataList[0];
+			navigation.navigate('EditLCADetails',{applicationID:applicationID,applicationDetails:responce})
+		  }else if (response.data.code == 417){
+			setIsLoading(false);
+			const errorList = Object.values(response.data.content.messageList);
+			Alert.alert(StaticMessage.AppName, errorList.join(), [
+			  {text: 'Ok'}
+			]);
+	
+		  }else{
+	
+		  }
+		})
+		.catch((error) => {
+			console.log(error);
+			setIsLoading(false);
+			Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+				{text: 'Ok'}
+			]);
+		})
+	  }
+	
 
   	return(
 		<SafeAreaView style={styles.container}>
@@ -110,7 +152,7 @@ const LegalFilingsScreen = ({route,navigation})  => {
 									<Text style={{color:item.eacNumber.length > 0 ? ThemeColor.TextColor : ThemeColor.SubTextColor, fontSize:14,fontFamily: FontName.Regular}}>{item.eacNumber.length > 0 ? item.eacNumber :'Not Available'}</Text>
 								</View>
 							</View>
-							<Feather name="chevron-right" color={ThemeColor.BorderColor} size={22,22} />
+							<Feather name="chevron-right" color={ThemeColor.BorderColor} size={22} />
 						</View>
 						<View style={{ backgroundColor:ThemeColor.BorderColor, height:1, marginTop:8}}/>
 						<View style={{justifyContent: 'center',alignItems: 'center', height:40}}>

@@ -37,7 +37,7 @@ const LegalDocumentScreen = ({route,navigation}) => {
 	}, [navigation]);
 
 	useEffect(() => {
-		
+		getDocumentsList();
 	},[]);
 
   
@@ -90,21 +90,23 @@ const LegalDocumentScreen = ({route,navigation}) => {
 		return `${startDateString}`;
 	}
 	const viewFile = (fileObject) => {
-        let url =  fileObject.fileName;
-        const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-        const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
-        const options = {
-          fromUrl: url,
-          toFile: localFile,
-        };
-        RNFS.downloadFile(options)
-        .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
-        .then(() => {
-          console.log('View Sucess')
-        })
-        .catch((error) => {
-          console.log('View Failed',error)
-        });
+    navigation.navigate('DocumentViewer',{fileURL:fileObject.fileName,fileName:fileObject.documentName});
+    console.log(fileObject);
+        // let url =  fileObject.fileName;
+        // const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+        // const localFile = `${RNFS.DocumentDirectoryPath}/${fileObject.documentName}.${extension}`;
+        // const options = {
+        //   fromUrl: url,
+        //   toFile: localFile,
+        // };
+        // RNFS.downloadFile(options)
+        // .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+        // .then(() => {
+        //   console.log('View Sucess')
+        // })
+        // .catch((error) => {
+        //   console.log('View Failed',error)
+        // });
         
     }
 

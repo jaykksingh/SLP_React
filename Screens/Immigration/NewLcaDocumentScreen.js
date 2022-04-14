@@ -38,21 +38,22 @@ const NewLcaDocumentScreen = ({route,navigation}) => {
 	
 	useEffect(() => {
 		console.log(detail);
+		setIsLoading(false);
+
 		if(detail){
 			getApplicationDetails(detail.legalAppId);
 		}
 		
-		
 	  },[])
 
 	  const getApplicationDetails = async (applicationID) => {
-		setIsLoading(true);
 	
 		let user = await AsyncStorage.getItem('loginDetails');  
 		let parsed = JSON.parse(user);  
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
 		var encoded = base64.encode(userAuthToken);
-	
+		setIsLoading(false);
+
 		console.log(`URL:${BaseUrl}${EndPoints.ImmigrationDetails}/${applicationID}`);
 	
 		axios ({
@@ -64,7 +65,7 @@ const NewLcaDocumentScreen = ({route,navigation}) => {
 			setIsLoading(false);
 		  if (response.data.code == 200){
 			let result = JSON.stringify(response.data.content.dataList[0]);
-			console.log('App Details:',result);
+			console.log('App Documents:',result);
 			setData(response.data.content.dataList[0]);
 		  }else if (response.data.code == 417){
 			setIsLoading(false);
@@ -180,7 +181,7 @@ const NewLcaDocumentScreen = ({route,navigation}) => {
 					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>DONE</Text>
 				</TouchableOpacity>
 			</View> 
-			<Loader isLoading={isLoading} />
+			{/* <Loader isLoading={isLoading} /> */}
 		</SafeAreaView>
 	);
 }

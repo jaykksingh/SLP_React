@@ -190,7 +190,7 @@ const ViewLCADetailsScreen = ({route,navigation}) => {
 						<TextInput  
 						style={styles.inputText}
 						placeholder="Phone number" 
-						maxLength={14}
+						maxLength={12}
 						placeholderTextColor={ThemeColor.PlaceHolderColor}
 						keyboardType='phone-pad'
 						editable = {false}
