@@ -80,7 +80,7 @@ const JobReferralsScreen = ({route,navigation})  => {
 	}
 		
 	const getEmailAndDate=(item) =>{
-		let momentStartDate = moment(item.appliedOn, 'YYYY-MM-DDTHH:mm:ssZZ');
+		let momentStartDate = moment(item.referredDate, 'YYYY-MM-DDTHH:mm:ssZZ');
 		let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
 		return `${item.email} | ${startDateString}`;
 	}

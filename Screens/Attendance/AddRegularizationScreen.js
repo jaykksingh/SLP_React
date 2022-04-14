@@ -202,13 +202,13 @@ const AddRegularizationScreen = ({route,navigation}) => {
 	const handleStartDateChange = (val) => {
 		setStartDate(val);
 		console.log("Start Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:MM A')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
 		setData({...data,startDate:showDate});
 	}
 	const handleEndDateChange = (val) => {
 		setEndDate(val);
 		console.log("End Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:MM A')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
 		setData({...data,endDate:showDate});
 	}
 
@@ -272,14 +272,14 @@ const AddRegularizationScreen = ({route,navigation}) => {
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>From date</Text>
 					<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {startDateRef.current?.setModalVisible()}}>
 						<Text style={[styles.labelText,{color:data.startDate.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.startDate.length >0 ? data.startDate : 'Select date'}</Text>
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 					</TouchableOpacity>
 				</View> 
 				<View style={{marginTop:12}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>To date</Text>
 					<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {endDateRef.current?.setModalVisible()}}>
 						<Text style={[styles.labelText,{color:data.endDate.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.endDate.length >0 ? data.endDate : 'Select date'}</Text>
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 					</TouchableOpacity>
 				</View> 
 

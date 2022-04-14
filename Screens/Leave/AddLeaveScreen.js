@@ -255,11 +255,11 @@ const AddLeaveScreen = ({route,navigation}) => {
 						{Platform.OS == 'ios' ?
 							<TouchableOpacity style={{ height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {leaveTypeRef.current?.setModalVisible()}}>
 								<Text style={[styles.labelText,{color:data.leaveType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.leaveType.length >0 ? data.leaveType : 'Select leave type'}</Text>
-								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 							</TouchableOpacity> :
-							<TouchableOpacity style={{ height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {leaveTypeRef.current?.setModalVisible()}}>
+							<TouchableOpacity style={{ height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {leaveTypeRef.current?.setModalVisible()}}>
 								<Picker	
-									style={{backgroundColor: 'white',flex:1,}}
+									style={{flex:1,}}
 									selectedValue={data.leaveTypeID}
 									onValueChange={(itemValue, index) =>{
 										console.log(itemValue,index)
@@ -271,7 +271,6 @@ const AddLeaveScreen = ({route,navigation}) => {
 										return (<Picker.Item label={item.leaveName} value={item.leaveTypeId} key={index}/>) 
 									})}
 								</Picker>								
-								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 							</TouchableOpacity>
 						}
 						{data.leaveType.length > 0 && <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:8}}/> }

@@ -331,7 +331,7 @@ const RegularizationDetailScreen = ({route,navigation})  => {
 				<Text style={{fontSize:14, fontFamily: FontName.Regular, marginTop:4, color:ThemeColor.SubTextColor}}>{leaveDetails.From_Date} - {leaveDetails.To_Date}</Text>
 				<View style={{backgroundColor:ThemeColor.BorderColor, height:1, marginTop:12}}/>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between',paddingBottom:12, paddingTop:12}}>
-					<Text style={{fontSize:14, fontFamily: FontName.Regular,  color:ThemeColor.SubTextColor}}>Regularization category</Text>
+					<Text style={{fontSize:14, fontFamily: FontName.Regular,  color:ThemeColor.SubTextColor, marginRight:8}}>Regularization category</Text>
 					<Text style={{fontSize:14, fontFamily: FontName.Regular,  color:ThemeColor.TextColor}}>{leaveDetails.Category_Desc}</Text>
 				</View>
 				<View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>
@@ -368,7 +368,7 @@ const RegularizationDetailScreen = ({route,navigation})  => {
 					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>REJECT</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={[styles.btnFill,{flex:1, margin:0,marginLeft:8}]} onPress={() => {bulkUpdateRegularization(37132)}}>
-					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>APPROVED</Text>
+					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>APPROVE</Text>
 				</TouchableOpacity>
 			</View>:
 			leaveDetails.AR_Status === 'Pending' ?

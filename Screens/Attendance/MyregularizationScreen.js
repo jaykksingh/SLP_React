@@ -87,6 +87,7 @@ const MyregularizationScreen = ({route,navigation})  => {
 		.then((response) => {
       		setIsLoading(false);
 		  	if (response.data.header == 200){
+				  console.log("Regularizations: ", JSON.stringify(response.data.content.data));
 				setRegularizationArray(response.data.content.data);
 			}else if (response.data.code == 417){
 				console.log(Object.values(response.data.content.messageList));
@@ -139,10 +140,10 @@ const MyregularizationScreen = ({route,navigation})  => {
 				return "Approved";
 			case 'Reject':
 				return "Rejected";
-			case 'Pullback':
+			case 'PullBack':
 				return "Pullback";
-			case 'Cancelled':
-				return "Cancelled";
+			case 'Cancel':
+				return "Cancel";
 			default:
 				break;
 		}
@@ -187,10 +188,6 @@ const MyregularizationScreen = ({route,navigation})  => {
 									<View style={{backgroundColor:ThemeColor.SubHeaderColor, borderRadius:5}}>
 										<Text style={{padding:4, paddingLeft:8,paddingRight:8,borderRadius:5,fontSize:12, fontFamily: FontName.Regular, color: item.IsCancelRequest ? ThemeColor.RedColor : item.AR_Status === 'Approved' ? ThemeColor.GreenColor : ThemeColor.RedColor}}>{getStatusFromIds(item)}</Text>
 									</View>
-									{item.IsCancelRequest ? 
-									<View style={{}}>
-										<Text style={{padding:4, paddingLeft:8,borderRadius:5,fontSize:12, fontFamily: FontName.Regular, color:ThemeColor.GreenColor }}>Cancelled</Text>
-									</View> : null}
 								</View>
 							</View>
 							<Text style={{marginLeft:16,marginRight:16, fontSize:16, fontFamily: FontName.Regular, marginTop:8, color:ThemeColor.TextColor}}>{`${item.EmployeeName} (${item.CompanyEmployeeId})`}</Text>

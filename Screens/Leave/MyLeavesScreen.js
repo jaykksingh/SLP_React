@@ -156,10 +156,7 @@ const MyLeavesScreen = ({route,navigation})  => {
 									<View style={{backgroundColor:ThemeColor.SubHeaderColor, borderRadius:5}}>
 										<Text style={{padding:4, paddingLeft:8,paddingRight:8,borderRadius:5,fontSize:12, fontFamily: FontName.Regular, color:item.status === 102 ? ThemeColor.GreenColor : ThemeColor.RedColor}}>{getStatusFromIds(item.status)}</Text>
 									</View>
-									{item.IsCancelRequest ? 
-									<View style={{}}>
-										<Text style={{padding:4, paddingLeft:8,borderRadius:5,fontSize:12, fontFamily: FontName.Regular, color:ThemeColor.GreenColor }}>Cancelled</Text>
-									</View> : null}
+									
 								</View>
 							</View>
 							<Text style={{marginLeft:16,marginRight:16, fontSize:16, fontFamily: FontName.Regular, marginTop:4, color:ThemeColor.TextColor}}>{`${item.firstName} ${item.lastName}`}</Text>
@@ -168,7 +165,7 @@ const MyLeavesScreen = ({route,navigation})  => {
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>{item.fromDate} to {item.toDate}</Text>
 							</View>
 						</View>
-						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 					</TouchableOpacity>
 				}
 			/> : 

@@ -192,6 +192,18 @@ const PreScreeningScreen = ({route,navigation}) => {
 		}
 		return '';
 	}
+	const getSelectedValueFromItem = (Item) => {
+		setSelectedItem(Item);
+
+		if(Item.name == 'skillMatches'){
+			return data.skillMatches;
+		}else if(Item.name == 'currentlyLocated'){
+			return data.currentlyLocated;
+		}else if(Item.name == 'workAuthorization'){
+			return data.workAuthorization;
+		}
+		return '';
+	}
 
 	const handleSelectedValue = (selectedValue) => {
 		if(selectedItem.name == 'skillMatches'){
@@ -246,17 +258,27 @@ const PreScreeningScreen = ({route,navigation}) => {
 							<Text style ={{color:ThemeColor.SubTextColor, fontSize:14, fontFamily:FontName.Regular, paddingLeft:16, marginBottom:8}}>{item.question}</Text>
 							<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleSelectionPicker(item)}}>
 								<Text style={[styles.labelText,{color:getItemValue(item).length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{getItemValue(item).length >0 ? getItemValue(item) : 'Select your choice'}</Text>
-								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 							</TouchableOpacity>
 						</View> 
 					</View> :
 					<View>
 						<View style={{marginTop:12}}>
 							<Text style ={{color:ThemeColor.SubTextColor, fontSize:14, fontFamily:FontName.Regular, paddingLeft:16, marginBottom:8}}>{item.question}</Text>
-							<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {handleSelectionPicker(item)}}>
-								<Text style={[styles.labelText,{color:getItemValue(item).length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{getItemValue(item).length >0 ? getItemValue(item) : 'Select your choice'}</Text>
-								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
-							</TouchableOpacity>
+							<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleSelectionPicker(item)}}>
+								<Picker
+									style={{flex:1,}}
+									itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+									selectedValue={getSelectedValueFromItem(item)}
+									onValueChange={(itemValue, index) =>{
+										console.log(itemValue,index)
+										handleSelectedValue(itemValue);
+									}}>
+									{item && item.options.map((item, index) => {
+										return (<Picker.Item label={item} value={item} key={index}/>) 
+									})}
+								</Picker>							
+							</View>
 						</View> 
 					</View> 
 					: 
@@ -276,7 +298,7 @@ const PreScreeningScreen = ({route,navigation}) => {
 								onChangeText={(val) => setData({...data,payRate:val})}
 							/>
 							<TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center', height:30, width:'50%'}} onPress={() =>{setData({...data,openToNegotiate:!data.openToNegotiate})}}>
-                                <Icon name= {data.openToNegotiate == true ? "checkbox-outline":"square-outline"} color={ThemeColor.BtnColor} size={20,20} />
+                                <Icon name= {data.openToNegotiate == true ? "checkbox-outline":"square-outline"} color={ThemeColor.BtnColor} size={20} />
                                 <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, flex:1}}>{item.options[0]}</Text>
                             </TouchableOpacity> 
 						</View>
