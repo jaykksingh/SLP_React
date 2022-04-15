@@ -37,6 +37,7 @@ import { AuthContext } from '../../Components/context';
 
 const startDateRef = createRef();
 const endDateRef = createRef();
+const bosterDateRef = createRef();
 const statusRef = createRef();
 const vaccineRef = createRef();
 
@@ -59,6 +60,9 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
     const [startDateString, setStartDateString] = React.useState('');
     const [endDate, setEndDate] = React.useState(new Date());
     const [endDateString, setEndDateString] = React.useState('');
+    const [bosterDate, setBoosterDate] = React.useState(new Date());
+    const [bosterDateString, setBoosterDateString] = React.useState('');
+
     const [lookupData, setLookupData] = useState({});
 
     const { comeFrom } = route.params;
@@ -131,7 +135,8 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
             'docId':1073,
             'docName':'Covid-19 Vaccination Car',
             'expiryDate':startDateString,
-            'secondDate':startDateString,
+            'secondDate':endDateString,
+            'boosterDate':bosterDateString,
             "fileName":data.fileName,
             'fileData':data.resumeData,
             "listOne": data.vaccineId,
@@ -299,6 +304,12 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
       setEndDateString(showDate);
         console.log("showDate:",showDate);
 	  }
+    const handleBoosterDateChange = (val) =>{
+      setBoosterDate(val);
+      let showDate = moment(val).format('MMM DD, YYYY')
+      setBoosterDateString(showDate);
+        console.log("boosterDate:",showDate);
+	  }
     const showActionSheet = () => {
       actionSheetDoc.current.show();
     }
@@ -329,35 +340,93 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                         <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>{data.fileName}</Text> 
                       </View>
                     }
+                    {Platform.OS == 'ios' ?
                     <View style={{marginTop:24, width:'100%'}}>
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccination status</Text>
                         <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {statusRef.current?.setModalVisible()}}>
                             <Text style={[styles.labelText,{color:data.vaccineStatusName.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{data.vaccineStatusName.length > 0 ? data.vaccineStatusName : 'Select vaccination status'}</Text>
                             <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
+                    </View>                    
+                    :
+                    <View style={{marginTop:24, width:'100%'}}>
+                        <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccination status</Text>
+                        <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {statusRef.current?.setModalVisible()}}>
+                          <Picker
+                            style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
+                            itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+                            selectedValue={data.vaccineStatusId}
+                            onValueChange={(itemValue, index) =>{
+                              console.log(itemValue,index)
+                              let selectedItem = covidVaccinesStatusArray[index];
+                              setData({...data,vaccineStatusId:selectedItem.id,vaccineStatusName:selectedItem.name});
+
+                            }}>
+                            {covidVaccinesStatusArray && covidVaccinesStatusArray.map((item, index) => {
+                              return (<Picker.Item label={item.name} value={item.id} key={index}/>) 
+                            })}
+                          </Picker>                        
+                          </View>
                     </View>
-                    <View style={{marginTop:12, width:'100%'}}>
-                        <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccine provider</Text>
-                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {vaccineRef.current?.setModalVisible()}}>
-                            <Text style={[styles.labelText,{color:data.vaccineName.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{data.vaccineName.length > 0 ? data.vaccineName : 'Select vaccine provider'}</Text>
+                    }  
+
+                    {data.vaccineStatusId == 21164 ? 
+                    null :
+                    <>
+                      {Platform.OS == 'ios' ?
+                        <View style={{marginTop:12, width:'100%'}}>
+                          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccine provider</Text>
+                          <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {vaccineRef.current?.setModalVisible()}}>
+                              <Text style={[styles.labelText,{color:data.vaccineName.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{data.vaccineName.length > 0 ? data.vaccineName : 'Select vaccine provider'}</Text>
+                              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
+                          </TouchableOpacity>
+                        </View> :
+                        <View style={{marginTop:12, width:'100%'}}>
+                          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Vaccine provider</Text>
+                            <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {vaccineRef.current?.setModalVisible()}}>
+                              <Picker
+                                style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
+                                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+                                selectedValue={data.vaccineId}
+                                onValueChange={(itemValue, index) =>{
+                                  console.log(itemValue,index)
+                                  let selectedItem = covidVaccinesArray[index];
+                                  setData({...data,vaccineId:selectedItem.id,vaccineName:selectedItem.name});
+
+                                }}>
+                                {covidVaccinesArray && covidVaccinesArray.map((item, index) => {
+                                  return (<Picker.Item label={item.name} value={item.id} key={index}/>) 
+                                })}
+                              </Picker>
+                            </View>
+                        </View> 
+                       }
+                      <View style={{marginTop:12, width:'100%'}}>
+                          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>First vaccination date</Text>
+                          <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {startDateRef.current?.setModalVisible()}}>
+                              <Text style={[styles.labelText,{color:startDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{startDateString.length > 0 ? startDateString : 'Select first date'}</Text>
+                              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
+                          </TouchableOpacity>
+                      </View>  
+                      <View style={{marginTop:12, width:'100%'}}>
+                          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Second vaccination date</Text>
+                          <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {endDateRef.current?.setModalVisible()}}>
+                              <Text style={[styles.labelText,{color:endDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{endDateString.length > 0 ? endDateString : 'Select second date'}</Text>
+                              <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
+                          </TouchableOpacity>
+                      </View>
+                      {data.vaccineStatusId == 21165 ?
+                      <View style={{marginTop:12, width:'100%'}}>
+                        <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Booster vaccination date</Text>
+                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {bosterDateRef.current?.setModalVisible()}}>
+                            <Text style={[styles.labelText,{color:bosterDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{bosterDateString.length > 0 ? bosterDateString : 'Select booster date'}</Text>
                             <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                         </TouchableOpacity>
-                    </View> 
-                    <View style={{marginTop:12, width:'100%'}}>
-                        <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>First vaccination date</Text>
-                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {startDateRef.current?.setModalVisible()}}>
-                            <Text style={[styles.labelText,{color:startDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{startDateString.length > 0 ? startDateString : 'Select first date'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
-                        </TouchableOpacity>
-                    </View>  
+                      </View> : null
+                      }
+                    </>
+                    }                  
                     
-                    <View style={{marginTop:12, width:'100%'}}>
-                        <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8,marginBottom:4}}>Second vaccination date</Text>
-                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}} onPress={() => {endDateRef.current?.setModalVisible()}}>
-                            <Text style={[styles.labelText,{color:endDateString.length > 0 ? ThemeColor.TextColor :ThemeColor.PlaceHolderColor}]}>{endDateString.length > 0 ? endDateString : 'Select second date'}</Text>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
-                        </TouchableOpacity>
-                    </View>
                     <TouchableOpacity style={styles.btnFill} onPress={() => {uploadDocument()}}>
                       <Text style={{color:'white',fontFamily: FontName.Regular, fontSize:16 }}>SAVE</Text>
                     </TouchableOpacity> 
@@ -413,6 +482,31 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
                     maximumDate={new Date()}
                     date={endDate}
                     onDateChange={(val) => {handleEndDateChange(val)}}
+                />
+                </View>
+            </ActionSheetView>
+            <ActionSheetView ref={bosterDateRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}} >
+                <View style={{height:300}}>
+                <View style={{height:44, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
+                    <TouchableOpacity onPress={() => {bosterDateRef.current?.setModalVisible()}}>
+                        <Text style={{color:ThemeColor.BtnColor, fontSize:18, fontFamily: FontName.Regular}}>Cancel</Text>
+                    </TouchableOpacity>
+                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Bold}}>Booster date</Text>
+                    <TouchableOpacity onPress={() => {
+                      {bosterDateString.length == 0 && handleBoosterDateChange(bosterDate) }
+                      bosterDateRef.current?.setModalVisible()
+                      }}>
+                        <Text style={{color:ThemeColor.BtnColor, fontSize:18, fontFamily: FontName.Regular}}>Done</Text>
+                    </TouchableOpacity>
+                </View>
+                <DatePicker
+                    style={{backgroundColor: 'white',flex:1,width:Dimensions.get('window').width}}
+                    itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+                    mode={'date'}
+                    minimumDate={startDate}
+                    maximumDate={new Date()}
+                    date={bosterDate}
+                    onDateChange={(val) => {handleBoosterDateChange(val)}}
                 />
                 </View>
             </ActionSheetView>

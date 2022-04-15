@@ -86,6 +86,7 @@ const EOBProcessScreen = ({navigation})  => {
             setIsLoading(false);
             if (response.data.code == 200){
                 let employeeOnboarding = response.data.content.dataList[0].empDetails.employeeOnboarding;
+                console.log("employeeOnboarding", JSON.stringify(employeeOnboarding));
                 setonboardingData(employeeOnboarding);
                 MergerStepArrWithDocumentArr(employeeOnboarding);
             }else if (response.data.code == 417){
@@ -306,12 +307,20 @@ const EOBProcessScreen = ({navigation})  => {
                                 {isAttachmentsType(item) && 
                                     <View style={{ flexDirection:'row', justifyContent:'flex-end'}}>
                                         {isAttachmentPathAvailable(item) ? 
-                                        <View style={{flexDirection:'row'}}>
+                                        <View style={{flexDirection:'row', alignItems:'center'}}>
                                             {item.expiryDate.length > 0 &&
-                                                <Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular, marginLeft:4}}>{getFormatedDate(item)}</Text>
+                                                <Text style={{color:ThemeColor.SubTextColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:4, marginRight:8}}>{getFormatedDate(item)}</Text>
                                             }
-                                            <TouchableOpacity onPress= {() => {handleViewClick(item)}}>
-                                                <Text style={{color:ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:8}}>{'VIEW'}</Text>
+                                            {
+                                                item.MetaDetails && item.MetaDetails.Dose1Date.length > 0 ?
+                                                <View style={{justifyContent:'center', alignItems:'center'}}>
+                                                    <Text style={{color:ThemeColor.SubTextColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:4, marginRight:8}}>{item.MetaDetails.Dose2Date.length > 0 ? item.MetaDetails.Dose2Date : item.MetaDetails.Dose1Date}</Text>
+                                                    <Text style={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily: FontName.Regular, marginLeft:4, marginRight:8}}>Vaccination date</Text>
+                                                </View>
+                                                : null
+                                            }
+                                            <TouchableOpacity style={{height:40,justifyContent:'center', alignItems:'center'}} onPress= {() => {handleViewClick(item)}}>
+                                                <Text style={{color:ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular}}>{'VIEW'}</Text>
                                             </TouchableOpacity> 
                                             <TouchableOpacity style ={{width:30,alignItems: 'flex-end', justifyContent: 'center'}} onPress={ () => {handleDelete(item)}}> 
                                                 <Icon name="trash-outline" color={'gray'} size={20} />
