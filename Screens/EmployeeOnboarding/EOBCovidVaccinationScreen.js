@@ -319,7 +319,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
 
     return (
         <SafeAreaView style={styles.container}>            
-              <ScrollView style={{padding:16, height:1200}}>
+              <ScrollView style={{padding:16}}>
                 <View style={{ alignItems: 'center', flex:1}}>
                     <TouchableOpacity style={{marginTop:32}} onPress = {() => {showActionSheet()}}>
                         <FontAwesome name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
         padding:16,
         marginRight:16,
         marginLeft:16,
-        marginBottom:16,
+        marginBottom:32,
       },labelText:{
         flex: 1,
         color:'black',
