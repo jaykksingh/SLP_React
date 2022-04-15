@@ -48,6 +48,7 @@ const EOBScreen = () => {
             headerTintColor: '#fff',
             headerTitleStyle: {
                 fontFamily:FontName.Regular,
+                fontSize:16
             },
             headerBackTitleVisible: false
             }}>
