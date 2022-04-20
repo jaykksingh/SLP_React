@@ -289,6 +289,23 @@ const SignInScreen = ({navigation}) => {
       ]);
     })
   }
+  const forgotPasswordAlert = () => {
+    const message = 'Check your inbox for an email from StafflinePro™. A password reset link has been sent. If you don’t see it in your inbox, please Contact Support'
+    Alert.alert(StaticMessage.AppName, message, [
+      {
+        text: 'Ok', 
+        onPress: () => setData({...data,forgotPasswordVisible:false,userId:''})
+      },
+      {
+        text: 'Contact support',
+        onPress: () => openComposer({
+          to: "support@stafflinepro.com",
+          subject: "",
+          body: "",
+        })
+      }
+    ]);   
+  }
   const handleVideoClose = () => {
     setAlreadyLaunched('1');
   }
@@ -423,8 +440,7 @@ const SignInScreen = ({navigation}) => {
                 placeholderTextColor={ThemeColor.PlaceHolderColor}
                 keyboardType='email-address'
                 value = {data.userId}
-                onChangeText={(val) => handleUserId(val)}
-                onEndEditing={(e)=>handleUserId(e.nativeEvent.text)}
+                onChangeText={(val) => {setData({...data, userId:val})}}
               />
             </View>
             <View style={{backgroundColor:'#848484', height:0.5}}></View>
