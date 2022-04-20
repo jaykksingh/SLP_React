@@ -183,15 +183,19 @@ const AddLeaveScreen = ({route,navigation}) => {
 		.then((response) => {
       		setIsLoading(false);
 		  	if (response.data.header == 200){
+				  console.log
 				const message = response.data.content.data.message;
 				Alert.alert(StaticMessage.AppName, message, [{
 					text: 'Ok',
 					onPress: () => navigation.goBack()
 				}]);
 			}else if (response.data.header == 417){
-				console.log('Error:',JSON.stringify(response.data.content.errors.message));
-				const errorList = Object.values(response.data.content.errors);
-				Alert.alert(StaticMessage.AppName, response.data.content.errors.message, [
+				var message = parseErrorMessage(response.data.content.errors.details);
+				console.log('Error: ', JSON.stringify(response.data.content.errors));
+				if( message.length == 0){
+					message =  '1. ' + response.data.content.errors.message
+				}
+				Alert.alert(StaticMessage.AppName, message, [
 					{text: 'Ok'}
 				]);
 			}
@@ -257,7 +261,7 @@ const AddLeaveScreen = ({route,navigation}) => {
 								<Text style={[styles.labelText,{color:data.leaveType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.leaveType.length >0 ? data.leaveType : 'Select leave type'}</Text>
 								<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 							</TouchableOpacity> :
-							<TouchableOpacity style={{ height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {leaveTypeRef.current?.setModalVisible()}}>
+							<View style={{ height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {leaveTypeRef.current?.setModalVisible()}}>
 								<Picker	
 									style={{flex:1,}}
 									selectedValue={data.leaveTypeID}
@@ -271,7 +275,7 @@ const AddLeaveScreen = ({route,navigation}) => {
 										return (<Picker.Item label={item.leaveName} value={item.leaveTypeId} key={index}/>) 
 									})}
 								</Picker>								
-							</TouchableOpacity>
+							</View>
 						}
 						{data.leaveType.length > 0 && <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:8}}/> }
 						{data.leaveType.length > 0 &&

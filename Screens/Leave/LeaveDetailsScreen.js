@@ -354,7 +354,7 @@ const LeaveDetailsScreen = ({route,navigation})  => {
 					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>REJECT</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={[styles.btnFill,{marginLeft:8}]} onPress={() => {approveLeaveRequest()}}>
-					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>APPROVED</Text>
+					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>APPROVE</Text>
 				</TouchableOpacity>
 			</View> : leaveDetails.status == 102 && !leaveDetails.IsCancelRequest ? 
 			<TouchableOpacity style={[styles.btnFill2,{marginLeft:16, marginRight:16,marginBottom:8}]} onPress={() => {cancelLeaveRequest()}}>

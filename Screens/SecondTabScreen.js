@@ -108,6 +108,7 @@ import EditLCADetailsScreen from './Immigration/EditLCADetailsScreen';
 import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClockInOutTimesheetScreen';
 import ViewClockInOutScreen from './TimesheetPayroll/Timesheets/ViewClockInOutScreen';
 import StaffContactScreen from './StaffContactScreen/StaffContactScreen'
+import PendingApprovalLeaveDetailsScreen from './Leave/PendingApprovalLeaveDetailsScreen'
 
 const Stack  = createStackNavigator();
 
@@ -211,6 +212,7 @@ const SecondTabScreen = () => {
             <Stack.Screen name="SimilarJobs" component={SimilarJobScreen}/>
             <Stack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
             <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
+            <Stack.Screen name="PendingApprovalLeaveDetails" component={PendingApprovalLeaveDetailsScreen}/>
             <Stack.Screen name="AddLeave" component={AddLeaveScreen}/>
             <Stack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
             <Stack.Screen name="AttendanceDetails" component={AttendanceDetailsScreen}/>

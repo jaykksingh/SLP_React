@@ -26,6 +26,7 @@ const InterviewScreen = ({route,navigation}) => {
 	let [interviewArray, setInterviewArray] = React.useState('');
 	let [pastInterviewArray, setPastInterviewArray] = React.useState('');
 	let [showProgressCell, setShowProgressCell] = React.useState('');
+	let [listUpdated, setListUpdated] = React.useState(false);
 
   
 	React.useLayoutEffect(() => {
@@ -35,7 +36,6 @@ const InterviewScreen = ({route,navigation}) => {
 	  }, [navigation]);
 	useEffect(() => {
 		getMyInterviews('upcomming');
-		
 	},[]);
 
   
@@ -80,6 +80,8 @@ const InterviewScreen = ({route,navigation}) => {
 			}else{
 				setPastInterviewArray(response.data.content.dataList);
 			}
+			setListUpdated(!listUpdated);
+
 		}else if (response.data.code == 417){
 			setLoading(false);
 			const errorList = Object.values(response.data.content.messageList);
@@ -169,6 +171,7 @@ const InterviewScreen = ({route,navigation}) => {
 			{interviewArray.length > 0 || pastInterviewArray.length > 0 ?
 			 <FlatList style={{}}
 				data={selectedIndex == 0 ? interviewArray : pastInterviewArray}
+				randomUpdateProp={listUpdated}
 				keyExtractor={(item, index) => item.Job_Resume_Id}
 				renderItem={({item}) => 
 				<View style={{backgroundColor:'#fff',paddingTop:8,marginBottom:8}}>

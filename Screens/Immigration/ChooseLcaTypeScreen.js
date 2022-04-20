@@ -181,7 +181,9 @@ const ChooseLcaTypeScreen = ({route,navigation}) => {
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Application type</Text>
 					<TouchableOpacity onPress={() => {
+						data.applTypeName.length == 0 ? getDocumentList(lookUpData.applicationTypeList[0].appTypeCode) : '';
 						data.applTypeName.length == 0 ? setData({...data,applTypeId:lookUpData.applicationTypeList[0].appTypeCode,applTypeName:lookUpData.applicationTypeList[0].appTypeName}) : '';
+
 						projectRef.current?.setModalVisible()}
 					}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>

@@ -51,7 +51,7 @@ const JobReferralsScreen = ({route,navigation})  => {
 		.then((response) => {
 			setIsLoading(false);
 			if (response.data.code == 200){
-				const results = JSON.stringify(response.data.content.dataList[0])
+				const results = JSON.stringify(response.data.content.dataList)
 				console.log('setJobReferredArray:',results);
 				setJobReferredArray(response.data.content.dataList);
 			}else if (response.data.code == 417){

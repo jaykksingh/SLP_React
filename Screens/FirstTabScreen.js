@@ -107,6 +107,7 @@ import ViewClockInOutTimesheetScreen from './TimesheetPayroll/Timesheets/ViewClo
 import ViewClockInOutScreen from './TimesheetPayroll/Timesheets/ViewClockInOutScreen';
 import StaffContactScreen from './StaffContactScreen/StaffContactScreen'
 import EditLCADetailsScreen from './Immigration/EditLCADetailsScreen';
+import PendingApprovalLeaveDetailsScreen from './Leave/PendingApprovalLeaveDetailsScreen'
 
 const Stack  = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -212,6 +213,7 @@ const FirstTabScreen = () => {
 
             <Stack.Screen name="LeaveHome" component={LeaveHomeScreen}/>
             <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen}/>
+            <Stack.Screen name="PendingApprovalLeaveDetails" component={PendingApprovalLeaveDetailsScreen}/>
             <Stack.Screen name="AddLeave" component={AddLeaveScreen}/>
             <Stack.Screen name="AttendanceHome" component={AttendanceHomeScreen}/>
             <Stack.Screen name="AddRegularization" component={AddRegularizationScreen}/>

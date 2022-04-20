@@ -155,11 +155,10 @@ const LeaveApprovalPending = ({route,navigation})  => {
 				data={leavesArray}
 				keyExtractor={(item, index) => index.toString()}
 				renderItem={({item}) => 
-					<TouchableOpacity style={{backgroundColor:'#fff',marginBottom:8, paddingBottom:8,paddingTop:8, flexDirection: 'row', justifyContent:'center', alignItems: 'center'}} onPress={() => navigation.navigate('LeaveDetails',{leaveDetails:item,isMyLeave:false})} onLongPress={() => {handleLongPress(item)}}>
+					<TouchableOpacity style={{backgroundColor:'#fff',marginBottom:8, paddingBottom:8,paddingTop:8, flexDirection: 'row', justifyContent:'center', alignItems: 'center'}} onPress={() => navigation.navigate('PendingApprovalLeaveDetails',{leaveDetails:item,isMyLeave:false})} onLongPress={() => {handleLongPress(item)}}>
 						{editEnabled && 
 						<View style={{paddingLeft:8,justifyContent: 'center', alignItems: 'center'}}> 
-							{/* <Icon name="radio-button-off" color={ThemeColor.BtnColor} size={22,22} /> */}
-							<Icon name="checkmark-circle" color={ThemeColor.BtnColor} size={25,25} />
+							<Icon name="checkmark-circle" color={ThemeColor.BtnColor} size={25} />
 						</View>
 						}
 						<View style={{flex:1}}>

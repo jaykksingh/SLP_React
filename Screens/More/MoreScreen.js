@@ -107,7 +107,7 @@ const MoreScreen = ({navigation}) => {
       menuOptionArr.push({"cellType": "BRAND" , "title":"Brand"});
       menuOptionArr.push({"cellType" : "PROFILE","title":"Profile"});
       menuOptionArr.push({"cellType" : "MENU" , "title":"Dashboard","icon":require('../../assets/Images/MenuIcons/Timecards.png')});
-      menuOptionArr.push({"cellType" : "MENU" , "title":"Leave", "icon":require('../../assets/Images/MenuIcons/Timecards.png')});
+      menuOptionArr.push({"cellType" : "MENU" , "title":"Leaves", "icon":require('../../assets/Images/MenuIcons/Timecards.png')});
       menuOptionArr.push({"cellType" : "MENU" , "title":"Attendance", "icon":require('../../assets/Images/MenuIcons/Timecards.png')});
       menuOptionArr.push({"cellType" : "SPACE" , "title":"" ,"height" : "40","icon":require('../../assets/Images/MenuIcons/Timecards.png')});
       menuOptionArr.push({"cellType" : "MENU" , "title":"LOG OUT","icon":require('../../assets/Images/MenuIcons/Timecards.png')});
@@ -122,7 +122,7 @@ const MoreScreen = ({navigation}) => {
       menuOptionArr.push({"cellType" : "MENU" , "title":"Interviews" ,"icon":require('../../assets/Images/MenuIcons/Interview.png')});
       menuOptionArr.push({"cellType" : "SPACE" , "title":"" ,"height" : "40"});
         
-      menuOptionArr.push({"cellType" : "MENU","title":"Leave","icon":require('../../assets/Images/MenuIcons/Timecards.png')});
+      menuOptionArr.push({"cellType" : "MENU","title":"Leaves","icon":require('../../assets/Images/MenuIcons/Timecards.png')});
       menuOptionArr.push({"cellType" : "MENU","title":"Attendance",'icon':require('../../assets/Images/MenuIcons/Timecards.png')});
       menuOptionArr.push({"cellType" : "SPACE" , "title":""});
       if(!isExternalUser){
@@ -238,7 +238,7 @@ const MoreScreen = ({navigation}) => {
         navigation.navigate('AlertSetting');
       }else if(title == 'Settings'){
         navigation.navigate('AlertSetting');
-      }else if(title == 'Leave'){
+      }else if(title == 'Leaves'){
         navigation.navigate('LeaveHome');
       }else if(title == 'Attendance'){
         navigation.navigate('AttendanceHome');

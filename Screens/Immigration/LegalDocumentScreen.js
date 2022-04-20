@@ -85,7 +85,7 @@ const LegalDocumentScreen = ({route,navigation}) => {
   	}
 	const getFormatedDate=(item) =>{
 		let momentStartDate = moment(item.createdDate, 'YYYY-MM-DDTHH:mm:ssZZ');
-		let startDateString = moment(momentStartDate).format('ddd, DD MMM, hh:mm A');
+		let startDateString = moment(momentStartDate).format('ddd, DD MMM');
 	  
 		return `${startDateString}`;
 	}
@@ -121,7 +121,7 @@ const LegalDocumentScreen = ({route,navigation}) => {
                 <View style={{ flex:1}}>
                   <Text style ={{color:ThemeColor.TextColor, fontSize:14, fontFamily:FontName.Regular, paddingLeft:8, flex:1}}>{item.documentName}</Text>
                   <View style={{flexDirection:'row',marginTop:4}}> 
-                    <Text style ={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily:FontName.Regular, paddingLeft:8}}>Updated date: </Text>
+                    <Text style ={{color:ThemeColor.SubTextColor, fontSize:12, fontFamily:FontName.Regular, paddingLeft:8}}>Uploaded date: </Text>
                     <Text style ={{color:ThemeColor.TextColor, fontSize:12, fontFamily:FontName.Regular}}>{getFormatedDate(item)}</Text>
                   </View>
                 </View>

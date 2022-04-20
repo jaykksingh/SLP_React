@@ -212,32 +212,32 @@ const JobSearchScreen = ({route,navigation}) => {
 
   }
   const getLatLongAddress = async(location) => {
-    // setData({...data,isLoading: true});
+    setData({...data,isLoading: true});
 
-    // var NY = {
-    //   lat: location.latitude,
-    //   lng: location.longitude
-    // };
-    // let ret = await Geocoder.geocodePosition(NY);
-    // console.log(JSON.stringify(ret));
-    //   setData({...data,isLoading: false});
+    var NY = {
+      lat: location.latitude,
+      lng: location.longitude
+    };
+    let ret = await Geocoder.geocodePosition(NY);
+    console.log(JSON.stringify(ret));
+      setData({...data,isLoading: false});
 
-    // Geocoder.geocodePosition(NY).then(res => {
-    //   setData({...data,isLoading: false});
-    //   // res is an Array of geocoding object (see below)
-    //   let placemark = res.length > 0 ? res[0] : {};
-    //   let strCityName= placemark.locality;
-    //   let strStateName = placemark.subAdminArea;
-    //   let strCountryName = placemark.position.country;
-    //   let locationName = strCityName + ', ' + strStateName;
-    //   setSearchLocation(locationName);
+    Geocoder.geocodePosition(NY).then(res => {
+      setData({...data,isLoading: false});
+      // res is an Array of geocoding object (see below)
+      let placemark = res.length > 0 ? res[0] : {};
+      let strCityName= placemark.locality;
+      let strStateName = placemark.subAdminArea;
+      let strCountryName = placemark.position.country;
+      let locationName = strCityName + ', ' + strStateName;
+      setSearchLocation(locationName);
 
-    //   console.log(JSON.stringify(res));
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   setData({...data,isLoading: false});
-    // })
+      console.log(JSON.stringify(res));
+    })
+    .catch(err => {
+      console.log(err);
+      setData({...data,isLoading: false});
+    })
   
   }
   const locationFound =  locationArray.length > 0 ? true : false;

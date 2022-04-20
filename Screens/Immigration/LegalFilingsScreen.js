@@ -37,8 +37,9 @@ const LegalFilingsScreen = ({route,navigation})  => {
 	}, [navigation]);
 
 	useEffect(() => {
-		getLegalFilingList();
-		
+		navigation.addListener('focus', () => {
+			getLegalFilingList();
+		  });		
 	},[]);
 
 	const getLegalFilingList = async() => {

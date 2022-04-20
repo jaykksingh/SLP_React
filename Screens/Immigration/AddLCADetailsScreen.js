@@ -32,18 +32,18 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 	let [isLoading, setLoading] = React.useState(false);
 	let [data,setData] = React.useState({
 		applTypeName:'',
-		applTypeId:'',
+		appType:'',
 		applFor:'',
-		applForId:'',
+		appForId: Platform.OS == 'ios' ? '' : 3351,
 		firstName:'',
 		lastName:'',
 		email:'',
 		contactNumber:'',
 		contactNumberCountryCode:'1',
-		appPriorityId:'',
+		appPriorityId: Platform.OS == 'ios' ? '' : 3581,
 		appPriority:'',
 		currentStatusName:'',
-		currentStatus:'',
+		currentStatus: Platform.OS == 'ios' ? '' : 'F1',
 		skillCategoryId:'',
 		skillCategory:'',
 		comments:'',
@@ -64,7 +64,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 
 	useEffect(() => {
 		if(applTypeName){
-			setData({...data,applTypeId:applTypeId,applTypeName:applTypeName});
+			setData({...data,appType:applTypeId,applTypeName:applTypeName});
 		}
 		
 	},[]);
@@ -76,21 +76,20 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
 		var encoded = base64.encode(userAuthToken);
 
-		console.log('URL:'+ BaseUrl + EndPoints.LegalFilingList + applTypeId);
 		let params = {
-			'appType':data.applTypeId,
+			'appType':data.appType,
 			'firstName':data.firstName,
 			'lastName':data.lastName,
 			'email':data.email,
 			'contactNumber':data.contactNumber,
 			'contactNumberCountryCode':data.contactNumberCountryCode,
-			'appForId':data.applForId,
+			'appForId':data.appForId,
 			'appPriorityId':data.appPriorityId,
 			'currentStatus':data.currentStatus,
 			'skillCategoryId':data.skillCategoryId,
 			'comments':data.comments,
 		}
-
+		console.log('PARAMS:',params)
 		axios ({
 			"method": "POST",
 			"url": BaseUrl + EndPoints.LegalFilingList,
@@ -98,27 +97,25 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 			data:params
 		})
 		.then((response) => {
-		setLoading(false);
-		if (response.data.code == 200){
 			setLoading(false);
+			if (response.data.code == 200){
+				setLoading(false);
 
-			let result = JSON.stringify(response.data.content);
-			console.log('App Details:',result);
-			if(docList.length == 0){
-				navigation.goBack();
-			}else{
-				navigation.navigate('NewLcaDocument',{detail:response.data.content.dataList[0],documentList:docList,name:data.firstName + ' ' + data.lastName, applTypeName:data.applTypeName})
+				let result = JSON.stringify(response.data.content);
+				console.log('App Details:',result);
+				if(docList.length == 0){
+					navigation.goBack();
+				}else{
+					navigation.navigate('NewLcaDocument',{detail:response.data.content.dataList[0],documentList:docList,name:data.firstName + ' ' + data.lastName, applTypeName:data.applTypeName})
+				}
+			}else if (response.data.code == 417){
+				setLoading(false);
+				const message = parseErrorMessage(response.data.content.messageList);
+				Alert.alert(StaticMessage.AppName, message, [
+					{text: 'Ok'}
+				]);
+
 			}
-		}else if (response.data.code == 417){
-			setLoading(false);
-			const message = parseErrorMessage(response.data.content.messageList);
-			Alert.alert(StaticMessage.AppName, message, [
-			{text: 'Ok'}
-			]);
-
-		}else{
-
-		}
 		})
 		.catch((error) => {
 			console.log(error);
@@ -164,10 +161,10 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 						<Picker
 							style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
 							itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-							selectedValue={data.applForId}
+							selectedValue={data.appForId}
 							onValueChange={(itemValue, index) =>{
 								let selectedObj = lookUpData.applicationForList[index];
-								setData({...data, applForId: selectedObj.keyId,applFor: selectedObj.keyName});
+								setData({...data, appForId: selectedObj.keyId,applFor: selectedObj.keyName});
 							}}>
 							{lookUpData && lookUpData.applicationForList.map((item, index) => {
 								return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
@@ -345,7 +342,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Bold}}>Application for</Text>
 					<TouchableOpacity onPress={() => {
-						data.applFor.length == 0 ? setData({...data,applForId:lookUpData.applicationForList[0].keyId,applFor:lookUpData.applicationForList[0].keyName}) : '';
+						data.applFor.length == 0 ? setData({...data,appForId:lookUpData.applicationForList[0].keyId,applFor:lookUpData.applicationForList[0].keyName}) : '';
 						applForRef.current?.setModalVisible()}
 					}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
@@ -354,10 +351,10 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 					<Picker
 						style={{backgroundColor: 'white',flex:1,fontSize:14, fontFamily: FontName.Regular}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-						selectedValue={data.applForId}
+						selectedValue={data.appForId}
 						onValueChange={(itemValue, index) =>{
 							let selectedObj = lookUpData.applicationForList[index];
-							setData({...data, applForId: selectedObj.keyId,applFor: selectedObj.keyName});
+							setData({...data, appForId: selectedObj.keyId,applFor: selectedObj.keyName});
 						}}>
 						{lookUpData && lookUpData.applicationForList.map((item, index) => {
 							return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 

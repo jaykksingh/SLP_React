@@ -186,7 +186,7 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
             type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
         });
         console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
-        var result = res[0].uri.split("%20").join("\ ");
+        var result = Platform.OS == 'ios' ? res[0].uri.split("%20").join("\ ") : res[0].uri;
         var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
         let bytes = res[0].size  / 1000000;
         console.log(`File Size: ${bytes}`)
@@ -316,7 +316,8 @@ const EOBCovidVaccinationScreen = ({route,navigation})  => {
 
     let covidVaccinesArray = lookupData ? lookupData.covidVaccines : [];
     let covidVaccinesStatusArray = lookupData ? lookupData.covidVaccinesStatus : [];
-
+    // var dummyData = [{"id":0,"name":"Select vaccine provider"}];
+    // console.log(covidVaccinesArrayandroid);
     return (
         <SafeAreaView style={styles.container}>            
               <ScrollView style={{padding:16}}>
@@ -599,7 +600,7 @@ const styles = StyleSheet.create({
         padding:16,
         marginRight:16,
         marginLeft:16,
-        marginBottom:32,
+        marginBottom:48,
       },labelText:{
         flex: 1,
         color:'black',

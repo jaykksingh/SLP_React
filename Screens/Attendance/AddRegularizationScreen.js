@@ -159,9 +159,7 @@ const AddRegularizationScreen = ({route,navigation}) => {
 			'From_Date':data.startDate,
 			'To_Date':data.endDate,
 			'Reason':data.reason,
-		};
-		console.log(params);
-		
+		};		
 		axios ({  
 		  "method": "POST",
 		  "url": LeaveMgrBaseURL + EndPoints.RegularizationRequest,
@@ -202,13 +200,13 @@ const AddRegularizationScreen = ({route,navigation}) => {
 	const handleStartDateChange = (val) => {
 		setStartDate(val);
 		console.log("Start Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY hh:mm a')
 		setData({...data,startDate:showDate});
 	}
 	const handleEndDateChange = (val) => {
 		setEndDate(val);
 		console.log("End Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY hh:mm a')
 		setData({...data,endDate:showDate});
 	}
 
@@ -226,7 +224,7 @@ const AddRegularizationScreen = ({route,navigation}) => {
 				</View> :
 				<View style={{marginTop:12}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Regularization category</Text>
-					<TouchableOpacity style={{backgroundColor:'white', height:40,borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {categoryRef.current?.setModalVisible()}}>
+					<View style={{backgroundColor:'white', height:40,borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {categoryRef.current?.setModalVisible()}}>
 						<Picker
 							style={{flex:1,}}
 							itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -241,7 +239,7 @@ const AddRegularizationScreen = ({route,navigation}) => {
 								return (<Picker.Item label={item.value} value={item.keyId} key={index}/>) 
 							})}
 						</Picker>						
-					</TouchableOpacity>
+					</View>
 				</View>
 				} 
 				<View style={{backgroundColor:'white',borderRadius:5 ,marginTop:24,}}>

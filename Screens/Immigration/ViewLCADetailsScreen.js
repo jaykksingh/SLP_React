@@ -225,7 +225,7 @@ const ViewLCADetailsScreen = ({route,navigation}) => {
 						<Text style={[styles.labelText,{color:data.skillCategory.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.skillCategory.length >0 ? data.skillCategory : 'Skills'}</Text>
 					</View>
 				</View>
-				<View style={{marginTop:12}}>
+				<View style={{marginTop:12,marginBottom:24}}>
 					<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Comments</Text>
 					<View style={{backgroundColor:'white', height:100, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
 					<TextInput  
