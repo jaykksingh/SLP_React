@@ -64,7 +64,7 @@ const EOBScreen = () => {
             <UserOnboardingStack.Screen name="EOBViewAttachment" component={EOBViewAttachmentScreen} />
             <UserOnboardingStack.Screen name="ReviewSignScreen" component={ReviewSignScreen} />
             <UserOnboardingStack.Screen name="ReferContact" component={ReferContactScreen}/>
-            <UserOnboardingStack.Screen name="InviteFriend" component={InviteFriendScreen}/>
+            <UserOnboardingStack.Screen name="InviteAFriend" component={InviteFriendScreen}/>
             <UserOnboardingStack.Screen name="EmailInvite" component={EmailInviteScreen}/>
         </UserOnboardingStack.Navigator>
     );

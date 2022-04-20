@@ -500,7 +500,7 @@ const MyProfileScreen = ({route,navigation}) => {
   console.log(`Resume: ${JSON.stringify(profileData.resume)}`);
   return (
     <SafeAreaView style={styles.container}>
-      <SectionList style={{marginBottom:0}}
+      <SectionList style={{marginBottom:16, paddingBottom:16}}
         sections={[
           {
             title: "Profile",
@@ -563,13 +563,16 @@ const MyProfileScreen = ({route,navigation}) => {
           },{
             title: "Achievements",
             data: profileData.candidateAchievements
-          },
+          },{
+            title : "SPACE",
+            data: []
+          }
           
         ]}
         keyExtractor={(item, index) => item + index}
         stickySectionHeadersEnabled={false}
-        renderItem={({ item , index,section}) => 
-          <View style={{backgroundColor:'white',marginLeft:16, marginRight:16,}}>
+        renderItem={({ item , index,section,}) => 
+          <View style={{backgroundColor:'white',marginLeft:16, marginRight:16}}>
             {section.title == 'Basic summary' ? 
               <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8, alignItems: 'center'}} onPress={() => {navigation.navigate('Edit profile',{profileDetail:profileData,lookupData:lookupData,dataType:'Summary'})}}>
                 <Text style={{marginLeft:8, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{empDetails ? empDetails.careerProfile : ''}</Text>
@@ -591,19 +594,19 @@ const MyProfileScreen = ({route,navigation}) => {
             {section.title == 'Primary skills' && empDetails.skillName ? 
             <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center'}} onPress={() => {navigation.navigate('Domain',{profileDetail: profileData,lookupData:lookupData})}}>
               <Text style={{marginLeft:8, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{empDetails ? empDetails.skillName : ''}</Text>
-              <Feather name="chevron-right" color={'gray'} size={25,25} />
+              <Feather name="chevron-right" color={'gray'} size={25} />
             </TouchableOpacity> : null
             }
             {section.title == 'Functional area/department' && empDetails.departmentName ? 
             <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center'}} onPress={() => {navigation.navigate('Funtional area',{profileDetail: profileData,lookupData:lookupData})}}>
               <Text style={{marginLeft:8, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{empDetails ? empDetails.departmentName : ''}</Text>
-              <Feather name="chevron-right" color={'gray'} size={25,25} />
+              <Feather name="chevron-right" color={'gray'} size={25} />
             </TouchableOpacity> : null
             }
             {section.title == 'Desired employment' && empDetails.desiredEmployement.length > 0 ? 
               <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center'}} onPress={() => {navigation.navigate('Desired employeement',{profileDetail: profileData,lookupData:lookupData})}}>
                 <Text style={{marginLeft:8, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{empDetails ? empDetails.desiredEmployement.join(', ') : ''}</Text>
-                <Feather name="chevron-right" color={'gray'} size={25,25} />
+                <Feather name="chevron-right" color={'gray'} size={25} />
               </TouchableOpacity> : null
             }
             {section.title == 'Desired salary' && empDetails.annualSalary? 
@@ -612,7 +615,7 @@ const MyProfileScreen = ({route,navigation}) => {
                   <Text style={{height:20, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor,  flex:1}}>${empDetails ? empDetails.annualSalary + ' Per annum' : ''}</Text>
                   <Text style={{height:20,fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, flex:1}}>${empDetails ? empDetails.contractRate + ' ' + empDetails.contractRateType: ''}</Text>
                 </View>
-                <Feather name="chevron-right" color={'gray'} size={25,25} />
+                <Feather name="chevron-right" color={'gray'} size={25} />
               </TouchableOpacity> : null
             }
             {section.title == 'Speciality' ? 
@@ -621,7 +624,7 @@ const MyProfileScreen = ({route,navigation}) => {
                   <View style={{flex:1,marginLeft:8, marginRight:8,paddingTop:8, paddingBottom:8,justifyContent: 'center'}}>
                     <Text style={{height:20, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor,}}>{item.keyName}</Text>
                   </View>
-                  <Feather name="chevron-right" color={'gray'} size={25,25} />
+                  <Feather name="chevron-right" color={'gray'} size={25} />
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:8 }} />
                 <FlatList
@@ -643,7 +646,7 @@ const MyProfileScreen = ({route,navigation}) => {
                     <Text style={{height:20, fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor,  flex:1}}>{item.institutionName}</Text>
                     <Text style={{height:20,fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, flex:1}}>{item.qualification} - {item.passingYear}</Text>
                   </View>
-                  <Feather name="chevron-right" color={'gray'} size={25,25} />
+                  <Feather name="chevron-right" color={'gray'} size={25} />
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:12}} />
               </View>
@@ -654,7 +657,7 @@ const MyProfileScreen = ({route,navigation}) => {
                   <View style={{flex:1}}>
                     <Text style={{height:20, fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor,  flex:1}}>{item}</Text>
                   </View>
-                  <Feather name="chevron-right" color={'gray'} size={25,25} />
+                  <Feather name="chevron-right" color={'gray'} size={25} />
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:12}} />
               </View>
@@ -704,7 +707,7 @@ const MyProfileScreen = ({route,navigation}) => {
                     <Text style={{marginLeft:8, fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor,  flex:1}}>{item.fileName}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{height:40, width:40, justifyContent:'center', alignItems: 'center'}} onPress={() => {handleDeleteData(item,'RESUME')}}>
-                    <Ionicons name="trash-outline" color={'gray'} size={20,20} />
+                    <Ionicons name="trash-outline" color={'gray'} size={20} />
                   </TouchableOpacity>
                 </View>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:12}} />
@@ -715,7 +718,7 @@ const MyProfileScreen = ({route,navigation}) => {
                 <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center'}} 
                   onPress={() =>{navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Licence',licenceDict:item})}}>
                   <Text style={{marginLeft:16, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{item.certificateExamName}</Text>
-                  <Feather name="chevron-right" color={'gray'} size={25,25} />
+                  <Feather name="chevron-right" color={'gray'} size={25} />
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:16}} />
               </View> : null
@@ -774,26 +777,30 @@ const MyProfileScreen = ({route,navigation}) => {
                     {item.isPrimary == 1 &&  <View style={{ backgroundColor:ThemeColor.BorderColor,borderRadius:3 }}>
                       <Text style={{fontFamily: FontName.Regular, fontSize:10, color:ThemeColor.TextColor,padding:4}}>Primary</Text>
                     </View> }
-                    <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                    <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                   </View>
                 </View>
                 <View style={{marginLeft:16,flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginTop:4, marginBottom:1}}/>
               </TouchableOpacity> : null
             }
             {section.title == 'Achievements' ? 
-              <View>
+              <View style={{}}>
                 <TouchableOpacity  style={{ backgroundColor:'#fff',justifyContent: 'center', flexDirection:'row', marginRight:8,alignItems: 'center'}} onPress={() =>{navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Achievements',achievementDict:item})}}>
-                <Text style={{marginLeft:16, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{item.description}</Text>
-                <Feather name="chevron-right" color={'gray'} size={25,25} />
-              </TouchableOpacity>
-              <View style={{marginLeft:16,flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginTop:4, marginBottom:1}}/>
+                  <Text style={{marginLeft:16, marginRight:8, fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor, paddingTop:8, paddingBottom:16, flex:1}}>{item.description}</Text>
+                  <Feather name="chevron-right" color={'gray'} size={25} />
+                </TouchableOpacity>
+                <View style={{marginLeft:16,flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginTop:4, marginBottom:1}}/>
+              </View> : null
+            }
+            {section.title == 'SPACE' ? 
+              <View style={{height:32}}>
               </View> : null
             }
 
           </View>
         }
         renderSectionHeader={({ section: { title },index }) => (
-          <View>
+          <View style={{}}>
             {title == 'Profile' ? 
               <View > 
                 {industryVertical.length > 0 ?
@@ -853,26 +860,30 @@ const MyProfileScreen = ({route,navigation}) => {
               <View style={{backgroundColor:'white',marginLeft:16,marginRight:16,marginTop:16}}>
                 <Text style={{fontSize:16, color:'black',fontFamily: FontName.Regular, paddingLeft:8,height:40,paddingTop: 10}}>{title}</Text>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor}} />
-              </View> : title == 'Achievements' ? 
+              </View> : 
+              title == 'Achievements' ? 
               <View style={{backgroundColor:'white',marginLeft:16,marginRight:16,marginTop:16,height:40,}} >
                 <TouchableOpacity style={{height:40,  justifyContent: 'center', alignItems: 'center',flexDirection:'row', justifyContent:'space-between'}} onPress={() => {handleAddButton(title)}}>
                   <View style={{justifyContent: 'center', alignItems: 'center', flexDirection:'row'}} >
                     <Text style={{fontSize:16, color:'black',fontFamily: FontName.Regular, paddingLeft:8}}>{title}</Text>
                     <TouchableOpacity style={{marginLeft:8}} onPress={() => {handleAchivementHelp()}}>
-                      <Ionicons name="help-circle-outline" color={ThemeColor.SubTextColor} size={20,20} />
+                      <Ionicons name="help-circle-outline" color={ThemeColor.SubTextColor} size={20} />
                     </TouchableOpacity>
                   </View>
                   <View style={{ width:40, height:40,justifyContent: 'center', alignItems: 'center'}} >
-                    <Ionicons name="add-outline" color={ThemeColor.BtnColor} size={25,25} />
+                    <Ionicons name="add-outline" color={ThemeColor.BtnColor} size={25} />
                   </View>
                 </TouchableOpacity>
                 <View style={{height:1, backgroundColor:ThemeColor.BorderColor}} />
+              </View> :
+              title == 'SPACE' ? 
+              <View style={{marginLeft:16,marginRight:16,marginTop:16,height:24,}} >
               </View> :
               <View style={{backgroundColor:'white',marginLeft:16,marginRight:16,marginTop:16,height:40,}} >
               <TouchableOpacity style={{  justifyContent: 'center', alignItems: 'center',flexDirection:'row', justifyContent:'space-between'}} onPress={() => {handleAddButton(title)}}>
                 <Text style={{fontSize:16, color:'black',fontFamily: FontName.Regular, paddingLeft:8}}>{title}</Text>
                 <View style={{ width:40, height:40,justifyContent: 'center', alignItems: 'center'}} >
-                  <Ionicons name="add-outline" color={ThemeColor.BtnColor} size={25,25} />
+                  <Ionicons name="add-outline" color={ThemeColor.BtnColor} size={25} />
                 </View>
               </TouchableOpacity>
               <View style={{height:1, backgroundColor:ThemeColor.BorderColor}} />

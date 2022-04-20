@@ -42,7 +42,7 @@ const InterviewScreen = ({route,navigation}) => {
 	const handleIndexChange = (index) => {
 		setSelectedIndex(index);
 		console.log("Index:", index);
-		if(index == 1){
+		if(index == 0){
 			getMyInterviews('upcomming');
 		}else{
 			getMyInterviews('past');

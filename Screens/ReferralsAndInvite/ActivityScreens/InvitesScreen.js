@@ -103,6 +103,8 @@ const InvitesScreen = ({route,navigation})  => {
 				ref={mySearchBar}
 				placeholder="Search"
 				value= {searchKey}
+				icon = {{type: 'material-community', color: '#86939e', name: 'share' }}
+
 				onChangeText={(val) => handleTextChange(val)}
 				onSearchButtonPress={(val) => {getContactReferralsList(val)}}
 				onCancelButtonPress={(val) => {getContactReferralsList('')}}

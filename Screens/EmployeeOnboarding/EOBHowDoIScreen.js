@@ -79,7 +79,7 @@ const EOBHowDoIScreen = ({navigation})  => {
 						<Image resizeMode='contain' style={{width:'100%'}} source={require('../../assets/Images/FillATimesheet.gif')} />
 					</View>
 				</PagerView>
-        <TouchableOpacity style={[styles.btnFill]} onPress={() => {navigation.navigate('InviteFriend',{isFromEOB:true})}}>
+        <TouchableOpacity style={[styles.btnFill]} onPress={() => {navigation.navigate('InviteAFriend',{isFromEOB:true})}}>
 					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:'#fff' }}>NEXT</Text>
 				</TouchableOpacity>
         <Loader isLoading={isLoading} />

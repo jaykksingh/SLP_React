@@ -204,8 +204,18 @@ const PreScreeningScreen = ({route,navigation}) => {
 		}
 		return '';
 	}
-
+	const handleSelectedValueForItem = (selectedValue,item) => {
+		console.log(item);
+		if(item.name == 'skillMatches'){
+			setData({...data, skillMatches:selectedValue});
+		}else if(item.name == 'currentlyLocated'){
+			setData({...data, currentlyLocated:selectedValue});
+		}else if(item.name == 'workAuthorization'){
+			setData({...data, workAuthorization:selectedValue});
+		}
+	}
 	const handleSelectedValue = (selectedValue) => {
+		console.log(selectedItem);
 		if(selectedItem.name == 'skillMatches'){
 			setData({...data, skillMatches:selectedValue});
 		}else if(selectedItem.name == 'currentlyLocated'){
@@ -272,7 +282,7 @@ const PreScreeningScreen = ({route,navigation}) => {
 									selectedValue={getSelectedValueFromItem(item)}
 									onValueChange={(itemValue, index) =>{
 										console.log(itemValue,index)
-										handleSelectedValue(itemValue);
+										handleSelectedValueForItem(itemValue,item);
 									}}>
 									{item && item.options.map((item, index) => {
 										return (<Picker.Item label={item} value={item} key={index}/>) 

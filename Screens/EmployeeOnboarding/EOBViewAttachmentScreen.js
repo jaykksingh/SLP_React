@@ -41,7 +41,11 @@ const EOBViewAttachmentScreen = ({route,navigation}) => {
 	  }
 
 	useEffect(() => {
-		
+		let fileName = stepDetail.fileName;
+		let ext =  fileName.slice((Math.max(0, fileName.lastIndexOf(".")) || Infinity) + 1);
+		if (ext == 'pdf' || ext == 'doc' || ext == 'docx'){
+			setIsLoading(false);
+		}
     },[]);
 
 	

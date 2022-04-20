@@ -200,7 +200,7 @@ const EOBProcessScreen = ({navigation})  => {
         }    
     }
     const handleViewClick = (item) => {
-        console.log('Steps:', item);
+        console.log('View Steps:', item);
         navigation.navigate('EOBViewAttachment',{stepDetail:item})
     }
     const handleDelete = async (item) => {
