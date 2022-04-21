@@ -178,22 +178,27 @@ const JobApplyScreen = ({route,navigation}) => {
           }]
     )}
     const viewResume = (resume) => {
-        console.log('resume:', resume);
-        let url =  resume.filePath;
-		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
-		const options = {
-			fromUrl: url,
-			toFile: localFile,
-		};
-		RNFS.downloadFile(options)
-		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
-		.then(() => {
-			console.log('View Sucess')
-		})
-		.catch((error) => {
-			console.log('View Failed',error)
-		});
+        if(Platform.OS == 'ios'){
+            console.log('resume:', resume);
+            let url =  resume.filePath;
+            const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+            const localFile = `${RNFS.DocumentDirectoryPath}/${resume.fileName}.${extension}`;
+            const options = {
+                fromUrl: url,
+                toFile: localFile,
+            };
+            RNFS.downloadFile(options)
+            .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+            .then(() => {
+                console.log('View Sucess')
+            })
+            .catch((error) => {
+                console.log('View Failed',error)
+            });
+        }else{
+            navigation.navigate('DocumentViewer',{fileURL:resume.filePath,fileName:resume.fileName});
+        }
+        
     }
     const selectResume = async () => {
         try {

@@ -820,7 +820,7 @@ const DashboardScreen = ({navigation}) => {
               {
                 item.cellType == 'PROJECTSTATUS' ?
                 <TouchableOpacity style={{marginTop:16,width:'100%',backgroundColor:'white', height:50,borderColor:ThemeColor.BorderColor,borderWidth:1,borderRadius:5,alignItems: 'center',justifyContent: 'center', flexDirection:'row'}} onPress = {() => {navigation.navigate('ProjectEndDate',{lookupData:lookupData})}}>
-                  <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor}}>Is your project ending soon? </Text>
+                  <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor,paddingLeft:8}}>Is your project ending soon? </Text>
                   <Text style={{fontFamily:FontName.Bold, fontSize:16,color:ThemeColor.NavColor}}>Let us know</Text>
                   <TouchableOpacity style={{height:40, width:40, marginLeft:8, justifyContent:'center'}} onPress={ () => {handleProjectEndingSoonHelpText()}}>
                     <EvilIcons name="question" color={ThemeColor.SubTextColor} size={25} />

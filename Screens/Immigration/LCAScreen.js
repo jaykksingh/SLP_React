@@ -87,27 +87,31 @@ const LCAScreen = ({route,navigation}) => {
 
 		let startDateString = moment(momentStartDate).format('MMM DD, YYYY');
 		let endDateString = moment(momentEndDate).format('MMM DD, YYYY');
-
-	  
+		if(item.validityTo.length == 0){
+			endDateString = "";
+			return `${startDateString}`
+		}
 		return `${startDateString} - ${endDateString}`;
 	}
 	const viewFile = (fileObject) => {
-        console.log('File Path:', JSON.stringify(fileObject.lcaDocPath));
-		let url =  fileObject.lcaDocPath;
-		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
-		const options = {
-			fromUrl: url,
-			toFile: localFile,
-		};
-		RNFS.downloadFile(options)
-		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
-		.then(() => {
-			console.log('View Sucess')
-		})
-		.catch((error) => {
-			console.log('View Failed',error)
-		});
+		navigation.navigate('DocumentViewer',{fileURL:fileObject.lcaDocPath,fileName:fileObject.lcaDocUploadName});
+
+        // console.log('File Path:', JSON.stringify(fileObject));
+		// let url =  fileObject.lcaDocPath;
+		// const extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		// const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		// const options = {
+		// 	fromUrl: url,
+		// 	toFile: localFile,
+		// };
+		// RNFS.downloadFile(options)
+		// .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		// .then(() => {
+		// 	console.log('View Sucess')
+		// })
+		// .catch((error) => {
+		// 	console.log('View Failed',error)
+		// });
     }
 
   	return (
@@ -125,8 +129,8 @@ const LCAScreen = ({route,navigation}) => {
 						</View>
 						<View style ={{backgroundColor:ThemeColor.BorderColor, height:1, marginTop:8}}/>
 						<TouchableOpacity style={{flexDirection: 'row', justifyContent:'center', alignItems: 'center', height:30,paddingLeft:8, paddingRight:8}} onPress={() => {viewFile(item)}}>
-							<Text style ={{color:ThemeColor.NavColor, fontSize:14, fontFamily:FontName.Regular, paddingLeft:8, flex:1}}>Lca document</Text>
-							<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+							<Text style ={{color:ThemeColor.NavColor, fontSize:14, fontFamily:FontName.Regular, paddingLeft:8, flex:1}}>LCA Document</Text>
+							<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
 						</TouchableOpacity>
 					</TouchableOpacity>
 				}

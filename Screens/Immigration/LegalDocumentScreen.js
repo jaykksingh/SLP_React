@@ -26,7 +26,7 @@ import Loader from '../../Components/Loader';
 
 
 const LegalDocumentScreen = ({route,navigation}) => {
-	let [isLoading, setLoading] = React.useState(false);
+	let [isLoading, setLoading] = React.useState(true);
 	let [documentArray,setDocumentArray] = React.useState([]);
 
 
@@ -125,12 +125,12 @@ const LegalDocumentScreen = ({route,navigation}) => {
                     <Text style ={{color:ThemeColor.TextColor, fontSize:12, fontFamily:FontName.Regular}}>{getFormatedDate(item)}</Text>
                   </View>
                 </View>
-                <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
               </TouchableOpacity>
             }
           /> :
           <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-            <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:FontName.Regular, paddingLeft:8}}>No documents available</Text>
+            {!isLoading && <Text style ={{color:ThemeColor.TextColor, fontSize:16, fontFamily:FontName.Regular, paddingLeft:8}}>No documents available</Text>}
           </View>
           }   
         	<Loader isLoading={isLoading} />

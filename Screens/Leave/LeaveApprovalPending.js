@@ -179,10 +179,17 @@ const LeaveApprovalPending = ({route,navigation})  => {
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>Leave type: </Text>
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>{item.leaveType}</Text>
 							</View>
-							<View style={{paddingLeft:16, paddingRight:16, marginTop:4, flexDirection: 'row'}}> 
-								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>Total days: </Text>
-								<Text style={{fontSize:14, fontFamily: FontName.Bold, color:ThemeColor.TextColor}}>{item.noOfDays}</Text>
+							<View style={{flexDirection:'row', justifyContent:'space-between', alignContent:'center'}}>
+								<View style={{paddingLeft:16, paddingRight:16, marginTop:4, flexDirection: 'row'}}> 
+									<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>Total days: </Text>
+									<Text style={{fontSize:14, fontFamily: FontName.Bold, color:ThemeColor.TextColor}}>{item.noOfDays}</Text>
+								</View>
+								{item.IsCancelRequest ? 
+								<View>
+									<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>(Cancellation Request)</Text>
+								</View> : null}
 							</View>
+							
 						</View>
 						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 					</TouchableOpacity>

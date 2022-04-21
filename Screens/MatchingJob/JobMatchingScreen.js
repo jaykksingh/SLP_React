@@ -674,7 +674,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
   }
 
   const handleItemSelect = (item,taxonomyList) => {
-      selectedItem = taxonomyList.reduce((r, {keyName,keyId,child}) => {
+      let selectedItem = taxonomyList.reduce((r, {keyName,keyId,child}) => {
           let o = child.filter(({keyName,keyId}) => keyId == item.keyId );
           if(o && o.length)
             r.push({keyName,keyId, child : [...o]});
@@ -682,7 +682,9 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
       },[]);
       let rootItemKey = selectedItem ? selectedItem[0].keyId : '';
       let mainArray = selectedTaxonomy.filter(e => e.keyId === rootItemKey);
-          
+      console.log('selectedItem:',JSON.stringify(selectedItem));
+      console.log('item:',JSON.stringify(item));
+
       let tempArray = selectedTaxonomy;
       if(searchItemKey(item.keyId)){
           let selectedTaxoTempArr = selectedTaxonomy;
@@ -720,7 +722,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
       }
       setSelectedTaxonomy(tempArray);
       setUpdated(!updated);
-      getMatchingJobs(profileData,tempArr, selectedData.jobTitleSelected,selectedData.isLocationSelected, selectedCertificate, selectedEmployment,tempArray);
+      getMatchingJobs(profileData,tempArray, selectedData.jobTitleSelected,selectedData.isLocationSelected, selectedCertificate, selectedEmployment,tempArray);
 
   }
   const searchHeaderKey = (keyId) => {
@@ -967,6 +969,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                   />
                 </View>
               </View>
+
               <View style={{backgroundColor:'white', borderRadius:5,alignItems:'center', paddingRight:16,paddingLeft:16 ,paddingTop:8, paddingBottom:8,marginTop:8}}>
                 <View style={{marginRight:8, flex:1, flexDirection:'row',}}> 
                   <Text style ={{color:ThemeColor.TextColor, fontSize:18, fontFamily:FontName.Regular, flex:1}}>Current job title</Text>
@@ -974,14 +977,22 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                       jobFilterRef.current?.setModalVisible()
                       navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:{},dataType:'JobTitle'})
                     }}>
-                    <Text style ={{color:ThemeColor.BtnColor, fontSize:16, fontFamily:FontName.Regular}}>Edit</Text>
+                      {currentJobTitle.length > 0 ?
+                        <Text style ={{color:ThemeColor.BtnColor, fontSize:16, fontFamily:FontName.Regular}}>Edit</Text> :
+                        <Icons name="add" color={ThemeColor.BtnColor} size={25} />
+                      }
                   </TouchableOpacity>
                 </View>
+                {currentJobTitle.length > 0 ? 
                 <TouchableOpacity style={{ flex:1,flexDirection:'row',alignItems: 'center',marginTop:8, height:30,marginRight:8}} onPress={() => {handleJobTitleSelect()}}>
                   <Text style ={{color:currentJobTitle.length > 0 ? ThemeColor.TextColor : ThemeColor.PlaceHolderColor, fontSize:16, fontFamily:FontName.Regular, flex:1}}>{currentJobTitle.length > 0 ? currentJobTitle : 'Not provided'}</Text>
-                  {selectedData.jobTitleSelected ? <Feather name="check" color={ThemeColor.BtnColor} size={22,22} /> : null }
-                </TouchableOpacity> 
+                  {selectedData.jobTitleSelected ? 
+                  <Feather name="check" color={ThemeColor.BtnColor} size={22} /> : null 
+                  }
+                </TouchableOpacity> : null 
+                }
               </View>
+
               <View style={{backgroundColor:'white', borderRadius:5,alignItems:'center', paddingRight:16,paddingLeft:16 ,paddingTop:8, paddingBottom:8,marginTop:8}}>
                 <View style={{marginRight:8, flex:1, flexDirection:'row',}}> 
                   <Text style ={{color:ThemeColor.TextColor, fontSize:18, fontFamily:FontName.Regular, flex:1}}>Location</Text>
@@ -989,13 +1000,18 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                       jobFilterRef.current?.setModalVisible()
                       navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:{},dataType:'PreferredCity',prefferedLocation:prefferedCity})
                     }}>
-                    <Text style ={{color:ThemeColor.BtnColor, fontSize:16, fontFamily:FontName.Regular}}>Edit</Text>
+                    {prefferedCity.length > 0 ?
+                    <Text style ={{color:ThemeColor.BtnColor, fontSize:16, fontFamily:FontName.Regular}}>Edit</Text> :
+                    <Icons name="add" color={ThemeColor.BtnColor} size={25} /> 
+                    }
                   </TouchableOpacity>
                 </View>
+                {prefferedCity.length > 0 ?
                 <TouchableOpacity style={{ flex:1,flexDirection:'row',alignItems: 'center',marginTop:8, height:30,marginRight:8}} onPress={() => {handleLocationSelect()}}>
                   <Text style ={{color:prefferedCity.length > 0 ?ThemeColor.TextColor : ThemeColor.PlaceHolderColor, fontSize:16, fontFamily:FontName.Regular, flex:1}}>{prefferedCity.length > 0 ? prefferedCity : 'Not provided'}</Text>
                   {selectedData.isLocationSelected ? <Feather name="check" color={ThemeColor.BtnColor} size={22,22} /> : null }
-                 </TouchableOpacity> 
+                 </TouchableOpacity> : null 
+                 }
               </View>
               <View style={{backgroundColor:'white', borderRadius:5,alignItems:'center', paddingRight:16,paddingLeft:16 ,paddingTop:8, paddingBottom:8,marginTop:8}}>
                 <View style={{marginRight:8, flex:1, flexDirection:'row',}}> 
@@ -1031,7 +1047,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                               <View>
                                   <TouchableOpacity style={{marginLeft:8, height:30,justifyContent:'space-between',alignItems:'center', flexDirection:'row', marginRight:8}} onPress={() => {handleItemSelect(item,taxonomyList)}}>
                                       <Text style={{fontFamily: FontName.Regular, fontSize:16, color:ThemeColor.TextColor,}}>{item.keyName}</Text>
-                                      {searchItemKey(item.keyId) ? <Feather name="check" color={ThemeColor.BtnColor} size={22,22} /> : null }
+                                      {searchItemKey(item.keyId) ? <Feather name="check" color={ThemeColor.BtnColor} size={22} /> : null }
                                   </TouchableOpacity>
                                   <View style={{height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:8}} />
                               </View>
@@ -1065,7 +1081,8 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                   </TouchableOpacity>
                   }
                 </View>
-                <View style={{ flex:1,flexDirection:'row',alignItems: 'center', padding:8}}>
+                
+                <View style={{ flex:1,flexDirection:'row',alignItems: 'center'}}>
                   <FlatList
                     horizontal
                     data={certificationsList}
@@ -1079,7 +1096,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                       </TouchableOpacity>
                     }
                   />
-                </View>
+                </View> 
               </View>
               <View style={{backgroundColor:'white', borderRadius:5,alignItems:'center', paddingRight:16,paddingLeft:16 ,paddingTop:8, paddingBottom:8,marginTop:8}}>
                 <View style={{marginRight:8, flex:1, flexDirection:'row',}}> 
@@ -1090,18 +1107,18 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
                         jobFilterRef.current?.setModalVisible()
                         navigation.navigate('Desired employeement',{profileDetail: profileData,lookupData:null})
                       }}>
-                        <Material name="pencil" color={ThemeColor.BtnColor} size={20,20} />
+                        <Material name="pencil" color={ThemeColor.BtnColor} size={20} />
                     </TouchableOpacity>
                     }
                     <TouchableOpacity style={{width:25, height:25, marginLeft:8}} onPress={() => {
                         jobFilterRef.current?.setModalVisible()
                         navigation.navigate('Desired employeement',{profileDetail: profileData,lookupData:null})
                       }}>
-                        <Icons name="add" color={ThemeColor.BtnColor} size={25,25} />
+                        <Icons name="add" color={ThemeColor.BtnColor} size={25} />
                     </TouchableOpacity>
                   </View>
                 </View>
-                <View style={{ flex:1,flexDirection:'row',alignItems: 'center', padding:8,height:50}}>
+                <View style={{ flex:1,flexDirection:'row',alignItems: 'center', padding:8,height: desiredEmployementList && desiredEmployementList.length > 0 ? 50 : 0}}>
                   <FlatList
                     horizontal
                     data={desiredEmployementList}

@@ -195,6 +195,11 @@ const MyregularizationScreen = ({route,navigation})  => {
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>From: </Text>
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>{item.From_Date} to {item.To_Date}</Text>
 							</View>
+							{item.IsCancelRequest && item.AR_Status != 'Cancel' ? 
+								<View style={{marginTop:4}}>
+									<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor, textAlign:'right'}}>Cancellation Raised</Text>
+								</View> : null
+							}
 						</View>
 						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 					</TouchableOpacity>

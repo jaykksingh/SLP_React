@@ -19,7 +19,7 @@ import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../.
 
 const JobReferralsScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [jobReferredArray, setJobReferredArray] = React.useState([]);
 	let [showProgressCellIndex, setShowProgressCellIndex] = React.useState(-1);
 
@@ -217,13 +217,13 @@ const JobReferralsScreen = ({route,navigation})  => {
 					  }
 					</View>
 				}
-			/> :
+			/> : !isLoading ?
 				<View style={{flex:1,justifyContent:'center', padding:16, justifyContent:'center', alignItems:'center'}}>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>{message}</Text>
 					<TouchableOpacity style={{backgroundColor:ThemeColor.BtnColor, height:40, justifyContent:'center', borderRadius:5,width:180, marginTop:16}} onPress={() => navigation.navigate('FindJobs',{fromJobRefer:true})}>
 						<Text style={{color:'white', fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>FIND JOBS</Text>
 					</TouchableOpacity>
-				</View> 
+				</View>  : null
 			}
 			<Loader isLoading={isLoading} />
 		</SafeAreaView>	

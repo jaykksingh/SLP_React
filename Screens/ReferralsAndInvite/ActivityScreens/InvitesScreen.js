@@ -19,7 +19,7 @@ import Loader from '../../../Components/Loader';
 
 const InvitesScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [invitationArray, setInvitationArray] = React.useState([]);
 	const [searchKey,setSearchKey] = React.useState('');
 	let mySearchBar = useRef();
@@ -128,15 +128,15 @@ const InvitesScreen = ({route,navigation})  => {
 				}
 			/> : searchKey.length > 0 ? 
 				<View style={{flex:1,justifyContent:'center', padding:16, justifyContent:'center', alignItems:'center'}}>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>No result found</Text>
+					{!isLoading && <Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>No result found</Text>}
 				</View>
-				:
+				: !isLoading ?
 				<View style={{flex:1,justifyContent:'center', padding:16, justifyContent:'center', alignItems:'center'}}>
 					<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>{message}</Text>
 					<TouchableOpacity style={{backgroundColor:ThemeColor.BtnColor, height:40, justifyContent:'center', borderRadius:5,width:180, marginTop:16}} onPress={() => {navigation.navigate('InviteFriend',{isFromEOB:false})}}>
 						<Text style={{color:'white', fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>INVITE A FRIEND</Text>
 					</TouchableOpacity>
-				</View>
+				</View> : null
 			}
 			<Loader isLoading={isLoading} />
 		</SafeAreaView>	

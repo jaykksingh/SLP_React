@@ -141,7 +141,7 @@ const PreScreeningScreen = ({route,navigation}) => {
 				Alert.alert(StaticMessage.AppName,message,
 				[{
 					text: 'Ok',
-					onPress: () => handleSimilarJobs(true)
+					onPress: () => handleSimilarJobs(false)
 				},{
 					text: 'View similar jobs',
 					onPress: () => handleSimilarJobs(true)

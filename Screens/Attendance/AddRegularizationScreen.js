@@ -200,13 +200,13 @@ const AddRegularizationScreen = ({route,navigation}) => {
 	const handleStartDateChange = (val) => {
 		setStartDate(val);
 		console.log("Start Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY hh:mm a')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
 		setData({...data,startDate:showDate});
 	}
 	const handleEndDateChange = (val) => {
 		setEndDate(val);
 		console.log("End Date:",val.toString());
-		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY hh:mm a')
+		let showDate = moment(val).format(data.dayBased ? 'MMM DD, YYYY' : 'MMM DD, YYYY HH:mm')
 		setData({...data,endDate:showDate});
 	}
 

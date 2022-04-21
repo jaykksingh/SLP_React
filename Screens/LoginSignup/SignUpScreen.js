@@ -140,14 +140,30 @@ const SignUpScreen = ({navigation}) => {
   }
     
   const handleRedirect = () => {
-    Linking.canOpenURL('nursedeck://').then(supported => {
-      if (supported) {
-        Linking.openURL('nursedeck://');
-      } else {
-        console.log('cannot open url')
-        Linking.openURL('https://apps.apple.com/us/app/nursedeck-medical-job-tool/id1171747847');
-      }
-    });
+    console.log('nursedeck');
+    let iosURL = "https://apps.apple.com/us/app/nursedeck-medical-job-tool/id1171747847";
+    let deeplinkURL = "nursedeck://";
+    Linking.canOpenURL(deeplinkURL).then(supported => {
+        // supported && Linking.openURL(iosURL);
+        console.log('nursedeck',supported);
+
+        if(supported){
+          Linking.openURL(deeplinkURL);
+        }else{
+          Linking.openURL(iosURL);
+        }
+    }, (err) => console.log(err));
+
+    // Linking.canOpenURL('nursedeck://').then(supported => {
+    //   if (supported) {
+    //     console.log('nursedeck supported');
+
+    //     Linking.openURL('nursedeck://');
+    //   } else {
+    //     console.log('cannot open url')
+        
+    //   }
+    // });
   };
 
   const handlePrivacyPolicy = () => {

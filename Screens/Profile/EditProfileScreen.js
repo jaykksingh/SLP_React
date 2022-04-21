@@ -26,6 +26,7 @@ import { BaseUrl, EndPoints, StaticMessage,ThemeColor, FontName } from '../../_h
 const EditProfileScreen = ({route,navigation}) => { 
   const { signOut } = React.useContext(AuthContext); 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [listUpdated, setListUpdated] = React.useState(false);
   const { profileDetail } = route.params;
   const { lookupData } = route.params;
   const { dataType } = route.params;
@@ -79,7 +80,7 @@ const EditProfileScreen = ({route,navigation}) => {
 		});
   }, [navigation]);
   const showDeleteAlert = () =>{
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },
@@ -225,8 +226,16 @@ const EditProfileScreen = ({route,navigation}) => {
     setData({...data,prefferedCity: val});
     if (val.length > 2){
       getCurrentLocation(val);
+      setListUpdated(!listUpdated);
     }else{
       setLocationArray([]);
+      setListUpdated(!listUpdated);
+    }
+
+    if(data.prefferedCity.length == 0){
+      setLocationArray([]);
+      setListUpdated(!listUpdated);
+
     }
   }
   const getCurrentLocation = async (searchKey) => {
@@ -422,9 +431,11 @@ const EditProfileScreen = ({route,navigation}) => {
               <ActivityIndicator animating={isLocationLoading} />
             </View>
           </View> 
+          {data.prefferedCity.length > 2 ?
           <FlatList style={{marginTop:1}}
             data={locationArray}
             keyExtractor={(item, index) => index.toString()}
+            randomUpdateProp={listUpdated}
             renderItem={({item}) => 
             <View>
             <TouchableOpacity style={{alignContent:'center'}} onPress={()=> {didSelectLocation(item)}}>
@@ -437,7 +448,7 @@ const EditProfileScreen = ({route,navigation}) => {
             </TouchableOpacity>
             </View>
             }
-        />   
+        />   : null }
           <Loader isLoading={isLoading} />
         </View> : null
       }

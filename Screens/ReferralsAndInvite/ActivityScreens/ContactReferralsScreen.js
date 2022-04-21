@@ -12,6 +12,7 @@ import moment from 'moment';
 import Loader from '../../../Components/Loader';
 import {getAuthHeader} from '../../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
+import { TapGesture } from 'react-native-gesture-handler/lib/typescript/handlers/gestures/tapGesture';
 
 
 const ContactReferralsScreen = ({route,navigation})  => {
@@ -37,7 +38,6 @@ const ContactReferralsScreen = ({route,navigation})  => {
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
 		var authToken = base64.encode(userAuthToken);    
 	  
-		setIsLoading(true);
 		axios ({  
 		  "method": "GET",
 		  "url": BaseUrl + EndPoints.ReferarContact,
@@ -104,7 +104,7 @@ const ContactReferralsScreen = ({route,navigation})  => {
 				}
 			/> : 
 			<View style={{flex:1,justifyContent:'center', padding:16}}>
-				<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>{message}</Text>
+				{!isLoading && <Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>{message}</Text>}
 			</View>
 			}
 			<Loader isLoading={isLoading} />

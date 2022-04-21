@@ -192,9 +192,10 @@ const JobDetailScreen = ({route,navigation}) => {
     }
     const handleViewSimilarJobs = (clientPrimaryKey,showSimilarJob) => {
         console.log('Job Details callback');
-        navigation.navigate('SimilarJobs',{clientPrimaryKey:clientPrimaryKey});
 
         if(showSimilarJob){
+            navigation.navigate('SimilarJobs',{clientPrimaryKey:clientPrimaryKey});
+
             console.log("View Similar Jobs: " + clientPrimaryKey);
         }
        

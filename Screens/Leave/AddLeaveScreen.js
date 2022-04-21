@@ -418,7 +418,10 @@ const AddLeaveScreen = ({route,navigation}) => {
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>From date</Text>
-					<TouchableOpacity onPress={() => {startDateRef.current?.setModalVisible()}}>
+					<TouchableOpacity onPress={() => {
+						{data.startDate.length == 0 && handleStartDateChange(startDate)}
+						startDateRef.current?.setModalVisible()
+						}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>
 					</View>
@@ -437,7 +440,10 @@ const AddLeaveScreen = ({route,navigation}) => {
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
 					</TouchableOpacity>
 					<Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>To date</Text>
-					<TouchableOpacity onPress={() => {endDateRef.current?.setModalVisible()}}>
+					<TouchableOpacity onPress={() => {
+						{data.endDate.length == 0 && handleEndDateChange(endDate)}
+						endDateRef.current?.setModalVisible()
+						}}>
 						<Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
 					</TouchableOpacity>
 					</View>

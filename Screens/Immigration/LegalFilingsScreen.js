@@ -21,7 +21,7 @@ import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_
 
 const LegalFilingsScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [legalFilingArray, setLegalFilingArray] = React.useState([]);
 
 	React.useLayoutEffect(() => {
@@ -163,7 +163,7 @@ const LegalFilingsScreen = ({route,navigation})  => {
 				}
 			/> : 
 				<View style={{justifyContent: 'center',alignItems: 'center', flex:1, padding:16}}>
-					<Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>No application found. Go ahead and submit your new application.</Text>						
+					{!isLoading && <Text style={{color:ThemeColor.TextColor, fontSize:16,fontFamily: FontName.Regular, textAlign:'center'}}>No application found. Go ahead and submit your new application.</Text>	}					
 				</View>
 			}
 			<Loader isLoading={isLoading} />

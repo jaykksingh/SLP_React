@@ -19,7 +19,7 @@ import Loader from '../../Components/Loader';
 
 const AttendancePendingScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [regularizationArray, setRegularizationArray] = React.useState([]);
 
   	const [data,setData] = React.useState({
@@ -151,13 +151,18 @@ const AttendancePendingScreen = ({route,navigation})  => {
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor}}>From: </Text>
 								<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>{item.From_Date} to {item.To_Date}</Text>
 							</View>
+							{item.IsCancelRequest ? 
+								<View style={{marginTop:4}}>
+									<Text style={{fontSize:14, fontFamily: FontName.Regular, color:ThemeColor.SubTextColor, textAlign:'right'}}>(Cancellation Request)</Text>
+								</View> : null
+							}
 						</View>
 						<Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
 					</TouchableOpacity>
 				}
 			/> : 
 			<View style={{flex:1, justifyContent: 'center',alignItems: 'center'}}>
-				<Text style={{fontSize:16, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>No request found</Text>
+				{!isLoading && <Text style={{fontSize:16, fontFamily: FontName.Regular, color:ThemeColor.TextColor}}>No request found</Text>}
 			</View>
 			}
 			

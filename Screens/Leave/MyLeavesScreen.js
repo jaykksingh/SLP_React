@@ -19,7 +19,7 @@ import Loader from '../../Components/Loader';
 
 const MyLeavesScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [leavesArray, setLeavesArray] = React.useState([]);
 	const [filterKey, setFilterKey] = React.useState('Pending');
 
@@ -199,22 +199,15 @@ const styles = StyleSheet.create({
       padding: 16,
       fontSize: 10
     },btnFill:{
-        width:'100%',
-        margin: 16,
-        height:50,
-        justifyContent:"center",
-        backgroundColor:'#fff' ,
-        alignItems:'center',
-        borderRadius:5,
-      },btnFill:{
 		height:50,
 		justifyContent:"center",
 		backgroundColor: ThemeColor.BtnColor ,
 		alignItems:'center',
 		marginLeft:16, 
 		marginRight:16,
-		marginBottom:8,
+		marginBottom:24,
 		borderRadius:5,
+
 	  },item: {
 		padding: 4,
 		marginVertical: 0,
