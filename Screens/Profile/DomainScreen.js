@@ -293,7 +293,7 @@ const DomainScreen = ({route,navigation}) => {
 					<Picker
 						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-						selectedValue={data.skillId}
+						selectedValue={parseInt(data.skillId)}
 						onValueChange={(itemValue, index) =>{
 							console.log(itemValue,index)
 							let selectedItem = primarySkillArray[index];

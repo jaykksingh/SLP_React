@@ -56,7 +56,7 @@ const MyApplicationScreen = ({route,navigation}) => {
   const handleShowProgress = (details) => {
     console.log(showProgressCell,details)
     if(showProgressCell == details.Job_Resume_Id){
-      setShowProgressCell('');
+      setShowProgressCell(-1);
     }else{
       setShowProgressCell(details.Job_Resume_Id);
     }
@@ -368,7 +368,7 @@ const MyApplicationScreen = ({route,navigation}) => {
                   </TouchableOpacity>
                   <View style={{height:1, backgroundColor:ThemeColor.BorderColor}}/>
                   {
-                    showProgressCell == item.jobId &&
+                    showProgressCell == item.Job_Resume_Id &&
                     <View style={{height:50, alignItems: 'center', justifyContent: 'center',paddingLeft:16, paddingRight:16}}>
                       <Image resizeMode= 'contain' style={{width:'95%', height:50}} source={getApplStatusImage(item)} /> 
                     </View>

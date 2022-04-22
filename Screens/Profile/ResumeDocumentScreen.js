@@ -36,7 +36,7 @@ const ResumeDocumentScreen = ({route,navigation})  => {
         resumeTitle:'',
         resumeData:'',
         fileName:'',
-        docName:'',
+        docName: Platform.OS == 'android' ? 1701 : '',
         docTitle:''
     });
     const { signOut } = React.useContext(AuthContext);
@@ -250,9 +250,9 @@ const ResumeDocumentScreen = ({route,navigation})  => {
                     :
                     <View style={{marginTop:32, width:'100%'}}>
                         <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Title*</Text>
-                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {docTitleRef.current?.setModalVisible()}}>
+                        <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {docTitleRef.current?.setModalVisible()}}>
                             <Picker
-                                style={{backgroundColor: 'white',flex:1,}}
+                                style={{flex:1,}}
                                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                                 selectedValue={data.docName}
                                 onValueChange={(itemValue, index) =>{
@@ -265,7 +265,6 @@ const ResumeDocumentScreen = ({route,navigation})  => {
                                     return (<Picker.Item label={item.value} value={item.key} key={index}/>) 
                                 })}
                             </Picker>
-                            <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
                         </TouchableOpacity>
                     </View> : null 
                 }

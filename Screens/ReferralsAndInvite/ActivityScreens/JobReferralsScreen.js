@@ -19,7 +19,7 @@ import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../.
 
 const JobReferralsScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [jobReferredArray, setJobReferredArray] = React.useState([]);
 	let [showProgressCellIndex, setShowProgressCellIndex] = React.useState(-1);
 

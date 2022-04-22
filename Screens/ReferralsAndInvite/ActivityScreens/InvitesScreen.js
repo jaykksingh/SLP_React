@@ -19,7 +19,7 @@ import Loader from '../../../Components/Loader';
 
 const InvitesScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [invitationArray, setInvitationArray] = React.useState([]);
 	const [searchKey,setSearchKey] = React.useState('');
 	let mySearchBar = useRef();

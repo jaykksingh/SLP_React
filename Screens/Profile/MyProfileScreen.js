@@ -9,7 +9,8 @@ import { StatusBar,
     SectionList,
     SafeAreaView,
     FlatList,
-    Alert
+    Alert,
+    Platform
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
@@ -413,22 +414,27 @@ const MyProfileScreen = ({route,navigation}) => {
   }
   
   const viewResume = (resume) => {
-    console.log('resume:', resume);
-    let url =  resume.filePath;
-		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/${resume.fileName}.${extension}`;
-		const options = {
-			fromUrl: url,
-			toFile: localFile,
-		};
-		RNFS.downloadFile(options)
-		.promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
-		.then(() => {
-			console.log('View Sucess')
-		})
-		.catch((error) => {
-			console.log('View Failed',error)
-		});
+    navigation.navigate('DocumentViewer',{fileURL:resume.filePath,fileName:resume.fileName});
+
+    // console.log('resume:', resume);
+    // let url =  resume.filePath;
+		// var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
+    // if(Platform.OS == 'android'){
+    //   fileURL = url;
+    // }
+		// const localFile = `${RNFS.DocumentDirectoryPath}/${resume.fileName}.${fileURL}`;
+		// const options = {
+		// 	fromUrl: url,
+		// 	toFile: localFile,
+		// };
+		// RNFS.downloadFile(options)
+		// .promise.then(() => FileViewer.open(localFile,{ showOpenWithDialog: true }))
+		// .then(() => {
+		// 	console.log('View Sucess')
+		// })
+		// .catch((error) => {
+		// 	console.log('View Failed',error)
+		// });
    
   }
 

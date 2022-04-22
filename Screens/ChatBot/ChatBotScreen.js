@@ -420,8 +420,8 @@ const ChatBotScreen = ({route,navigation}) => {
 		let subScreenName = screenArr.length > 1 ? screenArr[1] : "";
 		let detailsId = screenArr.length > 2 ? screenArr[2] : "";
 
-		if(screenName == ":job"){
-			navigation.navigate('Find jobs');
+		if(screenName == ":job" || screenName == ':joblist'){
+			navigation.navigate('FindJobs');
 			if(subScreenName == "list"){
 				navigation.navigate('JobsList',{searchKey:'',location:''});
 			}
@@ -433,8 +433,10 @@ const ChatBotScreen = ({route,navigation}) => {
 			navigation.navigate('Timesheets');
 		}else if(screenName == ':vacationrequest'){
 			navigation.navigate('RequestTimeoff');
-		}else{
-			getChatGroups(MessageGroupId.GeneralQueriesID);
+		}else if(screenName == ':my-application'){
+			navigation.navigate('Application');
+		}else if(screenName == ':profile'){
+			navigation.navigate('Profile');
 		}
 
 	}
