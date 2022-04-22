@@ -276,9 +276,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
   
   	return (
 		  	<SafeAreaView style={styles.container}>
-			<KeyboardAvoidingView enabled
-				behavior={"padding"} // you can change that by using Platform
-				keyboardVerticalOffset={Platform.select({ ios: 85, android: 85 })} style={styles.container}>
+			<KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? "padding" : ''} keyboardVerticalOffset={Platform.select({ ios: 85, android: 85 })} style={styles.container}>
 				<View style={{flex: 1,backgroundColor:'#fff'}}>
 					{selectedFileArray.length > 0 && <Image
 					    resizeMode={'contain'}

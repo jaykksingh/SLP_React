@@ -11,6 +11,7 @@ import { View,
     Image,
 	Dimensions,
 	KeyboardAvoidingView,
+	Platform,
 	} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
@@ -658,7 +659,7 @@ const ChatScreen = ({route,navigation}) => {
 						</View>
 					}
 				</KeyboardAvoidingView> : 
-				<KeyboardAvoidingView keyboardVerticalOffset={Platform.select({ ios: 85, android: 0 })}>
+				<KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? "padding" : ''} keyboardVerticalOffset={Platform.select({ ios: 85, android: 0 })}>
 					<View style={{flexDirection:'row', paddingTop:8, paddingBottom:8, backgroundColor:ThemeColor.ViewBgColor}}>
 						<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {() => showActionSheet()}>
 							<Feather name="plus" color={ThemeColor.BtnColor} size={25} />
