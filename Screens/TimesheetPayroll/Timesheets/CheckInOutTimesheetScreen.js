@@ -954,7 +954,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 								<View style={{height:30, width:95, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:8}}>
 									{
 										item.statusId > 3302 ? 
-										<View onPress={ () => {handleEditClicked(item)}}>
+										<View style={{flexDirection:'row',marginRight:16}} onPress={ () => {handleEditClicked(item)}}>
 											<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.breakHrs}</Text>
 											<MaterialIcons name="lock" color={ThemeColor.SubTextColor} size={15} />
 										</View> :

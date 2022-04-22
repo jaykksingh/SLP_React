@@ -164,7 +164,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
 
   const showLogOutAlert = () =>{
     console.log('Log Out')
-    Alert.alert('Are sure want to log out?',null,
+    Alert.alert('Are you sure want to log out?',null,
         [{
           text: 'Cancel',
         },{
@@ -719,7 +719,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
               <Picker
                 style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-                selectedValue={data.authorisationStatusId}
+                selectedValue={parseInt(data.authorisationStatusId)}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
                   let selectedItem = authorizationStatusList[index];
@@ -821,7 +821,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
                 <Picker
                   style={{flex:1,}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-                  selectedValue={data.totalExpId}
+                  selectedValue={parseInt(data.totalExpId)}
                   onValueChange={(itemValue, index) =>{
                     console.log(itemValue,index)
                     let selectedItem = experienceList[index];

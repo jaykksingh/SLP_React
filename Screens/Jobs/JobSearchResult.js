@@ -596,10 +596,10 @@ const JobSearchResult = ({route,navigation}) => {
                         onPress={(index) => { handleSortBy(index)}}
                     />
                 </TouchableOpacity> 
-                {isLoggedIn ? 
+                {/* {isLoggedIn ? 
                 <TouchableOpacity onPress={() => {savedAlertRef.current?.setModalVisible()}}>
                     <Feather name="filter" color={'black'} size={20} />
-                </TouchableOpacity> : null }
+                </TouchableOpacity> : null } */}
             </View>    
             <FlatList style={{}}
                 data={jobsList.job}

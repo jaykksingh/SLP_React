@@ -732,9 +732,7 @@ const ChatBotScreen = ({route,navigation}) => {
 					</View>
 				}
 			/>
-			<KeyboardAvoidingView enabled
-				behavior={"padding"} // you can change that by using Platform
-				keyboardVerticalOffset={Platform.select({ ios: 85, android: 85 })}>
+			<KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? "padding" : ''} keyboardVerticalOffset={Platform.select({ ios: 85, android: 0 })}>
 			<View style={{flexDirection:'row', paddingTop:8, paddingBottom:8, backgroundColor:ThemeColor.ViewBgColor}}>
 				<TextInput  
 					style={styles.inputText}

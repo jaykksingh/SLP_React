@@ -30,7 +30,7 @@ const EOBViewAttachmentScreen = ({route,navigation}) => {
 	}, [navigation]);
 	const showLogOutAlert = () =>{
 		console.log('Log Out')
-		Alert.alert('Are sure want to log out?',null,
+		Alert.alert('Are you sure want to log out?',null,
 			[{
 				text: 'Log out',
 				onPress: () => signOut()

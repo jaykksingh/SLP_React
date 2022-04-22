@@ -389,7 +389,7 @@ const CheckInOutScreen = ({route,navigation}) => {
                         <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
                             <Picker
                                 style={{flex:1}}
-                                itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
+                                itemStyle={{fontSize:10, fontFamily:FontName.Regular}}
                                 selectedValue={selectedHours.hourType}
                                 onValueChange={(itemValue, index) =>{
                                     let selectedItem = breakTypeArr[index];

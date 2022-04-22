@@ -8,7 +8,8 @@ import {
 	Alert,
 	FlatList,
 	ScrollView,
-	Image
+	Image,
+	Platform
 } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
@@ -184,14 +185,17 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		  data:{"projectId":projectDetail.projectDetailId,'startDate':timesheetDetails.startDate,'endDate':timesheetDetails.endDate}
 		})
 		.then((response) => {
-		setIsLoading(false);
+			setIsLoading(false);
 			if (response.data.code == 200){
 				const results = JSON.stringify(response.data.content.dataList)
 				console.log('Result:', results);
 				setTimesheetPdfDetail(response.data.content.dataList[0]);
 				let url =  response.data.content.dataList[0].filePath;
-				const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-				const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+				var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
+				if(Platform.OS == 'android'){
+					fileURL = url;
+				}
+				const localFile = `${RNFS.DocumentDirectoryPath}/Timesheet.${fileURL}`;
 				const options = {
 					fromUrl: url,
 					toFile: localFile,
@@ -217,7 +221,7 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		})
 		.catch((error) => {
 			console.error(error);
-			setData({...data, isLoading: false});
+			setIsLoading(false);
 			if(error.response && error.response.status == 401){
 			  SessionExpiredAlert();
 			}else{
@@ -248,8 +252,12 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		}
 		let details =  newArr[0];
 		let url =  details.path;
-		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
+		if(Platform.OS == 'android'){
+			fileURL = url;
+		}
+
+		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${fileURL}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,

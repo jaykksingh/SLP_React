@@ -292,9 +292,9 @@ const JobSearchScreen = ({route,navigation}) => {
             />
             {isLocationLoading && <ActivityIndicator /> }
           </View>
-          <TouchableOpacity style ={styles.btnTarget} onPress={ () => {handleCurrentLocation()}}> 
+          {/* <TouchableOpacity style ={styles.btnTarget} onPress={ () => {handleCurrentLocation()}}> 
             <MaterialIcons name="gps-fixed" color={'gray'} size={24} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <Text style={{fontFamily:FontName.Regular, fontSize:12,color:ThemeColor.HelpingTextColor, paddingLeft:8, marginTop:4}}>Enter city or state name</Text>
       </View>
