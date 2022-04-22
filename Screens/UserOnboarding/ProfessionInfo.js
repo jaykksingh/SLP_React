@@ -48,8 +48,6 @@ const ProfessionInfo = ({route,navigation}) => {
     navigation.addListener('focus', () => {
       getProfileDetails();
     })
-    getProfileDetails();
-
   },[])
 
   const { signOut } = React.useContext(AuthContext);
@@ -135,7 +133,7 @@ const ProfessionInfo = ({route,navigation}) => {
     navigation.navigate('Experience',{profileDetail: profileData,experienceDetails:selectedItem,lookupData:lookupData})
   }
   const showAlert = () => {
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },

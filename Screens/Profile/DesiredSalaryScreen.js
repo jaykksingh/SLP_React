@@ -126,11 +126,11 @@ const DesiredSalaryScreen = ({route,navigation}) => {
                 Platform.OS == 'ios' ? 
                 <TouchableOpacity style={{backgroundColor:'white',width:'40%', flexDirection:'row', alignItems:'center'}}  onPress={() => {salarayTypeRef.current?.setModalVisible()}}>
                   <Text style={[styles.labelText,{color:data.contractRateType.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.contractRateType.length >0 ? data.contractRateType : 'Select rate type'}</Text>
-                  <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
+                  <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22} />
                 </TouchableOpacity> :
                 <View style={{backgroundColor:'white',width:'50%', flexDirection:'row', alignItems:'center', height:40}}>
                   <Picker
-                    style={{backgroundColor: 'white',flex:1,}}
+                    style={{flex:1,}}
                     itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
                     selectedValue={data.contractRateTypeId}
                     onValueChange={(itemValue, index) =>{
@@ -142,7 +142,6 @@ const DesiredSalaryScreen = ({route,navigation}) => {
                       return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
                     })}
                   </Picker>
-                  <Feather name="chevron-right" color={ThemeColor.SubTextColor} size={22,22} />
                 </View>
               }
             </View>

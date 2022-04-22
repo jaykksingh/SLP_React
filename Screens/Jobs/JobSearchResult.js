@@ -503,7 +503,7 @@ const JobSearchResult = ({route,navigation}) => {
    
     const handleDeleteSavedAlert = (item) => {
         console.log(`jobSearchAlertId : ${item.jobSearchAlertId}`);
-        Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+        Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
               text: 'Cancel',
         },

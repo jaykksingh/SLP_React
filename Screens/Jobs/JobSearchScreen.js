@@ -290,7 +290,7 @@ const JobSearchScreen = ({route,navigation}) => {
       </View>
       {/* {locationArray.length > 0 && 
       } */}
-      {locationArray.length > 0 ?
+      {locationArray.length > 0 && searchLocation.length > 0?
         <FlatList style={{marginTop:0,height:locationArray.length > 3 ? 120 : locationArray.length * 30, backgroundColor:ThemeColor.BorderColor, borderRadius:5}}
           data={locationArray}
           keyExtractor={(item, index) => index.toString()}

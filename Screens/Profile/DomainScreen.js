@@ -252,7 +252,7 @@ const DomainScreen = ({route,navigation}) => {
 			
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Sub-domain</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {subDomainRef.current?.setModalVisible()}}>
+				<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {subDomainRef.current?.setModalVisible()}}>
 					<Picker
 						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -266,11 +266,11 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 						})}
 					</Picker>
-				</TouchableOpacity>
+				</View>
 			</View>
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Role</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {roleRef.current?.setModalVisible()}}>
+				<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}} onPress={() => {roleRef.current?.setModalVisible()}}>
 					<Picker
 						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -285,11 +285,11 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.Text} value={item.Value} key={index}/>) 
 						})}
 					</Picker>
-				</TouchableOpacity>
+				</View>
 			</View>
 			<View style={{marginTop:12}}>
 				<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Primary skill</Text>
-				<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center',}} onPress={() => {skillsRef.current?.setModalVisible()}}>
+				<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center',}} onPress={() => {skillsRef.current?.setModalVisible()}}>
 					<Picker
 						style={{flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -304,7 +304,7 @@ const DomainScreen = ({route,navigation}) => {
 							return (<Picker.Item label={item.Text} value={item.Value} key={index}/>) 
 						})}
 					</Picker>
-				</TouchableOpacity>
+				</View>
 			</View>        
 
 		</View>

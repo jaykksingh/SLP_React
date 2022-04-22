@@ -130,6 +130,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
   }
   const setProfileDetailsData = (profileData) => {
     let empDetails = profileData.empDetails;
+    console.log('Emp Details: ', empDetails);
     setData({...data,
       firstName:empDetails.firstName,
       lastName:empDetails.lastName, 
@@ -140,7 +141,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
       contactNumberDialCode:empDetails.contactNumberDialCode,
       cnShortCountryCode: empDetails.cnShortCountryCode,
       currentJobTitle:empDetails.currentJobTitle,
-      authorisationStatus:empDetails.authorisationStatus,
+      authorisationStatus: empDetails.authorisationStatus,
       authorisationStatusId:empDetails.authorisationStatusId,
       domain: empDetails.domain,
       subDomain: empDetails.subDomain,
@@ -386,6 +387,7 @@ const BasicDetailsScreen = ({route,navigation}) => {
         "careerProfile":data.careerProfile,
         "industryVerticalId":data.industryVerticalId,
         "cityId":data.cityId,
+        'city':searchLocation,
         "allowSms":data.allowSms
 
     }
@@ -409,11 +411,13 @@ const BasicDetailsScreen = ({route,navigation}) => {
           {text: 'Ok'}
         ]);
 
-      }else{
-        setIsLoading(false);
-      }
+      }else if (response.data.code == 401){
+				console.log('Session Expired Already');
+				SessionExpiredAlert();
+			}
     })
     .catch((error) => {
+      console.log(error)
       setIsLoading(false);
       Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
         {text: 'Ok'}
@@ -421,6 +425,14 @@ const BasicDetailsScreen = ({route,navigation}) => {
 
     })
   }
+  const SessionExpiredAlert = () =>{
+		Alert.alert(StaticMessage.AppName,StaticMessage.SessionExpired,
+			[{
+			  text: 'Ok',
+			  onPress: () => signOut()
+		  }]
+		)
+	}
   const  updateProfilePicture = async(imageBase64) => {
     let user = await AsyncStorage.getItem('loginDetails');  
     let parsed = JSON.parse(user);  

@@ -164,7 +164,7 @@ const MyProfileScreen = ({route,navigation}) => {
     })
   }
   const handleDeleteData = (item, type) => {
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },
@@ -413,10 +413,10 @@ const MyProfileScreen = ({route,navigation}) => {
   }
   
   const viewResume = (resume) => {
-    console.log('resume:', resume.filePath);
+    console.log('resume:', resume);
     let url =  resume.filePath;
 		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		const localFile = `${RNFS.DocumentDirectoryPath}/${resume.fileName}.${extension}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,
@@ -433,6 +433,7 @@ const MyProfileScreen = ({route,navigation}) => {
   }
 
   const handleAddButton = (title) => {
+    console.log('handleAddButton')
     if(title == 'Basic summary'){
       navigation.navigate('Edit profile',{profileDetail:profileData,dataType:'Summary',lookupData:lookupData});
     }else if (title == 'Domain' || title == 'Role' || title == 'Primary skills'){
@@ -459,6 +460,8 @@ const MyProfileScreen = ({route,navigation}) => {
       navigation.navigate('Edit profile',{profileDetail: profileData,lookupData:lookupData,dataType:'Achievements'})
     }else if(title == 'Speciality'){
       navigation.navigate('Speciality',{profileDetail: profileData,lookupData:lookupData})
+    }else if(title == 'Desired employment'){
+      navigation.navigate('Desired employeement',{profileDetail: profileData,lookupData:lookupData});
     }
 
   }
@@ -494,81 +497,93 @@ const MyProfileScreen = ({route,navigation}) => {
     let filename = item.filePath;
     return filename.split('.').pop();
   } 
+  let employeeTypeId = empDetails ? empDetails.employeeTypeId : 0
+
+  var profileOptionArr = [];
+  profileOptionArr.push({title: "Profile",data: []});
+  profileOptionArr.push({
+    title: "Basic summary",
+    data: empDetails.careerProfile.length > 0 ? [empDetails.careerProfile] : []
+  });
+  profileOptionArr.push({
+    title: "Domain",
+    data: ["French Fries"]
+  });
+  profileOptionArr.push({
+    title: "Role",
+    data: ["Water"]
+  });
+  profileOptionArr.push({
+    title: "Primary skills",
+    data: ["Water"]
+  });
+  profileOptionArr.push({
+    title: "Functional area/department",
+    data: ["Water"]
+  });
+  profileOptionArr.push({
+    title: "Desired employment",
+    data: ["Cheese Cake"]
+  });
+  profileOptionArr.push({
+    title: "Desired salary",
+    data: ["Cheese Cake"]
+  });
+  profileOptionArr.push({
+    title: "Speciality",
+    data: profileData.taxonomy
+  });
+  profileOptionArr.push({
+    title: "Education",
+    data: profileData.educations
+  });
+  profileOptionArr.push({
+    title: "Preferred city",
+    data: empDetails.prefferedCity
+  });
+  profileOptionArr.push({
+    title: "Work experience",
+    data: profileData.experiences
+  });
+  profileOptionArr.push({
+    title: "Documents",
+    data: profileData.documents
+  });
+  profileOptionArr.push({
+    title: "Resume",
+    data: profileData.resume
+  });
+  profileOptionArr.push({
+    title: "Licence / Certifications",
+    data: profileData.licensesAndCertifications
+  });
+  if(employeeTypeId == 1223){
+    profileOptionArr.push({
+      title: "Employment details",
+      data: [profileData.employeementDetails]
+    });
+  }
   
+  profileOptionArr.push({
+    title: "Skills",
+    data: profileData.skills
+  });
+  profileOptionArr.push({
+    title: "Achievements",
+    data: profileData.candidateAchievements
+  });
+  profileOptionArr.push({
+    title : "SPACE",
+    data: []
+  });
+
 
   const employementDetails = profileData ? profileData.employeementDetails : '';
-  console.log(`Resume: ${JSON.stringify(profileData.resume)}`);
+  console.log(`Resume: ${JSON.stringify(profileData.empDetails)}`);
   return (
     <SafeAreaView style={styles.container}>
       <SectionList style={{marginBottom:16, paddingBottom:16}}
-        sections={[
-          {
-            title: "Profile",
-            data: []
-          },
-          {
-            title: "Basic summary",
-            data: empDetails.careerProfile.length > 0 ? [empDetails.careerProfile] : []
-          },
-          {
-            title: "Domain",
-            data: ["French Fries"]
-          },
-          {
-            title: "Role",
-            data: ["Water"]
-          },{
-            title: "Primary skills",
-            data: ["Water"]
-          },{
-            title: "Functional area/department",
-            data: ["Water"]
-          },
-          {
-            title: "Desired employment",
-            data: ["Cheese Cake"]
-          },
-          {
-            title: "Desired salary",
-            data: ["Cheese Cake"]
-          },
-          {
-            title: "Speciality",
-            data: profileData.taxonomy
-          },
-          {
-            title: "Education",
-            data: profileData.educations
-          },{
-            title: "Preferred city",
-            data: empDetails.prefferedCity
-          },{
-            title: "Work experience",
-            data: profileData.experiences
-          },{
-            title: "Documents",
-            data: profileData.documents
-          },{
-            title: "Resume",
-            data: profileData.resume
-          },{
-            title: "Licence / Certifications",
-            data: profileData.licensesAndCertifications
-          },{
-            title: "Employment details",
-            data: [profileData.employeementDetails]
-          },{
-            title: "Skills",
-            data: profileData.skills
-          },{
-            title: "Achievements",
-            data: profileData.candidateAchievements
-          },{
-            title : "SPACE",
-            data: []
-          }
-          
-        ]}
+        sections={profileOptionArr}
         keyExtractor={(item, index) => item + index}
         stickySectionHeadersEnabled={false}
         renderItem={({ item , index,section,}) => 

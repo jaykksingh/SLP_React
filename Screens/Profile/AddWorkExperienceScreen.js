@@ -80,7 +80,7 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
     });
   }, [navigation]);
   const showLogOutAlert = () =>{
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },
@@ -223,6 +223,7 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
           if(regionType == 'COUNTRY'){
             setCountryArray(response.data.content.dataList);
           }else if (regionType == 'STATE'){
+            console.log('State List:', JSON.stringify(response.data.content.dataList))
             setStateArray(response.data.content.dataList);
           }else if (regionType == 'CITY'){
             setCityArray(response.data.content.dataList);
@@ -379,7 +380,7 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
           <>
             <View style={{marginTop:0}}>
               <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Country</Text>
-              <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {countryRef.current?.setModalVisible()}}>
+              <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {countryRef.current?.setModalVisible()}}>
                 <Picker
                   style={{flex:1,}}
                   itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -394,11 +395,11 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                     return (<Picker.Item label={item.countryName} value={item.countryId} key={index}/>) 
                   })}
                 </Picker>
-              </TouchableOpacity>
+              </View>
             </View> 
             <View style={{marginTop:12}}>
                 <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>State</Text>
-                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleStatePicker()}}>
+                <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleStatePicker()}}>
                   <Picker
                     style={{flex:1,}}
                     itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -415,11 +416,11 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                       return (<Picker.Item label={item.stateName} value={item.stateId} key={index}/>) 
                     })}
                   </Picker>
-                </TouchableOpacity>
+                </View>
             </View> 
             <View style={{marginTop:12}}>
                 <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>City</Text>
-                <TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleCityPicker()}}>
+                <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {handleCityPicker()}}>
                   <Picker
                     style={{flex:1,}}
                     itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -435,7 +436,7 @@ const AddWorkExperienceScreen = ({route,navigation}) => {
                       return (<Picker.Item label={item.cityName} value={item.cityId} key={index}/>) 
                     })}
                   </Picker>
-                </TouchableOpacity>
+                </View>
             </View> 
           </>
         }

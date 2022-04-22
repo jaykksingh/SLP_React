@@ -34,7 +34,7 @@ const AddEducationScreen = ({route,navigation}) => {
   const [isLoading,setIsLoading] = React.useState(false);
   const [education,setEducation] = React.useState({
 	institutionName:'',
-	passingYear:'',
+	passingYear: Platform.OS == 'ios' ? '' : new Date().getFullYear(),
 	qualification:'',
 	employeeEducationId:'',
   });
@@ -53,7 +53,7 @@ const AddEducationScreen = ({route,navigation}) => {
     });
   }, [navigation]);
   const showLogOutAlert = () =>{
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },

@@ -86,6 +86,7 @@ const PreScreeningScreen = ({route,navigation}) => {
 		.then((response) => {
 			setIsLoading(false);
 			if (response.data.code == 200){
+				console.log('Question:',)
 				setQuestionsArray(response.data.content.dataList[0].questionDetails);
 			}else if (response.data.code == 417){
 				console.log(Object.values(response.data.content.messageList));

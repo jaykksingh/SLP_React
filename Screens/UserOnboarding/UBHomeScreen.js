@@ -274,17 +274,16 @@ const OnboardingScreen = ({navigation})  => {
                 <Text style={{fontFamily:FontName.bold, fontSize:18,color:ThemeColor.NavColor}}> Welcome, {empDetails ? empDetails.firstName : ''}!</Text>
                 <Text style={{fontFamily:FontName.Regular, fontSize:14,color:ThemeColor.NavColor, marginTop:8, textAlign:'center'}}> Let’s get started. Upload your resume for an instant analysis.</Text>
                 { resumeArr.length > 0 &&
-                <View style={{marginTop:16,padding:16, flexWrap:'wrap', justifyContent:'center'}}>
-                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor, textAlign:'center'}}>Great news! We've analyzed your existing resume:</Text>
-                    <TouchableOpacity style={{}} onPress = {() => {viewResume(resumeArr[0])}}>
-                        <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>{resumeTitle}</Text>
-                    </TouchableOpacity>
-                    <View style={{flexDirection:'row'}}>
-                        <Text style={{fontFamily:FontName.Italic, fontSize:16,color:ThemeColor.TextColor, textAlign:'center',marginRight:4}}>Do you have an updated version?  </Text>
-                        <TouchableOpacity onPress = {() => {selectResume()}}>
+                <View style={{marginTop:16}}>
+                    <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.TextColor,textAlign:'center', justifyContent:'center', alignContent:'center', alignItems:'center'}}>Great news! We've analyzed your existing resume: 
+                        <TouchableOpacity style={{height:16}} onPress = {() => {viewResume(resumeArr[0])}}>
+                            <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor}}> {resumeTitle}</Text>
+                        </TouchableOpacity>
+                        <Text style={{fontFamily:FontName.Italic, fontSize:16,color:ThemeColor.TextColor, textAlign:'center',marginRight:4}}> Do you have an updated version?  </Text>
+                        <TouchableOpacity style={{height:16}} onPress = {() => {selectResume()}}>
                             <Text style={{fontFamily:FontName.Regular, fontSize:16,color:ThemeColor.NavColor, textAlign:'center'}}>UPLOAD NEW</Text>
                         </TouchableOpacity>
-                    </View>
+                    </Text>
                 </View>
                 }
                 <View style={{alignItems: 'center', justifyContent: 'center', marginTop:32}}>

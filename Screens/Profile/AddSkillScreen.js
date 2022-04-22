@@ -43,7 +43,7 @@ const AddSkillScreen = ({route,navigation}) => {
     });
   }, [navigation]);
   const showDeleteAlert = () =>{
-    Alert.alert(StaticMessage.AppName,'Are sure want to delete?',
+    Alert.alert(StaticMessage.AppName,'Are you sure want to delete?',
         [{
           	text: 'Cancel',
         },

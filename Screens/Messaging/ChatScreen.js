@@ -658,7 +658,7 @@ const ChatScreen = ({route,navigation}) => {
 						</View>
 					}
 				</KeyboardAvoidingView> : 
-				<KeyboardAvoidingView enabled behavior={"padding"} keyboardVerticalOffset={Platform.select({ ios: 85, android: 85 })}>
+				<KeyboardAvoidingView keyboardVerticalOffset={Platform.select({ ios: 85, android: 0 })}>
 					<View style={{flexDirection:'row', paddingTop:8, paddingBottom:8, backgroundColor:ThemeColor.ViewBgColor}}>
 						<TouchableOpacity style={{width:40, height:40, justifyContent: 'center', alignItems: 'center'}} onPress = {() => showActionSheet()}>
 							<Feather name="plus" color={ThemeColor.BtnColor} size={25} />
