@@ -193,7 +193,7 @@ const JobMatchingScreen = ({route,navigation}) => {
 		  }]
 	)}
   const getMyApplication = async (resumeId) => {
-    setData({...data, isLoading: true});
+    setLoading(true);
 
     let user = await AsyncStorage.getItem('loginDetails');  
     let parsed = JSON.parse(user);  
@@ -206,7 +206,7 @@ const JobMatchingScreen = ({route,navigation}) => {
       data:{"applicationStatus":'active'}
     })
     .then((response) => {
-      setData({...data, isLoading: false});
+      setLoading(false);
       if (response.data.code == 200){
         let applicationsArray =  response.data.content.dataList;
         let records = [];
@@ -217,9 +217,7 @@ const JobMatchingScreen = ({route,navigation}) => {
         getJobStatistics(resumeId,records);
 
       }else if (response.data.code == 417){
-        setData({...data, isLoading: false});
         const errorList = Object.values(response.data.content.messageList);
-        
         Alert.alert(StaticMessage.AppName, errorList.join(), [
           {text: 'Ok'}
         ]);
@@ -229,7 +227,7 @@ const JobMatchingScreen = ({route,navigation}) => {
       }
     })
     .catch((error) => {
-      setData({...data, isLoading: false});
+        setLoading(false);
         if(error.response && error.response.status == 401){
           SessionExpiredAlert();
         }else{
@@ -240,7 +238,7 @@ const JobMatchingScreen = ({route,navigation}) => {
     })
   }
   const getJobStatistics = async(resumeId,oldApplication) => {
-    setData({...data,isJobCountLoading: true});
+    setLoading(true);
     
     let user = await AsyncStorage.getItem('loginDetails');  
     let parsed = JSON.parse(user);  
@@ -254,11 +252,11 @@ const JobMatchingScreen = ({route,navigation}) => {
       data:{"type":"matching-jobs"}
     })
     .then((response) => {
+      setLoading(false);
       if (response.data.code == 200){
         // setFilterDetails(response.data.content.dataList[0]);
         getMatchingJobsList(response.data.content.dataList[0],resumeId,oldApplication);
       }else if (response.data.code == 417){
-        setData({...data,isJobCountLoading: false});
         const message = parseErrorMessage(response.data.content.messageList);
         Alert.alert(StaticMessage.AppName, message, [
           {text: 'Ok'}
@@ -270,7 +268,7 @@ const JobMatchingScreen = ({route,navigation}) => {
     })
     .catch((error) => {
       console.log(error);
-      setData({...data, isJobCountLoading: false});
+      setLoading(false);
       if(error.response && error.response.status == 401){
         SessionExpiredAlert();
       }else{
@@ -288,7 +286,6 @@ const JobMatchingScreen = ({route,navigation}) => {
     if(!selectedData.isJobTitleSelected){
       jobTitle = "";
     }
-    setLoading(true);
     var filterDict;
     if(filter.jobAlerts.length > 0){
       filterDict =  filter.jobAlerts[0].searchParameter
@@ -308,7 +305,8 @@ const JobMatchingScreen = ({route,navigation}) => {
     }
     filterDict = {...filterDict,"excludeJobsById":oldApplication}
 
-   
+    // setLoading(true);
+
     console.log('Matching Job Params: ' + JSON.stringify(filterDict));  
     axios ({
         method: "POST",
@@ -325,7 +323,6 @@ const JobMatchingScreen = ({route,navigation}) => {
       if (response.data.statusCode == 200){
         setJobsArray(response.data.data.job);
       }else if (response.data.statusCode == 417){
-          setLoading(false);
           Alert.alert(StaticMessage.AppName, response.data.description, [
               {text: 'Ok'}
           ]);
@@ -335,7 +332,7 @@ const JobMatchingScreen = ({route,navigation}) => {
 
         console.log(error);
         setLoading(false);
-      Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
         {text: 'Ok'}
       ]);
     })
