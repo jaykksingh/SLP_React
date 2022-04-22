@@ -19,7 +19,7 @@ import Loader from '../../Components/Loader';
 
 const AttendancePendingScreen = ({route,navigation})  => {
 
-	const [isLoading, setIsLoading] = React.useState(true);
+	const [isLoading, setIsLoading] = React.useState(false);
 	const [regularizationArray, setRegularizationArray] = React.useState([]);
 
   	const [data,setData] = React.useState({
@@ -28,6 +28,7 @@ const AttendancePendingScreen = ({route,navigation})  => {
 
   	useEffect(() => {
 		navigation.addListener('focus', () => {
+			setIsLoading(true);
 			getRegularizationList();		
 		});
 
@@ -40,9 +41,6 @@ const AttendancePendingScreen = ({route,navigation})  => {
 		var authToken = base64.encode(userAuthToken);
 		let employeeDetailsId = parsed.employeeDetailsId;
 	
-		
-
-		setIsLoading(true);
 		let params = {
 			'LoggedInEmployeeDetailsId':'' + employeeDetailsId,
 			'ARStatusId':'0',

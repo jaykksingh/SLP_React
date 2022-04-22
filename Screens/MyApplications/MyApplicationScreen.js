@@ -30,7 +30,7 @@ const MyApplicationScreen = ({route,navigation}) => {
   let [selectedIndex, setSelectedIndex] = React.useState(0);
   let [applicationArray, setApplicationArray] = React.useState('');
   let [pastApplicationArray, setPastApplicationArray] = React.useState('');
-  let [showProgressCell, setShowProgressCell] = React.useState('');
+  let [showProgressCell, setShowProgressCell] = React.useState(-1);
 	const { signOut } = React.useContext(AuthContext);
 
   React.useLayoutEffect(() => {    
@@ -42,7 +42,6 @@ const MyApplicationScreen = ({route,navigation}) => {
     navigation.addListener('focus', () => {
       getMyApplication('active');
 		});
-    getMyApplication('active');
   }, []);
 
   
@@ -55,10 +54,11 @@ const MyApplicationScreen = ({route,navigation}) => {
     }
   }
   const handleShowProgress = (details) => {
-    if(showProgressCell == details.jobId){
+    console.log(showProgressCell,details)
+    if(showProgressCell == details.Job_Resume_Id){
       setShowProgressCell('');
     }else{
-      setShowProgressCell(details.jobId);
+      setShowProgressCell(details.Job_Resume_Id);
     }
   }
 
@@ -79,6 +79,7 @@ const MyApplicationScreen = ({route,navigation}) => {
       setLoading(false);
       if (response.data.code == 200){
         if(applicatonType == 'active'){
+          console.log('Active Application:',JSON.stringify(response.data.content.dataList));
           setApplicationArray(response.data.content.dataList);
         }else{
           setPastApplicationArray(response.data.content.dataList);
@@ -331,7 +332,7 @@ const MyApplicationScreen = ({route,navigation}) => {
             keyExtractor={(item, index) => item.Job_Resume_Id}
             renderItem={({item}) => 
               <View>
-                <View right={(item.isReferred && item.applicationStatus != 'Not Interested' && item.appliedOn.length == 0 ? swipeBtns : null)} autoClose='true' backgroundColor= 'transparent'>
+                <View>
                 <View style={{backgroundColor:'#fff'}} onPress={() => {getJobDetails(item)}}>
                   <View style={{paddingLeft:16, paddingRight:16}}>
                     <View style={{justifyContent:'space-between', flexDirection:'row', marginTop:8}}>
@@ -372,8 +373,7 @@ const MyApplicationScreen = ({route,navigation}) => {
                       <Image resizeMode= 'contain' style={{width:'95%', height:50}} source={getApplStatusImage(item)} /> 
                     </View>
                   }
-                  
-                </View>
+                  </View>
                 </View>
                 <View style={{height:12, backgroundColor:ThemeColor.BorderColor}} />
               </View>

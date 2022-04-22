@@ -33,7 +33,6 @@ const MyregularizationScreen = ({route,navigation})  => {
 			setData({...data,listUpdated:!data.listUpdated})
 			getRegularizationList(filterKey);		
 		});
-
 	},[]);
 
 	const  getRegularizationList = async(filterKey) => {
@@ -43,7 +42,7 @@ const MyregularizationScreen = ({route,navigation})  => {
 		var authToken = base64.encode(userAuthToken);
 		let employeeDetailsId = parsed.employeeDetailsId;
 	
-		setIsLoading(true);
+		// setIsLoading(true);
 		var filterKeyId = '';
 		switch (filterKey){
 			case 'Pending':

@@ -23,8 +23,8 @@ const EOBPOfferScreen = ({navigation})  => {
     const { signOut } = React.useContext(AuthContext);
     const { loginDetail } = React.useContext(AuthContext);
     const [offerLatterData, setOfferLatterData] = useState({
-		offerLetterPath: '',
-	});
+		  offerLetterPath: '',
+	  });
     let [isLoading, setIsLoading] = React.useState(false);
 
     React.useLayoutEffect(() => {

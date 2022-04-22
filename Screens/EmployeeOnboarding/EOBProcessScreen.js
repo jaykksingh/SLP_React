@@ -8,7 +8,8 @@ import { View ,
     Alert,
 	FlatList,
     Image,
-    Text} from 'react-native';
+    Text,
+    Platform} from 'react-native';
 	
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios'
 import moment from 'moment';
+import RNFS from 'react-native-fs';
+import FileViewer from "react-native-file-viewer";
 
 import { AuthContext } from '../../Components/context';
 import {getAuthHeader} from '../../_helpers/auth-header';
@@ -201,7 +204,19 @@ const EOBProcessScreen = ({navigation})  => {
     }
     const handleViewClick = (item) => {
         console.log('View Steps:', item);
-        navigation.navigate('EOBViewAttachment',{stepDetail:item})
+        // navigation.navigate('EOBViewAttachment',{stepDetail:item})
+        let url =  item.path ? item.path : item.fileName;
+
+        navigation.navigate('DocumentViewer',{fileURL:url,fileName:item.title ? item.title : item.fileName});
+
+       
+        // if(Platform.OS == 'ios'){
+        //     console.log('resume:', resume);
+            
+        // }else{
+        //     navigation.navigate('DocumentViewer',{fileURL:resume.filePath,fileName:resume.fileName});
+        // }
+
     }
     const handleDelete = async (item) => {
         console.log('Delete:', item);

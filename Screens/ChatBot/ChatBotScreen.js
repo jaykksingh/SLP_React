@@ -425,8 +425,7 @@ const ChatBotScreen = ({route,navigation}) => {
 			if(subScreenName == "list"){
 				navigation.navigate('JobsList',{searchKey:'',location:''});
 			}
-		}else if(screenName == ":messag"){
-			navigation.navigate('Messages');
+		}else if(screenName == ":message"){
 			if(subScreenName == "list"){
 				getChatGroups(detailsId);
 			}

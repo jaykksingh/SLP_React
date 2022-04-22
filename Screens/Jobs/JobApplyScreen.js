@@ -82,6 +82,7 @@ const JobApplyScreen = ({route,navigation}) => {
     const  getProfileDetails = async() => {
         let user = await AsyncStorage.getItem('loginDetails');  
         if(user){
+            setIsLoggedin(true);
             let parsed = JSON.parse(user);  
             let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
             var authToken = base64.encode(userAuthToken);
@@ -125,6 +126,7 @@ const JobApplyScreen = ({route,navigation}) => {
 
         }else{
             getUserLookups();
+            setIsLoggedin(false);
         }
     }
     const  getUserLookups = async() => {
@@ -363,7 +365,7 @@ const JobApplyScreen = ({route,navigation}) => {
                 </View>
                 {!isLoggedin && 
                 <View style={[styles.applyWithResume,{marginBottom:8}] }>
-                    <Text style={{flex: 1,color: ThemeColor.textColor,fontSize:16, fontFamily: FontName.Regular,alignSelf: 'flex-start'}}>Apply with your resume</Text>
+                    <Text style={{flex: 1,color: ThemeColor.TextColor,fontSize:16, fontFamily: FontName.Regular,alignSelf: 'flex-start'}}>Apply with your resume</Text>
                     <View style={{flexDirection:'row', width:'100%',flex:1}}>
                         <View style={styles.inputView}>
                             <Text style={{color:ThemeColor.TextColor, fontSize:16, fontFamily: FontName.Regular}}>First name</Text>
@@ -427,7 +429,7 @@ const JobApplyScreen = ({route,navigation}) => {
                 {profileData && resumeArray.length > 0 ?
                 <View style={[styles.applyWithResume] }>
                     <View style={{flexDirection:'row', justifyContent:'space-between',}} >
-                        <Text style={{flex: 1,color: ThemeColor.textColor,fontSize:16, fontFamily: FontName.Regular,}}>Apply with your resume</Text>
+                        <Text style={{flex: 1,color: ThemeColor.TextColor,fontSize:16, fontFamily: FontName.Regular,}}>Apply with your resume</Text>
                         <TouchableOpacity style={{flexDirection: 'row'}} onPress = {() => {selectResume()}}>
                             <Icon name="add-circle-outline" color={ThemeColor.BtnColor} size={16} />
                             <Text style={{color:ThemeColor.BtnColor, fontSize:14, fontFamily: FontName.Regular, marginLeft:4}}>New resume</Text>
@@ -464,7 +466,7 @@ const JobApplyScreen = ({route,navigation}) => {
                 </View> :
                 
                 <View style={[styles.applyWithResume] }>
-                    <Text style={{flex: 1,color: ThemeColor.textColor,fontSize:16, fontFamily: FontName.Regular,alignSelf: 'flex-start'}}>Apply with your resume</Text>
+                    <Text style={{flex: 1,color: ThemeColor.TextColor,fontSize:16, fontFamily: FontName.Regular,alignSelf: 'flex-start'}}>Apply with your resume</Text>
                     <TouchableOpacity style={{margin:32, alignItems: 'center'}} onPress={(event)=> {selectResume()}}>
                         <FontAwesome4 name="cloud-upload" color={ThemeColor.BtnColor} size={80} />
                         <Text style={{color:ThemeColor.LabelTextColor, fontSize:16, fontFamily: FontName.Regular, marginLeft:4}}>Upload resume</Text>

@@ -50,10 +50,37 @@ const SignInScreen = ({navigation}) => {
     });
     const [bioPassword, setBioPassword] = React.useState('');
     const [alreadyLaunched, setAlreadyLaunched] = React.useState(null);
+    const [isBiometricSupported, setIsBiometricSupported] = React.useState(false);
+    const [isTouchID, setIsTouchID] = React.useState(true);
+
     useEffect( () => {
       global.chatMessageArray = [];
       checkForVideo();
       getLoginDetails();
+
+      (async () => {
+        const { biometryType } = await ReactNativeBiometrics.isSensorAvailable()
+        if(Platform.OS == 'android'){
+          if (biometryType === ReactNativeBiometrics.Biometrics) {
+            //do something face id specific
+            setIsBiometricSupported(true);
+          }else{
+            setIsBiometricSupported(false);
+          }
+        }else{
+          if (biometryType === ReactNativeBiometrics.FaceID) {
+            setIsBiometricSupported(true);
+            setIsTouchID(false);
+          }else if (biometryType === ReactNativeBiometrics.TouchID) {
+            //do something fingerprint specific
+            setIsBiometricSupported(true);
+            setIsTouchID(true);
+          }else{
+            setIsBiometricSupported(false);
+          }
+        }
+      })();
+
     }, []);
     const getLoginDetails = async () => {
       let user = await AsyncStorage.getItem('username');  
@@ -384,15 +411,19 @@ const SignInScreen = ({navigation}) => {
             <TouchableOpacity style={styles.loginBtn} onPress={() => {loginHandle( data.loginID, data.password )}}>
                 <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN</Text>
             </TouchableOpacity>
+           {isBiometricSupported ? 
+           <>
             {Platform.OS == 'ios' ?
             <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.loginID, data.password )}}>
-              <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={getBiometicButtonIcon()} /> 
-              <Text style={{color:'#53962E', fontSize:16 }}>{getBiometicButtonTitle()}</Text>
+              <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={isTouchID ? require('../../assets/Images/Touchid.png') : require('../../assets/Images/FaceIcon.png')} /> 
+              <Text style={{color:'#53962E', fontSize:16 }}>{isTouchID ? 'SIGN IN USING TOUCH ID' : 'SIGN IN USING FACE ID'}</Text>
             </TouchableOpacity> : 
             <TouchableOpacity style={styles.btnBiometreic} onPress={() => {biometricLoginHandle( data.loginID, data.password )}}>
               <Image style={{width: 30,height: 30, marginRight:4,tintColor:ThemeColor.BtnColor}} source={require('../../assets/Images/Touchid.png')} /> 
               <Text style={{color:'#53962E', fontSize:16 }}>SIGN IN USING TOUCH ID</Text>
             </TouchableOpacity>
+           }
+           </>: null 
            }
             <View style={{justifyContent:'space-between', flex:1, flexDirection:'row', height:40, alignItems:'center',paddingLeft:16,paddingRight:16, marginTop:16}}>
               <TouchableOpacity style={{flex:6, height:40}} onPress={() => forgotPasswodHandle()}>

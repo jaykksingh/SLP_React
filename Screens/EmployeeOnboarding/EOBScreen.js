@@ -16,6 +16,7 @@ import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import RNExitApp from 'react-native-exit-app';
 import { openComposer } from "react-native-email-link";
+import DocumentViewerScreen from '../DocumentViewer/DocumentViewerScreen';
 
 
 import { AuthContext } from '../../Components/context';
@@ -66,6 +67,8 @@ const EOBScreen = () => {
             <UserOnboardingStack.Screen name="ReferContact" component={ReferContactScreen}/>
             <UserOnboardingStack.Screen name="InviteAFriend" component={InviteFriendScreen}/>
             <UserOnboardingStack.Screen name="EmailInvite" component={EmailInviteScreen}/>
+            <UserOnboardingStack.Screen name="DocumentViewer" component={DocumentViewerScreen}/>
+
         </UserOnboardingStack.Navigator>
     );
 };

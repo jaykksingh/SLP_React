@@ -357,7 +357,7 @@ const RegularizationDetailScreen = ({route,navigation})  => {
 			leaveDetails.AR_Status == "Approved" && !leaveDetails.IsCancelRequest ?
 			 <TouchableOpacity style={styles.btnFill} onPress={() => {cancelRegularizationStatus()}}>
 			 	<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>CANCEL ATTENDANCE</Text>
-		 	</TouchableOpacity> : leaveDetails.IsCancelRequest ?
+		 	</TouchableOpacity> : leaveDetails.IsCancelRequest && !isMyAttendance ?
 			<View style={{flexDirection:'row', paddingLeft:16, paddingRight:16,marginBottom:8}}>
 				<TouchableOpacity style={[styles.btnFill,{flex:1,margin:0, marginRight:8}]} onPress={() => {bulkUpdateRegularization(37133)}}>
 					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>REJECT</Text>

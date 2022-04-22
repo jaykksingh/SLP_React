@@ -7,6 +7,7 @@ import { View,
     TextInput,
     TouchableOpacity,
     SafeAreaView,
+	FlatList,
 	Platform} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
@@ -20,6 +21,7 @@ import {parseErrorMessage} from '../../_helpers/Utils';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_helpers/constants';
 import { getAuthHeader} from '../../_helpers/auth-header';
 import Loader from '../../Components/Loader';
+import * as Animatable from 'react-native-animatable';
 
 
 const applForRef = createRef();
@@ -40,6 +42,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 		email:'',
 		contactNumber:'',
 		contactNumberCountryCode:'1',
+		cnShortCountryCode:'',
 		appPriorityId: Platform.OS == 'ios' ? '' : 3581,
 		appPriority:'',
 		currentStatusName:'',
@@ -53,6 +56,8 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 	const {applTypeId} = route.params;
 	const {lookUpData} = route.params;
 	const {docList} = route.params;
+	const [show, setShow] = React.useState(false);
+	const [userLookupData, setUserLookupData] = React.useState({});
 
 	
 
@@ -66,8 +71,49 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 		if(applTypeName){
 			setData({...data,appType:applTypeId,applTypeName:applTypeName});
 		}
+		getUserLookups();
+
 		
 	},[]);
+	const  getUserLookups = async() => {
+		let user = await AsyncStorage.getItem('loginDetails');  
+		let parsed = JSON.parse(user);  
+		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+		var authToken = base64.encode(userAuthToken);
+	
+		setLoading(true);
+		axios ({  
+		  "method": "GET",
+		  "url": BaseUrl + EndPoints.UserLookups,
+		  "headers": getAuthHeader(authToken)
+		})
+		.then((response) => {
+		  if (response.data.code == 200){
+			setLoading(false);
+			setUserLookupData(response.data.content.dataList[0]);
+		  }else if (response.data.code == 417){
+			setLoading(false);
+			console.log(Object.values(response.data.content.messageList));
+			const errorList = Object.values(response.data.content.messageList);
+			Alert.alert(StaticMessage.AppName, errorList.join(), [
+			  {text: 'Ok'}
+			]);
+	
+		  }else{
+			setLoading(false);
+		  }
+		})
+		.catch((error) => {
+			setLoading(false);
+			Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+			  {text: 'Ok'}
+			]);
+		})
+	}
+	const didSelectDialCode = (selectedItem) => {
+		setData({...data,contactNumberCountryCode: selectedItem.dialCode,cnShortCountryCode:selectedItem.countryCode});
+		setShow(false);
+	}
 
   	const updateApplicationDetails = async () => {
 
@@ -100,11 +146,12 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 			setLoading(false);
 			if (response.data.code == 200){
 				setLoading(false);
-
-				let result = JSON.stringify(response.data.content);
-				console.log('App Details:',result);
 				if(docList.length == 0){
-					navigation.goBack();
+					console.log('My Leaves:',response.data.content);
+					Alert.alert(StaticMessage.AppName, 'Saved sucessfully.', [
+						{text: 'Ok',
+						onPress: () => {navigation.goBack()}}
+					]);
 				}else{
 					navigation.navigate('NewLcaDocument',{detail:response.data.content.dataList[0],documentList:docList,name:data.firstName + ' ' + data.lastName, applTypeName:data.applTypeName})
 				}
@@ -137,7 +184,8 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 		}
 		setData({...data,contactNumber: text});
 	}
-  
+    const countryDialCodeList = userLookupData ? userLookupData.countryDialCode : [];
+
   	return (
       	<SafeAreaView style={[styles.container,{backgroundColor:ThemeColor.ViewBgColor,}]}>
 			<KeyboardAwareScrollView style={{paddingLeft:16,paddingRight:16}}> 
@@ -262,7 +310,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 				<>
 					<View style={{marginTop:12}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Priority</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {priorityRef.current?.setModalVisible()}}>
+						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {priorityRef.current?.setModalVisible()}}>
 							<Picker
 								style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -275,11 +323,11 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 								})}
 							</Picker>
-						</TouchableOpacity>
+						</View>
 					</View>
 					<View style={{marginTop:12}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Current employment status for</Text>
-						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {currentStatusRef.current?.setModalVisible()}}>
+						<View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center'}}  onPress={() => {currentStatusRef.current?.setModalVisible()}}>
 							<Picker
 								style={{flex:1,fontSize:14, fontFamily: FontName.Regular}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
@@ -292,7 +340,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 									return (<Picker.Item label={item.keyName} value={item.keyId} key={index}/>) 
 								})}
 							</Picker>						
-						</TouchableOpacity>
+						</View>
 					</View>
 					<View style={{marginTop:12}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Skill</Text>
@@ -445,7 +493,28 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 						})}
 					</Picker>
 				</View>
-			</ActionSheet>          
+			</ActionSheet> 
+			{show && 
+				<Animatable.View  animation="fadeInUpBig" style={styles.footer}>
+					<View style={{backgroundColor:ThemeColor.BorderColor, height:4, width:200, borderRadius:2}}/>
+					{countryDialCodeList.length > 0 && 
+					<FlatList style={{marginTop:16, marginBottom:16 ,width:'100%'}}
+						data={countryDialCodeList}
+						keyExtractor={(item, index) => index.toString()}
+						renderItem={({item}) => 
+						<TouchableOpacity onPress={(event)=> {didSelectDialCode(item)}}>
+							<View style={{flex: 1,flexDirection:'row', height:40, margin_bottom:4,alignItems: 'center'}}>
+							<Text style={{flex: 1, fontFamily: FontName.Regular, fontSize:14, marginLeft:16}}>{item.keyName} [{item.dialCode}]</Text>
+							</View>
+							<View style={{flex: 1,height:1, backgroundColor:ThemeColor.BorderColor, marginLeft:16}}/> 
+						</TouchableOpacity>
+						}
+					/>} 
+					<TouchableOpacity style={{height:40,justifyContent:"center",backgroundColor: ThemeColor.BtnColor ,alignItems:'center',width:'90%',borderRadius:5}} onPress={() => setShow(false)}>
+					<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:16, color:'#fff' }}>DONE</Text>
+					</TouchableOpacity>
+				</Animatable.View>
+			}         
       	</SafeAreaView>
     );
 }

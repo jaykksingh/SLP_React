@@ -185,9 +185,9 @@ const JobSearchScreen = ({route,navigation}) => {
       timeout: 15000,
     })
     .then(location => {
-      setData({...data,isLoading: false});
+        setData({...data,isLoading: false});
         console.log(location);
-        getLatLongAddress(location);
+        // getLatLongAddress(location);
     })
     .catch(error => {
         const { code, message } = error;
@@ -213,31 +213,41 @@ const JobSearchScreen = ({route,navigation}) => {
   }
   const getLatLongAddress = async(location) => {
     setData({...data,isLoading: true});
-
-    var NY = {
-      lat: location.latitude,
-      lng: location.longitude
-    };
-    let ret = await Geocoder.geocodePosition(NY);
-    console.log(JSON.stringify(ret));
-      setData({...data,isLoading: false});
-
-    Geocoder.geocodePosition(NY).then(res => {
-      setData({...data,isLoading: false});
-      // res is an Array of geocoding object (see below)
-      let placemark = res.length > 0 ? res[0] : {};
-      let strCityName= placemark.locality;
-      let strStateName = placemark.subAdminArea;
-      let strCountryName = placemark.position.country;
-      let locationName = strCityName + ', ' + strStateName;
-      setSearchLocation(locationName);
-
-      console.log(JSON.stringify(res));
+    let googleAPIKey = ''
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.latitude},${location.longitude}&key=${googleAPIKey}`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            setData({...data,isLoading: false});
+            console.log('ADDRESS GEOCODE is BACK!! => ' + JSON.stringify(responseJson));
+    }).catch(err => {
+        console.log(err);
+        setData({...data,isLoading: false});
     })
-    .catch(err => {
-      console.log(err);
-      setData({...data,isLoading: false});
-    })
+
+    // var NY = {
+    //   lat: location.latitude,
+    //   lng: location.longitude
+    // };
+    // let ret = await Geocoder.geocodePosition(NY);
+    //   console.log(JSON.stringify(ret));
+    //   setData({...data,isLoading: false});
+
+    // Geocoder.geocodePosition(NY).then(res => {
+    //   setData({...data,isLoading: false});
+    //   // res is an Array of geocoding object (see below)
+    //   let placemark = res.length > 0 ? res[0] : {};
+    //   let strCityName= placemark.locality;
+    //   let strStateName = placemark.subAdminArea;
+    //   let strCountryName = placemark.position.country;
+    //   let locationName = strCityName + ', ' + strStateName;
+    //   setSearchLocation(locationName);
+
+    //   console.log(JSON.stringify(res));
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   setData({...data,isLoading: false});
+    // })
   
   }
   const locationFound =  locationArray.length > 0 ? true : false;
