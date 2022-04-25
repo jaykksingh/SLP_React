@@ -87,35 +87,31 @@ const DashboardScreen = ({navigation}) => {
     PushNotification.configure({
       onNotification: function (notification) {
         if (notification.userInteraction) {
-          console.log(notification);
+          console.log('Notification:',notification);
           let data = notification.data;
           let screenName = data['gcm.notification.screenName'];
           console.log('screenName :',screenName);
           handlePushDeepLinking(screenName);
         }
-        notification.finish(PushNotificationIOS.FetchResult.NoData);
+        if (Platform.OS === 'ios') {
+          notification.finish(PushNotificationIOS.FetchResult.NoData);
+        }
       },
     });
     crashlytics().log('Updating user count.');
     requestUserPermission();
-    // const unsubscribe = messaging().onMessage(async remoteMessage => {
-    //   Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    // messaging().setBackgroundMessageHandler(async remoteMessage => {
+    //   console.log('Message handled in the background!', remoteMessage);
     // });
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
-    });
 
-    // Linking.addEventListener('url', handleDeepLink('url'))
     Linking.addEventListener('url', ({url}) => {handleDeepLink(url)})
 
     navigation.addListener('focus', () => {
       getProfileDetails(false);
     })
-    // getProfileDetails(false);
   }, []);
   const handlePushDeepLinking = (linkUrl) => {
-    // let linkUrl1 = 'StafflinePro/message/list/607';
-    // console.log("linkUrl : ",linkUrl1);
+    console.log("linkUrl: ",linkUrl);
     handleDeepLink(linkUrl);
   }
   const handleDeepLink = (e) =>  {  

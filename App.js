@@ -4,7 +4,6 @@ import React , {useEffect} from 'react';
 import { Alert,Image} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import base64 from 'react-native-base64'
 import { getAuthHeader} from './_helpers/auth-header';
 import { BaseUrl, EndPoints,StaticMessage } from './_helpers/constants';
@@ -13,9 +12,6 @@ import { AuthContext } from './Components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeepLinking from 'react-native-deep-linking';
 import './_helpers/global'
-// import PushNotificationIOS from "@react-native-community/push-notification-ios";
-// import PushNotification from "react-native-push-notification";
-import './_helpers/global';
 
 import RootStackScreen from './Screens/LoginSignup/RootStackScreen';
 import FirstTabScreen from './Screens/FirstTabScreen';
@@ -23,8 +19,6 @@ import SecondTabScreen from './Screens/SecondTabScreen';
 import SkipTabScreen from './Screens/SkipTabScreen';
 import UBHomeScreen from './Screens/UserOnboarding/UBHomeScreen';
 import EOBScreen from './Screens/EmployeeOnboarding/EOBScreen';
-
-const Stack = createStackNavigator();
 
 const App = () => {
   
@@ -135,8 +129,6 @@ const App = () => {
       dispatch({ type: 'LOGOUT' });
     },
     signUp: () => {
-      // setUserToken('fgkj');
-      // setIsLoading(false);
     },
     toggleTheme: () => {
       setIsDarkTheme( isDarkTheme => !isDarkTheme );
@@ -161,7 +153,6 @@ const App = () => {
   useEffect(() => {
     DeepLinking.addScheme('stafflinepro://');
     DeepLinking.addRoute('/dashboard', (response) => {
-      // example://test
       console.log('Example',response);
     });
     getLoginDetail();    
