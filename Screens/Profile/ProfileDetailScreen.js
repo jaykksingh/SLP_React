@@ -86,7 +86,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
     getUserLookups();
     getRegionList('COUNTRY');
     if(profileDetail.empDetails.countryId){
-      // getRegionList('STATE',profileDetail.empDetails.countryId);
+      getRegionList('STATE',profileDetail.empDetails.countryId);
     }
    
     setData(profileDetail.empDetails);
@@ -566,7 +566,7 @@ const ProfileDetailScreen = ({route,navigation}) => {
               <Picker
                 style={{flex:1,}}
                 itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-                selectedValue={parseInt(data.stateId)}
+                selectedValue={data.stateId}
                 onValueChange={(itemValue, index) =>{
                   console.log(itemValue,index)
                   let selectedItem = stateArray[index];
