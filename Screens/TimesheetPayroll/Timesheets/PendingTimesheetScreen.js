@@ -54,6 +54,8 @@ const PendingTimesheetScreen = ({route,navigation})  => {
 		.then((response) => {
       setIsLoading(false);
 		  if (response.data.code == 200){
+        console.log('Pending TS:', JSON.stringify(response.data.content.dataList));
+
         filterTimesheetArray(response.data.content.dataList);
 		  }else if (response.data.code == 417){
         setIsLoading(false);
@@ -160,7 +162,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
                 <View style={{flexDirection:'row',justifyContent: 'center', alignItems: 'center',paddingRight:8}}>
                   <View style={{justifyContent: 'center',paddingRight:4}}>
                     <Text style={{fontSize:14, color:ThemeColor.TextColor,fontFamily: FontName.Regular, textAlign: 'right'}}>{item.totalHours} Hours</Text>
-                    <Text style={{fontSize:12, color: item.subStatus == "Rejected by Manager" ? ThemeColor.GreenColor : item.subStatus == "Pending" ? ThemeColor.RedColor : ThemeColor.OrangeColor,fontFamily: FontName.Regular,textAlign: 'right',marginTop:4}}>{item.subStatus}</Text>
+                    <Text style={{fontSize:12, color: item.subStatus == "Rejected by Manager" ? ThemeColor.RedColor : item.subStatus == "Pending" ? ThemeColor.RedColor : ThemeColor.OrangeColor,fontFamily: FontName.Regular,textAlign: 'right',marginTop:4}}>{item.subStatus}</Text>
                   </View>
                   <Feather name="chevron-right" color={ThemeColor.BorderColor} size={25} />
                 </View>

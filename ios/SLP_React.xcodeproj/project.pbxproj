@@ -13,7 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4461D117DD244FFB7C3028DD /* libPods-SLP_React.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DC12BBCC50226AC616A1B5 /* libPods-SLP_React.a */; };
 		614D2A284F21F4B3FDC9C293 /* libPods-SLP_React-SLP_ReactTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C74A553F71198B373D6567CC /* libPods-SLP_React-SLP_ReactTests.a */; };
-		69EFF7122816790500CA64AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69EFF7112816790500CA64AA /* GoogleService-Info.plist */; };
+		691DE6B92817CC9200CA1189 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 691DE6B82817CC9100CA1189 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -48,8 +48,8 @@
 		538836BB16A646BFAF70F225 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		55CB430FD5DB478598D58D2A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		68618D40BAB5C145FCA30038 /* Pods-SLP_React-SLP_ReactTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLP_React-SLP_ReactTests.release.xcconfig"; path = "Target Support Files/Pods-SLP_React-SLP_ReactTests/Pods-SLP_React-SLP_ReactTests.release.xcconfig"; sourceTree = "<group>"; };
+		691DE6B82817CC9100CA1189 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		691F2C6E27F213BF00680FC1 /* SLP_React.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SLP_React.entitlements; path = SLP_React/SLP_React.entitlements; sourceTree = "<group>"; };
-		69EFF7112816790500CA64AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6D1F5DDBEC8A48099A27D01C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		72DC12BBCC50226AC616A1B5 /* libPods-SLP_React.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SLP_React.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F4D77EFD6F4144A6DB3882 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		13B07FAE1A68108700A75B9A /* SLP_React */ = {
 			isa = PBXGroup;
 			children = (
-				69EFF7112816790500CA64AA /* GoogleService-Info.plist */,
+				691DE6B82817CC9100CA1189 /* GoogleService-Info.plist */,
 				691F2C6E27F213BF00680FC1 /* SLP_React.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -290,7 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				69EFF7122816790500CA64AA /* GoogleService-Info.plist in Resources */,
+				691DE6B92817CC9200CA1189 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

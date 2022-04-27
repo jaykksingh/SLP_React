@@ -323,7 +323,7 @@ const CheckInOutScreen = ({route,navigation}) => {
 
 
     
-    let breakTypeArr =  [{value:"Meal break", keyId:24163}, {value:"Regular break", keyId:24162}]
+    let breakTypeArr =  [{value:"Meal break", keyId:24163}, {value:"Regular Hours", keyId:24162}]
 
 	return(
 		<SafeAreaView style={{flex:1}}>

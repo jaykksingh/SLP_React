@@ -183,7 +183,7 @@ const ViewClockInOutScreen = ({route,navigation}) => {
                 </View>
             }/> :
             <View style={{flex:1, justifyContent:'center'}}>
-                <Text style={{color:ThemeColor.TextColor,fontSize:16, textAlign: 'center', marginLeft:4}}>No clock hours found</Text>
+                {!isLoading && <Text style={{color:ThemeColor.TextColor,fontSize:16, textAlign: 'center', marginLeft:4}}>No clock hours found</Text>}
             </View>
             }
             
