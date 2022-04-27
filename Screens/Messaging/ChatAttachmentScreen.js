@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import * as ImagePicker from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
@@ -22,11 +23,13 @@ import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../_
 import { getAuthHeader} from '../../_helpers/auth-header';
 import Loader from '../../Components/Loader';
 import ActionSheet from 'react-native-actionsheet'
+import { set } from "react-native-reanimated";
 
 
 
 const ChatAttachmentScreen = ({route,navigation}) => {
   	let [isLoading, setIsLoading] = React.useState(false);
+	let [listUpdated, setListUpdated] = React.useState(false);
 	const [pickedImage, setPickedImage] = useState('');
 	const [selectedFileArray,setFileArray] = React.useState([]);
 	const actionsheetFile = useRef();
@@ -74,6 +77,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 			'base64File':base64File,
 			'fileName':fileName,
 			'title':'',
+			'type':fileType
 		}
 		setFileArray([params]);
 		setData({...data, selectedIndex:0})
@@ -173,15 +177,50 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 	}
 	
 	const handleDocActionsheet = (index) => {
-        if(index == 0){
-            imageGalleryLaunch();
+		if(index == 0){
+            selectDocument();
         }else if(index == 1){
+            imageGalleryLaunch();
+        }else if (index == 2){
             cameraLaunch();
         }
     }
     
     const showActionSheet = () => {
       actionsheetFile.current.show();
+    }
+	const selectDocument = async () => {
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
+            });
+            console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
+            var result = res[0].uri.split("%20").join("\ ");
+            var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
+            let bytes = res[0].size  / 1000000;
+            console.log(`File Size: ${bytes}`)
+            if(bytes > 5){
+              Alert.alert(StaticMessage.AppName, StaticMessage.FileSize5MbExcedMsg, [
+                {text: 'Ok'}
+              ]);
+            }else{
+			  setBase64Data(base64data);
+			  let params = {
+				  'base64File':base64data,
+				  'fileName':res[0].name,
+				  'type':'file'
+			  }
+			  let tempArray = selectedFileArray;
+			  tempArray.push(params);
+			  setFileArray(tempArray);
+			  setData({...data,fileData:base64data,fileName:res[0].name});
+            }
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+            } else {
+                throw err;
+            }
+        }
     }
 	
 	const imageGalleryLaunch = () => {
@@ -212,12 +251,14 @@ const ChatAttachmentScreen = ({route,navigation}) => {
             let params = {
 				'base64File':base64data,
 				'fileName':'temp.jpg',
+				'type':'Image'
+
 			}
 			let tempArray = selectedFileArray;
 			tempArray.push(params);
 			setFileArray(tempArray);
 			setData({...data,fileData:base64data,fileName:'temp.jpg'});
-
+			setListUpdated(!listUpdated);
 		}
 		});
 	}
@@ -249,6 +290,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 			let params = {
 				'base64File':base64data,
 				'fileName':'temp.jpg',
+				'type':'Image'
 			}
 			let tempArray = selectedFileArray;
 			tempArray.push(params);
@@ -291,7 +333,7 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 					</TouchableOpacity>
 					<ActionSheet
 						ref={actionsheetFile}
-						options={['Photo library','Take photo', 'Cancel']}
+						options={['Upload document', 'Photo library','Take photo', 'Cancel']}
 						cancelButtonIndex={3}
 						onPress={(index) => { handleDocActionsheet(index) }}
 					/>
@@ -311,14 +353,18 @@ const ChatAttachmentScreen = ({route,navigation}) => {
 				<FlatList style={{paddingLeft:16, paddingRight:16}}
 					horizontal
 					data={selectedFileArray}
+					randomUpdateProp={listUpdated}
 					keyExtractor={(item, index) => index.toString()}
 					renderItem={({item,index}) => 
 						<TouchableOpacity  style={{marginRight:8,borderColor: index == data.selectedIndex ? ThemeColor.NavColor : ThemeColor.BorderColor,borderWidth:4,borderRadius:5}} onPress={() => setData({...data,selectedIndex:index})}>
+							{item.type == 'Image' ?
 							<Image
 								resizeMode={'stretch'}
 								source={{ uri: `data:image/png;base64,${item.base64File}`}}
 								style={{ height:50, width:50 , backgroundColor:'#fff'}}
-							/>
+							/> : 
+							<Icon name="document-text-outline" color={ThemeColor.BtnColor} size={50} /> 
+							}
 						</TouchableOpacity>
 					}
 				/>

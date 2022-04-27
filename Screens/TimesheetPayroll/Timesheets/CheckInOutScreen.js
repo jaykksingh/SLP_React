@@ -139,7 +139,7 @@ const CheckInOutScreen = ({route,navigation}) => {
     }
     const showClockInPicker = (item, index) => {
 		console.log('Clock In: ',item);
-        if(item.inTime.length > 0){
+        if(item.inTime > 0){
             let momentStartDate = moment(item.inTime, 'HH:mm');        
             if(momentStartDate){
                 setStartDate(new Date(momentStartDate.format("YYYY-MM-DDTHH:mm:ssZ")));
@@ -152,7 +152,7 @@ const CheckInOutScreen = ({route,navigation}) => {
 	}
     const showClockOutPicker = (item, index) => {
 		console.log(item);
-        if(item.outTime.length > 0){
+        if(item.outTime > 0){
             let momentEndDate = moment(item.outTime, 'HH:mm');        
             if(momentEndDate){
                 setEndDate(new Date(momentEndDate.format("YYYY-MM-DDTHH:mm:ssZ")));
@@ -331,7 +331,7 @@ const CheckInOutScreen = ({route,navigation}) => {
                 <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, fontWeight: "bold",flex:1}}>{getFormatedDate(dayDetails.day)}</Text>
                 <View style={{flexDirection:'row'}}>
                     <Text style={{fontSize:16, fontFamily:FontName.Regular, color:ThemeColor.SubTextColor}}>Total hours: </Text>
-                    <Text style={{fontSize:16, fontFamily:FontName.Bold, fontWeight: "bold", color:ThemeColor.TextColor}}>{getTotalHours()}</Text>
+                    <Text style={{fontSize:16, fontFamily:FontName.Bold, fontWeight:'bold', color:ThemeColor.TextColor}}>{getTotalHours()}</Text>
                 </View>
             </View>
             <View style ={{backgroundColor:'white', marginBottom:0}}>
@@ -365,32 +365,32 @@ const CheckInOutScreen = ({route,navigation}) => {
                     <View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center', backgroundColor:'white'}}>		
                         <View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
                             <TouchableOpacity style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center',paddingRight:4}} onPress ={() => {showClockInPicker(item, index)}}>
-                                <Text style={{color:item.inTime.length == 0 ? ThemeColor.PlaceHolderColor : ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.inTime.length == 0 ? '00:00' : item.inTime}</Text>
+                                <Text style={{color:item.inTime ? ThemeColor.TextColor : ThemeColor.PlaceHolderColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.inTime ? item.inTime : '00:00' }</Text>
                                 <Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
                         <View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
                             <TouchableOpacity style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:4}} onPress ={() => {showClockOutPicker(item, index)}}>
-                                <Text style={{color:item.outTime.length == 0 ? ThemeColor.PlaceHolderColor : ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.outTime.length == 0 ? '00:00' : item.outTime}</Text>
+                                <Text style={{color:item.outTime ? ThemeColor.TextColor : ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.outTime ?  item.outTime : '00:00' }</Text>
                                 <Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 
                         {Platform.OS == 'ios' ?
-                        <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
-                            <TouchableOpacity style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center',paddingRight:4}} onPress ={() => {showBreakTypePicker(item, index)}}>
-                                <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.hourType == 24163 ? 'Meal Break' : "Regular Hours"}</Text>
+                        <View style={{height:30, flex:1,flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
+                            <TouchableOpacity style={{height:30,flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center',paddingRight:4}} onPress ={() => {showBreakTypePicker(item, index)}}>
+                                <Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.hourType == 24163 ? 'Meal Break' : "Regular Hours"}</Text>
                                 <Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                         </View>  :
-                        <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
+                        <View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
                             <Picker
-                                style={{flex:1}}
+                                style={{flex:1,fontSize:10, fontFamily:FontName.Regular}}
                                 itemStyle={{fontSize:10, fontFamily:FontName.Regular}}
-                                selectedValue={selectedHours.hourType}
+                                selectedValue={item.hourType}
                                 onValueChange={(itemValue, index) =>{
                                     let selectedItem = breakTypeArr[index];
                                     setSelectedHours({...selectedHours,hourType:selectedItem.keyId});
@@ -400,8 +400,10 @@ const CheckInOutScreen = ({route,navigation}) => {
                                     editObj.hourType = selectedItem.keyId;
                                     tempArr[selectedIndex] = editObj;
                                     setMannualHoursArray(tempArr);
+                                    setIsListUpdated(!isListUpdated);
                                 }}
                             >
+
                             {breakTypeArr && breakTypeArr.map((item, index) => {
                                 return (<Picker.Item label={item.value} value={item.keyId} key={index}/>) 
                             })}
@@ -409,16 +411,20 @@ const CheckInOutScreen = ({route,navigation}) => {
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                         </View>  
                         }
-                        <View style={{height:30,  flex:1,flexDirection:'row',justifyContent: 'center',backgroundColor:'white', alignItems:'center'}}>
-                            <TextInput  
-                                style={[styles.inputHour,{textAlign:'left', height:40}]}
+                        <View style={{height:30, flexDirection:'row',justifyContent: 'center',backgroundColor:'white', alignItems:'center'}}>
+                            {/* <TextInput  
+                                style={[styles.inputHour,{textAlign:'left',}]}
                                 placeholder="Notes" 
                                 editable={ true}
+                                numberOfLines={1}
                                 placeholderTextColor={ThemeColor.PlaceHolderColor}
                                 keyboardType='default'
                                 value= {item.notes}
                                 onChangeText={(val) => handleNoteChange(val, index,item)}
-                            />
+                            /> */}
+                            <TouchableOpacity style={{justifyContent:'center', width:30, height:30, marginLeft:8}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
+                                <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
+                            </TouchableOpacity>
                             <TouchableOpacity style={{justifyContent:'center', width:30, height:30}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
                                 <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
                             </TouchableOpacity>
@@ -548,7 +554,6 @@ const styles = StyleSheet.create({
 		fontFamily: FontName.Regular,
 		marginLeft:8,
 		textAlign: 'center',
-        backgroundColor:'white',
 
 	},btnFill:{
 		height:50,

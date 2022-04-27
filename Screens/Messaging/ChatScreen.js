@@ -17,6 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import axios from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import * as ImagePicker from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
@@ -399,9 +401,12 @@ const ChatScreen = ({route,navigation}) => {
 	)}
 	
 	const handleDocActionsheet = (index) => {
-        if(index == 0){
-            imageGalleryLaunch();
+        
+		if(index == 0){
+            selectDocument();
         }else if(index == 1){
+            imageGalleryLaunch();
+        }else if (index == 2){
             cameraLaunch();
         }
     }
@@ -409,15 +414,26 @@ const ChatScreen = ({route,navigation}) => {
     const showActionSheet = () => {
       actionsheetFile.current.show();
     }
+	
 	const selectDocument = async () => {
         try {
             const res = await DocumentPicker.pick({
                 type: [DocumentPicker.types.pdf,DocumentPicker.types.doc,DocumentPicker.types.docx,DocumentPicker.types.plainText],
             });
-			var newURI = res[0].uri.split("%20").join("\ ");
-            var base64data = await RNFS.readFile( newURI, 'base64').then(res => { return res });
-            setData({...data,resumeData:base64data,fileName:res[0].name});
-			navigation.navigate('ChatAttachments',{conversations:conversations,groupDetail:groupDetail,base64File:base64data,fileName:res.name,fileType:'Document',fileURL:res.uri});
+            console.log('File Log: ',res[0].uri,res[0].type, res[0].name,res[0].size);
+            var result = res[0].uri.split("%20").join("\ ");
+            var base64data = await RNFS.readFile( result, 'base64').then(res => { return res });
+            let bytes = res[0].size  / 1000000;
+            console.log(`File Size: ${bytes}`)
+            if(bytes > 5){
+              Alert.alert(StaticMessage.AppName, StaticMessage.FileSize5MbExcedMsg, [
+                {text: 'Ok'}
+              ]);
+            }else{
+			  setBase64Data(base64data);
+			  navigation.navigate('ChatAttachments',{conversations:conversations,groupDetail:groupDetail,base64File:base64data,fileName:'text.jpg',fileType:'File',messagesArray:messagesArray});
+
+            }
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
             } else {
@@ -499,6 +515,15 @@ const ChatScreen = ({route,navigation}) => {
 			return 'Sample';
 		}
 	}
+	const handleDownloadCellClicke = (item) => {
+		console.log(item);
+		let fileName = item.messageBody.download[0].title;
+		let filePath = item.messageBody.download[0].url;
+		navigation.navigate('DocumentViewer',{fileURL:filePath,fileName:fileName});
+
+	}
+
+
 	let myList = useRef();
 	console.log('Message Array: ' + JSON.stringify(messagesArray));
 	let lastMessage = messagesArray.length > 0 ? messagesArray[messagesArray.length - 1] : null;
@@ -538,13 +563,20 @@ const ChatScreen = ({route,navigation}) => {
 						{
 						item.messageBody.type === 'download' ?
 						<View style={{ flex:1,flexDirection:'row',alignItems: 'center',alignSelf:'flex-end', marginBottom:8}}>
-							<View style={{backgroundColor:ThemeColor.SkyBlueColor,borderRadius:5, borderWidth:1, borderColor:ThemeColor.BorderColor, width:150, padding:4}}>
-								<Image resizeMode='cover' style={{height:160, width:'100%',borderRadius:5}} source={{uri: item.messageBody.download[0].url}} defaultSource={require('../../assets/Images/LoginBG.png')}/>
+							<TouchableOpacity style={{backgroundColor:ThemeColor.SkyBlueColor,borderRadius:5, borderWidth:1, borderColor:ThemeColor.BorderColor, width:150, padding:4}} onPress={() => handleDownloadCellClicke(item)}>
+								{
+									item.messageBody.download[0].type == 'pdf' ?
+									<AntDesign name="pdffile1" color={ThemeColor.BtnColor} size={80} /> :
+									item.messageBody.download[0].type == 'docx' || item.messageBody.download[0].type == 'doc' ?
+									<Icon name="document-text-outline" color={ThemeColor.BtnColor} size={80} /> :
+									<Image resizeMode='cover' style={{height:160, width:'100%',borderRadius:5}} source={{uri: item.messageBody.download[0].url}} defaultSource={require('../../assets/Images/attachment.png')}/>
+								}
+								
 
 								<Text style={{fontFamily: FontName.Regular, fontSize:14,color:ThemeColor.TextColor, marginTop:8}}>{item.messageBody.download[0].title}</Text>
 								<Text style={{fontFamily: FontName.Regular, fontSize:10,color:ThemeColor.LabelTextColor,textAlign:'right', marginTop:8}}>{getFormatedDate(item)}</Text>
 
-							</View>
+							</TouchableOpacity>
 						</View> : null
 						}
 						{
@@ -666,8 +698,8 @@ const ChatScreen = ({route,navigation}) => {
 						</TouchableOpacity>
 						<ActionSheet
 							ref={actionsheetFile}
-							options={['Photo library','Take photo', 'Cancel']}
-							cancelButtonIndex={2}
+							options={['Upload document', 'Photo library','Take photo', 'Cancel']}
+							cancelButtonIndex={3}
 							onPress={(index) => { handleDocActionsheet(index) }}
 						/>
 						<TextInput  

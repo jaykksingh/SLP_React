@@ -126,10 +126,10 @@ const ViewClockInOutScreen = ({route,navigation}) => {
 	return(
 		<SafeAreaView style={{flex:1}}>
             <View style={{flexDirection:'row',margin:16}}>
-                <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, flex:1}}>{getFormatedDate(dayDetails.day)}</Text>
+                <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, flex:1,fontWeight:'bold'}}>{getFormatedDate(dayDetails.day)}</Text>
                 <View style={{flexDirection:'row'}}>
                     <Text style={{fontSize:16, fontFamily:FontName.Regular, color:ThemeColor.SubTextColor}}>Total hours: </Text>
-                    <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor}}>{getTotalHours()}</Text>
+                    <Text style={{fontSize:16, fontFamily:FontName.Bold, color:ThemeColor.TextColor, fontWeight:'bold'}}>{getTotalHours()}</Text>
                 </View>
             </View>
             <View style ={{backgroundColor:'white', marginBottom:0}}>

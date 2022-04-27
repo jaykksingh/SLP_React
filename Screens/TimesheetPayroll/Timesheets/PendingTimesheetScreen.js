@@ -130,7 +130,7 @@ const PendingTimesheetScreen = ({route,navigation})  => {
   const handleEditTimesheet = (item, section) => {
     console.log('Edit Handler: ',section);
     let projectTemplateID = section.timeSheetTemplate ? section.timeSheetTemplate : 24062
-    if(projectTemplateID == 24063){
+    if(projectTemplateID == 24062){
       navigation.navigate('CheckInOutTimesheet',{timesheetDetails:item,projectDetail:section})
     }else{
       navigation.navigate('EditTimesheet',{timesheetDetails:item,projectDetail:section})
