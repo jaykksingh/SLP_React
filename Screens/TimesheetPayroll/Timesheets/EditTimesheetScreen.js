@@ -47,7 +47,6 @@ const EditTimesheetScreen = ({route,navigation}) => {
 		clientName:'',
 		projectName:'',
 		projectId:'',
-		timesheetPeriod:'',
 		hours:'',
 		showMannualHours:false,
 		timeSheetCycle:'',
@@ -73,6 +72,8 @@ const EditTimesheetScreen = ({route,navigation}) => {
 	const { projectDetail } = route.params;
 	const { timesheetsArray } = route.params;
 	const [showProjectSelect, setShowProjectSelect] = React.useState(false);
+	const [timesheetPeriod, setTimesheetPeriod] = React.useState('');
+
     const actionSheetDoc = useRef();
 
 
@@ -94,8 +95,8 @@ const EditTimesheetScreen = ({route,navigation}) => {
 		let startDateString = moment(momentStartDate).format('MMM DD, YYYY')
 		let endDateString = moment(momentEndDate).format('MMM DD, YYYY')	
 		const timesheetPeriod = `${startDateString} - ${endDateString}`;
-
-		setData({...data, timeSheetCycle:projectDetail.timeSheetCycle,clientName:projectDetail.clientName,timesheetPeriod:timesheetPeriod,startDate:timesheetDetails.startDate,endDate:timesheetDetails.endDate});
+		setTimesheetPeriod(timesheetPeriod);
+		setData({...data, timeSheetCycle:projectDetail.timeSheetCycle,clientName:projectDetail.clientName,startDate:timesheetDetails.startDate,endDate:timesheetDetails.endDate});
 		getHoursDetails(timesheetDetails.startDate,timesheetDetails.endDate);
 		var tempPeriodArray = [];
 
@@ -145,7 +146,8 @@ const EditTimesheetScreen = ({route,navigation}) => {
 	const handleTimesheetPeriodSelect = (index) => {
 		let selectedItem = timesheetPeriodArray[index];
 		let hour = projectDetail.data ? projectDetail.data[index] : projectDetail.hoursDetail[index];
-		setData({...data,timesheetPeriod:selectedItem,startDate:hour.startDate,endDate:hour.endDate});
+		setData({...data,startDate:hour.startDate,endDate:hour.endDate});
+		setTimesheetPeriod(selectedItem);
 		getHoursDetails(hour.startDate,hour.endDate);				
 	}
 	const getHoursDetails = async(startDate, endDate) => {
@@ -826,7 +828,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					<View style={{marginTop:12,paddingLeft:16, paddingRight:16,}}>
 						<Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Select timesheet period</Text>
 						<TouchableOpacity style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}  onPress={() => {timesheetPeriodRef.current?.setModalVisible()}}>
-							<Text style={[styles.labelText,{color:data.timesheetPeriod.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{data.timesheetPeriod.length >0 ? data.timesheetPeriod : 'Select timesheet period'}</Text>
+							<Text style={[styles.labelText,{color:timesheetPeriod.length > 0 ? 'black' : ThemeColor.PlaceHolderColor}]}>{timesheetPeriod.length >0 ? timesheetPeriod : 'Select timesheet period'}</Text>
 							<Feather name="chevron-down" color={ThemeColor.SubTextColor} size={22} />
 						</TouchableOpacity>
 						<Loader isLoading={data.isLoading} />
@@ -837,7 +839,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 							<Picker
 								style={{flex:1}}
 								itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-								selectedValue={data.timesheetPeriod}
+								selectedValue={timesheetPeriod}
 								onValueChange={(itemValue, index) => { handleTimesheetPeriodSelect(index)}}
 							>
 								{timesheetPeriodArray && timesheetPeriodArray.map((item, index) => {
@@ -996,7 +998,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 								</View>
 								<View style={{height:35, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
 									<TextInput  
-										style={styles.inputHour}
+										style={[styles.inputHour]}
 										placeholder="0" 
 										editable={item.statusId > 3302 ? false : true}
 										placeholderTextColor={ThemeColor.PlaceHolderColor}
@@ -1103,7 +1105,7 @@ const EditTimesheetScreen = ({route,navigation}) => {
 					<Picker
 						style={{backgroundColor: 'white',flex:1,}}
 						itemStyle={{fontSize:16, fontFamily:FontName.Regular}}
-						selectedValue={data.timesheetPeriod}
+						selectedValue={ timesheetPeriod}
 						onValueChange={(itemValue, index) => { handleTimesheetPeriodSelect(index)}}
 					>
 					{timesheetPeriodArray && timesheetPeriodArray.map((item, index) => {

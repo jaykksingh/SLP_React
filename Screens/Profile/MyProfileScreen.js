@@ -474,7 +474,7 @@ const MyProfileScreen = ({route,navigation}) => {
 
   const handleSocialBtn = () => {
     const empDetails =  profileData.empDetails;
-    let message = `Linkedin: ${empDetails.linkedIn}\n Twitter: ${empDetails.twitter}`
+    let message = `LinkedIn: ${empDetails.linkedIn}\n Twitter: ${empDetails.twitter}`
     Alert.alert(StaticMessage.AppName, message, [
       {text: 'Ok'}
     ]);
@@ -563,7 +563,7 @@ const MyProfileScreen = ({route,navigation}) => {
     title: "Licence / Certifications",
     data: profileData.licensesAndCertifications
   });
-  if(employeeTypeId == 1223){
+  if(employeeTypeId != 1224){
     profileOptionArr.push({
       title: "Employment details",
       data: [profileData.employeementDetails]
@@ -831,7 +831,7 @@ const MyProfileScreen = ({route,navigation}) => {
                  <View style={{height:30}}>
                 </View>
                 }
-                <View style={{backgroundColor:'white', height:280, borderRadius:5,borderWidth:1, borderColor:ThemeColor.BorderColor, marginTop:64, alignItems: 'center', margin:16, marginBottom:0}}>
+                <View style={{backgroundColor:'white', borderRadius:5,borderWidth:1, borderColor:ThemeColor.BorderColor, marginTop:64, alignItems: 'center', margin:16, marginBottom:0}}>
                   <TouchableOpacity style={styles.imageContainer} onPress={()=>showActionSheet()}>
                       <View style={{width:100, height:100, backgroundColor:'white',borderRadius:50, borderWidth:1, borderColor:ThemeColor.SubTextColor,alignItems: 'center', justifyContent: 'center'}}> 
                         {pickedImage ? <Image resizeMode='cover' source={{ uri: pickedImage }} style={{height:100, width:100,borderRadius:50}} /> :
@@ -860,7 +860,7 @@ const MyProfileScreen = ({route,navigation}) => {
                   </View>
                   {statusText.length > 0 && <Text style={{ fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor,marginTop:4 }}>{statusText}</Text>}
                   {address.length > 0 && <Text style={{ fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.TextColor,marginTop:4, paddingLeft:12, paddingRight:12, textAlign:'center' }}>{address}</Text>}
-                  <View style={{justifyContent:'space-between', flexDirection:'row', flex:1, width:'80%',alignItems: 'center'}}>
+                  <View style={{justifyContent:'space-between', flexDirection:'row', flex:1, width:'80%',alignItems: 'center', marginTop:16}}>
                     <TouchableOpacity onPress={() => {handleSocialBtn()}}>
                       <Image style={{ width:30,height:30,tintColor:ThemeColor.BtnColor}} source={require('../../assets/Images/social.png')} /> 
                     </TouchableOpacity>
@@ -871,7 +871,7 @@ const MyProfileScreen = ({route,navigation}) => {
                       <Image style={{ width:30,height:30,tintColor:ThemeColor.BtnColor}} source={require('../../assets/Images/email.png')} />
                     </TouchableOpacity>
                   </View>
-                  <View style={{height:20, backgroundColor:ThemeColor.BorderColor,width:'90%', marginBottom:16 ,marginLeft:16, marginRight:16}}>
+                  <View style={{height:20, backgroundColor:ThemeColor.BorderColor,width:'90%', marginBottom:16 ,marginLeft:16, marginRight:16, marginTop:16}}>
                     <View style={{height:20, backgroundColor:ThemeColor.BtnColor,width:'90%', alignItems:'center', justifyContent: 'center'}}>
                       <Text style={{ fontFamily: FontName.Regular, fontSize:12, color:'white'}}>Profile strength: {profileStrength}% </Text>
                     </View>

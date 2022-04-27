@@ -129,10 +129,10 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 			'email':data.email,
 			'contactNumber':data.contactNumber,
 			'contactNumberCountryCode':data.contactNumberCountryCode,
-			'appForId':data.appForId,
+			'appForId': '' + data.appForId,
 			'appPriorityId':data.appPriorityId,
 			'currentStatus':data.currentStatus,
-			'skillCategoryId':data.skillCategoryId,
+			'skillCategoryId': '' + data.skillCategoryId,
 			'comments':data.comments,
 		}
 		console.log('PARAMS:',params)
