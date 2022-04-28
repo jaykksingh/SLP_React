@@ -35,8 +35,8 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 	let [data,setData] = React.useState({
 		applTypeName:'',
 		appType:'',
-		applFor:'',
-		appForId: Platform.OS == 'ios' ? '' : 3351,
+		applFor:Platform.OS == 'ios' ? '' : 3551,
+		appForId: Platform.OS == 'ios' ? '' : 3551,
 		firstName:'',
 		lastName:'',
 		email:'',
@@ -47,7 +47,7 @@ const AddLCADetailsScreen = ({route,navigation}) => {
 		appPriority:'',
 		currentStatusName:'',
 		currentStatus: Platform.OS == 'ios' ? '' : 'F1',
-		skillCategoryId:'',
+		skillCategoryId:Platform.OS == 'ios' ? '' : '17',
 		skillCategory:'',
 		comments:'',
 		documentsList:[]

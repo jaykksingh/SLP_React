@@ -8,7 +8,8 @@ import {
 	Alert,
 	FlatList,
 	ScrollView,
-	Image
+	Image,
+	Platform
 } from "react-native";
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
@@ -249,8 +250,11 @@ const ViewTimesheetScreen = ({route,navigation}) => {
 		}
 		let details =  newArr[0];
 		let url =  details.path;
-		const extension = url.split(/[#?]/)[0].split(".").pop().trim();
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${extension}`;
+		var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
+		if(Platform.OS == 'android'){
+			fileURL = url;
+		}
+		const localFile = `${RNFS.DocumentDirectoryPath}/${details.fileName}.${fileURL}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,

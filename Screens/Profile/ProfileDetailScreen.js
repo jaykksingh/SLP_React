@@ -628,11 +628,11 @@ const ProfileDetailScreen = ({route,navigation}) => {
           </View>
         </View> 
         <View style={{marginTop:12}}>
-          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>Linkedin</Text>
+          <Text style ={{color:ThemeColor.SubTextColor, fontSize:14,height:22, fontFamily:FontName.Regular, paddingLeft:8}}>LinkedIn</Text>
           <View style={{backgroundColor:'white', height:40, borderRadius:5, flexDirection:'row', alignItems:'center', paddingRight:8}}>
             <TextInput  
               style={styles.inputText}
-              placeholder="Linkedin" 
+              placeholder="LinkedIn" 
               placeholderTextColor={ThemeColor.PlaceHolderColor}
               keyboardType='default'
               value= {data.linkedIn}

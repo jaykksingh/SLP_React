@@ -257,7 +257,7 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 			fileURL = url;
 		}
 
-		const localFile = `${RNFS.DocumentDirectoryPath}/temporaryfile.${fileURL}`;
+		const localFile = `${RNFS.DocumentDirectoryPath}/${details.fileName}.${fileURL}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,
