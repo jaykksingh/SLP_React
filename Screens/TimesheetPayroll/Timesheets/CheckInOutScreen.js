@@ -9,7 +9,8 @@ import {
     TextInput,
     TouchableOpacity,
     Dimensions,
-    Platform
+    Platform,
+    KeyboardAvoidingView
 } from "react-native";
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +22,7 @@ import {default as ActionSheetView} from 'react-native-actions-sheet';
 import DatePicker from 'react-native-date-picker'
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {getAuthHeader} from '../../../_helpers/auth-header';
 import { BaseUrl, EndPoints, StaticMessage, ThemeColor, FontName } from '../../../_helpers/constants';
@@ -29,6 +31,7 @@ import { AuthContext } from '../../../Components/context';
 const clockInTypeRef = createRef();
 const clockOutTypeRef = createRef();
 const breakTypeRef = createRef();
+const notesRef = createRef();
 
 
 const CheckInOutScreen = ({route,navigation}) => {
@@ -168,6 +171,12 @@ const CheckInOutScreen = ({route,navigation}) => {
 		setSelectedHours(item);
 		setSelectedIndex(index);
 		breakTypeRef.current?.setModalVisible()
+	}
+    const showNotesEditor = (item, index) => {
+		console.log(item);
+		setSelectedHours(item);
+		setSelectedIndex(index);
+		notesRef.current?.setModalVisible()
 	}
 	const handleNoteChange=(val, index, hrObject) => {
 		console.log(val);
@@ -344,12 +353,12 @@ const CheckInOutScreen = ({route,navigation}) => {
                         <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>OUT</Text>
                         <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                     </View>
-                    <View style={{height:30, width:90, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:4}}>
+                    <View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:4}}>
                         <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center', flex: 1}}>TYPE</Text>
                         <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                     </View>
-                    <View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
-                        <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'left', flex: 1, paddingLeft:8}}>NOTES</Text>
+                    <View style={{height:30, width:80, flexDirection:'row',justifyContent: 'center',alignItems: 'center'}}>
+                        <Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'left', flex: 1, paddingLeft:4}}>NOTES</Text>
                         <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                     </View>
                 </View>
@@ -379,14 +388,14 @@ const CheckInOutScreen = ({route,navigation}) => {
 						</View>
 
                         {Platform.OS == 'ios' ?
-                        <View style={{height:30, flex:1,flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
+                        <View style={{height:30, flex:1,flexDirection:'row',backgroundColor:'white'}}>
                             <TouchableOpacity style={{height:30,flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center',paddingRight:4}} onPress ={() => {showBreakTypePicker(item, index)}}>
                                 <Text style={{color:ThemeColor.TextColor,fontSize:12, textAlign: 'center', flex: 1}}>{item.hourType == 24163 ? 'Meal Break' : "Regular Hours"}</Text>
                                 <Feather name="chevron-down" color={ThemeColor.TextColor} size={10} />
                             </TouchableOpacity>
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                         </View>  :
-                        <View style={{height:30, flex:1, flexDirection:'row',justifyContent: 'center',alignItems: 'center',backgroundColor:'white'}}>
+                        <View style={{height:30, flex:1, flexDirection:'row',alignItems: 'center',backgroundColor:'white'}}>
                             <Picker
                                 style={{flex:1,fontSize:10, fontFamily:FontName.Regular}}
                                 itemStyle={{fontSize:10, fontFamily:FontName.Regular}}
@@ -411,7 +420,7 @@ const CheckInOutScreen = ({route,navigation}) => {
                             <View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
                         </View>  
                         }
-                        <View style={{height:30, flexDirection:'row',justifyContent: 'center',backgroundColor:'white', alignItems:'center'}}>
+                        <View style={{height:30, width:84,flexDirection:'row',backgroundColor:'white', alignItems:'center'}}>
                             {/* <TextInput  
                                 style={[styles.inputHour,{textAlign:'left',}]}
                                 placeholder="Notes" 
@@ -422,8 +431,8 @@ const CheckInOutScreen = ({route,navigation}) => {
                                 value= {item.notes}
                                 onChangeText={(val) => handleNoteChange(val, index,item)}
                             /> */}
-                            <TouchableOpacity style={{justifyContent:'center', width:30, height:30, marginLeft:8}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
-                                <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
+                            <TouchableOpacity style={{justifyContent:'center', width:30, height:30, marginLeft:8, marginRight:12}} onPress={() => showNotesEditor(item, index)}>
+                                <Feather name="edit" color={ThemeColor.TextColor} size={20} />
                             </TouchableOpacity>
                             <TouchableOpacity style={{justifyContent:'center', width:30, height:30}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
                                 <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
@@ -456,7 +465,6 @@ const CheckInOutScreen = ({route,navigation}) => {
 						onValueChange={(itemValue, index) =>{
 							let selectedItem = breakTypeArr[index];
 							setSelectedHours({...selectedHours,hourType:selectedItem.keyId});
-							
 							let tempArr = mannualHoursArray;
 							let editObj = selectedHours;
 							editObj.hourType = selectedItem.keyId;
@@ -518,7 +526,35 @@ const CheckInOutScreen = ({route,navigation}) => {
                     onDateChange={(val) => {handleClockOutTimeChange(val)}}
                 />
                 </View>
-            </ActionSheetView>	
+            </ActionSheetView>
+            <ActionSheetView ref={notesRef} containerStyle={{backgroundColor:ThemeColor.ViewBgColor}}>
+                <View style={{height:300}}>
+                <View style={{height:44, flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft:16,paddingRight:16}}>
+                    <TouchableOpacity onPress={() => {notesRef.current?.setModalVisible()}}>
+                    <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Cancel</Text>
+                    </TouchableOpacity>
+                    <Text style={{color:ThemeColor.TextColor, fontSize:18, fontFamily: FontName.Regular}}>Notes</Text>
+                    <TouchableOpacity onPress={() => {
+                        notesRef.current?.setModalVisible()
+                    }}>
+                    <Text style={{color:ThemeColor.BtnColor, fontSize:16, fontFamily: FontName.Regular}}>Done</Text>
+                    </TouchableOpacity>
+                </View>
+                <KeyboardAwareScrollView>
+                    
+                    <TextInput 
+                        style={[styles.inputHour,{textAlign:'left',backgroundColor:'white', marginRight:16, paddingLeft:16, height:100, marginTop:16}]}
+                        multiline
+                        placeholder="Notes" 
+                        placeholderTextColor={ThemeColor.PlaceHolderColor}
+                        keyboardType='default'
+                        value= {selectedHours.notes}
+                        onChangeText={(val) => handleNoteChange(val, selectedIndex,selectedHours)}
+                    />
+                </KeyboardAwareScrollView>
+                
+                </View>
+            </ActionSheetView>		
 		</SafeAreaView>
 	);
 }
