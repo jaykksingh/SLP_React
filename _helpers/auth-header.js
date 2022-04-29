@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64'
 import './global'
 import {expo} from '../app.json'
+import { Platform } from 'react-native';
 
 
 export async function getAuthorizationToken() {
@@ -23,7 +24,7 @@ export function authHeader() {
   return {
     "content-type": "application/json",
     "Authorization": "U3RhZmZMaW5lQDIwMTc=",
-    "OS": "iOS",
+    "OS": Platform.OS == 'ios' ? 'iOS' : 'android',
     "Deviceid": global.pushToken,
     "Version": expo.version,
     "Platform": "Mobile",
@@ -36,7 +37,7 @@ export function getAuthHeader(authToken) {
   return {
     "content-type": "application/json",
     "Authorization": authToken,
-    "OS": "iOS",
+    "OS": Platform.OS == 'ios' ? 'iOS' : 'android',
     "Deviceid": global.pushToken,
     "Version": expo.version,
     "Platform": "Mobile",
@@ -56,7 +57,7 @@ export function authFreeHeader() {
   return {
     "content-type": "application/json",
     "Authorization": "U3RhZmZMaW5lQDIwMTc=",
-    "OS": "iOS",
+    "OS": Platform.OS == 'ios' ? 'iOS' : 'android',
     "Deviceid": global.pushToken,
     "Version": expo.version,
     "Platform": "Mobile",
