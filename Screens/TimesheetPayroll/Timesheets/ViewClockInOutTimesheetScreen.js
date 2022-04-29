@@ -191,11 +191,9 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 				console.log('Result:', results);
 				setTimesheetPdfDetail(response.data.content.dataList[0]);
 				let url =  response.data.content.dataList[0].filePath;
-				var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
-				if(Platform.OS == 'android'){
-					fileURL = url;
-				}
-				const localFile = `${RNFS.DocumentDirectoryPath}/Timesheet.${fileURL}`;
+				var extension = url.split(/[#?]/)[0].split(".").pop().trim();
+				
+				const localFile = `${RNFS.DocumentDirectoryPath}/Timesheet.${extension}`;
 				const options = {
 					fromUrl: url,
 					toFile: localFile,
@@ -252,12 +250,8 @@ const ViewClockInOutTimesheetScreen = ({route,navigation}) => {
 		}
 		let details =  newArr[0];
 		let url =  details.path;
-		var fileURL = url.split(/[#?]/)[0].split(".").pop().trim();
-		if(Platform.OS == 'android'){
-			fileURL = url;
-		}
-
-		const localFile = `${RNFS.DocumentDirectoryPath}/${details.fileName}.${fileURL}`;
+		var extension = url.split(/[#?]/)[0].split(".").pop().trim();
+		const localFile = `${RNFS.DocumentDirectoryPath}/${details.fileName}.${extension}`;
 		const options = {
 			fromUrl: url,
 			toFile: localFile,
