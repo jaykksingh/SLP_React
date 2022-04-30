@@ -569,7 +569,7 @@ const ChatScreen = ({route,navigation}) => {
 									<AntDesign name="pdffile1" color={ThemeColor.BtnColor} size={80} /> :
 									item.messageBody.download[0].type == 'docx' || item.messageBody.download[0].type == 'doc' ?
 									<Icon name="document-text-outline" color={ThemeColor.BtnColor} size={80} /> :
-									<Image resizeMode='cover' style={{height:160, width:'100%',borderRadius:5}} source={{uri: item.messageBody.download[0].url}} defaultSource={require('../../assets/Images/attachment.png')}/>
+									<Image resizeMode='cover' style={{height:160, width:'100%',borderRadius:5}} source={{uri: item.messageBody.download[0].url}} defaultSource={require('../../assets/Images/attachment.jpeg')}/>
 								}
 								
 
