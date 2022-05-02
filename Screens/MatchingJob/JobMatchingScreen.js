@@ -124,17 +124,6 @@ const JobMatchingScreen = ({route,navigation}) => {
       getProfileDetails();
     });
     getSettingDetails();
-    if(profileData){
-      let empDetails = profileData.empDetails;
-      let skillsList = profileData ? profileData.skills : [];
-      setSelectedSkills(getSkillsName( getPrimarrySkills(skillsList)));
-      setData({...data,skillsUpdated:!data.skillsUpdated});
-      // getMatchingJobs(profileData,getPrimarrySkills(skillsList), selectedData.jobTitleSelected, false,[],[],[]);
-      getMyApplication(empDetails.resumeId);
-
-    }else{
-      
-    }
   }, []);
   const getProfileDetails = async() => {
     let user = await AsyncStorage.getItem('loginDetails');  
@@ -149,18 +138,13 @@ const JobMatchingScreen = ({route,navigation}) => {
       "headers": getAuthHeader(authToken)
     })
     .then((response) => {
-      setLoading(false);
-      console.log('Job Data:', JSON.stringify(response.data.content));
-
         if (response.data.code == 200){
           let profile = response.data.content.dataList[0];
           let empDetails = profile.empDetails;
           let skillsList = profile ? profile.skills : [];
           setSelectedSkills(getPrimarrySkills(skillsList));
-          // getMatchingJobs(profileData,getPrimarrySkills(skillsList), false, false,[],[]);
-          getMyApplication(empDetails.resumeId);
-
           setProfileData(response.data.content.dataList[0]);
+          getMyApplication(empDetails.resumeId,profile);
         }else if (response.data.code == 417){
             console.log(Object.values(response.data.content.messageList));
             const errorList = Object.values(response.data.content.messageList);
@@ -192,8 +176,9 @@ const JobMatchingScreen = ({route,navigation}) => {
 			  onPress: () => signOut()
 		  }]
 	)}
-  const getMyApplication = async (resumeId) => {
-    setLoading(true);
+  
+  const getMyApplication = async (resumeId, profile) => {
+    setData({...data, isLoading: true});
 
     let user = await AsyncStorage.getItem('loginDetails');  
     let parsed = JSON.parse(user);  
@@ -206,18 +191,18 @@ const JobMatchingScreen = ({route,navigation}) => {
       data:{"applicationStatus":'active'}
     })
     .then((response) => {
-      setLoading(false);
+      setData({...data, isLoading: false});
       if (response.data.code == 200){
         let applicationsArray =  response.data.content.dataList;
         let records = [];
         applicationsArray.map((product, key) => {
-          records.push(product.Job_Resume_Id);
+          records.push(product.jobId);
        });
-        console.log(JSON.stringify(records));
-        getJobStatistics(resumeId,records);
-
+       getMatchingJobsList(resumeId,records,profile);
       }else if (response.data.code == 417){
+        setData({...data, isLoading: false});
         const errorList = Object.values(response.data.content.messageList);
+        
         Alert.alert(StaticMessage.AppName, errorList.join(), [
           {text: 'Ok'}
         ]);
@@ -227,93 +212,36 @@ const JobMatchingScreen = ({route,navigation}) => {
       }
     })
     .catch((error) => {
-        setLoading(false);
+      setData({...data, isLoading: false});
         if(error.response && error.response.status == 401){
           SessionExpiredAlert();
         }else{
-            Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-                {text: 'Ok'}
-              ]);
+            // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+            //     {text: 'Ok'}
+            //   ]);
         }
     })
   }
-  const getJobStatistics = async(resumeId,oldApplication) => {
-    setLoading(true);
-    
-    let user = await AsyncStorage.getItem('loginDetails');  
-    let parsed = JSON.parse(user);  
-    let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
-    var authToken = base64.encode(userAuthToken);
-
-    axios ({
-      "method": "POST",
-      "url": BaseUrl + EndPoints.JobStatistics,
-      "headers": getAuthHeader(authToken),
-      data:{"type":"matching-jobs"}
-    })
-    .then((response) => {
-      setLoading(false);
-      if (response.data.code == 200){
-        // setFilterDetails(response.data.content.dataList[0]);
-        getMatchingJobsList(response.data.content.dataList[0],resumeId,oldApplication);
-      }else if (response.data.code == 417){
-        const message = parseErrorMessage(response.data.content.messageList);
-        Alert.alert(StaticMessage.AppName, message, [
-          {text: 'Ok'}
-        ]);
-
-      }else{
-
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      setLoading(false);
-      if(error.response && error.response.status == 401){
-        SessionExpiredAlert();
-      }else{
-          Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-              {text: 'Ok'}
-            ]);
-      }
-
-    })
-  }
-
-  const getMatchingJobsList = async (filter,resumeId,oldApplication) => {
-    let empDetails = profileData ? profileData.empDetails : {currentJobTitle:'',};
-    var jobTitle = empDetails.currentJobTitle;
-    if(!selectedData.isJobTitleSelected){
-      jobTitle = "";
-    }
-    var filterDict;
-    if(filter.jobAlerts.length > 0){
-      filterDict =  filter.jobAlerts[0].searchParameter
-    }else{
-      filterDict =  {  
-        assignmentType:selectedEmployment,
-        'certificate':selectedCertificate,
-        'excludeJobsById':oldApplication,
-        jobTitle: jobTitle,
-        'location':isLocationSelected ? empDetails.prefferedCity[0] : '',
-        'package':{'max' : 500,'min':0,'type' : 'hourly'},
-        'primarySkill':getSkillsName( getPrimarrySkills(selectedSkills)),
-        'radius':200,
-        'secondarySkill':getSkillsName( getSecondrySkills(selectedSkills)),
-        'taxonomy':selectedTaxonomy
-      }
-    }
-    filterDict = {...filterDict,"excludeJobsById":oldApplication}
-
-    // setLoading(true);
-
-    console.log('Matching Job Params: ' + JSON.stringify(filterDict));  
+  const getMatchingJobsList = async (resumeId,oldApplication,profile) => {
+    var filterDict =  {"excludeJobsById":[],
+                      "jobTitle":"",
+                      "primarySkill":getSkillsName( getPrimarrySkills(profile.skills)),
+                      "secondarySkill":[],
+                      "location":"",
+                      "radius":200,
+                      "assignmentType":["Fulltime","Contract to Hire"],
+                      "package":{"type":"hourly","min":"0","max":"500"},
+                      "jobOwnerName":[1,2,5,6,7,8],
+                      "taxonomy":[]}
+    filterDict = {...filterDict,"excludeJobsById":oldApplication};
+    console.log('Matching Job Params: ', JSON.stringify(filterDict));
+    setData({...data,isSummaryCountLoading: true});
     axios ({
         method: "POST",
-        url: `${BaseURLElastic}job/matching/${resumeId}`,
+        url:'https://rs.iendorseu.com/search/_a/job/matching/' + resumeId,
         headers: {
             'sdSecKey':'sda43WfR797sWQE',
-            'Content-Type':'application/x-www-form-urlencoded'
+            'Content-Type':'application/json'
         },
         data:filterDict
     }).then((response) => {
@@ -329,14 +257,14 @@ const JobMatchingScreen = ({route,navigation}) => {
       }
     })
     .catch((error) => {
-
-        console.log(error);
+        console.log('getMatchingJobsList',error);
         setLoading(false);
-        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg + 'getMatchingJobsList', [
         {text: 'Ok'}
       ]);
     })
   }
+ 
   const getPrimarrySkills = (skillsArray) => {
     if(!skillsArray){
       return [];
@@ -386,10 +314,10 @@ const JobMatchingScreen = ({route,navigation}) => {
     console.log('Matching Job Params: ' + JSON.stringify(filterDict));  
     axios ({
         method: "POST",
-        url: `${BaseURLElastic}job/matching/${resumeId}`,
+        url:'https://rs.iendorseu.com/search/_a/job/matching/' + resumeId,
         headers: {
             'sdSecKey':'sda43WfR797sWQE',
-            'Content-Type':'application/x-www-form-urlencoded'
+            'Content-Type':'application/json'
         },
         data:filterDict
     }).then((response) => {
@@ -578,9 +506,7 @@ const handleViewSimilarJobs = (clientPrimaryKey) => {
         const results = JSON.stringify(response.data.content.dataList)
         let settingDetails = response.data.content.dataList;
         let result = settingDetails.find(x => x.alertTypeId === 8008);
-        console.log(`Settings: ${JSON.stringify(result)}`);
         setData({...data,matchingAlert:result.alertStatus ? true : false})
-			// setFrequency();
 		  }else if (response.data.code == 417){
 			console.log(Object.values(response.data.content.messageList));
 			const errorList = Object.values(response.data.content.messageList);

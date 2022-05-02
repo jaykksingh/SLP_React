@@ -65,14 +65,12 @@ const DashboardScreen = ({navigation}) => {
     isJobCountLoading: false, 
   });
   
-  let [authTokenKey, setAuthTokenKey] = React.useState('')
   let [responseData, setResponseData] = React.useState({
     empDetails:{},
     skills:[],
   })
   let [dashboardCounts, setDashboardCounts] = React.useState('')
   let [matchingJobCounts, setMatchingJobCounts] = React.useState('0')
-  let [filterDetails, setFilterDetails] = React.useState('')
   let [isInterestedInJob, setIsInterestedInJob] = React.useState(false);
   const { signOut } = React.useContext(AuthContext);
   const { resumeEOB } = React.useContext(AuthContext);
@@ -229,9 +227,9 @@ const DashboardScreen = ({navigation}) => {
     })
     .catch((error) => {
       setData({...data, isLoading: false});
-        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-            {text: 'Ok'}
-        ]);
+        // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+        //     {text: 'Ok'}
+        // ]);
     })
   }
  
@@ -284,7 +282,7 @@ const DashboardScreen = ({navigation}) => {
               navigation.navigate("Profile",{profileDetails:response.data.content.dataList[0]});
             }
             getDashboardSummary(); 
-            getMyApplication(empDetails.resumeId);
+            getMyApplication(empDetails.resumeId,response.data.content.dataList[0] );
         }
         if( typeof response.data.content.mandatory != "undefined"){
           let message = response.data.content.info;
@@ -312,14 +310,14 @@ const DashboardScreen = ({navigation}) => {
       }
     })
     .catch((error) => {
-      console.error(error);
+      console.error(error+'1');
       setData({...data, isLoading: false});
       if(error.response && error.response.status == 401){
         SessionExpiredAlert();
       }else{
-          Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-              {text: 'Ok'}
-            ]);
+          // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+          //     {text: 'Ok'}
+          //   ]);
       }
     })
   }
@@ -329,7 +327,7 @@ const DashboardScreen = ({navigation}) => {
         supported && Linking.openURL(iosURL);
     }, (err) => console.log(err));
   }
-  const getMyApplication = async (resumeId) => {
+  const getMyApplication = async (resumeId, profileData) => {
     setData({...data, isLoading: true});
 
     let user = await AsyncStorage.getItem('loginDetails');  
@@ -348,9 +346,9 @@ const DashboardScreen = ({navigation}) => {
         let applicationsArray =  response.data.content.dataList;
         let records = [];
         applicationsArray.map((product, key) => {
-          records.push(product.Job_Resume_Id);
+          records.push(product.jobId);
        });
-        getJobStatistics(resumeId,records);
+        getJobStatistics(resumeId,records,profileData);
 
       }else if (response.data.code == 417){
         setData({...data, isLoading: false});
@@ -369,9 +367,9 @@ const DashboardScreen = ({navigation}) => {
         if(error.response && error.response.status == 401){
           SessionExpiredAlert();
         }else{
-            Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-                {text: 'Ok'}
-              ]);
+            // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+            //     {text: 'Ok'}
+            //   ]);
         }
     })
   }
@@ -425,9 +423,9 @@ const DashboardScreen = ({navigation}) => {
       if(error.response && error.response.status == 401){
         SessionExpiredAlert();
       }else{
-          Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-              {text: 'Ok'}
-            ]);
+          // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+          //     {text: 'Ok'}
+          //   ]);
       }
     })
   }
@@ -481,9 +479,9 @@ const DashboardScreen = ({navigation}) => {
       if(error.response && error.response.status == 401){
         SessionExpiredAlert();
       }else{
-          Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-              {text: 'Ok'}
-            ]);
+          // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+          //     {text: 'Ok'}
+          //   ]);
       }
     })
   }
@@ -491,7 +489,7 @@ const DashboardScreen = ({navigation}) => {
 
   
 
-  const getJobStatistics = async(resumeId,oldApplication) => {
+  const getJobStatistics = async(resumeId,oldApplication,profileData) => {
     setData({...data,isJobCountLoading: true});
     
     let user = await AsyncStorage.getItem('loginDetails');  
@@ -508,7 +506,7 @@ const DashboardScreen = ({navigation}) => {
     .then((response) => {
       if (response.data.code == 200){
         // setFilterDetails(response.data.content.dataList[0]);
-        getMatchingJobCount(response.data.content.dataList[0],resumeId,oldApplication);
+        getMatchingJobCount(response.data.content.dataList[0],resumeId,oldApplication,profileData);
       }else if (response.data.code == 417){
         setData({...data,isJobCountLoading: false});
         const message = parseErrorMessage(response.data.content.messageList);
@@ -525,33 +523,49 @@ const DashboardScreen = ({navigation}) => {
       if(error.response && error.response.status == 401){
         SessionExpiredAlert();
       }else{
-          Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-              {text: 'Ok'}
-            ]);
+          // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+          //     {text: 'Ok'}
+          //   ]);
       }
 
     })
   }
-  const getMatchingJobCount = async (filter,resumeId,oldApplication) => {
-    var filterDict;
-    if(filter.jobAlerts.length > 0){
-      filterDict =  filter.jobAlerts[0].searchParameter
-    }else{
-      filterDict =  {  
-       
-      }
+  const getPrimarrySkills = (skillsArray) => {
+    if(!skillsArray){
+      return [];
     }
-    filterDict = {...filterDict,"excludeJobsById":oldApplication}
-
-    // const empDetails = responseData.empDetails;
-    // let resumeId = empDetails.resumeId;
+    const primarrySkills = skillsArray.filter(skill => skill.isPrimary == 1);
+    setData({...data,skillsUpdated:!data.skillsUpdated});
+    return primarrySkills.length > 0 ? primarrySkills : [];
+  }
+  const getSkillsName = (skillsArray) => {
+    if(skillsArray.length == 0){
+      return [];
+    }
+    console.log(`Skills: ${JSON.stringify(skillsArray)}`);
+    let result = skillsArray.map(a => a.skillName);
+    return result.length > 0 ? result : [];
+  }
+  const getMatchingJobCount = async (filter,resumeId,oldApplication,profileData) => {
+    var filterDict =  {"excludeJobsById":[],
+                      "jobTitle":"",
+                      "primarySkill":getSkillsName( getPrimarrySkills(profileData.skills)),
+                      "secondarySkill":[],
+                      "location":"",
+                      "radius":200,
+                      "assignmentType":["Fulltime","Contract to Hire"],
+                      "package":{"type":"hourly","min":"0","max":"500"},
+                      "jobOwnerName":[1,2,5,6,7,8],
+                      "taxonomy":[]}
+    filterDict = {...filterDict,"excludeJobsById":oldApplication};
+    console.log('Matching Params: ', JSON.stringify(filterDict));
     setData({...data,isSummaryCountLoading: true});
     axios ({
         method: "POST",
-        url: `${BaseURLElastic}job/matching/${resumeId}`,
+        url:'https://rs.iendorseu.com/search/_a/job/matching/' + resumeId,
         headers: {
             'sdSecKey':'sda43WfR797sWQE',
-            'Content-Type':'application/x-www-form-urlencoded'
+            'Content-Type':'application/json'
         },
         data:filterDict
     }).then((response) => {
@@ -571,9 +585,9 @@ const DashboardScreen = ({navigation}) => {
 
         console.log(error);
         setData({...data,isSummaryCountLoading: true});
-        Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-        {text: 'Ok'}
-      ]);
+      //   Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+      //     {text: 'Ok'}
+      //  ]);
     })
   }
   // const getMatchingJobCount = () => {
@@ -664,9 +678,9 @@ const DashboardScreen = ({navigation}) => {
     .catch((error) => {
       setIsInterestedInJob(!isInterestedInJob);
       setData({...data, isLoading:false});
-      Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
-        {text: 'Ok'}
-      ]);
+      // Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+      //   {text: 'Ok'}
+      // ]);
 
     })
   }

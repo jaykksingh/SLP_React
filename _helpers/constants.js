@@ -9,6 +9,8 @@
 
 export const BaseUrl = "https://api.stafflinepro.com/v7/api/"; //Production
 export const BaseURLElastic = "http://rs.iendorseu.com/search/_a/"; //Production
+
+export const BaseURLMatchingJob = "https://rs.iendorseu.com/search/_a/job/matching/"
 export const WebBaseURL = "http://app.stafflinepro.com/"; //Production
 export const LeaveMgrBaseURL = "https://stafflineapi.compunnel.com/"; //Production
 export const ChatBotHistory = "https://pre.stafflinepro.com/chatWebHook/lg.php"; //Production
