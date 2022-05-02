@@ -314,7 +314,7 @@ const JobMatchingScreen = ({route,navigation}) => {
     console.log('Matching Job Params: ' + JSON.stringify(filterDict));  
     axios ({
         method: "POST",
-        url:'https://rs.iendorseu.com/search/_a/job/matching/' + resumeId,
+        url: `${BaseURLElastic}${EndPoints.MatchingJob}${resumeId}`,
         headers: {
             'sdSecKey':'sda43WfR797sWQE',
             'Content-Type':'application/json'

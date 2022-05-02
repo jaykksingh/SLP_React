@@ -8,10 +8,8 @@
 
 
 export const BaseUrl = "https://api.stafflinepro.com/v7/api/"; //Production
-export const BaseURLElastic = "http://rs.iendorseu.com/search/_a/"; //Production
-
-export const BaseURLMatchingJob = "https://rs.iendorseu.com/search/_a/job/matching/"
-export const WebBaseURL = "http://app.stafflinepro.com/"; //Production
+export const BaseURLElastic = "https://rs.iendorseu.com/search/_a/"; //Production
+export const WebBaseURL = "https://app.stafflinepro.com/"; //Production
 export const LeaveMgrBaseURL = "https://stafflineapi.compunnel.com/"; //Production
 export const ChatBotHistory = "https://pre.stafflinepro.com/chatWebHook/lg.php"; //Production
 export const ChatBotSendMessage = "https://app.stafflinepro.com/chatWebHook/gl.php"; //Production
@@ -40,6 +38,7 @@ export const EndPoints = {
   ApplyJob:'jobs/apply',
   NotFit:'jobs/notfit',
   JobAlert:'jobs/alert',
+  MatchingJob:'job/matching/',
   ScreeningQuestion:'prescreening/check',
   ScreeningQuestionSave:'prescreening/save',
   JobApplications:'jobs/applications',

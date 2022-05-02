@@ -505,7 +505,6 @@ const DashboardScreen = ({navigation}) => {
     })
     .then((response) => {
       if (response.data.code == 200){
-        // setFilterDetails(response.data.content.dataList[0]);
         getMatchingJobCount(response.data.content.dataList[0],resumeId,oldApplication,profileData);
       }else if (response.data.code == 417){
         setData({...data,isJobCountLoading: false});
@@ -562,7 +561,7 @@ const DashboardScreen = ({navigation}) => {
     setData({...data,isSummaryCountLoading: true});
     axios ({
         method: "POST",
-        url:'https://rs.iendorseu.com/search/_a/job/matching/' + resumeId,
+        url: `${BaseURLElastic}${EndPoints.MatchingJob}${resumeId}`,
         headers: {
             'sdSecKey':'sda43WfR797sWQE',
             'Content-Type':'application/json'
