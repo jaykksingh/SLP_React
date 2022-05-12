@@ -552,7 +552,7 @@ const DashboardScreen = ({navigation}) => {
                       "secondarySkill":[],
                       "location":"",
                       "radius":200,
-                      "assignmentType":["Fulltime","Contract to Hire"],
+                      "assignmentType":[],
                       "package":{"type":"hourly","min":"0","max":"500"},
                       "jobOwnerName":[1,2,5,6,7,8],
                       "taxonomy":[]}

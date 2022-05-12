@@ -229,7 +229,7 @@ const JobMatchingScreen = ({route,navigation}) => {
                       "secondarySkill":[],
                       "location":"",
                       "radius":200,
-                      "assignmentType":["Fulltime","Contract to Hire"],
+                      "assignmentType":[],
                       "package":{"type":"hourly","min":"0","max":"500"},
                       "jobOwnerName":[1,2,5,6,7,8],
                       "taxonomy":[]}
@@ -428,6 +428,7 @@ const JobMatchingScreen = ({route,navigation}) => {
 
   }
   const handleInterested = () => {
+    console.log('Matching Job:',JSON.stringify(jobsArray[activeJobData.activeIndex]));
     getJobDetails(jobsArray[activeJobData.activeIndex].clientPrimaryKey);
 
     console.log(`Active Job: ${JSON.stringify(activeJobData)}`)

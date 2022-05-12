@@ -136,7 +136,7 @@ android {
         applicationId "com.stafflinepro"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 46
+        versionCode 47
         versionName "1.5.33"
     }
     splits {

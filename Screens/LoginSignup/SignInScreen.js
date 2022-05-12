@@ -236,7 +236,7 @@ const SignInScreen = ({navigation}) => {
     await Promise.all([
       crashlytics().setUserId('' + userDetails.employeeDetailsId),
       crashlytics().setAttributes({
-        empId: userDetails.employeeDetailsId,
+        empId: '' + userDetails.employeeDetailsId,
         email: userDetails.emailId,
         username: userDetails.firstName,
       }),
