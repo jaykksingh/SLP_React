@@ -49,12 +49,12 @@ const CheckInOutScreen = ({route,navigation}) => {
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
-            headerRight: () => (
-                <TouchableOpacity style={{marginRight:16, flexDirection:'row', alignItems:'center'}} onPress = {() => {addMoreRecord()}}>
-                    <Ionicons name="add-circle-outline" color={'white'} size={16} />
-                    <Text style={{color:'white',fontSize:16, marginLeft:4}}>ADD MORE</Text>
-                </TouchableOpacity>
-              ),
+            // headerRight: () => (
+            //     <TouchableOpacity style={{marginRight:16, flexDirection:'row', alignItems:'center'}} onPress = {() => {addMoreRecord()}}>
+            //         <Ionicons name="add-circle-outline" color={'white'} size={16} />
+            //         <Text style={{color:'white',fontSize:16, marginLeft:4}}>ADD MORE</Text>
+            //     </TouchableOpacity>
+            //   ),
 			  title: "Clock hours",
 		});
 	}, [navigation]);
@@ -365,10 +365,18 @@ const CheckInOutScreen = ({route,navigation}) => {
                 <View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/> 
             </View>
             <FlatList
-                style={{flex: 1, marginBottom:8}}
+                style={{marginBottom:8}}
                 data={mannualHoursArray}
                 keyExtractor={(item, index) => index.toString()}
                 randomUpdateProp={isListUpdated}
+                ListFooterComponent={
+                <View style={{height:40,  justifyContent:'center'}}>
+                    <TouchableOpacity style={{flexDirection:'row', alignItems:'center', height:40, width:110, alignSelf:'flex-end', marginRight:8}} onPress = {() => {addMoreRecord()}}>
+                        <Ionicons name="add-circle-outline" color={ThemeColor.BtnColor} size={16} />
+                        <Text style={{color:ThemeColor.BtnColor,fontSize:16, marginLeft:4}}>ADD MORE</Text>
+                    </TouchableOpacity>
+                </View>
+                }
                 renderItem={({item, index}) => 
                 <View>
                     <View style ={{flexDirection:'row', marginBottom:1, justifyContent: 'center', alignItems: 'center', alignContent:'center', backgroundColor:'white'}}>		
@@ -432,16 +440,18 @@ const CheckInOutScreen = ({route,navigation}) => {
                                 onChangeText={(val) => handleNoteChange(val, index,item)}
                             /> */}
                             <TouchableOpacity style={{justifyContent:'center', width:30, height:30, marginLeft:8, marginRight:12}} onPress={() => showNotesEditor(item, index)}>
-                                <Feather name="edit" color={ThemeColor.TextColor} size={20} />
+                                <Feather name="edit" color={ThemeColor.TextColor} size={15} />
                             </TouchableOpacity>
                             <TouchableOpacity style={{justifyContent:'center', width:30, height:30}} onPress={()=> {handledelteClockInClockOut(item, index)}}>
-                                <Ionic name="trash-outline" color={ThemeColor.TextColor} size={20} />
+                                <Ionic name="trash-outline" color={ThemeColor.TextColor} size={15} />
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{backgroundColor:ThemeColor.BorderColor, height:1}}/>
                 </View>
-            }/>
+            }
+
+            />
             <TouchableOpacity style={[styles.btnFill, {marginLeft:16, marginRight:16, marginBottom:8, borderRadius:5}]} onPress={() => {updateClockInClockOut()}}>
 			    <Text style={{color:'white',fontFamily: FontName.Regular, fontSize:16 }}>SAVE</Text>
 			</TouchableOpacity>

@@ -41,6 +41,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const { signOut } = React.useContext(AuthContext);
 
+	const status907 = '1136';
+	const status908 = '1137';
+
+
 	const [data,setData] = React.useState({
 		selectedIndex:-1,
 		clientName:'',
@@ -73,6 +77,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	const [showProjectSelect, setShowProjectSelect] = React.useState(false);
 	const [showClockInOut, setShowClockInOut] =  React.useState(false);
 	const actionSheetTimesheet = useRef();
+    const [lookupData, setLookupData] = React.useState({});
 
 
 	React.useLayoutEffect(() => {
@@ -84,6 +89,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 
 	}
 	useEffect(() => {
+		getLookups();
 		if(timesheetsArray){
 			setShowProjectSelect(true);
 		}else{
@@ -109,11 +115,41 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			}
 			setTimesheetPeriodArray(tempPeriodArray);
 		}
-		
-		
 	},[]);
 
+	const  getLookups = async() => {
+		let user = await AsyncStorage.getItem('loginDetails');  
+		let parsed = JSON.parse(user);  
+		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
+		var authToken = base64.encode(userAuthToken);
 	
+		setIsLoading(true);
+		axios ({  
+		  "method": "GET",
+		  "url": BaseUrl + EndPoints.AlertSettingLookup,
+		  "headers": getAuthHeader(authToken)
+		})
+		.then((response) => {
+		  if (response.data.code == 200){
+			setLookupData(response.data.content.dataList[0]);
+			console.log(`Lookup Data : ${JSON.stringify(response.data.content.dataList[0])}`);
+		  }else if (response.data.code == 417){
+			console.log(Object.values(response.data.content.messageList));
+			const errorList = Object.values(response.data.content.messageList);
+			Alert.alert(StaticMessage.AppName, errorList.join(), [
+			  {text: 'Ok'}
+			]);
+	
+		  }else{
+		  }
+		})
+		.catch((error) => {
+			setIsLoading(false);
+			Alert.alert(StaticMessage.AppName, StaticMessage.UnknownErrorMsg, [
+			  {text: 'Ok'}
+			]);
+		})
+	  }
 
 
 	const showManualEntryAlert = () =>{
@@ -345,7 +381,6 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		})
 	}
 	const submitTimesheetDocument = async() => {
-		console.warn('Submit Timesheet Document');
 		let user = await AsyncStorage.getItem('loginDetails');  
 		let parsed = JSON.parse(user);  
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
@@ -359,7 +394,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			'projectId':''+ projectId,
 			'projectName':projectName,
 			'totalHours':getTotalHours(),
-			'substatus':908,
+			'substatus':status908,
 			'fileData':data.resumeData,
 			'fileName':data.fileName
 		};
@@ -416,10 +451,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	}
 	const handleSubmitForApproval = (updateType) => {
 		Alert.alert(StaticMessage.AppName, 'You will not be able to change hours after submission until your manager rejects your timesheet.', [
-			{text: 'Yes',
+			{text: 'Submit',
 			onPress:()=>saveMannualHours(updateType)
 			},
-			{text: 'No'}
+			{text: 'Cancel'}
 
 		]);
 		
@@ -476,7 +511,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 		  data:params,
 		}).then((response) => {
 			if (response.data.code == 200){
-				if(updateType == 907){
+				if(updateType == status907){
 					setIsLoading(false);
 					let message = `Your hours for ${data.timesheetPeriod} period have been recorded.`
 					Alert.alert(StaticMessage.AppName, message, [
@@ -514,7 +549,6 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 	}
 
 	const submitClientApproved = async() => {
-		console.warn('Client Approved Called');
 		let user = await AsyncStorage.getItem('loginDetails');  
 		let parsed = JSON.parse(user);  
 		let userAuthToken = 'StaffLine@2017:' + parsed.userAuthToken;
@@ -528,7 +562,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 			'projectId':''+ projectId,
 			'projectName':projectName,
 			'totalHours':getTotalHours(),
-			'substatus':908,
+			'substatus':status908,
 			'fileData':'',
 			'fileName':''
 		};
@@ -902,7 +936,7 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 							<View style={{backgroundColor:ThemeColor.BorderColor, height:30, width:1}}/>
 						</View>
 						<View style={{height:30, width:95, flexDirection:'row',justifyContent: 'center',alignItems: 'center', paddingRight:30}}>
-							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center',flex:1}}>Lunch hours</Text>
+							<Text style={{color:ThemeColor.SubTextColor,fontSize:12, textAlign: 'center',flex:1, paddingLeft:4}}>Lunch hours</Text>
 							{/* <View style={{backgroundColor:'green', width:30}}>
 
 							</View> */}
@@ -1025,10 +1059,10 @@ const CheckInOutTimesheetScreen = ({route,navigation}) => {
 				</> :
 				projectDetail.timesheetClientApproval == 1 ? 
 				<View style={{flexDirection:'row'}}>
-					<TouchableOpacity style={[styles.btnFill,{backgroundColor:ThemeColor.SubHeaderColor}]} onPress={() => {saveMannualHours('907')}}>
+					<TouchableOpacity style={[styles.btnFill,{backgroundColor:ThemeColor.SubHeaderColor}]} onPress={() => {saveMannualHours(status907)}}>
 						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:ThemeColor.BtnColor }}>SAVE DRAFT</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.btnFill} onPress={() => {handleSubmitForApproval('908')}}>
+					<TouchableOpacity style={styles.btnFill} onPress={() => {handleSubmitForApproval(status908)}}>
 						<Text style={{color:'#53962E',fontFamily: FontName.Regular, fontSize:14, color:'#fff' }}>SUBMIT FOR APPROVAL</Text>
 					</TouchableOpacity>
 				</View> : null
